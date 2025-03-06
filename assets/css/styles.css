@@ -1,0 +1,47 @@
+/* Global Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Navbar */
+  .navbar {
+    padding: 15px 20px;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1.1rem;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #f8d210 !important;
+  }
+  
+  /* Search Box */
+  .search-box {
+    width: 250px;
+    border-radius: 20px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Hero Section */
+  .container.py-5 {
+    padding-top: 80px;
+  }
+  
+  /* Buttons */
+  .btn-custom {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .btn-custom:hover {
+    transform: scale(1.05);
+  }
+  
