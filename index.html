@@ -25,7 +25,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="#">
-       <img src="assets/img/Image.jpg" alt="Profile Picture" class="rounded-circle me-2" width="50" height="50" style="border: 2px solid white;">
+        <img src="assets/img/Image.jpg" alt="Profile Picture" class="me-2" width="50" height="50" style="border: 2px solid white; border-radius: 5px;">
         <span>Krishna Annavaram</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -47,20 +47,18 @@
     </div>
   </nav>
 
-  <!-- Search Box (Expands when clicked) -->
-  <div id="searchContainer" class="container d-flex justify-content-center mt-3" style="display: none;">
-    <input id="searchInput" class="form-control w-50" type="search" placeholder="Search content..." aria-label="Search">
-    <button class="btn btn-dark ms-2" type="submit">Search</button>
-  </div>
- <!-- Profile Picture in Body -->
-  <div class="container text-center mt-4">
-    <img src="assets/img/Image.jpg" alt="Profile Picture" class="rounded-circle" width="150" height="150" style="border: 3px solid #000;">
-  </div>
-  <!-- Main Content -->
-  <div class="container py-5 text-center">
-    <h1 class="display-3">Krishna Annavaram</h1>
-    <p class="lead">Graduate Teaching Assistant & Aspiring Data Scientist</p>
-    <p class="mb-4">Welcome to my professional portfolio!</p>
+  <!-- Profile Section with Image and Main Content Side by Side -->
+  <div class="container mt-5">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center">
+        <img src="assets/img/Image.jpg" alt="Profile Picture" class="img-fluid" style="max-width: 80%; height: auto; border: 3px solid #000; border-radius: 10px;">
+      </div>
+      <div class="col-md-6 text-center">
+        <h1 class="display-3">Krishna Annavaram</h1>
+        <p class="lead">Graduate Teaching Assistant & Aspiring Data Scientist</p>
+        <p class="mb-4">Welcome to my professional portfolio!</p>
+      </div>
+    </div>
   </div>
 
   <!-- Bootstrap JS -->
