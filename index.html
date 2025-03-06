@@ -9,12 +9,12 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script>
     function toggleSearch() {
-      var searchInput = document.getElementById("searchInput");
-      if (searchInput.style.display === "none" || searchInput.style.display === "") {
-        searchInput.style.display = "block";
-        searchInput.focus();
+      var searchContainer = document.getElementById("searchContainer");
+      if (searchContainer.style.display === "none" || searchContainer.style.display === "") {
+        searchContainer.style.display = "flex";
+        document.getElementById("searchInput").focus();
       } else {
-        searchInput.style.display = "none";
+        searchContainer.style.display = "none";
       }
     }
   </script>
@@ -43,14 +43,19 @@
           <li class="nav-item"><a class="nav-link" href="pages/contact.html">Contact Me</a></li>
           <li class="nav-item">
             <button class="btn btn-outline-light" type="button" onclick="toggleSearch()">
-             <i class="fas fa-search text-white"></i>
+              <i class="fas fa-search text-white"></i>
             </button>
-            <input id="searchInput" class="form-control search-box mt-2" type="search" placeholder="Search content..." aria-label="Search" style="display: none;">
           </li>
         </ul>
       </div>
     </div>
   </nav>
+
+  <!-- Search Box (Expands when clicked) -->
+  <div id="searchContainer" class="container d-flex justify-content-center mt-3" style="display: none;">
+    <input id="searchInput" class="form-control w-50" type="search" placeholder="Search content..." aria-label="Search">
+    <button class="btn btn-dark ms-2" type="submit">Search</button>
+  </div>
 
   <!-- Main Content -->
   <div class="container py-5 text-center">
