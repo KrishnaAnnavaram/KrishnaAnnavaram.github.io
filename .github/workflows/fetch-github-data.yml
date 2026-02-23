@@ -1,0 +1,42 @@
+name: Fetch GitHub Activity Data
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch GitHub Activity
+        run: |
+          curl -s \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/users/KrishnaAnnavaram/events/public?per_page=30" \
+            | jq '[.[] | {type: .type, repo: .repo.name, created_at: .created_at}] | .[0:20]' \
+            > public/data/github-activity.json
+
+      - name: Fetch Repository Info
+        run: |
+          curl -s \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/users/KrishnaAnnavaram/repos?sort=updated&per_page=10" \
+            | jq '[.[] | {name: .name, description: .description, language: .language, stargazers_count: .stargazers_count, updated_at: .updated_at, html_url: .html_url}]' \
+            >> /tmp/repos.json
+          echo "" >> public/data/github-activity.json
+
+      - name: Commit updated data
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add public/data/github-activity.json
+          git diff --staged --quiet || git commit -m "chore: update GitHub activity data [skip ci]"
+          git push
