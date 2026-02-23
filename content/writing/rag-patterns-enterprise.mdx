@@ -1,0 +1,192 @@
+---
+title: "RAG Patterns for Enterprise: Beyond the Tutorial"
+date: "2024-10-01"
+tags: [RAG, LLMs, Production, Architecture, Enterprise]
+readTime: 10
+excerpt: "Most RAG tutorials show a 20-line demo. Enterprise RAG looks nothing like that. Here are the patterns that actually work in production."
+featured: true
+---
+
+# RAG Patterns for Enterprise: Beyond the Tutorial
+
+Every introduction to Retrieval-Augmented Generation (RAG) shows the same diagram: embed documents, store in a vector database, retrieve by similarity, pass to LLM. The demo works in 20 lines of LangChain. The production system is a different engineering problem.
+
+After building RAG systems that handle real business workloads, here are the patterns that separate enterprise-grade RAG from tutorial demos.
+
+## Why Tutorial RAG Fails in Production
+
+Tutorial RAG assumes:
+- Clean, consistent document formats
+- Accurate embeddings on short, semantically clear chunks
+- Queries that map clearly to the retrieval space
+- Users who phrase queries well
+- No latency requirements
+- No cost constraints
+- No multi-tenant isolation needs
+
+Enterprise RAG operates in the opposite conditions.
+
+## Pattern 1: Multi-Stage Retrieval
+
+Single-stage vector retrieval is a blunt instrument. A single semantic search returns the most similar chunks, but similarity is not the same as relevance.
+
+**The enterprise pattern:**
+
+```
+Query
+  ↓
+Stage 1: Broad retrieval (top-50 chunks, high recall)
+  ↓
+Stage 2: Reranking (cross-encoder, top-10 chunks, high precision)
+  ↓
+Stage 3: Context assembly (deduplication, ordering, length management)
+  ↓
+LLM generation
+```
+
+The cross-encoder reranker is the critical component. Unlike bi-encoder embeddings that encode query and document independently, cross-encoders process the query-document pair together, producing much higher-quality relevance scores — at the cost of compute. Running a cross-encoder on 50 candidates to select 10 is computationally reasonable and dramatically improves answer quality.
+
+**Tools:** Cohere Rerank, BGE-reranker, or a fine-tuned cross-encoder on your domain data.
+
+## Pattern 2: Query Transformation
+
+Users do not phrase queries optimally for semantic retrieval. A recruiter asking "does he have AWS experience" will not match a document that says "deployed microservices on EC2 with ECS orchestration."
+
+**Query transformation strategies:**
+
+**Hypothetical Document Embedding (HyDE):**
+Generate a hypothetical document that would answer the query, then embed that document for retrieval instead of the raw query. This dramatically improves recall for question-answering use cases.
+
+```python
+async def hyde_retrieval(query: str) -> list[str]:
+    # Generate hypothetical answer
+    hypothetical = await llm.generate(
+        f"Write a paragraph that directly answers: {query}"
+    )
+    # Embed the hypothetical, not the query
+    embedding = embed(hypothetical)
+    return vector_store.similarity_search(embedding, k=20)
+```
+
+**Query decomposition:**
+Complex queries often contain multiple sub-questions. Decompose and retrieve for each, then synthesize.
+
+**Query expansion:**
+Generate alternative phrasings of the query to improve recall across different terminological conventions in your corpus.
+
+## Pattern 3: Structured Output Enforcement
+
+Raw LLM output is not a safe integration point. Text generation is stochastic, formatting is inconsistent, and downstream systems need deterministic inputs.
+
+**The pattern:**
+
+1. Define output schema using Pydantic
+2. Instruct LLM to generate structured output
+3. Parse and validate before delivery
+4. Retry with corrected prompts on validation failure
+5. Fall back to human escalation after N failures
+
+```python
+class ExtractionResult(BaseModel):
+    entities: list[Entity]
+    confidence: float = Field(ge=0, le=1)
+    sources: list[str]
+    disclaimer: str | None
+
+async def extract_with_validation(context: str, query: str) -> ExtractionResult:
+    for attempt in range(3):
+        raw = await llm.generate(
+            build_extraction_prompt(context, query),
+            response_format={"type": "json_object"}
+        )
+        try:
+            return ExtractionResult.model_validate_json(raw)
+        except ValidationError as e:
+            if attempt == 2:
+                raise
+            # Add validation error to next attempt
+```
+
+This pattern makes LLM outputs as reliable as any other API call.
+
+## Pattern 4: Hallucination Detection
+
+Hallucination is not binary — it exists on a spectrum from "slightly extrapolated" to "completely fabricated." Enterprise systems need quantifiable hallucination detection, not subjective review.
+
+**Attribution scoring:**
+For every claim in the LLM output, compute its entailment score against the retrieved sources. Claims without high-confidence source attribution are flagged.
+
+```python
+def compute_attribution_score(claim: str, sources: list[str]) -> float:
+    scores = [
+        nli_model.predict_entailment(source, claim)
+        for source in sources
+    ]
+    return max(scores) if scores else 0.0
+
+def validate_response(response: str, sources: list[str]) -> ValidationResult:
+    claims = extract_claims(response)
+    scores = [compute_attribution_score(c, sources) for c in claims]
+    unattributed = [c for c, s in zip(claims, scores) if s < THRESHOLD]
+    return ValidationResult(
+        passed=len(unattributed) == 0,
+        unattributed_claims=unattributed,
+        avg_attribution=sum(scores) / len(scores) if scores else 0,
+    )
+```
+
+**NLI models for attribution:** `cross-encoder/nli-deberta-v3-base` is a solid starting point.
+
+## Pattern 5: Cost-Aware Context Management
+
+LLM costs scale linearly with token count. In high-volume enterprise deployments, context management is a significant cost driver.
+
+**Context compression:**
+
+Before passing retrieved chunks to the LLM, compress them using a smaller, cheaper model to extract the relevant portions:
+
+```python
+async def compress_context(query: str, chunks: list[str]) -> str:
+    # Use a small, fast model for compression
+    compressed = await cheap_model.generate(
+        f"Extract only the parts of the following text relevant to: {query}\n\n"
+        + "\n\n".join(chunks)
+    )
+    return compressed
+```
+
+This can reduce token usage by 40-60% with minimal quality loss for factual retrieval tasks.
+
+**Tiered retrieval:**
+Not every query needs the same retrieval depth. A simple factual lookup needs 2-3 chunks. Complex analytical queries may need 20+. Classify query complexity and calibrate retrieval depth accordingly.
+
+## Pattern 6: Multi-Tenant RAG
+
+Enterprise RAG is almost always multi-tenant. Each team, department, or customer needs access to their own document corpus with appropriate isolation.
+
+**Architecture options:**
+
+| Approach | Isolation | Operational complexity | Cost |
+|----------|-----------|----------------------|------|
+| Separate vector DBs per tenant | Complete | High | High |
+| Namespace filtering | Logical | Medium | Low |
+| Collection-per-tenant | Collection-level | Medium | Medium |
+
+For most enterprise deployments, namespace filtering with a well-designed access control layer is the right tradeoff. Separate vector databases are operationally expensive and rarely necessary.
+
+## What Makes a Production RAG System
+
+After building several of these, the elements that distinguish production systems:
+
+1. **Evaluation infrastructure first** — before writing the application
+2. **Multi-stage retrieval** — not single-step similarity search
+3. **Structured output validation** — not raw text delivery
+4. **Attribution scoring** — not trust-but-verify
+5. **Cost monitoring** — tracked per query type, not just aggregate
+6. **Gradual rollout** — A/B testing new retrieval configurations against holdout metrics
+
+The tutorial demo is the easy part. The engineering is the valuable part.
+
+---
+
+*Building a RAG system for your organization? [Get in touch](/contact) — happy to share lessons learned.*

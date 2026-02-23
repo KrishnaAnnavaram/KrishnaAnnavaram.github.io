@@ -1,0 +1,109 @@
+---
+title: "What Teaching ML Engineering Taught Me About Building AI"
+date: "2024-12-10"
+tags: [Mentorship, Machine Learning, Education, Engineering, Reflection]
+readTime: 6
+excerpt: "After mentoring 80+ graduate students through ML capstone projects, I realized the mistakes beginners make are the same mistakes senior engineers make — just harder to see."
+featured: false
+---
+
+# What Teaching ML Engineering Taught Me About Building AI
+
+Mentoring 80+ graduate students through applied machine learning capstone projects at the University of North Texas was one of the most valuable professional development experiences I have had — and not for the obvious reasons.
+
+I expected to teach. I ended up learning.
+
+## The Failure Patterns Are Universal
+
+Graduate students learning ML make predictable mistakes:
+- Building models before understanding the data
+- Optimizing for accuracy on the training set, not the real problem
+- Ignoring latency and inference cost entirely
+- Treating evaluation as a final step, not a continuous process
+- Conflating model complexity with model quality
+
+What surprised me was recognizing these same patterns in professional AI projects — including some of my own. Graduate students surface the mistakes in concentrated form. Experienced engineers make the same mistakes more slowly, more expensively, and with more plausible-sounding justifications.
+
+## The "Beautiful Model, Broken System" Problem
+
+The most common student project pattern:
+
+1. Spend 80% of time on model architecture and hyperparameter tuning
+2. Build a model with impressive validation metrics
+3. Realize at presentation time that the data pipeline is broken
+4. Realize the evaluation methodology does not match the actual use case
+5. Realize the "production" version does not actually work
+
+Sound familiar? This is also the enterprise ML project pattern, played out over months instead of weeks, with more people, more budget, and the same fundamental error: treating the model as the product instead of a component.
+
+The model is always a component. The system is the product.
+
+## Teaching Forced Me to Articulate Principles I Had Intuited
+
+When a student asks "why should I write tests for a machine learning pipeline?" you cannot say "just because." You have to articulate what can go wrong, why it is hard to see, and why the cost of finding bugs early is lower than the cost of finding them in production.
+
+This forced articulation changed how I approach my own work. Principles I had internalized through practice became explicit, debatable, and improvable.
+
+**Examples of principles that sharpened through teaching:**
+
+**On data quality:**
+Before: "Clean your data carefully."
+After: "Define 'clean' before you start cleaning. Write assertions on your data expectations. Document what you assumed about the data distribution. Treat data validation as a first-class engineering concern."
+
+**On evaluation:**
+Before: "Evaluate on held-out data."
+After: "Your evaluation set is your product specification. If your evaluation set does not represent the distribution of real queries you will handle, your accuracy number is a fiction. Invest in evaluation before investing in the model."
+
+**On production:**
+Before: "Consider deployment."
+After: "Write the monitoring code before the model code. Know how you will detect model degradation before you ship. Define your performance SLA before you start training. If you cannot articulate what 'good enough' means in production, you do not understand the problem yet."
+
+## The Questions That Reveal Real Understanding
+
+When reviewing student projects, I developed a set of questions that reliably separated students who understood what they were building from students who had assembled components:
+
+1. "What is the worst thing your system could do wrong, and how would you detect it?"
+2. "If your model starts degrading in production, what would be the first signal?"
+3. "What did you learn about the data that surprised you?"
+4. "What would you build differently if you had more time?"
+5. "If this went to production tomorrow, what is the first thing you would add?"
+
+The answers to these questions are more revealing than any accuracy metric.
+
+## What Good Student Projects Had in Common
+
+The best student projects — the ones I would have hired the students who built them — shared characteristics that had nothing to do with model performance:
+
+**Honest problem framing.** They defined what success meant before training. They documented their assumptions. When assumptions turned out to be wrong, they updated them.
+
+**Working pipelines.** Not just working models — working pipelines that someone else could run, reproduce, and extend.
+
+**Failure mode analysis.** They thought about what could go wrong and built systems that failed gracefully rather than silently.
+
+**Clear tradeoffs.** They understood what they had traded off and why. Accuracy vs. latency. Model complexity vs. interpretability. Feature richness vs. data availability.
+
+These are the same things I look for in engineering work at any level.
+
+## The Teaching Loop
+
+Good mentoring is not transferring knowledge from teacher to student. It is creating conditions where both parties think harder.
+
+The best technical conversations I had with students were the ones where a student's question forced me to examine an assumption I had not realized I was making. "Why do we use cosine similarity for embeddings?" "What does the loss function actually measure?" "If the model is performing well on the validation set, why do we need a test set?"
+
+Some of these questions have simple answers. Some of them go very deep very quickly. Working through them with students made my own thinking cleaner.
+
+## What I Would Recommend to Students Starting in ML
+
+1. **Build something that actually runs.** Not a notebook that works on your machine once. A reproducible pipeline that someone else could run from a fresh environment.
+
+2. **Define "done" before you start.** What does success look like? Write it down. Make it specific. "The model performs well" is not a definition of done.
+
+3. **Invest in evaluation infrastructure.** Before the model, before the application, before anything else — know how you will measure whether what you build is good.
+
+4. **Learn to read failure.** Not just success metrics — failure metrics. What does your model fail at? When? Under what conditions? This is where the real understanding lives.
+
+5. **Ship something.** The distance between a notebook and a deployed system is where most ML learning actually happens. Shorten that distance as early as possible.
+
+---
+
+*Currently open to senior GenAI roles. If you are building a team that cares about production AI engineering, [let's talk](/contact).*
