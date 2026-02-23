@@ -1,0 +1,114 @@
+---
+title: "Deploying LLMs in Healthcare: The Engineering Reality"
+date: "2024-11-15"
+tags: [Healthcare AI, LLMs, Production, RAG, Engineering]
+readTime: 8
+excerpt: "What nobody tells you about running LLMs in healthcare environments: the gap between benchmark performance and production reliability, and how to close it."
+featured: true
+---
+
+# Deploying LLMs in Healthcare: The Engineering Reality
+
+Healthcare AI is one of the most rewarding and unforgiving domains to build in. The models are impressive. The engineering requirements are brutal. Here is what I learned building and deploying LLM systems in healthcare environments.
+
+## The Benchmark Trap
+
+Every LLM evaluation paper shows impressive numbers on medical benchmarks. GPT-4 "passes" the USMLE. Models achieve near-physician performance on radiology report generation. The benchmarks are real. The production story is different.
+
+**Benchmark conditions versus production conditions:**
+
+| Benchmark | Production |
+|-----------|-----------|
+| Clean, formatted inputs | Messy, inconsistent data |
+| Single correct answer | Ambiguous, context-dependent responses |
+| Fixed evaluation set | Continuously shifting distribution |
+| No latency constraints | Sub-500ms SLA requirements |
+| No cost constraints | $0.002 per token × millions of calls |
+
+The gap between benchmark and production is not a model problem. It is an engineering problem.
+
+## What Actually Breaks in Production
+
+After building clinical document processing pipelines that ran on real operational data, I catalogued the failure modes:
+
+### 1. Context Length Failures
+Medical documents are long. Clinical notes, discharge summaries, prior authorization letters — these regularly exceed 8k tokens. Without careful chunking and retrieval strategies, you either truncate critical information or blow through context limits.
+
+**What worked:** Hierarchical chunking — section-level summaries with detailed chunk embeddings. Retrieve at section level, then expand to full chunks when needed.
+
+### 2. Hallucination on Rare Conditions
+LLMs hallucinate more frequently on rare conditions, unusual drug combinations, and edge cases in diagnostic criteria. In healthcare, rare is not a frequency problem — it is a severity problem. A hallucination on a common condition may be caught quickly. On a rare condition, it may not.
+
+**What worked:** Retrieval-augmented generation with strict grounding requirements. Every clinical claim must be traceable to a retrieved source. If no source exists, the system returns "information not available" rather than generating.
+
+### 3. Format Brittleness
+Healthcare data comes in many formats: structured (HL7, FHIR), semi-structured (clinical notes), and completely unstructured (handwritten transcriptions, PDF forms). Models trained on clean text fail quietly on OCR artifacts and formatting inconsistencies.
+
+**What worked:** Preprocessing pipelines that normalize text before embedding — handling common OCR errors, standardizing medical abbreviations, and flagging low-confidence extractions for human review.
+
+## The Architecture That Actually Works
+
+After several iterations, the architecture that proved reliable:
+
+```
+Document → Preprocessing → Chunking → Embedding → Vector Store
+                                                         ↓
+Query → Query Preprocessing → Embedding → Retrieval → Context Assembly
+                                                         ↓
+                                           LLM Generation → Output Validation
+                                                         ↓
+                                           Structured Output → Delivery API
+```
+
+The key insight: **output validation is not optional**. Every LLM response must pass through a validation layer that checks:
+- Response contains only grounded claims
+- Required fields are populated
+- Confidence scores meet threshold
+- Format matches schema
+
+Failed validations return to retrieval for additional context, not to the LLM for "try again" prompting.
+
+## The Monitoring Stack
+
+You cannot manage what you cannot measure. In healthcare, you particularly cannot manage model quality without systematic evaluation.
+
+**What to measure:**
+- Hallucination rate (track extractions that cannot be verified against source)
+- Answer accuracy on holdout evaluation sets
+- Latency P50/P95/P99 — not just average
+- Context window utilization
+- Retrieval relevance scores
+- Token costs per document type
+
+**The evaluation cadence that worked:** Weekly automated evaluation on a curated held-out set, plus continuous sampling of production traffic for spot-checking. Any metric degradation > 2% triggers investigation before the next deployment.
+
+## Privacy-Aware Design Patterns
+
+I will not make compliance claims here — regulatory requirements are complex and context-specific. What I will say is that privacy-aware design is not a compliance checkbox. It is an engineering principle.
+
+**Patterns that reduce risk:**
+- Never log raw LLM inputs or outputs in production
+- Minimize data retention — process and discard, do not accumulate
+- Pseudonymize before embedding — names and identifiers are not semantically meaningful for most retrieval tasks
+- Implement access controls at the API level, not just the application level
+- Design for auditability — every retrieval and generation event should be traceable
+
+## The Business Case for Doing It Right
+
+The organizations that deploy healthcare AI responsibly build compounding advantages:
+
+1. **Reliability** → Clinical teams adopt the tool rather than routing around it
+2. **Auditability** → When something goes wrong (it will), you can diagnose and fix it
+3. **Iteration velocity** → Clean architecture with evaluation infrastructure means improvements ship faster
+
+The temptation is to cut corners on infrastructure to ship faster. In healthcare AI, cutting corners on reliability infrastructure means rebuilding everything after the first production failure.
+
+## What I Would Tell Past Me
+
+Start with evaluation infrastructure before building the application. Define what "good" means before writing a single prompt. Build the monitoring dashboards before the feature. Know how you will detect degradation before you deploy.
+
+The model is the easiest part. The engineering is the hard part. Treat it accordingly.
+
+---
+
+*Have questions about healthcare AI engineering? [Reach out](/contact) — I read every message.*
