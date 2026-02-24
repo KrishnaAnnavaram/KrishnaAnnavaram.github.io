@@ -98,7 +98,7 @@ export async function streamConciergeResponse(
     // Graceful fallback without API
     const fallbackResponses: Record<string, string> = {
       default:
-        "I'm Krishna's portfolio assistant. Unfortunately, the AI service isn't configured right now. For questions about Krishna's work and experience, please reach out directly at krishna.annavaram@gmail.com or connect on LinkedIn.",
+        "I'm Krishna's portfolio assistant. Unfortunately, the AI service isn't configured right now. For questions about Krishna's work and experience, please reach out directly at annavaramkrishna@gmail.com or connect on LinkedIn.",
     }
 
     const lastMessage = messages[messages.length - 1]?.content.toLowerCase() ?? ''
@@ -106,13 +106,13 @@ export async function streamConciergeResponse(
 
     if (lastMessage.includes('healthcare') || lastMessage.includes('medical')) {
       response =
-        'Krishna has 3+ years of healthcare AI experience, including transformer-based NLP for clinical documents at Cognizant and privacy-aware ML pipeline design. Reach out at krishna.annavaram@gmail.com for more details.'
+        'Krishna has 3+ years of healthcare AI experience, including transformer-based NLP for clinical documents at Cognizant and privacy-aware ML pipeline design. Reach out at annavaramkrishna@gmail.com for more details.'
     } else if (lastMessage.includes('rag') || lastMessage.includes('retrieval')) {
       response =
-        'Krishna is an expert in production RAG systems — vector store integration, context ranking, hallucination mitigation, and evaluation frameworks. Currently building at WorkingFox. Email: krishna.annavaram@gmail.com'
+        'Krishna is an expert in production RAG systems — vector store integration, context ranking, hallucination mitigation, and evaluation frameworks. Currently building at WorkingFox. Email: annavaramkrishna@gmail.com'
     } else if (lastMessage.includes('available') || lastMessage.includes('hire') || lastMessage.includes('role')) {
       response =
-        'Krishna is open to Senior GenAI Engineer and Applied AI roles. Best to reach out at krishna.annavaram@gmail.com or via LinkedIn to discuss specifics.'
+        'Krishna is open to Senior GenAI Engineer and Applied AI roles. Best to reach out at annavaramkrishna@gmail.com or via LinkedIn to discuss specifics.'
     }
 
     // Simulate streaming
@@ -141,13 +141,13 @@ export async function streamConciergeResponse(
     })
 
     if (!response.ok) {
-      onError('Connection failed. Please try again or email krishna.annavaram@gmail.com')
+      onError('Connection failed. Please try again or email annavaramkrishna@gmail.com')
       return
     }
 
     const reader = response.body?.getReader()
     if (!reader) {
-      onError('Stream unavailable. Please email krishna.annavaram@gmail.com')
+      onError('Stream unavailable. Please email annavaramkrishna@gmail.com')
       return
     }
 
@@ -182,6 +182,6 @@ export async function streamConciergeResponse(
     }
     onComplete()
   } catch {
-    onError('Network error. Please email krishna.annavaram@gmail.com directly.')
+    onError('Network error. Please email annavaramkrishna@gmail.com directly.')
   }
 }

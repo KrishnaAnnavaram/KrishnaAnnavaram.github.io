@@ -164,7 +164,7 @@ export default function ProjectPage({ params }: Props) {
                 <p className="text-text-secondary text-sm">
                   The full research report for this project is available upon request.{' '}
                   <a
-                    href="mailto:krishna.annavaram@gmail.com"
+                    href="mailto:annavaramkrishna@gmail.com"
                     className="text-brand-primary hover:underline"
                   >
                     Email me
