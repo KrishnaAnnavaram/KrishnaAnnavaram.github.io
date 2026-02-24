@@ -274,7 +274,7 @@ export function AIConcierge() {
               {remaining === 0 && (
                 <div className="glass-sm p-3 text-xs text-text-muted text-center">
                   Session limit reached.{' '}
-                  <a href="mailto:krishna.annavaram@gmail.com" className="text-brand-primary hover:underline">
+                  <a href="mailto:annavaramkrishna@gmail.com" className="text-brand-primary hover:underline">
                     Email Krishna directly
                   </a>
                 </div>

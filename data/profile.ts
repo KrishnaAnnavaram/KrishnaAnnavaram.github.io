@@ -36,7 +36,7 @@ principles that allow AI to behave predictably and systems to be tested, debugge
     },
   ],
   socials: {
-    email: 'krishna.annavaram@gmail.com',
+    email: 'annavaramkrishna@gmail.com',
     linkedin: 'https://linkedin.com/in/krishna-annavaram',
     github: 'https://github.com/KrishnaAnnavaram',
     scholar: '',
