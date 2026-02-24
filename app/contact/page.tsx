@@ -47,27 +47,24 @@ export default function ContactPage() {
     if (cooldown) return
     setSubmitState('loading')
 
-    const endpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT
-
     try {
-      if (endpoint) {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            company: data.company,
-            purpose: data.purpose,
-            message: data.message,
-          }),
-        })
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: '19fc0a30-42a5-4a3d-a086-39b46a5e16ca',
+          name: data.name,
+          email: data.email,
+          company: data.company || '',
+          subject: `Portfolio Contact: ${data.purpose} from ${data.name}`,
+          message: data.message,
+          botcheck: data.honeypot,
+        }),
+      })
 
-        if (!response.ok) throw new Error('Submission failed')
-      }
+      const result = await response.json()
+      if (!result.success) throw new Error('Submission failed')
 
-      // If no endpoint, simulate success (for demo/development)
-      await new Promise((r) => setTimeout(r, 800))
       setSubmitState('success')
       reset()
       setCooldown(true)
