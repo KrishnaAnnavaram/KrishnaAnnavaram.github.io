@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Download, ArrowRight, MessageCircle, ChevronDown } from 'lucide-react'
+import { Download, ArrowRight, ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { profile } from '@/data/profile'
 
@@ -147,6 +147,43 @@ export function Hero() {
               <TextScramble text="Annavaram" />
             </span>
           </motion.h1>
+
+          {/* Social quick-links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55 }}
+            className="flex items-center gap-3 mb-6"
+          >
+            <a
+              href={profile.socials.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 glass-sm rounded-lg border border-white/10 text-text-muted hover:text-brand-primary hover:border-brand-primary/40 transition-all duration-200 text-sm font-medium"
+              aria-label="LinkedIn profile"
+            >
+              <Linkedin size={14} aria-hidden="true" />
+              LinkedIn
+            </a>
+            <a
+              href={profile.socials.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 glass-sm rounded-lg border border-white/10 text-text-muted hover:text-brand-primary hover:border-brand-primary/40 transition-all duration-200 text-sm font-medium"
+              aria-label="GitHub profile"
+            >
+              <Github size={14} aria-hidden="true" />
+              GitHub
+            </a>
+            <a
+              href={`mailto:${profile.socials.email}`}
+              className="flex items-center gap-1.5 px-3 py-1.5 glass-sm rounded-lg border border-white/10 text-text-muted hover:text-brand-accent hover:border-brand-accent/40 transition-all duration-200 text-sm font-medium"
+              aria-label="Send email"
+            >
+              <Mail size={14} aria-hidden="true" />
+              Email
+            </a>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
