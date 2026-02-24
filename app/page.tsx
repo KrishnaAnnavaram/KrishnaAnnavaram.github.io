@@ -4,7 +4,6 @@ import { FeaturedProjects } from '@/components/sections/FeaturedProjects'
 import { SkillsPhysics } from '@/components/sections/SkillsPhysics'
 import { MentorshipImpact } from '@/components/sections/MentorshipImpact'
 import { ContactCTA } from '@/components/sections/ContactCTA'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 import { ScrollProgress } from '@/components/layout/ScrollProgress'
 import type { Metadata } from 'next'
 
@@ -24,7 +23,6 @@ export default function HomePage() {
       <SkillsPhysics />
       <MentorshipImpact />
       <ContactCTA />
-      <AIConcierge />
     </>
   )
 }

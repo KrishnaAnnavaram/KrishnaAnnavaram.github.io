@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { ArrowRight, MapPin, Briefcase, GraduationCap, Award, Server, Shield, Network } from 'lucide-react'
 import { profile } from '@/data/profile'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 
 export const metadata: Metadata = {
   title: 'About Krishna Annavaram',
@@ -162,7 +161,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <AIConcierge />
     </div>
   )
 }
