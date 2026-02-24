@@ -1,173 +1,140 @@
 'use client'
 
-import { Suspense, useRef, useState, useEffect } from 'react'
+import { Suspense, useRef, useState, useEffect, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, PerformanceMonitor } from '@react-three/drei'
+import { PerformanceMonitor } from '@react-three/drei'
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import { GradientFallback } from './GradientFallback'
 import { isBrowser, checkWebGLSupport } from '@/lib/utils'
 
-function NeuralMesh({ scrollProgress }: { scrollProgress: number }) {
-  const meshRef = useRef<THREE.Mesh>(null)
-  const materialRef = useRef<THREE.ShaderMaterial>(null)
-
-  const vertexShader = `
-    uniform float u_time;
-    uniform float u_scroll;
-    varying vec3 vNormal;
-    varying vec3 vPosition;
-
-    float noise(vec3 p) {
-      return sin(p.x * 3.0 + u_time) * sin(p.y * 2.5 + u_time * 0.8) * sin(p.z * 2.0 + u_time * 1.2);
-    }
-
-    void main() {
-      vNormal = normalize(normalMatrix * normal);
-      vec3 pos = position;
-
-      // Neural firing displacement
-      float displacement = noise(pos * 1.5 + vec3(u_time * 0.3)) * 0.15;
-      displacement += noise(pos * 3.0 - vec3(u_time * 0.2)) * 0.05;
-
-      // Scroll compression
-      pos.y *= (1.0 - u_scroll * 0.5);
-      pos.x *= (1.0 + u_scroll * 0.3);
-
-      pos += normal * displacement;
-      vPosition = pos;
-
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-    }
-  `
-
-  const fragmentShader = `
-    uniform float u_time;
-    uniform float u_scroll;
-    varying vec3 vNormal;
-    varying vec3 vPosition;
-
-    void main() {
-      vec3 indigo = vec3(0.388, 0.400, 0.945);
-      vec3 violet = vec3(0.545, 0.361, 0.965);
-      vec3 cyan = vec3(0.024, 0.714, 0.831);
-
-      float t = sin(vPosition.y * 2.0 + u_time * 0.5) * 0.5 + 0.5;
-      float t2 = u_scroll;
-
-      vec3 color = mix(indigo, violet, t);
-      color = mix(color, cyan, t2 * 0.3);
-
-      // Fresnel rim
-      float fresnel = pow(1.0 - abs(dot(vNormal, vec3(0.0, 0.0, 1.0))), 2.5);
-      color += cyan * fresnel * 0.5;
-
-      float alpha = 0.6 + fresnel * 0.4;
-      gl_FragColor = vec4(color, alpha);
-    }
-  `
+// Torus knot — the centerpiece
+function TorusKnot({ scrollProgress }: { scrollProgress: number }) {
+  const groupRef = useRef<THREE.Group>(null)
+  const materialRef = useRef<THREE.MeshStandardMaterial>(null)
 
   useFrame((state) => {
-    if (!meshRef.current) return
-    meshRef.current.rotation.y += 0.003
-    meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1
+    if (!groupRef.current) return
+    groupRef.current.rotation.y = state.clock.elapsedTime * 0.25
+    groupRef.current.rotation.x = state.clock.elapsedTime * 0.12
+    groupRef.current.scale.setScalar(1.0 - scrollProgress * 0.35)
 
     if (materialRef.current) {
-      materialRef.current.uniforms.u_time.value = state.clock.elapsedTime
-      materialRef.current.uniforms.u_scroll.value = scrollProgress
+      materialRef.current.emissiveIntensity =
+        0.4 + Math.sin(state.clock.elapsedTime * 0.8) * 0.2
     }
   })
 
   return (
-    <mesh ref={meshRef}>
-      <icosahedronGeometry args={[1.4, 4]} />
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={{
-          u_time: { value: 0 },
-          u_scroll: { value: 0 },
-        }}
-        transparent
-        wireframe={false}
-        side={THREE.DoubleSide}
-      />
-    </mesh>
+    <group ref={groupRef}>
+      {/* Solid torus knot */}
+      <mesh>
+        <torusKnotGeometry args={[1.0, 0.3, 200, 24, 3, 2]} />
+        <meshStandardMaterial
+          ref={materialRef}
+          color="#6366f1"
+          emissive="#4f46e5"
+          emissiveIntensity={0.4}
+          metalness={0.9}
+          roughness={0.1}
+          transparent
+          opacity={0.85}
+        />
+      </mesh>
+      {/* Cyan wireframe overlay */}
+      <mesh>
+        <torusKnotGeometry args={[1.0, 0.3, 100, 12, 3, 2]} />
+        <meshBasicMaterial color="#06b6d4" wireframe transparent opacity={0.12} />
+      </mesh>
+    </group>
   )
 }
 
-function WireframeMesh({ scrollProgress }: { scrollProgress: number }) {
-  const meshRef = useRef<THREE.Mesh>(null)
+// Small glowing spheres orbiting around the knot in 3D
+function OrbitalNodes() {
+  const groupRef = useRef<THREE.Group>(null)
+
+  const nodes = useMemo(
+    () =>
+      Array.from({ length: 8 }, (_, i) => ({
+        radius: 2.1 + (i % 3) * 0.5,
+        speed: 0.3 + i * 0.07,
+        theta: (i / 8) * Math.PI * 2,
+        phi: (i / 8) * Math.PI,
+        size: 0.06 + (i % 3) * 0.025,
+        color: i % 2 === 0 ? '#6366f1' : '#06b6d4',
+      })),
+    []
+  )
 
   useFrame((state) => {
-    if (!meshRef.current) return
-    meshRef.current.rotation.y += 0.003
-    meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1
-    meshRef.current.scale.setScalar(1.0 - scrollProgress * 0.3)
+    if (!groupRef.current) return
+    groupRef.current.children.forEach((child, i) => {
+      const node = nodes[i]
+      const t = state.clock.elapsedTime * node.speed + node.theta
+      child.position.x = node.radius * Math.sin(t) * Math.cos(node.phi)
+      child.position.y = node.radius * Math.sin(node.phi + t * 0.3) * 0.7
+      child.position.z = node.radius * Math.cos(t)
+      const pulse = 1 + Math.sin(state.clock.elapsedTime * 2 + i) * 0.3
+      child.scale.setScalar(pulse)
+    })
   })
 
   return (
-    <mesh ref={meshRef}>
-      <icosahedronGeometry args={[1.55, 2]} />
-      <meshBasicMaterial
-        color="#6366f1"
-        wireframe
-        transparent
-        opacity={0.15}
-      />
-    </mesh>
+    <group ref={groupRef}>
+      {nodes.map((node, i) => (
+        <mesh key={i}>
+          <sphereGeometry args={[node.size, 8, 8]} />
+          <meshStandardMaterial
+            color={node.color}
+            emissive={node.color}
+            emissiveIntensity={1.5}
+          />
+        </mesh>
+      ))}
+    </group>
   )
 }
 
+// Background particle cloud
 function ParticleField() {
   const pointsRef = useRef<THREE.Points>(null)
-  const count = 300
+  const count = 400
 
-  const positions = new Float32Array(count * 3)
-  const velocities = new Float32Array(count * 3)
-  const colors = new Float32Array(count * 3)
+  const geometry = useMemo(() => {
+    const positions = new Float32Array(count * 3)
+    const colors = new Float32Array(count * 3)
 
-  for (let i = 0; i < count; i++) {
-    const theta = Math.random() * Math.PI * 2
-    const phi = Math.random() * Math.PI
-    const r = 2.2 + Math.random() * 2.5
+    for (let i = 0; i < count; i++) {
+      const theta = Math.random() * Math.PI * 2
+      const phi = Math.acos(2 * Math.random() - 1)
+      const r = 2.8 + Math.random() * 3.0
 
-    positions[i * 3] = r * Math.sin(phi) * Math.cos(theta)
-    positions[i * 3 + 1] = r * Math.cos(phi)
-    positions[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta)
+      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta)
+      positions[i * 3 + 1] = r * Math.cos(phi)
+      positions[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta)
 
-    velocities[i * 3] = (Math.random() - 0.5) * 0.002
-    velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.002
-    velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.002
+      const t = Math.random()
+      colors[i * 3] = 0.388 + t * (0.024 - 0.388)
+      colors[i * 3 + 1] = 0.4 + t * (0.714 - 0.4)
+      colors[i * 3 + 2] = 0.945 + t * (0.831 - 0.945)
+    }
 
-    const speed = Math.sqrt(velocities[i*3]**2 + velocities[i*3+1]**2 + velocities[i*3+2]**2)
-    // indigo to cyan based on speed
-    const t = speed / 0.003
-    colors[i * 3] = 0.388 + t * (0.024 - 0.388)
-    colors[i * 3 + 1] = 0.400 + t * (0.714 - 0.400)
-    colors[i * 3 + 2] = 0.945 + t * (0.831 - 0.945)
-  }
-
-  const bufferGeometry = new THREE.BufferGeometry()
-  bufferGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
-  bufferGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+    const geo = new THREE.BufferGeometry()
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+    geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+    return geo
+  }, [])
 
   useFrame((state) => {
     if (!pointsRef.current) return
-    pointsRef.current.rotation.y += 0.001
+    pointsRef.current.rotation.y += 0.0008
     pointsRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.05
   })
 
   return (
-    <points ref={pointsRef} geometry={bufferGeometry}>
-      <pointsMaterial
-        size={0.04}
-        vertexColors
-        transparent
-        opacity={0.7}
-        sizeAttenuation
-      />
+    <points ref={pointsRef} geometry={geometry}>
+      <pointsMaterial size={0.035} vertexColors transparent opacity={0.65} sizeAttenuation />
     </points>
   )
 }
@@ -209,30 +176,26 @@ export function HeroScene({ scrollProgress }: HeroSceneProps) {
   return (
     <div className="absolute inset-0" aria-hidden="true">
       <Canvas
-        camera={{ position: [0, 0, 5], fov: 60 }}
+        camera={{ position: [0, 0, 5.5], fov: 60 }}
         dpr={dpr}
-        gl={{
-          antialias: true,
-          alpha: true,
-          powerPreference: 'high-performance',
-        }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ background: 'transparent' }}
       >
-        <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(Math.min(window.devicePixelRatio, 2))} />
+        <PerformanceMonitor
+          onDecline={() => setDpr(1)}
+          onIncline={() => setDpr(Math.min(window.devicePixelRatio, 2))}
+        />
         <Suspense fallback={null}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={1} color="#6366f1" />
-          <pointLight position={[-10, -5, -5]} intensity={0.5} color="#06b6d4" />
-          <NeuralMesh scrollProgress={scrollProgress} />
-          <WireframeMesh scrollProgress={scrollProgress} />
+          <ambientLight intensity={0.3} />
+          <pointLight position={[10, 10, 10]} intensity={1.5} color="#6366f1" />
+          <pointLight position={[-10, -5, -5]} intensity={0.8} color="#06b6d4" />
+          <pointLight position={[0, -10, 5]} intensity={0.4} color="#8b5cf6" />
+          <TorusKnot scrollProgress={scrollProgress} />
+          <OrbitalNodes />
           <ParticleField />
           <CameraRig />
           <EffectComposer>
-            <Bloom
-              intensity={0.4}
-              luminanceThreshold={0.6}
-              luminanceSmoothing={0.9}
-            />
+            <Bloom intensity={0.8} luminanceThreshold={0.4} luminanceSmoothing={0.9} />
             <Vignette eskil={false} offset={0.1} darkness={0.5} />
           </EffectComposer>
         </Suspense>
