@@ -3,55 +3,87 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { GoogleGenerativeAI } from '@google/generative-ai'
+import { profile } from '@/data/profile'
+import { experience } from '@/data/experience'
+import { projects } from '@/data/projects'
+import { skills } from '@/data/skills'
 
 interface Message {
   role: 'user' | 'assistant'
   content: string
 }
 
-const SYSTEM_CONTEXT = `You are an AI assistant on Krishna Annavaram's portfolio website. Answer questions about Krishna concisely and professionally.
+function buildSystemContext(): string {
+  const experienceSummary = experience
+    .map(
+      (e) =>
+        `- ${e.title} at ${e.company} (${e.startDate} – ${e.endDate ?? 'Present'}): ${e.summary}`
+    )
+    .join('\n')
+
+  const projectSummary = projects
+    .map((p) => `- ${p.title} (${p.year}): ${p.tagline}`)
+    .join('\n')
+
+  const skillGroups = skills.reduce<Record<string, string[]>>((acc, s) => {
+    if (!acc[s.category]) acc[s.category] = []
+    acc[s.category].push(`${s.name} (${s.level}, ${s.years}yr)`)
+    return acc
+  }, {})
+
+  const skillSummary = Object.entries(skillGroups)
+    .map(([cat, items]) => `${cat}: ${items.join(', ')}`)
+    .join('\n')
+
+  return `You are an AI assistant on ${profile.name}'s portfolio website. Help recruiters, engineers, and collaborators learn about Krishna's work and experience.
 
 ABOUT KRISHNA:
-- Name: Krishna Annavaram
-- Role: Generative AI Engineer | Production LLM Systems | Healthcare AI | Data Scientist
-- Location: Denton, TX
-- Experience: 5+ years building production-grade AI and ML systems
-- Email: annavaramkrishna@gmail.com
-- LinkedIn: https://linkedin.com/in/krishna-annavaram
-- GitHub: https://github.com/KrishnaAnnavaram
-- Open to: Senior GenAI Engineer, LLM Engineer, RAG Engineer, Applied AI Engineer roles
+Name: ${profile.name}
+Role: ${profile.headline}
+Location: ${profile.location}
+Availability: ${profile.availability}
 
-EXPERTISE:
-- RAG Systems (Expert, 3 yrs), Prompt Engineering (Expert, 4 yrs), Agentic AI (Advanced, 2 yrs)
-- LangChain, Claude/GPT API, Embedding Models, LLM Evaluation, Hallucination Mitigation
-- BERT/Transformers, PyTorch, Fine-tuning LLMs, Text Classification, NER, Semantic Search
-- Python (Expert, 6 yrs), FastAPI, REST APIs, Microservices, Docker, CI/CD
-- AWS, GCP, Azure, Pinecone, Redis
-- Healthcare NLP (Expert), Clinical Document AI, Privacy-Aware ML, Medical Summarization
+BIO: ${profile.bio}
 
 EXPERIENCE:
-1. WorkingFox (2025–present) — GenAI Engineer: Production RAG systems, agentic pipelines, evaluation frameworks
-2. University of North Texas (2024–2024) — Graduate Assistant: Mentored 80+ students on ML/AI projects
-3. Creative Sense (2022–2023) — AI Engineer: NLP automation, document intelligence, REST APIs
-4. Cognizant (2021–2022) — ML Consultant: Healthcare enterprise ML, BERT models, SAP integration
-5. Lemoius (2020–2021) — ML Engineer: Predictive models, ETL pipelines, production deployment
+${experienceSummary}
 
 KEY PROJECTS:
-1. Production RAG Knowledge System — Enterprise RAG with evaluation, monitoring, cost optimization
-2. Multi-Step Agentic AI Workflow — Reliable agentic pipelines with retrieval, reasoning, validation
-3. Healthcare NLP Pipeline — Clinical document AI for healthcare clients
-4. Document Intelligence System — Transformer-based document classification and extraction
+${projectSummary}
 
-PHILOSOPHY: AI systems engineering > AI modeling. Prioritizes reliability, structured APIs, evaluation metrics, and measurable business value over prototypes.
+SKILLS:
+${skillSummary}
 
-Answer only questions related to Krishna's work, skills, experience, projects, and availability. For unrelated questions, politely redirect. Keep answers short (2-4 sentences max). Do not make up information not listed above.`
+EDUCATION:
+- Master of Science in Data Science — University of North Texas
+- Bachelor of Technology in Computer Science & Engineering — Kalasalingam University
+
+CERTIFICATIONS:
+- AWS Certified AI Practitioner (Jul 2025, expires Jul 2028)
+- SAP Certified Development Associate — ABAP
+
+CONTACT:
+- Email: ${profile.socials.email}
+- LinkedIn: ${profile.socials.linkedin}
+- GitHub: ${profile.socials.github}
+
+IDEAL ROLES: ${profile.idealRoles.join(', ')}
+
+GUIDELINES:
+1. Only answer based on the information above. Do not fabricate details.
+2. If asked about something not in the data, say "I don't have that specific detail — you can reach Krishna directly at ${profile.socials.email}"
+3. Keep responses concise and helpful (2-4 sentences max).
+4. For scheduling or detailed discussions, direct users to email or LinkedIn.
+5. Be professional but warm. This is a portfolio assistant, not a generic chatbot.
+6. Never make compliance claims (HIPAA, regulatory audits passed, etc).`
+}
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi! I'm Krishna's AI assistant. Ask me about his skills, experience, or projects.",
+      content: `Hi! I'm ${profile.name.split(' ')[0]}'s AI assistant. Ask me about his skills, experience, or projects.`,
     },
   ])
   const [input, setInput] = useState('')
@@ -79,7 +111,10 @@ export function ChatWidget() {
       setMessages((prev) => [
         ...prev,
         { role: 'user', content: text },
-        { role: 'assistant', content: 'AI chat is not configured yet. Please contact Krishna directly at annavaramkrishna@gmail.com' },
+        {
+          role: 'assistant',
+          content: `AI chat is not configured yet. Please contact Krishna directly at ${profile.socials.email}`,
+        },
       ])
       setInput('')
       return
@@ -101,17 +136,20 @@ export function ChatWidget() {
 
       const chat = model.startChat({
         history,
-        systemInstruction: SYSTEM_CONTEXT,
+        systemInstruction: buildSystemContext(),
       })
 
       const result = await chat.sendMessage(text)
       const response = result.response.text()
 
       setMessages((prev) => [...prev, { role: 'assistant', content: response }])
-    } catch (err) {
+    } catch {
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: 'Sorry, something went wrong. Try again or reach out at annavaramkrishna@gmail.com' },
+        {
+          role: 'assistant',
+          content: `Sorry, something went wrong. Try again or reach out at ${profile.socials.email}`,
+        },
       ])
     } finally {
       setIsLoading(false)
@@ -124,6 +162,13 @@ export function ChatWidget() {
       sendMessage()
     }
   }
+
+  const quickPrompts = [
+    'What are his top skills?',
+    'Tell me about his healthcare experience',
+    'What projects has he built?',
+    'Is he available for new roles?',
+  ]
 
   return (
     <>
@@ -143,7 +188,13 @@ export function ChatWidget() {
               animate={{ opacity: 1, rotate: 0 }}
               exit={{ opacity: 0, rotate: 90 }}
               transition={{ duration: 0.15 }}
-              width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
             >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
@@ -155,7 +206,14 @@ export function ChatWidget() {
               animate={{ opacity: 1, rotate: 0 }}
               exit={{ opacity: 0, rotate: -90 }}
               transition={{ duration: 0.15 }}
-              width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <rect x="3" y="11" width="18" height="10" rx="2" />
               <circle cx="12" cy="5" r="2" />
@@ -176,12 +234,21 @@ export function ChatWidget() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 bg-zinc-900 border border-zinc-700 rounded-2xl shadow-2xl shadow-black/50 flex flex-col overflow-hidden"
-            style={{ maxHeight: '480px' }}
+            style={{ maxHeight: '520px' }}
           >
             {/* Header */}
             <div className="px-4 py-3 border-b border-zinc-700 flex items-center gap-3 bg-zinc-900">
               <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#6366f1"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <rect x="3" y="11" width="18" height="10" rx="2" />
                   <circle cx="12" cy="5" r="2" />
                   <line x1="12" y1="7" x2="12" y2="11" />
@@ -230,6 +297,24 @@ export function ChatWidget() {
               <div ref={messagesEndRef} />
             </div>
 
+            {/* Quick prompts — only on first open */}
+            {messages.length === 1 && (
+              <div className="px-4 pb-2 flex flex-wrap gap-1">
+                {quickPrompts.map((prompt) => (
+                  <button
+                    key={prompt}
+                    onClick={() => {
+                      setInput(prompt)
+                      setTimeout(() => inputRef.current?.focus(), 0)
+                    }}
+                    className="text-xs px-3 py-1.5 bg-zinc-800 border border-zinc-700 text-zinc-300 hover:text-white hover:border-indigo-500/50 rounded-full transition-colors"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {/* Input */}
             <div className="px-3 py-3 border-t border-zinc-700 bg-zinc-900 flex gap-2">
               <input
@@ -247,7 +332,16 @@ export function ChatWidget() {
                 disabled={!input.trim() || isLoading}
                 className="w-9 h-9 rounded-xl bg-indigo-500 hover:bg-indigo-400 disabled:opacity-40 disabled:cursor-not-allowed text-white flex items-center justify-center transition-colors flex-shrink-0"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <line x1="22" y1="2" x2="11" y2="13" />
                   <polygon points="22 2 15 22 11 13 2 9 22 2" />
                 </svg>

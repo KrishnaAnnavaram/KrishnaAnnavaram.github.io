@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, ChevronUp, ExternalLink, MapPin, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import { experience, type ExperienceRole } from '@/data/experience'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 import { cn } from '@/lib/utils'
 
 function RoleCard({ role, index }: { role: ExperienceRole; index: number }) {
@@ -200,7 +199,6 @@ export default function ExperiencePage() {
           </a>
         </div>
       </div>
-      <AIConcierge />
     </div>
   )
 }

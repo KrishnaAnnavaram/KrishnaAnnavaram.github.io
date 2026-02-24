@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Mail, Linkedin, Github, CheckCircle, AlertCircle, Send } from 'lucide-react'
 import { profile } from '@/data/profile'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 import { cn } from '@/lib/utils'
 
 const contactSchema = z.object({
@@ -374,7 +373,6 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <AIConcierge />
     </div>
   )
 }
