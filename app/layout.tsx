@@ -3,6 +3,7 @@ import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { MobileNav } from '@/components/layout/MobileNav'
+import { ChatWidget } from '@/components/ai/ChatWidget'
 
 export const metadata: Metadata = {
   title: {
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main-content">{children}</main>
         <Footer />
         <MobileNav />
+        <ChatWidget />
       </body>
     </html>
   )
