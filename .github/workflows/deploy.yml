@@ -25,7 +25,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: npm
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -36,9 +35,6 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: ''
           NEXT_PUBLIC_AI_ENDPOINT: ${{ secrets.AI_ENDPOINT }}
           NEXT_PUBLIC_CONTACT_ENDPOINT: ${{ secrets.CONTACT_ENDPOINT }}
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
