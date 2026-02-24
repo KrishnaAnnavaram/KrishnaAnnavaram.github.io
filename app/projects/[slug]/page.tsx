@@ -4,7 +4,6 @@ import { Metadata } from 'next'
 import { ArrowLeft, Lock, ExternalLink, ChevronRight } from 'lucide-react'
 import { getProjectBySlug, projects } from '@/data/projects'
 import { experience } from '@/data/experience'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 
 interface Props {
   params: { slug: string }
@@ -194,7 +193,6 @@ export default function ProjectPage({ params }: Props) {
         </div>
       </div>
 
-      <AIConcierge />
     </div>
   )
 }

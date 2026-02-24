@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { Clock, Calendar, ArrowRight, Tag } from 'lucide-react'
 import { getAllPosts } from '@/lib/mdx'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 import { formatDate } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -81,7 +80,6 @@ export default function WritingPage() {
         )}
       </div>
 
-      <AIConcierge />
     </div>
   )
 }

@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Lock, ArrowRight, X } from 'lucide-react'
 import { projects, type Project, type ProjectCategory } from '@/data/projects'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 import { cn } from '@/lib/utils'
 
 const categories: (ProjectCategory | 'All')[] = [
@@ -212,7 +211,6 @@ export default function ProjectsPage() {
         </AnimatePresence>
       </div>
 
-      <AIConcierge />
     </div>
   )
 }

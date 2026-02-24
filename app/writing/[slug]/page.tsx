@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react'
 import { getAllPosts, getPostBySlug } from '@/lib/mdx'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 import { formatDate } from '@/lib/utils'
 
 interface Props {
@@ -157,7 +156,6 @@ export default function WritingPostPage({ params }: Props) {
         </footer>
       </div>
 
-      <AIConcierge />
     </div>
   )
 }

@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { ExternalLink, Award, Shield } from 'lucide-react'
 import { certifications } from '@/data/certifications'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 
 export const metadata: Metadata = {
   title: 'Certifications — Krishna Annavaram',
@@ -94,7 +93,6 @@ export default function CertificationsPage() {
         </section>
       </div>
 
-      <AIConcierge />
     </div>
   )
 }
