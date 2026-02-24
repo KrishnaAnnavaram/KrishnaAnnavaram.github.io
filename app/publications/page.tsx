@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { ExternalLink, FileText } from 'lucide-react'
 import { publications } from '@/data/publications'
-import { AIConcierge } from '@/components/ai/AIConcierge'
 
 export const metadata: Metadata = {
   title: 'Publications — Krishna Annavaram',
@@ -88,7 +87,6 @@ export default function PublicationsPage() {
         )}
       </div>
 
-      <AIConcierge />
     </div>
   )
 }
