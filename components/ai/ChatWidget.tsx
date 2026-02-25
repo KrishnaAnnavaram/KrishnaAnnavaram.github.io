@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, useMotionValue } from 'framer-motion'
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import OpenAI from 'openai'
 import { profile } from '@/data/profile'
 import { experience } from '@/data/experience'
 import { projects } from '@/data/projects'
@@ -96,7 +96,7 @@ export function ChatWidget() {
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
-  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY
+  const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -131,22 +131,24 @@ export function ChatWidget() {
     setIsLoading(true)
 
     try {
-      const genAI = new GoogleGenerativeAI(apiKey)
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+      const client = new OpenAI({ apiKey, dangerouslyAllowBrowser: true })
 
       const history = messages.slice(1).map((m) => ({
-        role: m.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: m.content }],
+        role: m.role as 'user' | 'assistant',
+        content: m.content,
       }))
 
-      const chat = model.startChat({
-        history,
-        systemInstruction: buildSystemContext(),
+      const completion = await client.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages: [
+          { role: 'system', content: buildSystemContext() },
+          ...history,
+          { role: 'user', content: text },
+        ],
+        max_tokens: 300,
       })
 
-      const result = await chat.sendMessage(text)
-      const response = result.response.text()
-
+      const response = completion.choices[0]?.message?.content ?? ''
       setMessages((prev) => [...prev, { role: 'assistant', content: response }])
     } catch {
       setMessages((prev) => [
@@ -207,7 +209,7 @@ export function ChatWidget() {
               </div>
               <div>
                 <p className="text-sm font-medium text-white">Krishna&apos;s AI Assistant</p>
-                <p className="text-xs text-zinc-400">Powered by Gemini</p>
+                <p className="text-xs text-zinc-400">Powered by GPT-4o mini</p>
               </div>
               <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400" />
             </div>
