@@ -262,7 +262,27 @@ export const publications: Publication[] = [
     tags: ['Clinical NLP', 'Long-T5', 'BART', 'LoRA', 'Summarization', 'MIMIC', 'Fine-Tuning'],
   },
   {
-    id: 'drug-interaction-prediction',
+    id: 'twitter-x-sentiment-hybrid',
+    title: 'Twitter / X Sentiment Analysis with Hybrid Models',
+    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
+    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
+    year: '2024',
+    abstract:
+      'Built a hybrid sentiment analysis pipeline for Twitter/X data combining TF-IDF and BERT-based representations with an LSTM sequence model for temporal tweet dynamics. Addressed platform-specific challenges including slang, abbreviations, hashtag semantics, and character limits. Evaluated on SemEval sentiment benchmarks and a custom-collected dataset of 50,000+ tweets across political, sports, and consumer brand domains, demonstrating performance gains of the hybrid approach over both standalone BERT and LSTM baselines.',
+    type: 'Supervised Research',
+    tags: ['NLP', 'Sentiment Analysis', 'BERT', 'LSTM', 'Twitter', 'Hybrid Models', 'TF-IDF'],
+  },
+  {
+    id: 'amara-healthcare-intelligence',
+    title: 'AMARA Healthcare Document Intelligence',
+    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
+    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
+    year: '2024',
+    abstract:
+      'Developed AMARA — an AI-powered document intelligence platform for healthcare organizations — combining BioBERT-based NER, LLM-driven summarization, and a RAG-backed question-answering interface over clinical and administrative documents. Implemented entity linking against UMLS ontologies for structured medical concept extraction, and a FHIR-compatible export layer for downstream EHR integration. The system reduced manual clinical document review effort by an estimated 55% on a representative document corpus benchmark.',
+    type: 'Supervised Research',
+    tags: ['Document Intelligence', 'BioBERT', 'RAG', 'UMLS', 'FHIR', 'Clinical NLP', 'NER'],
+  },
     title: 'Drug-Drug Interaction Prediction',
     authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
     venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
