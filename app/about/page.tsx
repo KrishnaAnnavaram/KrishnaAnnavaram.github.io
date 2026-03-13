@@ -6,7 +6,7 @@ import { profile } from '@/data/profile'
 
 export const metadata: Metadata = {
   title: 'About Krishna Annavaram',
-  description: 'GenAI Engineer with 5+ years building production LLM systems and RAG pipelines for healthcare and enterprise.',
+  description: 'Generative AI Engineer with 5+ years shipping production LLM systems, Graph-RAG pipelines, and multi-agent AI across pharma, enterprise, and research.',
 }
 
 const principleIcons = { Server, Shield, Network }
@@ -23,8 +23,8 @@ export default function AboutPage() {
               About me
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-bold text-text-primary mb-4">
-              Building AI that actually{' '}
-              <span className="text-gradient">ships</span>
+              The engineer who gets AI{' '}
+              <span className="text-gradient">into production</span>
             </h1>
             <div className="flex items-center gap-2 text-text-muted text-sm mb-6">
               <MapPin size={14} aria-hidden="true" />
@@ -129,13 +129,14 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <p className="text-text-muted text-xs font-mono uppercase tracking-widest mb-3">Most candidates</p>
-                <p className="text-text-secondary italic text-lg">&ldquo;Built a chatbot&rdquo;</p>
+                <p className="text-text-secondary italic text-lg">&ldquo;Built a RAG pipeline&rdquo;</p>
               </div>
               <div>
-                <p className="text-brand-accent text-xs font-mono uppercase tracking-widest mb-3">My approach</p>
+                <p className="text-brand-accent text-xs font-mono uppercase tracking-widest mb-3">My record</p>
                 <p className="text-text-primary text-lg">
-                  &ldquo;Designed a production RAG system with evaluation, monitoring, and cost optimization
-                  used daily by business teams.&rdquo;
+                  &ldquo;91% retrieval accuracy on a live Graph-RAG deployment. 85% process automation
+                  on a voice AI platform. 60% elimination of manual data entry via production NER.
+                  5 industries. All measured. All shipped.&rdquo;
                 </p>
               </div>
             </div>

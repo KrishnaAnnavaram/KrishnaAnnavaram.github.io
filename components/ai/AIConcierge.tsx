@@ -158,10 +158,10 @@ export function AIConcierge() {
   }
 
   const quickPrompts = [
-    'What LLMs has Krishna worked with?',
-    'Tell me about his healthcare experience',
-    'What is his availability?',
-    'Show me his best projects',
+    'What LLMs and GenAI tools has Krishna worked with?',
+    'What industries has he shipped AI systems in?',
+    'What is his availability for new roles?',
+    'Show me his best Graph-RAG projects',
   ]
 
   return (
