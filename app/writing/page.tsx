@@ -6,7 +6,7 @@ import { formatDate } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: 'Writing — Krishna Annavaram',
-  description: 'Technical writing on GenAI engineering, RAG systems, healthcare AI, and production ML by Krishna Annavaram.',
+  description: 'Technical writing on GenAI engineering, Graph-RAG, LLM fine-tuning, multi-agent systems, and production ML by Krishna Annavaram.',
 }
 
 export default function WritingPage() {
@@ -23,8 +23,8 @@ export default function WritingPage() {
             Writing
           </h1>
           <p className="text-text-secondary max-w-lg">
-            Practical articles on GenAI engineering, RAG systems, healthcare AI, and the
-            engineering discipline required to ship reliable AI systems.
+            Practical articles on GenAI engineering, Graph-RAG architecture, LLM fine-tuning,
+            multi-agent systems, and what it actually takes to ship reliable AI at scale.
           </p>
         </div>
 

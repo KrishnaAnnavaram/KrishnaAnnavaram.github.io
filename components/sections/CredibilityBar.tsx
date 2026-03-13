@@ -1,35 +1,35 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Server, Heart, Users, Zap } from 'lucide-react'
+import { Server, Target, Users, Zap } from 'lucide-react'
 
 const metrics = [
   {
     icon: Server,
     value: '5+',
-    label: 'Years in Production AI',
-    description: 'Building and shipping ML systems',
+    label: 'Years Shipping Production AI',
+    description: 'Pharma · Enterprise · Research · Clinical Tech · HR Tech',
     color: '#6366f1',
   },
   {
-    icon: Heart,
-    value: 'Healthcare',
-    label: 'Domain Specialist',
-    description: 'Enterprise healthcare AI pipelines',
+    icon: Target,
+    value: '91%',
+    label: 'RAG Retrieval Accuracy',
+    description: 'Graph-RAG system live in enterprise deployment',
     color: '#ef4444',
   },
   {
     icon: Users,
     value: '80+',
     label: 'Students Mentored at UNT',
-    description: 'Graduate ML research projects',
+    description: 'Graduate Applied ML research projects',
     color: '#f59e0b',
   },
   {
     icon: Zap,
-    value: 'Production',
-    label: 'Systems Shipped',
-    description: 'RAG, agentic AI, and NLP pipelines',
+    value: '5',
+    label: 'Industries in Production',
+    description: 'LLM systems shipped across 5 distinct domains',
     color: '#06b6d4',
   },
 ]

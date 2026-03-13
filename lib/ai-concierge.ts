@@ -104,15 +104,18 @@ export async function streamConciergeResponse(
     const lastMessage = messages[messages.length - 1]?.content.toLowerCase() ?? ''
     let response = fallbackResponses.default
 
-    if (lastMessage.includes('healthcare') || lastMessage.includes('medical')) {
+    if (lastMessage.includes('rag') || lastMessage.includes('graph') || lastMessage.includes('retrieval')) {
       response =
-        'Krishna has 3+ years of healthcare AI experience, including transformer-based NLP for clinical documents at Cognizant and privacy-aware ML pipeline design. Reach out at annavaramkrishna@gmail.com for more details.'
-    } else if (lastMessage.includes('rag') || lastMessage.includes('retrieval')) {
+        'Krishna is an expert in Graph-RAG and production RAG systems — Neo4j knowledge graphs, FAISS vector search, hybrid dense-sparse retrieval, and LangGraph multi-agent orchestration. Currently shipping at Ideate Technologies. Email: annavaramkrishna@gmail.com'
+    } else if (lastMessage.includes('skill') || lastMessage.includes('tech') || lastMessage.includes('llm')) {
       response =
-        'Krishna is an expert in production RAG systems — vector store integration, context ranking, hallucination mitigation, and evaluation frameworks. Currently building at WorkingFox. Email: annavaramkrishna@gmail.com'
+        'Krishna\'s core GenAI stack: Azure OpenAI (GPT-4o), LangGraph, LangChain, Neo4j, FAISS, Pinecone, LoRA/PEFT fine-tuning, FHIR/EHR integration, AKS, MLflow, Terraform. 5+ years across pharma, enterprise, and research. Email: annavaramkrishna@gmail.com'
+    } else if (lastMessage.includes('industr') || lastMessage.includes('domain') || lastMessage.includes('experience')) {
+      response =
+        'Krishna has shipped production AI across 5 industries: clinical tech (Graph-RAG, voice intake), pharma (BioBERT drug NER on GCP), enterprise financial services (AWS incentive compensation ML), academic research (UNT RAG assistant), and HR tech (job recommendation engine). Email: annavaramkrishna@gmail.com'
     } else if (lastMessage.includes('available') || lastMessage.includes('hire') || lastMessage.includes('role')) {
       response =
-        'Krishna is open to Senior GenAI Engineer and Applied AI roles. Best to reach out at annavaramkrishna@gmail.com or via LinkedIn to discuss specifics.'
+        'Krishna is open to Senior GenAI Engineer, LLM Platform Engineer, and Applied AI roles. Best to reach out at annavaramkrishna@gmail.com or via LinkedIn at linkedin.com/in/krishna-annavaram/'
     }
 
     // Simulate streaming

@@ -14,10 +14,10 @@ const HeroScene = dynamic(() => import('@/components/three/HeroScene').then(m =>
 })
 
 const roles = [
-  'Building GenAI for Healthcare',
-  'Making LLMs Production-Ready',
-  'Turning Research into Systems',
-  'Engineering Reliable AI',
+  'Turning LLMs into Production Systems',
+  'Graph-RAG · Multi-Agent · Fine-Tuning',
+  '5 Industries. All Shipped.',
+  'The Engineer Behind the Model',
 ]
 
 function TextScramble({ text }: { text: string }) {
@@ -200,8 +200,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-text-muted text-base leading-relaxed mb-10 max-w-lg"
           >
-            GenAI Engineer with 5+ years building production LLM systems, RAG pipelines,
-            and agentic AI workflows. Specialized in healthcare AI with a systems-first approach.
+            GenAI Engineer with 5+ years shipping production LLM systems across pharma,
+            enterprise, research, and clinical tech. Graph-RAG, Multi-Agent, Fine-Tuning — all in production.
           </motion.p>
 
           <motion.div
