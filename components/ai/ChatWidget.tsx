@@ -171,10 +171,10 @@ export function ChatWidget() {
   }
 
   const quickPrompts = [
-    'What are his top skills?',
-    'Tell me about his healthcare experience',
-    'What projects has he built?',
-    'Is he available for new roles?',
+    'What GenAI skills does Krishna have?',
+    'Tell me about his Graph-RAG projects',
+    'Which industries has he shipped AI in?',
+    'Is he open to new roles?',
   ]
 
   return (

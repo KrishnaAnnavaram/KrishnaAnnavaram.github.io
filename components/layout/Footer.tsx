@@ -25,7 +25,7 @@ export function Footer() {
               Krishna Annavaram
             </Link>
             <p className="mt-2 text-text-muted text-sm leading-relaxed">
-              GenAI Engineer · Healthcare AI · Production LLM Systems
+              GenAI Engineer · Graph-RAG · Multi-Agent AI · LLM Systems
             </p>
             <p className="mt-1 text-text-muted text-xs">
               Denton, TX · Open to Senior GenAI roles

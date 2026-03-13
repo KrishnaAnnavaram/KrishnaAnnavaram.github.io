@@ -7,20 +7,21 @@ import { ChatWidget } from '@/components/ai/ChatWidget'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Krishna Annavaram — GenAI Engineer & Healthcare AI Specialist',
+    default: 'Krishna Annavaram — Generative AI Engineer | Graph-RAG · Multi-Agent · LLM Systems',
     template: '%s | Krishna Annavaram',
   },
   description:
-    'GenAI Engineer with 5+ years building production LLM systems, RAG pipelines, and agentic AI workflows for healthcare and enterprise. Open to Senior GenAI roles.',
+    'Generative AI Engineer with 5+ years shipping production LLM systems, Graph-RAG pipelines, and multi-agent AI across pharma, enterprise, and research. Open to Senior GenAI roles.',
   keywords: [
-    'GenAI Engineer',
+    'Generative AI Engineer',
     'LLM Engineer',
+    'Graph-RAG',
     'RAG Systems',
-    'Healthcare AI',
-    'Machine Learning',
+    'Multi-Agent AI',
+    'LangGraph',
+    'LLM Fine-Tuning',
     'Production AI',
-    'Retrieval Augmented Generation',
-    'Agentic AI',
+    'Machine Learning Engineer',
     'Krishna Annavaram',
   ],
   authors: [{ name: 'Krishna Annavaram' }],
@@ -29,14 +30,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://krishnaannavaram.github.io',
-    title: 'Krishna Annavaram — GenAI Engineer & Healthcare AI Specialist',
-    description: 'GenAI Engineer specializing in production LLM systems, RAG pipelines, and healthcare AI.',
+    title: 'Krishna Annavaram — Generative AI Engineer | Graph-RAG · Multi-Agent · LLM Systems',
+    description: 'Generative AI Engineer specializing in production LLM systems, Graph-RAG pipelines, and multi-agent AI across 5 industries.',
     siteName: 'Krishna Annavaram Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Krishna Annavaram — GenAI Engineer',
-    description: 'GenAI Engineer specializing in production LLM systems, RAG pipelines, and healthcare AI.',
+    title: 'Krishna Annavaram — Generative AI Engineer',
+    description: 'Generative AI Engineer specializing in production LLM systems, Graph-RAG pipelines, and multi-agent AI across 5 industries.',
   },
   robots: {
     index: true,

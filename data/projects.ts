@@ -24,7 +24,7 @@ export interface Project {
 }
 
 export type ProjectCategory =
-  | 'Healthcare AI'
+  | 'Clinical & Pharma AI'
   | 'NLP'
   | 'RAG Systems'
   | 'MLOps'
@@ -36,7 +36,7 @@ export const projects: Project[] = [
     slug: 'graphrag-clinical-dss',
     title: 'Graph-RAG Clinical Decision Support System',
     tagline: '91% retrieval accuracy on a hospital-deployed diagnostic reasoning pipeline — reducing unsafe clinical recommendations by 45%',
-    category: 'Healthcare AI',
+    category: 'Clinical & Pharma AI',
     year: '2025',
     problem:
       'U.S. hospital clinicians were making diagnostic decisions without reliable access to the full context of a patient\'s clinical history. Existing AI tools hallucinated on medical queries, lacked integration with live EHR data, and could not reason across the relationships between diagnoses, medications, and adverse events that are critical for safe clinical recommendations.',
@@ -87,7 +87,7 @@ export const projects: Project[] = [
     slug: 'voice-patient-intake',
     title: 'Voice-Based AI Patient Intake Platform',
     tagline: '85% automation of clinical data capture — cutting patient intake cycle time by 60% across hospital workflows',
-    category: 'Healthcare AI',
+    category: 'Clinical & Pharma AI',
     year: '2025',
     problem:
       'Hospital patient intake was a manual, time-intensive process requiring clinical staff to collect, transcribe, and enter patient information into EHR systems by hand. This created bottlenecks at admission, introduced transcription errors, and consumed significant nursing time that could be redirected to direct patient care.',

@@ -1,64 +1,63 @@
 export const profile = {
   name: 'Krishna Annavaram',
-  headline: 'Generative AI Engineer | Production LLM Systems | Healthcare AI | RAG & Multi-Agent Pipelines',
+  headline: 'Generative AI Engineer | Production LLM Systems · Graph-RAG · Multi-Agent AI · Fine-Tuning',
   location: 'Denton, TX',
-  bio: `I am a Generative AI Engineer with 5+ years building production-grade LLM systems, RAG pipelines,
-and multi-agent orchestration frameworks across healthcare and enterprise domains. My work ships to
-hospitals, Fortune-scale enterprises, and research institutions — and every system is measured by the
-clinical and operational outcomes it moves.
+  bio: `I'm a Generative AI Engineer with 5+ years of experience taking AI systems from whiteboard to
+production — across clinical tech, pharma, enterprise financial services, academic research, and HR tech.
+I don't build demos. I build the Graph-RAG pipeline that hits 91% retrieval accuracy in a live
+deployment, the voice intake system that automates 85% of data capture end-to-end, and the NLP
+pipeline that processes thousands of pharma documents daily and writes clean structured records to
+BigQuery without human intervention.
 
-Recent highlights: 91% retrieval accuracy on a hospital-deployed Graph-RAG Clinical Decision Support
-System, 45% reduction in unsafe clinical recommendations, 85% automation of patient intake workflows,
-and 50% reduction in physician review time through fine-tuned transformer models.
-
-I treat Generative AI as a systems engineering discipline — not a prompt-writing exercise. That means
-knowledge graph architecture over naive retrieval, FHIR-compliant EHR integration over mock data,
-LangGraph multi-agent orchestration over single-step LLM calls, and zero-downtime MLOps over
-prototype deployments.`,
-  philosophy: `Most GenAI projects fail at the engineering layer, not the model layer. A GPT-4o call is
-a commodity. What separates systems that move clinical outcomes from those that stay in demos is
-the architecture around the model: knowledge graph design that captures clinical entity relationships,
-hybrid retrieval that combines graph traversal with dense vector search, PEFT fine-tuning pipelines
-that adapt models to medical corpora without catastrophic forgetting, and MLOps infrastructure that
-sustains 99.9% uptime under hospital-grade reliability requirements. I build the full stack — and I
-measure success in production metrics, not benchmark scores.`,
+My edge is the architecture layer. Anyone can call an API. The hard part is designing knowledge graphs
+that capture entity relationships LLMs can't hallucinate around, tuning FAISS indexes for sub-second
+recall at scale, orchestrating LangGraph multi-agent workflows that hold up under production load, and
+wrapping it all in MLOps infrastructure that sustains 99.9% uptime. That's what I've built — five
+times, across five industries — and every system ships with measurable outcomes attached.`,
+  philosophy: `A GPT-4o call is a commodity. The moat is everything around it: knowledge graph
+design that structures domain relationships before retrieval ever happens, hybrid dense-sparse search
+that fuses BM25 precision with embedding-based semantic depth, PEFT fine-tuning pipelines that adapt
+transformer models to specialized corpora without catastrophic forgetting, and zero-downtime MLOps
+infrastructure that makes the difference between a prototype and a system your team depends on daily.
+I've built all of it — across pharma, enterprise financial services, and research environments — and I
+measure every delivery in production outcomes, not benchmark scores.`,
   principles: [
     {
-      title: 'Clinical Outcomes Over Demo Metrics',
+      title: 'Outcomes Over Accuracy Scores',
       description:
-        'Every system I build for healthcare is measured against real clinical outcomes — retrieval accuracy on physician-validated datasets, reduction in unsafe recommendations, time saved in clinical workflows. If it does not move a measurable needle, it is not done.',
+        "I track what actually moves: retrieval accuracy against real query sets, automation percentages measured against baseline workflows, latency under concurrent production load. If a metric isn't measured in a live deployment, it doesn't count.",
       icon: 'Shield',
     },
     {
-      title: 'Architecture-First GenAI',
+      title: 'Architecture Before Implementation',
       description:
-        'Graph-RAG over naive RAG. LangGraph multi-agent orchestration over monolithic chains. Hybrid dense-sparse retrieval over single-index search. The architectural decisions compound — right design choices multiply impact across every downstream metric.',
+        'Graph-RAG instead of naive retrieval. LangGraph orchestration instead of monolithic chains. Hybrid dense-sparse search instead of single-index. Every architectural decision I make compounds — the right design at the start multiplies impact across every downstream metric.',
       icon: 'Network',
     },
     {
-      title: 'Zero-Downtime Production Standards',
+      title: 'Production Is the Only Standard',
       description:
-        'Hospital-grade AI runs 24/7. I build MLOps infrastructure — AKS, MLflow, Terraform, GitHub Actions CI/CD — that sustains 99.9% uptime, accelerates release cycles, and cuts deployment effort. Production reliability is not a phase 2 concern.',
+        "I've shipped AI into live environments where failure means missed SLAs, bad outputs reach real users, and engineering debt compounds fast. That pressure shaped how I build: every system includes monitoring, fallback logic, and MLOps infrastructure that runs reliably around the clock.",
       icon: 'Server',
     },
   ],
   socials: {
     email: 'annavaramkrishna@gmail.com',
-    linkedin: 'https://linkedin.com/in/krishnaannavaram',
+    linkedin: 'https://www.linkedin.com/in/krishna-annavaram/',
     github: 'https://github.com/KrishnaAnnavaram',
     scholar: '',
   },
-  availability: 'Open to Senior Generative AI Engineer and Applied AI roles',
+  availability: 'Open to Senior GenAI Engineer · Applied AI · LLM Platform roles',
   resumeUrl: '/resume/resume.pdf',
   coverLetterUrl: '/resume/cover-letter.pdf',
   differentiator:
-    'Most candidates say "Built a RAG chatbot." My record: 91% retrieval accuracy on a hospital-deployed Graph-RAG Clinical Decision Support System, 45% fewer unsafe clinical recommendations, and 85% automation of patient intake — all in production, all measured, all running at hospital-grade 99.9% uptime.',
+    'Most candidates say "Built a RAG pipeline." My record: 91% retrieval accuracy on a live enterprise Graph-RAG deployment, 85% process automation on a voice AI platform, 60% elimination of manual data entry via a production NER pipeline — 5 industries, all measured, all shipped.',
   idealRoles: [
-    'Generative AI Engineer',
-    'Senior LLM Engineer',
-    'AI Platform Engineer',
-    'Applied AI Engineer (Healthcare)',
+    'Senior Generative AI Engineer',
+    'LLM Platform Engineer',
+    'Applied AI Engineer',
     'RAG / Graph-RAG Engineer',
-    'Machine Learning Engineer (NLP/LLMs)',
+    'ML Engineer (NLP / LLMs)',
+    'AI Infrastructure Engineer',
   ],
 }
