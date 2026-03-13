@@ -8,9 +8,9 @@ import { ScrollProgress } from '@/components/layout/ScrollProgress'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Krishna Annavaram — GenAI Engineer & Healthcare AI Specialist',
+  title: 'Krishna Annavaram — Generative AI Engineer | Graph-RAG · Multi-Agent · LLM Systems',
   description:
-    'GenAI Engineer with 5+ years building production LLM systems, RAG pipelines, and agentic AI workflows for healthcare and enterprise.',
+    'Generative AI Engineer with 5+ years shipping production LLM systems, Graph-RAG pipelines, and multi-agent AI across pharma, enterprise, research, and clinical tech.',
 }
 
 export default function HomePage() {

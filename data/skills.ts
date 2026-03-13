@@ -12,7 +12,7 @@ export type SkillCategory =
   | 'Engineering'
   | 'Cloud & DevOps'
   | 'Data & Analytics'
-  | 'Healthcare AI'
+  | 'Applied AI Domains'
 
 export const skills: Skill[] = [
   // GenAI & LLMs
@@ -62,12 +62,12 @@ export const skills: Skill[] = [
   { name: 'BigQuery / GCP Dataflow', category: 'Data & Analytics', level: 'Advanced', years: 2, relatedProjects: ['biobert-drug-ner'] },
   { name: 'NLTK / spaCy', category: 'Data & Analytics', level: 'Expert', years: 5, relatedProjects: ['biobert-drug-ner', 'job-recommendation-engine', 'incentive-ml-platform'] },
 
-  // Healthcare AI
-  { name: 'Clinical NLP (BioBERT)', category: 'Healthcare AI', level: 'Expert', years: 3, relatedProjects: ['biobert-drug-ner', 'graphrag-clinical-dss'] },
-  { name: 'FHIR / EHR Integration', category: 'Healthcare AI', level: 'Advanced', years: 2, relatedProjects: ['graphrag-clinical-dss', 'voice-patient-intake'] },
-  { name: 'Medical Summarization (LoRA)', category: 'Healthcare AI', level: 'Advanced', years: 2, relatedProjects: ['graphrag-clinical-dss'] },
-  { name: 'Privacy-Aware ML (HIPAA)', category: 'Healthcare AI', level: 'Advanced', years: 3, relatedProjects: ['graphrag-clinical-dss', 'voice-patient-intake'] },
-  { name: 'Drug NER & Adverse Events', category: 'Healthcare AI', level: 'Expert', years: 2, relatedProjects: ['biobert-drug-ner'] },
+  // Applied AI Domains
+  { name: 'Clinical NLP (BioBERT)', category: 'Applied AI Domains', level: 'Expert', years: 3, relatedProjects: ['biobert-drug-ner', 'graphrag-clinical-dss'] },
+  { name: 'FHIR / EHR Integration', category: 'Applied AI Domains', level: 'Advanced', years: 2, relatedProjects: ['graphrag-clinical-dss', 'voice-patient-intake'] },
+  { name: 'Medical Summarization (LoRA)', category: 'Applied AI Domains', level: 'Advanced', years: 2, relatedProjects: ['graphrag-clinical-dss'] },
+  { name: 'Privacy-Aware ML (HIPAA)', category: 'Applied AI Domains', level: 'Advanced', years: 3, relatedProjects: ['graphrag-clinical-dss', 'voice-patient-intake'] },
+  { name: 'Drug NER & Adverse Events', category: 'Applied AI Domains', level: 'Expert', years: 2, relatedProjects: ['biobert-drug-ner'] },
 ]
 
 export const skillCategories: SkillCategory[] = [
@@ -76,7 +76,7 @@ export const skillCategories: SkillCategory[] = [
   'Engineering',
   'Cloud & DevOps',
   'Data & Analytics',
-  'Healthcare AI',
+  'Applied AI Domains',
 ]
 
 export const categoryColors: Record<SkillCategory, string> = {
@@ -85,5 +85,5 @@ export const categoryColors: Record<SkillCategory, string> = {
   'Engineering': '#06b6d4',
   'Cloud & DevOps': '#10b981',
   'Data & Analytics': '#f59e0b',
-  'Healthcare AI': '#ef4444',
+  'Applied AI Domains': '#ef4444',
 }

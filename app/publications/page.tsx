@@ -4,7 +4,7 @@ import { publications } from '@/data/publications'
 
 export const metadata: Metadata = {
   title: 'Publications — Krishna Annavaram',
-  description: 'Research publications by Krishna Annavaram in NLP, Healthcare AI, and Machine Learning.',
+  description: 'Research publications by Krishna Annavaram in NLP, Generative AI, and Machine Learning.',
 }
 
 const typeColors: Record<string, string> = {

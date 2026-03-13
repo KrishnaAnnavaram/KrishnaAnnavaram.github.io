@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 const categories: (ProjectCategory | 'All')[] = [
   'All',
-  'Healthcare AI',
+  'Clinical & Pharma AI',
   'RAG Systems',
   'NLP',
   'MLOps',
@@ -124,8 +124,8 @@ export default function ProjectsPage() {
             Projects
           </h1>
           <p className="text-text-secondary max-w-lg">
-            Production AI systems built across healthcare, enterprise, and research.
-            Each project is a full case study: problem → approach → results.
+            Production AI systems shipped across pharma, enterprise, research, and clinical tech.
+            Each project is a full case study: problem → approach → measured results.
           </p>
         </div>
 

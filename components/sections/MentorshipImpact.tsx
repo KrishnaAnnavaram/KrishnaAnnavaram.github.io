@@ -98,6 +98,7 @@ export function MentorshipImpact() {
 
 function getDomainColor(domain: string): string {
   const colors: Record<string, string> = {
+    'Clinical AI': '#ef4444',
     'Healthcare AI': '#ef4444',
     'NLP': '#6366f1',
     'Computer Vision': '#8b5cf6',
