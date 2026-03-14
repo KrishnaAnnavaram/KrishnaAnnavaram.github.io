@@ -283,6 +283,7 @@ export const publications: Publication[] = [
     type: 'Supervised Research',
     tags: ['Document Intelligence', 'BioBERT', 'RAG', 'UMLS', 'FHIR', 'Clinical NLP', 'NER'],
   },
+  {
     title: 'Drug-Drug Interaction Prediction',
     authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
     venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
