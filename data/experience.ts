@@ -24,8 +24,8 @@ export interface ExperienceRole {
 
 export const experience: ExperienceRole[] = [
   {
-    id: 'workingfox-2025',
-    company: 'WorkingFox',
+    id: 'ideate-2025',
+    company: 'Ideate Technologies LLC',
     title: 'Generative AI Engineer',
     startDate: '2025-01',
     endDate: null,
