@@ -27,9 +27,9 @@ export const experience: ExperienceRole[] = [
     id: 'ideate-2025',
     company: 'Ideate Technologies LLC',
     title: 'Generative AI Engineer',
-    startDate: '2025-05',
+    startDate: '2025-01',
     endDate: null,
-    location: 'United States',
+    location: 'TX, USA',
     type: 'Full-time',
     summary:
       'Leading the end-to-end delivery of hospital-grade Generative AI systems for U.S. healthcare clients — from Graph-RAG clinical decision support to voice-enabled patient intake platforms. Every system ships to production, meets U.S. healthcare regulatory standards, and moves measurable clinical outcomes.',
@@ -100,9 +100,9 @@ export const experience: ExperienceRole[] = [
   {
     id: 'unt-ga-2024',
     company: 'University of North Texas',
-    title: 'Graduate Assistant — Generative AI',
+    title: 'Graduate Teaching Assistant',
     startDate: '2024-08',
-    endDate: '2025-05',
+    endDate: '2024-12',
     location: 'Denton, TX',
     type: 'Academic',
     summary:
