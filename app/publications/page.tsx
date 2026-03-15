@@ -38,7 +38,7 @@ export default function PublicationsPage() {
             Publications
           </h1>
           <p className="text-text-secondary max-w-lg">
-            Authored research in NLP and applied ML, plus 23 graduate research reports
+            Authored research in NLP and applied ML, plus 75 graduate research reports
             supervised at UNT across GenAI, computer vision, time series, and more.
 </p>
         </div>
