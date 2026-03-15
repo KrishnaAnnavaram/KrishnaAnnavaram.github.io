@@ -38,8 +38,7 @@ export default function PublicationsPage() {
             Publications
           </h1>
           <p className="text-text-secondary max-w-lg">
-            Authored research in NLP and applied ML, plus 75 graduate research reports
-            supervised at UNT across GenAI, computer vision, time series, and more.
+            Authored and co-authored research across NLP, applied ML, computer vision, and more — plus over 60 graduate research reports supervised at UNT. All papers submitted to UNT Research, Department of Data Science, University of North Texas.
 </p>
         </div>
 
