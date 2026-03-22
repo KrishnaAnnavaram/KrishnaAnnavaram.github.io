@@ -39,7 +39,7 @@ export function SkillsPhysics() {
   const initBodies = useCallback((width: number, height: number) => {
     const isMobile = width < 640
     const radiiMap = isMobile
-      ? { Expert: 26, Advanced: 22, Proficient: 18 }
+      ? { Expert: 32, Advanced: 26, Proficient: 21 }
       : { Expert: 42, Advanced: 36, Proficient: 30 }
     bodiesRef.current = skills.map((skill, i) => {
       const radius = radiiMap[skill.level]
@@ -69,6 +69,17 @@ export function SkillsPhysics() {
         body.vy = 0
       }
     }
+  }, [])
+
+  // Apply DPR-aware canvas dimensions imperatively (avoids blurry canvas on Retina/mobile)
+  const applyCanvasDpr = useCallback((w: number, h: number) => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const dpr = window.devicePixelRatio || 1
+    canvas.width = Math.round(w * dpr)
+    canvas.height = Math.round(h * dpr)
+    canvas.style.width = `${w}px`
+    canvas.style.height = `${h}px`
   }, [])
 
   // simulate reads from dimensionsRef so it never needs to be recreated
@@ -141,10 +152,13 @@ export function SkillsPhysics() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const dpr = window.devicePixelRatio || 1
     const { width, height } = dimensionsRef.current
     const currentCategory = activeCategoryRef.current
 
-    ctx.clearRect(0, 0, width, height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.save()
+    ctx.scale(dpr, dpr)
 
     for (const body of bodiesRef.current) {
       const isFiltered = currentCategory && body.category !== currentCategory
@@ -175,14 +189,17 @@ export function SkillsPhysics() {
       ctx.fillStyle = isFiltered ? '#ffffff44' : '#ffffff'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
-      const fontSize = body.radius > 38 ? 10 : body.radius > 24 ? 9 : 7
-      ctx.font = `${fontSize}px Inter, sans-serif`
+      const isMobileRadius = body.radius < 30
+      const fontSize = body.radius > 38 ? 11 : body.radius > 28 ? 10 : body.radius > 20 ? 9 : 8
+      const fontWeight = isMobileRadius ? '600' : '500'
+      ctx.font = `${fontWeight} ${fontSize}px Inter, sans-serif`
 
-      const maxWidth = body.radius * 1.5
+      const maxWidth = body.radius * 1.6
       const words = body.name.split(' ')
       if (words.length > 1 && ctx.measureText(body.name).width > maxWidth) {
-        ctx.font = `${fontSize - 1}px Inter, sans-serif`
-        const lineSpacing = body.radius > 30 ? 7 : 5
+        const smallerSize = Math.max(fontSize - 1, 7)
+        ctx.font = `${fontWeight} ${smallerSize}px Inter, sans-serif`
+        const lineSpacing = body.radius > 28 ? 7 : 6
         ctx.fillText(words[0], body.x, body.y - lineSpacing)
         ctx.fillText(words.slice(1).join(' '), body.x, body.y + lineSpacing)
       } else {
@@ -190,6 +207,8 @@ export function SkillsPhysics() {
       }
       ctx.restore()
     }
+
+    ctx.restore()
   }, [])
 
   useEffect(() => {
@@ -201,11 +220,12 @@ export function SkillsPhysics() {
       const w = Math.floor(rect.width)
       const isMobile = w < 640
       const h = isMobile
-        ? Math.min(700, Math.max(500, window.innerHeight * 0.75))
+        ? Math.min(800, Math.max(600, window.innerHeight * 0.85))
         : Math.min(500, Math.max(350, window.innerHeight * 0.45))
 
       const prevW = dimensionsRef.current.width
       dimensionsRef.current = { width: w, height: h }
+      applyCanvasDpr(w, h)
 
       if (!initializedRef.current) {
         // First initialization
@@ -235,7 +255,7 @@ export function SkillsPhysics() {
       ro.disconnect()
       clearTimeout(resizeTimer)
     }
-  }, [initBodies, clampBodiesToBounds])
+  }, [initBodies, clampBodiesToBounds, applyCanvasDpr])
 
   // Animation loop — stable: simulate and draw never change (no state deps)
   useEffect(() => {
@@ -248,16 +268,14 @@ export function SkillsPhysics() {
     return () => cancelAnimationFrame(animFrameRef.current)
   }, [simulate, draw])
 
-  // Helper: get canvas-space coordinates accounting for CSS scaling
+  // Helper: get canvas-space coordinates (CSS px == logical px since we manage size imperatively)
   const getCanvasCoords = useCallback((clientX: number, clientY: number) => {
     const canvas = canvasRef.current
     if (!canvas) return null
     const rect = canvas.getBoundingClientRect()
-    const scaleX = dimensionsRef.current.width / rect.width
-    const scaleY = dimensionsRef.current.height / rect.height
     return {
-      x: (clientX - rect.left) * scaleX,
-      y: (clientY - rect.top) * scaleY,
+      x: clientX - rect.left,
+      y: clientY - rect.top,
     }
   }, [])
 
@@ -358,14 +376,11 @@ export function SkillsPhysics() {
         <div ref={containerRef} className="relative w-full">
           <canvas
             ref={canvasRef}
-            width={dimensions.width}
-            height={dimensions.height}
             onClick={handleCanvasClick}
             onTouchStart={handleCanvasTouch}
-            className="w-full cursor-pointer rounded-2xl border border-white/5"
+            className="cursor-pointer rounded-2xl border border-white/5"
             role="application"
             aria-label="Interactive skills physics simulation. Click bubbles to interact."
-            style={{ height: dimensions.height }}
           />
 
           {/* Selected skill tooltip */}
