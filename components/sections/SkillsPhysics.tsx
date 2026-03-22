@@ -37,8 +37,12 @@ export function SkillsPhysics() {
   }, [activeCategory])
 
   const initBodies = useCallback((width: number, height: number) => {
+    const isMobile = width < 640
+    const radiiMap = isMobile
+      ? { Expert: 26, Advanced: 22, Proficient: 18 }
+      : { Expert: 42, Advanced: 36, Proficient: 30 }
     bodiesRef.current = skills.map((skill, i) => {
-      const radius = skill.level === 'Expert' ? 42 : skill.level === 'Advanced' ? 36 : 30
+      const radius = radiiMap[skill.level]
       return {
         id: i,
         name: skill.name,
@@ -171,15 +175,16 @@ export function SkillsPhysics() {
       ctx.fillStyle = isFiltered ? '#ffffff44' : '#ffffff'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
-      const fontSize = body.radius > 38 ? 10 : 9
+      const fontSize = body.radius > 38 ? 10 : body.radius > 24 ? 9 : 7
       ctx.font = `${fontSize}px Inter, sans-serif`
 
       const maxWidth = body.radius * 1.5
       const words = body.name.split(' ')
       if (words.length > 1 && ctx.measureText(body.name).width > maxWidth) {
         ctx.font = `${fontSize - 1}px Inter, sans-serif`
-        ctx.fillText(words[0], body.x, body.y - 6)
-        ctx.fillText(words.slice(1).join(' '), body.x, body.y + 7)
+        const lineSpacing = body.radius > 30 ? 7 : 5
+        ctx.fillText(words[0], body.x, body.y - lineSpacing)
+        ctx.fillText(words.slice(1).join(' '), body.x, body.y + lineSpacing)
       } else {
         ctx.fillText(body.name, body.x, body.y)
       }
@@ -194,7 +199,10 @@ export function SkillsPhysics() {
       if (!containerRef.current) return
       const rect = containerRef.current.getBoundingClientRect()
       const w = Math.floor(rect.width)
-      const h = Math.min(500, Math.max(350, window.innerHeight * 0.45))
+      const isMobile = w < 640
+      const h = isMobile
+        ? Math.min(700, Math.max(500, window.innerHeight * 0.75))
+        : Math.min(500, Math.max(350, window.innerHeight * 0.45))
 
       const prevW = dimensionsRef.current.width
       dimensionsRef.current = { width: w, height: h }
