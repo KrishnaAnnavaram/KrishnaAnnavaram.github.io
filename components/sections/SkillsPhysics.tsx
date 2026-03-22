@@ -23,9 +23,18 @@ export function SkillsPhysics() {
   const containerRef = useRef<HTMLDivElement>(null)
   const bodiesRef = useRef<SkillBody[]>([])
   const animFrameRef = useRef<number>(0)
+  // Use refs for values used in the animation loop to avoid restarting it on every state change
+  const dimensionsRef = useRef({ width: 800, height: 500 })
+  const activeCategoryRef = useRef<SkillCategory | null>(null)
+  const initializedRef = useRef(false)
   const [activeCategory, setActiveCategory] = useState<SkillCategory | null>(null)
   const [selectedSkill, setSelectedSkill] = useState<SkillBody | null>(null)
   const [dimensions, setDimensions] = useState({ width: 800, height: 500 })
+
+  // Keep activeCategoryRef in sync with state (for use inside draw without deps)
+  useEffect(() => {
+    activeCategoryRef.current = activeCategory
+  }, [activeCategory])
 
   const initBodies = useCallback((width: number, height: number) => {
     bodiesRef.current = skills.map((skill, i) => {
@@ -43,17 +52,30 @@ export function SkillsPhysics() {
         color: categoryColors[skill.category],
       }
     })
+    initializedRef.current = true
   }, [])
 
+  // Clamp existing bodies to new bounds instead of re-initializing them
+  const clampBodiesToBounds = useCallback((width: number, height: number) => {
+    for (const body of bodiesRef.current) {
+      if (body.x - body.radius < 0) body.x = body.radius
+      if (body.x + body.radius > width) body.x = width - body.radius
+      if (body.y + body.radius > height) {
+        body.y = height - body.radius
+        body.vy = 0
+      }
+    }
+  }, [])
+
+  // simulate reads from dimensionsRef so it never needs to be recreated
   const simulate = useCallback(() => {
     const bodies = bodiesRef.current
-    const { width, height } = dimensions
+    const { width, height } = dimensionsRef.current
     const gravity = 0.3
     const friction = 0.98
     const restitution = 0.6
 
     for (const body of bodies) {
-      // Gravity
       body.vy += gravity
       body.vx *= friction
       body.vy *= friction
@@ -61,13 +83,11 @@ export function SkillsPhysics() {
       body.x += body.vx
       body.y += body.vy
 
-      // Floor
       if (body.y + body.radius > height) {
         body.y = height - body.radius
         body.vy *= -restitution
         body.vx *= 0.95
       }
-      // Walls
       if (body.x - body.radius < 0) {
         body.x = body.radius
         body.vx *= -restitution
@@ -77,7 +97,6 @@ export function SkillsPhysics() {
         body.vx *= -restitution
       }
 
-      // Collision detection
       for (const other of bodies) {
         if (other.id <= body.id) continue
         const dx = other.x - body.x
@@ -109,27 +128,29 @@ export function SkillsPhysics() {
         }
       }
     }
-  }, [dimensions])
+  }, [])
 
+  // draw reads from refs so it never needs to be recreated
   const draw = useCallback(() => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    ctx.clearRect(0, 0, dimensions.width, dimensions.height)
+    const { width, height } = dimensionsRef.current
+    const currentCategory = activeCategoryRef.current
+
+    ctx.clearRect(0, 0, width, height)
 
     for (const body of bodiesRef.current) {
-      const isFiltered = activeCategory && body.category !== activeCategory
+      const isFiltered = currentCategory && body.category !== currentCategory
       const alpha = isFiltered ? 0.25 : 1
 
-      // Circle
       ctx.save()
       ctx.globalAlpha = alpha
       ctx.beginPath()
       ctx.arc(body.x, body.y, body.radius, 0, Math.PI * 2)
 
-      // Gradient fill
       const gradient = ctx.createRadialGradient(
         body.x - body.radius * 0.3,
         body.y - body.radius * 0.3,
@@ -143,19 +164,16 @@ export function SkillsPhysics() {
       ctx.fillStyle = gradient
       ctx.fill()
 
-      // Border
       ctx.strokeStyle = isFiltered ? body.color + '40' : body.color + 'aa'
       ctx.lineWidth = 1.5
       ctx.stroke()
 
-      // Text
       ctx.fillStyle = isFiltered ? '#ffffff44' : '#ffffff'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
       const fontSize = body.radius > 38 ? 10 : 9
       ctx.font = `${fontSize}px Inter, sans-serif`
 
-      // Wrap text if needed
       const maxWidth = body.radius * 1.5
       const words = body.name.split(' ')
       if (words.length > 1 && ctx.measureText(body.name).width > maxWidth) {
@@ -167,23 +185,51 @@ export function SkillsPhysics() {
       }
       ctx.restore()
     }
-  }, [activeCategory, dimensions])
+  }, [])
 
   useEffect(() => {
+    let resizeTimer: ReturnType<typeof setTimeout>
+
     const updateDimensions = () => {
       if (!containerRef.current) return
       const rect = containerRef.current.getBoundingClientRect()
-      const w = rect.width
+      const w = Math.floor(rect.width)
       const h = Math.min(500, Math.max(350, window.innerHeight * 0.45))
-      setDimensions({ width: w, height: h })
-      initBodies(w, h)
-    }
-    updateDimensions()
-    const ro = new ResizeObserver(updateDimensions)
-    if (containerRef.current) ro.observe(containerRef.current)
-    return () => ro.disconnect()
-  }, [initBodies])
 
+      const prevW = dimensionsRef.current.width
+      dimensionsRef.current = { width: w, height: h }
+
+      if (!initializedRef.current) {
+        // First initialization
+        initBodies(w, h)
+      } else if (Math.abs(prevW - w) > 20) {
+        // Only reinitialize on significant width change (e.g. orientation change)
+        // so mobile URL bar / keyboard changes don't reset bubbles
+        initBodies(w, h)
+      } else {
+        // Minor resize (URL bar, scroll): clamp bodies, don't reset them
+        clampBodiesToBounds(w, h)
+      }
+
+      setDimensions({ width: w, height: h })
+    }
+
+    // Debounce resize to prevent rapid firing on mobile scroll/URL bar animation
+    const debouncedUpdate = () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(updateDimensions, 150)
+    }
+
+    updateDimensions()
+    const ro = new ResizeObserver(debouncedUpdate)
+    if (containerRef.current) ro.observe(containerRef.current)
+    return () => {
+      ro.disconnect()
+      clearTimeout(resizeTimer)
+    }
+  }, [initBodies, clampBodiesToBounds])
+
+  // Animation loop — stable: simulate and draw never change (no state deps)
   useEffect(() => {
     const loop = () => {
       simulate()
@@ -194,26 +240,57 @@ export function SkillsPhysics() {
     return () => cancelAnimationFrame(animFrameRef.current)
   }, [simulate, draw])
 
-  const handleCanvasClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+  // Helper: get canvas-space coordinates accounting for CSS scaling
+  const getCanvasCoords = useCallback((clientX: number, clientY: number) => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    if (!canvas) return null
     const rect = canvas.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    const scaleX = dimensionsRef.current.width / rect.width
+    const scaleY = dimensionsRef.current.height / rect.height
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY,
+    }
+  }, [])
+
+  const handleCanvasClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+    const coords = getCanvasCoords(e.clientX, e.clientY)
+    if (!coords) return
+    const { x, y } = coords
 
     for (const body of bodiesRef.current) {
       const dx = x - body.x
       const dy = y - body.y
       if (Math.sqrt(dx * dx + dy * dy) < body.radius) {
-        // Apply upward impulse
         body.vy = -8 - Math.random() * 4
         body.vx = (Math.random() - 0.5) * 6
-        setSelectedSkill(body)
+        setSelectedSkill({ ...body })
         return
       }
     }
     setSelectedSkill(null)
-  }, [])
+  }, [getCanvasCoords])
+
+  const handleCanvasTouch = useCallback((e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (e.touches.length === 0) return
+    e.preventDefault()
+    const touch = e.touches[0]
+    const coords = getCanvasCoords(touch.clientX, touch.clientY)
+    if (!coords) return
+    const { x, y } = coords
+
+    for (const body of bodiesRef.current) {
+      const dx = x - body.x
+      const dy = y - body.y
+      if (Math.sqrt(dx * dx + dy * dy) < body.radius) {
+        body.vy = -8 - Math.random() * 4
+        body.vx = (Math.random() - 0.5) * 6
+        setSelectedSkill({ ...body })
+        return
+      }
+    }
+    setSelectedSkill(null)
+  }, [getCanvasCoords])
 
   return (
     <section className="section-padding">
@@ -276,6 +353,7 @@ export function SkillsPhysics() {
             width={dimensions.width}
             height={dimensions.height}
             onClick={handleCanvasClick}
+            onTouchStart={handleCanvasTouch}
             className="w-full cursor-pointer rounded-2xl border border-white/5"
             role="application"
             aria-label="Interactive skills physics simulation. Click bubbles to interact."
