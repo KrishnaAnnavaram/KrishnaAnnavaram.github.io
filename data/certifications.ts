@@ -12,6 +12,14 @@ export interface Certification {
 
 export const certifications: Certification[] = [
   {
+    id: 'azure-ai-engineer',
+    name: 'Microsoft Certified: Azure AI Engineer Associate (AI-102)',
+    issuer: 'Microsoft',
+    issuedDate: '2024-06',
+    category: 'Cloud & AI',
+    featured: true,
+  },
+  {
     id: 'aws-ai-practitioner',
     name: 'AWS Certified AI Practitioner',
     issuer: 'Amazon Web Services',
