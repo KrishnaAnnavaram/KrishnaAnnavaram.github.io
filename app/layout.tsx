@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: '%s | Krishna Annavaram',
   },
   description:
-    'Generative AI Engineer with 5+ years shipping production LLM systems, Graph-RAG pipelines, and multi-agent AI across pharma, enterprise, and research. Open to Senior GenAI roles.',
+    'Generative AI Engineer with 5+ years shipping production LLM systems, Graph-RAG pipelines, and multi-agent AI across healthcare, financial services, and telecom. Open to Senior GenAI roles.',
   keywords: [
     'Generative AI Engineer',
     'LLM Engineer',
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://krishnaannavaram.github.io',
     title: 'Krishna Annavaram — Generative AI Engineer | Graph-RAG · Multi-Agent · LLM Systems',
-    description: 'Generative AI Engineer specializing in production LLM systems, Graph-RAG pipelines, and multi-agent AI across 5 industries.',
+    description: 'Generative AI Engineer specializing in production LLM systems, Graph-RAG pipelines, and multi-agent AI across healthcare, financial services, and telecom.',
     siteName: 'Krishna Annavaram Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Krishna Annavaram — Generative AI Engineer',
-    description: 'Generative AI Engineer specializing in production LLM systems, Graph-RAG pipelines, and multi-agent AI across 5 industries.',
+    description: 'Generative AI Engineer specializing in production LLM systems, Graph-RAG pipelines, and multi-agent AI across healthcare, financial services, and telecom.',
   },
   robots: {
     index: true,

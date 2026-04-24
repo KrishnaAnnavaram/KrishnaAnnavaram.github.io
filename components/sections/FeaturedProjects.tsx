@@ -100,7 +100,7 @@ export function FeaturedProjects() {
               Featured Work
             </h2>
             <p className="text-text-secondary max-w-lg">
-              Production LLM systems shipped across pharma, enterprise, research, and clinical tech.
+              Production LLM systems shipped across healthcare, financial services, and telecom.
             </p>
           </div>
           <Link

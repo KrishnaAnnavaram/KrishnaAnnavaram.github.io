@@ -4,7 +4,7 @@ import { certifications } from '@/data/certifications'
 
 export const metadata: Metadata = {
   title: 'Certifications — Krishna Annavaram',
-  description: 'Professional certifications including AWS AI Practitioner and SAP Certified Development Associate.',
+  description: 'Professional certifications including Microsoft Azure AI Engineer Associate (AI-102) and AWS Certified AI Practitioner.',
 }
 
 function formatDate(dateStr: string): string {
