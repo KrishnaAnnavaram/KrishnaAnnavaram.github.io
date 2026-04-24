@@ -6,7 +6,7 @@ import { profile } from '@/data/profile'
 
 export const metadata: Metadata = {
   title: 'About Krishna Annavaram',
-  description: 'Generative AI Engineer with 5+ years shipping production LLM systems, Graph-RAG pipelines, and multi-agent AI across pharma, enterprise, and research.',
+  description: 'Generative AI Engineer with 5+ years shipping production LLM systems, Graph-RAG pipelines, and multi-agent AI across healthcare, financial services, and telecom.',
 }
 
 const principleIcons = { Server, Shield, Network }
@@ -134,9 +134,10 @@ export default function AboutPage() {
               <div>
                 <p className="text-brand-accent text-xs font-mono uppercase tracking-widest mb-3">My record</p>
                 <p className="text-text-primary text-lg">
-                  &ldquo;91% retrieval accuracy on a live Graph-RAG deployment. 85% process automation
-                  on a voice AI platform. 60% elimination of manual data entry via production NER.
-                  5 industries. All measured. All shipped.&rdquo;
+                  &ldquo;91% retrieval accuracy on a live Graph-RAG deployment at CVS Health.
+                  60% document retrieval efficiency improvement across 350,000+ financial docs at Morgan Stanley.
+                  22% upsell conversion lift via recommendation systems at Verizon.
+                  3 industries. All measured. All shipped.&rdquo;
                 </p>
               </div>
             </div>

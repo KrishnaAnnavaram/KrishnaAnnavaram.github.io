@@ -16,7 +16,7 @@ const HeroScene = dynamic(() => import('@/components/three/HeroScene').then(m =>
 const roles = [
   'Turning LLMs into Production Systems',
   'Graph-RAG · Multi-Agent · Fine-Tuning',
-  '5 Industries. All Shipped.',
+  'Healthcare · Finance · Telecom',
   'The Engineer Behind the Model',
 ]
 
@@ -200,8 +200,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-text-muted text-base leading-relaxed mb-10 max-w-lg"
           >
-            GenAI Engineer with 5+ years shipping production LLM systems across pharma,
-            enterprise, research, and clinical tech. Graph-RAG, Multi-Agent, Fine-Tuning — all in production.
+            GenAI Engineer with 5+ years shipping production LLM systems across healthcare,
+            financial services, and telecom. Graph-RAG, Multi-Agent, Fine-Tuning — all in production.
           </motion.p>
 
           <motion.div

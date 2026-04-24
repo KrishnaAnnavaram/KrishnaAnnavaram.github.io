@@ -27,7 +27,8 @@ export const skills: Skill[] = [
   { name: 'Embedding Models', category: 'GenAI & LLMs', level: 'Expert', years: 3, relatedProjects: ['graphrag-clinical-dss', 'unt-rag-assistant'] },
   { name: 'LangChain', category: 'GenAI & LLMs', level: 'Advanced', years: 3, relatedProjects: ['graphrag-clinical-dss', 'unt-rag-assistant'] },
   { name: 'LangSmith', category: 'GenAI & LLMs', level: 'Advanced', years: 2, relatedProjects: ['graphrag-clinical-dss'] },
-  { name: 'LLM Evaluation (RAGAS)', category: 'GenAI & LLMs', level: 'Advanced', years: 2, relatedProjects: ['graphrag-clinical-dss'] },
+  { name: 'LlamaIndex', category: 'GenAI & LLMs', level: 'Advanced', years: 2, relatedProjects: [] },
+  { name: 'LLM Evaluation / LLM-as-a-Judge', category: 'GenAI & LLMs', level: 'Advanced', years: 2, relatedProjects: ['graphrag-clinical-dss'] },
   { name: 'Hybrid Dense-Sparse Retrieval', category: 'GenAI & LLMs', level: 'Expert', years: 3, relatedProjects: ['graphrag-clinical-dss', 'unt-rag-assistant'] },
   { name: 'Chain-of-Thought / Few-Shot', category: 'GenAI & LLMs', level: 'Expert', years: 3, relatedProjects: ['graphrag-clinical-dss'] },
   { name: 'ReAct Agents', category: 'GenAI & LLMs', level: 'Advanced', years: 2, relatedProjects: ['voice-patient-intake'] },
@@ -75,8 +76,9 @@ export const skills: Skill[] = [
   { name: 'SQL / PostgreSQL', category: 'Engineering', level: 'Advanced', years: 5, relatedProjects: [] },
 
   // ─── Cloud & DevOps ───────────────────────────────────────────────────────
-  { name: 'Azure (OpenAI, AKS, ML)', category: 'Cloud & DevOps', level: 'Expert', years: 3, relatedProjects: ['graphrag-clinical-dss', 'voice-patient-intake'] },
-  { name: 'AWS (SageMaker, Bedrock, S3)', category: 'Cloud & DevOps', level: 'Advanced', years: 3, relatedProjects: ['incentive-ml-platform'] },
+  { name: 'Azure (OpenAI, AKS, ML, AI Search)', category: 'Cloud & DevOps', level: 'Expert', years: 3, relatedProjects: ['graphrag-clinical-dss'] },
+  { name: 'Azure AI Search', category: 'Cloud & DevOps', level: 'Expert', years: 2, relatedProjects: ['graphrag-clinical-dss'] },
+  { name: 'AWS (SageMaker, Lambda, S3, Kinesis)', category: 'Cloud & DevOps', level: 'Advanced', years: 4, relatedProjects: [] },
   { name: 'GCP (Vertex AI, Dataflow)', category: 'Cloud & DevOps', level: 'Advanced', years: 2, relatedProjects: ['biobert-drug-ner'] },
   { name: 'Neo4j Knowledge Graphs', category: 'Cloud & DevOps', level: 'Advanced', years: 2, relatedProjects: ['graphrag-clinical-dss'] },
   { name: 'FAISS / Pinecone / Milvus', category: 'Cloud & DevOps', level: 'Expert', years: 3, relatedProjects: ['graphrag-clinical-dss', 'unt-rag-assistant'] },
@@ -90,7 +92,10 @@ export const skills: Skill[] = [
   { name: 'ETL Pipelines', category: 'Data & Analytics', level: 'Expert', years: 5, relatedProjects: ['biobert-drug-ner', 'incentive-ml-platform'] },
   { name: 'Feature Engineering', category: 'Data & Analytics', level: 'Expert', years: 5, relatedProjects: ['job-recommendation-engine'] },
   { name: 'BigQuery / GCP Dataflow', category: 'Data & Analytics', level: 'Advanced', years: 2, relatedProjects: ['biobert-drug-ner'] },
-  { name: 'NLTK / spaCy', category: 'Data & Analytics', level: 'Expert', years: 5, relatedProjects: ['biobert-drug-ner', 'job-recommendation-engine', 'incentive-ml-platform'] },
+  { name: 'Apache Kafka / Spark Streaming', category: 'Data & Analytics', level: 'Advanced', years: 4, relatedProjects: [] },
+  { name: 'NLTK / spaCy', category: 'Data & Analytics', level: 'Expert', years: 5, relatedProjects: ['biobert-drug-ner'] },
+  { name: 'Tableau / Power BI', category: 'Data & Analytics', level: 'Advanced', years: 4, relatedProjects: [] },
+  { name: 'SciPy / StatsModels', category: 'Data & Analytics', level: 'Advanced', years: 4, relatedProjects: [] },
   { name: 'MongoDB / DynamoDB', category: 'Data & Analytics', level: 'Proficient', years: 2, relatedProjects: [] },
 
   // ─── Applied AI Domains ───────────────────────────────────────────────────
