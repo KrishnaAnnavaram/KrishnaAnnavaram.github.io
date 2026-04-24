@@ -53,8 +53,8 @@ EDUCATION:
 - Bachelor of Technology in Computer Science & Engineering — Kalasalingam University
 
 CERTIFICATIONS:
+- Microsoft Certified: Azure AI Engineer Associate (AI-102)
 - AWS Certified AI Practitioner (Jul 2025, expires Jul 2028)
-- SAP Certified Development Associate — ABAP
 
 CONTACT:
 - Email: ${profile.socials.email}
@@ -106,13 +106,13 @@ export async function streamConciergeResponse(
 
     if (lastMessage.includes('rag') || lastMessage.includes('graph') || lastMessage.includes('retrieval')) {
       response =
-        'Krishna is an expert in Graph-RAG and production RAG systems — Neo4j knowledge graphs, FAISS vector search, hybrid dense-sparse retrieval, and LangGraph multi-agent orchestration. Currently shipping at Ideate Technologies. Email: annavaramkrishna@gmail.com'
+        'Krishna is an expert in Graph-RAG and production RAG systems — Neo4j knowledge graphs, Azure AI Search, hybrid dense-sparse retrieval, and LangGraph multi-agent orchestration. Currently at CVS Health building a pharmacy Graph RAG platform with 91% retrieval accuracy. Email: annavaramkrishna@gmail.com'
     } else if (lastMessage.includes('skill') || lastMessage.includes('tech') || lastMessage.includes('llm')) {
       response =
-        'Krishna\'s core GenAI stack: Azure OpenAI (GPT-4o), LangGraph, LangChain, Neo4j, FAISS, Pinecone, LoRA/PEFT fine-tuning, FHIR/EHR integration, AKS, MLflow, Terraform. 5+ years across pharma, enterprise, and research. Email: annavaramkrishna@gmail.com'
+        "Krishna's core GenAI stack: Azure OpenAI (GPT-4o), LangGraph, LangChain, Neo4j, Azure AI Search, Pinecone, Llama 3, LoRA/PEFT fine-tuning, AKS, MLflow, Terraform. 5+ years across healthcare, financial services, and telecom. Email: annavaramkrishna@gmail.com"
     } else if (lastMessage.includes('industr') || lastMessage.includes('domain') || lastMessage.includes('experience')) {
       response =
-        'Krishna has shipped production AI across 5 industries: clinical tech (Graph-RAG, voice intake), pharma (BioBERT drug NER on GCP), enterprise financial services (AWS incentive compensation ML), academic research (UNT RAG assistant), and HR tech (job recommendation engine). Email: annavaramkrishna@gmail.com'
+        'Krishna has shipped production AI across healthcare (CVS Health — Graph RAG pharmacy platform, 91% retrieval accuracy), financial services (Morgan Stanley — RAG over 350K+ documents, LLM evaluation framework), and telecom (Verizon — churn prediction, real-time streaming, recommendation systems). Email: annavaramkrishna@gmail.com'
     } else if (lastMessage.includes('available') || lastMessage.includes('hire') || lastMessage.includes('role')) {
       response =
         'Krishna is open to Senior GenAI Engineer, LLM Platform Engineer, and Applied AI roles. Best to reach out at annavaramkrishna@gmail.com or via LinkedIn at linkedin.com/in/krishna-annavaram/'
