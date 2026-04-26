@@ -23,51 +23,6 @@
     "type": "CreateEvent",
     "repo": "KrishnaAnnavaram/KrishnaAnnavaram.github.io",
     "created_at": "2026-04-24T16:50:32Z"
-  },
-  {
-    "type": "PullRequestEvent",
-    "repo": "KrishnaAnnavaram/ResumeForge-AI",
-    "created_at": "2026-03-26T00:26:42Z"
-  },
-  {
-    "type": "PushEvent",
-    "repo": "KrishnaAnnavaram/ResumeForge-AI",
-    "created_at": "2026-03-26T00:26:43Z"
-  },
-  {
-    "type": "PullRequestEvent",
-    "repo": "KrishnaAnnavaram/ResumeForge-AI",
-    "created_at": "2026-03-26T00:26:31Z"
-  },
-  {
-    "type": "PushEvent",
-    "repo": "KrishnaAnnavaram/ResumeForge-AI",
-    "created_at": "2026-03-26T00:24:09Z"
-  },
-  {
-    "type": "PushEvent",
-    "repo": "KrishnaAnnavaram/ResumeForge-AI",
-    "created_at": "2026-03-26T00:08:57Z"
-  },
-  {
-    "type": "PullRequestEvent",
-    "repo": "KrishnaAnnavaram/ResumeForge-AI",
-    "created_at": "2026-03-26T00:08:56Z"
-  },
-  {
-    "type": "PullRequestEvent",
-    "repo": "KrishnaAnnavaram/ResumeForge-AI",
-    "created_at": "2026-03-26T00:08:47Z"
-  },
-  {
-    "type": "CreateEvent",
-    "repo": "KrishnaAnnavaram/ResumeForge-AI",
-    "created_at": "2026-03-26T00:06:41Z"
-  },
-  {
-    "type": "CreateEvent",
-    "repo": "KrishnaAnnavaram/ResumeForge-AI",
-    "created_at": "2026-03-26T00:03:37Z"
   }
 ]
 
