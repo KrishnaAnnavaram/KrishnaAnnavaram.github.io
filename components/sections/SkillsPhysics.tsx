@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
 import { skills, skillCategories, categoryColors, type SkillCategory } from '@/data/skills'
 import { cn } from '@/lib/utils'
 
@@ -30,8 +31,20 @@ function MobileSkillsView({
   setActiveCategory: (cat: SkillCategory | null) => void
 }) {
   const [selectedSkill, setSelectedSkill] = useState<(typeof skills)[0] | null>(null)
+  const [expandedCategories, setExpandedCategories] = useState<Set<SkillCategory>>(
+    () => new Set(skillCategories.slice(0, 2))
+  )
 
-  const filteredSkills = activeCategory ? skills.filter((s) => s.category === activeCategory) : skills
+  const categoriesToShow = activeCategory ? [activeCategory] : skillCategories
+
+  const toggleCategory = (cat: SkillCategory) => {
+    setExpandedCategories((prev: Set<SkillCategory>) => {
+      const next = new Set(prev)
+      if (next.has(cat)) next.delete(cat)
+      else next.add(cat)
+      return next
+    })
+  }
 
   return (
     <div className="md:hidden">
@@ -81,108 +94,155 @@ function MobileSkillsView({
         ))}
       </div>
 
-      {/* Skills grid */}
-      <motion.div
-        key={activeCategory ?? 'all'}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.22 }}
-        className="grid grid-cols-2 gap-2.5 pb-4"
-      >
-        {filteredSkills.map((skill) => {
-          const color = categoryColors[skill.category]
-          const isSelected = selectedSkill?.name === skill.name
-          const dots = levelDots[skill.level]
-
-          return (
-            <motion.button
-              key={skill.name}
-              onClick={() => setSelectedSkill(isSelected ? null : skill)}
-              className="text-left rounded-xl p-3 border transition-colors duration-200"
+      {/* Selected skill detail — inline card, no floating sheet */}
+      <AnimatePresence>
+        {selectedSkill && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.18 }}
+            className="overflow-hidden mb-3"
+          >
+            <div
+              className="rounded-xl p-3.5 border"
               style={{
-                backgroundColor: color + (isSelected ? '28' : '14'),
-                borderColor: color + (isSelected ? 'bb' : '30'),
+                backgroundColor: categoryColors[selectedSkill.category] + '18',
+                borderColor: categoryColors[selectedSkill.category] + '55',
               }}
-              whileTap={{ scale: 0.96 }}
             >
-              <p className="text-xs font-semibold text-text-primary leading-tight line-clamp-2 min-h-[2.25rem]">
-                {skill.name}
-              </p>
-              <div className="flex items-center justify-between mt-2">
-                <span className="text-xs text-text-muted">{skill.years}yr</span>
-                <div className="flex gap-0.5">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="font-semibold text-sm text-text-primary leading-tight">
+                    {selectedSkill.name}
+                  </p>
+                  <p className="text-xs text-text-muted mt-0.5">{selectedSkill.category}</p>
+                </div>
+                <button
+                  onClick={() => setSelectedSkill(null)}
+                  className="text-text-muted hover:text-text-primary text-lg leading-none shrink-0"
+                  aria-label="Close skill detail"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="flex items-center gap-3 mt-2">
+                <span
+                  className="text-xs px-2.5 py-0.5 rounded-full font-medium"
+                  style={{
+                    backgroundColor: categoryColors[selectedSkill.category] + '25',
+                    color: categoryColors[selectedSkill.category],
+                  }}
+                >
+                  {selectedSkill.level}
+                </span>
+                <span className="text-xs text-text-muted">
+                  {selectedSkill.years} year{selectedSkill.years !== 1 ? 's' : ''} exp
+                </span>
+                <div className="flex gap-0.5 ml-auto">
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="w-1.5 h-1.5 rounded-full"
+                      className="w-2 h-2 rounded-full"
                       style={{
-                        backgroundColor: i <= dots ? color : color + '30',
+                        backgroundColor:
+                          i <= levelDots[selectedSkill.level]
+                            ? categoryColors[selectedSkill.category]
+                            : categoryColors[selectedSkill.category] + '30',
                       }}
                     />
                   ))}
                 </div>
               </div>
-            </motion.button>
-          )
-        })}
-      </motion.div>
-
-      {/* Selected skill bottom sheet */}
-      <AnimatePresence>
-        {selectedSkill && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
-            transition={{ duration: 0.2 }}
-            className="fixed bottom-24 left-4 right-4 z-40 glass rounded-2xl p-4 border border-white/10 shadow-2xl"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <p className="font-display font-semibold text-text-primary leading-tight">
-                  {selectedSkill.name}
-                </p>
-                <p className="text-xs text-text-muted mt-0.5">{selectedSkill.category}</p>
-              </div>
-              <button
-                onClick={() => setSelectedSkill(null)}
-                className="text-text-muted hover:text-text-primary text-xl leading-none shrink-0 mt-0.5"
-                aria-label="Close skill detail"
-              >
-                ×
-              </button>
-            </div>
-            <div className="flex items-center gap-3 mt-3">
-              <span
-                className="text-xs px-2.5 py-1 rounded-full font-medium"
-                style={{
-                  backgroundColor: categoryColors[selectedSkill.category] + '25',
-                  color: categoryColors[selectedSkill.category],
-                }}
-              >
-                {selectedSkill.level}
-              </span>
-              <span className="text-xs text-text-muted">
-                {selectedSkill.years} year{selectedSkill.years !== 1 ? 's' : ''} experience
-              </span>
-              <div className="flex gap-0.5 ml-auto">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="w-2 h-2 rounded-full"
-                    style={{
-                      backgroundColor:
-                        i <= levelDots[selectedSkill.level]
-                          ? categoryColors[selectedSkill.category]
-                          : categoryColors[selectedSkill.category] + '30',
-                    }}
-                  />
-                ))}
-              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Category accordion sections */}
+      <div className="space-y-2 pb-4">
+        {categoriesToShow.map((cat) => {
+          const catSkills = skills.filter((s) => s.category === cat)
+          const color = categoryColors[cat]
+          const isExpanded = activeCategory !== null || expandedCategories.has(cat)
+
+          return (
+            <div key={cat} className="rounded-xl border overflow-hidden" style={{ borderColor: color + '25' }}>
+              {/* Accordion header — only shown in "All" view */}
+              {activeCategory === null && (
+                <button
+                  onClick={() => toggleCategory(cat)}
+                  className="w-full flex items-center justify-between px-3 py-2.5 transition-colors"
+                  style={{ backgroundColor: color + '12' }}
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
+                    <span className="text-sm font-semibold text-text-primary truncate">{cat}</span>
+                    <span
+                      className="text-xs px-1.5 py-0.5 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: color + '20', color }}
+                    >
+                      {catSkills.length}
+                    </span>
+                  </div>
+                  <ChevronDown
+                    size={14}
+                    className={cn(
+                      'text-text-muted transition-transform duration-200 flex-shrink-0 ml-2',
+                      isExpanded && 'rotate-180'
+                    )}
+                  />
+                </button>
+              )}
+
+              {/* Skill pills grid */}
+              <AnimatePresence initial={false}>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="grid grid-cols-3 gap-1.5 p-2">
+                      {catSkills.map((skill) => {
+                        const dots = levelDots[skill.level]
+                        const isSelected = selectedSkill?.name === skill.name
+
+                        return (
+                          <button
+                            key={skill.name}
+                            onClick={() => setSelectedSkill(isSelected ? null : skill)}
+                            className="rounded-lg px-2 py-2 border text-center transition-colors duration-150"
+                            style={{
+                              backgroundColor: color + (isSelected ? '2a' : '0d'),
+                              borderColor: color + (isSelected ? 'cc' : '28'),
+                            }}
+                          >
+                            <p className="text-xs font-medium text-text-primary leading-tight line-clamp-2">
+                              {skill.name}
+                            </p>
+                            <div className="flex justify-center gap-0.5 mt-1.5">
+                              {[1, 2, 3].map((i) => (
+                                <div
+                                  key={i}
+                                  className="w-1 h-1 rounded-full"
+                                  style={{ backgroundColor: i <= dots ? color : color + '30' }}
+                                />
+                              ))}
+                            </div>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
