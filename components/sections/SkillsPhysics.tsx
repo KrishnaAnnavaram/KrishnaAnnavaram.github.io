@@ -47,7 +47,7 @@ function MobileSkillsView({
   }
 
   return (
-    <div className="md:hidden">
+    <div>
       {/* Horizontal scrollable category tabs */}
       <div
         className="flex overflow-x-auto gap-2 pb-3 -mx-4 px-4"
@@ -94,7 +94,7 @@ function MobileSkillsView({
         ))}
       </div>
 
-      {/* Selected skill detail — inline card, no floating sheet */}
+      {/* Selected skill detail — inline card */}
       <AnimatePresence>
         {selectedSkill && (
           <motion.div
@@ -167,8 +167,12 @@ function MobileSkillsView({
           const isExpanded = activeCategory !== null || expandedCategories.has(cat)
 
           return (
-            <div key={cat} className="rounded-xl border overflow-hidden" style={{ borderColor: color + '25' }}>
-              {/* Accordion header — only shown in "All" view */}
+            <div
+              key={cat}
+              className="rounded-xl border overflow-hidden"
+              style={{ borderColor: color + '25' }}
+            >
+              {/* Accordion header — only in "All" view */}
               {activeCategory === null && (
                 <button
                   onClick={() => toggleCategory(cat)}
@@ -176,7 +180,10 @@ function MobileSkillsView({
                   style={{ backgroundColor: color + '12' }}
                 >
                   <div className="flex items-center gap-2 min-w-0">
-                    <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
+                    <div
+                      className="w-2 h-2 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: color }}
+                    />
                     <span className="text-sm font-semibold text-text-primary truncate">{cat}</span>
                     <span
                       className="text-xs px-1.5 py-0.5 rounded-full flex-shrink-0"
@@ -228,7 +235,9 @@ function MobileSkillsView({
                                 <div
                                   key={i}
                                   className="w-1 h-1 rounded-full"
-                                  style={{ backgroundColor: i <= dots ? color : color + '30' }}
+                                  style={{
+                                    backgroundColor: i <= dots ? color : color + '30',
+                                  }}
                                 />
                               ))}
                             </div>
@@ -247,9 +256,15 @@ function MobileSkillsView({
   )
 }
 
-// ─── Physics Canvas (Desktop) ──────────────────────────────────────────────
+// ─── Desktop Physics Canvas ────────────────────────────────────────────────
 
-export function SkillsPhysics() {
+function DesktopPhysicsCanvas({
+  activeCategory,
+  setActiveCategory,
+}: {
+  activeCategory: SkillCategory | null
+  setActiveCategory: (cat: SkillCategory | null) => void
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const bodiesRef = useRef<SkillBody[]>([])
@@ -257,7 +272,6 @@ export function SkillsPhysics() {
   const dimensionsRef = useRef({ width: 800, height: 500 })
   const activeCategoryRef = useRef<SkillCategory | null>(null)
   const initializedRef = useRef(false)
-  const [activeCategory, setActiveCategory] = useState<SkillCategory | null>(null)
   const [selectedSkill, setSelectedSkill] = useState<SkillBody | null>(null)
 
   useEffect(() => {
@@ -267,7 +281,7 @@ export function SkillsPhysics() {
   const initBodies = useCallback((width: number, height: number) => {
     const radiiMap = { Expert: 42, Advanced: 36, Proficient: 30 }
     bodiesRef.current = skills.map((skill, i) => {
-      const radius = radiiMap[skill.level]
+      const radius = radiiMap[skill.level as keyof typeof radiiMap]
       return {
         id: i,
         name: skill.name,
@@ -316,7 +330,6 @@ export function SkillsPhysics() {
       body.vy += gravity
       body.vx *= friction
       body.vy *= friction
-
       body.x += body.vx
       body.y += body.vy
 
@@ -488,11 +501,9 @@ export function SkillsPhysics() {
     (e: React.MouseEvent<HTMLCanvasElement>) => {
       const coords = getCanvasCoords(e.clientX, e.clientY)
       if (!coords) return
-      const { x, y } = coords
-
       for (const body of bodiesRef.current) {
-        const dx = x - body.x
-        const dy = y - body.y
+        const dx = coords.x - body.x
+        const dy = coords.y - body.y
         if (Math.sqrt(dx * dx + dy * dy) < body.radius) {
           body.vy = -8 - Math.random() * 4
           body.vx = (Math.random() - 0.5) * 6
@@ -512,11 +523,9 @@ export function SkillsPhysics() {
       const touch = e.touches[0]
       const coords = getCanvasCoords(touch.clientX, touch.clientY)
       if (!coords) return
-      const { x, y } = coords
-
       for (const body of bodiesRef.current) {
-        const dx = x - body.x
-        const dy = y - body.y
+        const dx = coords.x - body.x
+        const dy = coords.y - body.y
         if (Math.sqrt(dx * dx + dy * dy) < body.radius) {
           body.vy = -8 - Math.random() * 4
           body.vx = (Math.random() - 0.5) * 6
@@ -528,6 +537,107 @@ export function SkillsPhysics() {
     },
     [getCanvasCoords]
   )
+
+  return (
+    <div>
+      {/* Category filters */}
+      <div
+        className="flex flex-wrap justify-center gap-2 mb-6"
+        role="group"
+        aria-label="Filter skills by category"
+      >
+        <button
+          onClick={() => setActiveCategory(null)}
+          className={cn(
+            'px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200',
+            !activeCategory
+              ? 'bg-brand-primary border-brand-primary text-white'
+              : 'border-white/10 text-text-secondary hover:border-brand-primary/30 hover:text-text-primary'
+          )}
+          aria-pressed={!activeCategory}
+        >
+          All
+        </button>
+        {skillCategories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
+            className={cn(
+              'px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200',
+              activeCategory === cat
+                ? 'text-white border-transparent'
+                : 'border-white/10 text-text-secondary hover:text-text-primary'
+            )}
+            style={
+              activeCategory === cat
+                ? { backgroundColor: categoryColors[cat], borderColor: categoryColors[cat] }
+                : {}
+            }
+            aria-pressed={activeCategory === cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Canvas */}
+      <div ref={containerRef} className="relative w-full">
+        <canvas
+          ref={canvasRef}
+          onClick={handleCanvasClick}
+          onTouchStart={handleCanvasTouch}
+          className="cursor-pointer rounded-2xl border border-white/5"
+          role="application"
+          aria-label="Interactive skills physics simulation. Click bubbles to interact."
+        />
+
+        {selectedSkill && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="absolute top-4 right-4 glass p-4 max-w-xs"
+          >
+            <p className="font-display font-semibold text-text-primary">{selectedSkill.name}</p>
+            <p className="text-xs text-text-muted mt-1">{selectedSkill.category}</p>
+            <div className="flex items-center gap-2 mt-2">
+              <span
+                className="text-xs px-2 py-0.5 rounded-full font-medium"
+                style={{
+                  backgroundColor: selectedSkill.color + '30',
+                  color: selectedSkill.color,
+                }}
+              >
+                {selectedSkill.level}
+              </span>
+            </div>
+            <button
+              onClick={() => setSelectedSkill(null)}
+              className="absolute top-2 right-2 text-text-muted hover:text-text-primary"
+              aria-label="Close skill detail"
+            >
+              ×
+            </button>
+          </motion.div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ─── Main Export ───────────────────────────────────────────────────────────
+
+export function SkillsPhysics() {
+  const [activeCategory, setActiveCategory] = useState<SkillCategory | null>(null)
+  // Default true (mobile) for static export SSR — corrected after hydration
+  const [isMobile, setIsMobile] = useState(true)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   return (
     <section className="section-padding">
@@ -543,99 +653,23 @@ export function SkillsPhysics() {
             Skills & Expertise
           </h2>
           <p className="text-text-secondary max-w-lg mx-auto text-sm md:text-base">
-            <span className="md:hidden">Tap any skill to see details. Filter by category.</span>
-            <span className="hidden md:inline">Click any skill bubble to interact. Filter by category below.</span>
+            {isMobile
+              ? 'Tap any skill to see details. Filter by category.'
+              : 'Click any skill bubble to interact. Filter by category below.'}
           </p>
         </motion.div>
 
-        {/* ── Mobile view ── */}
-        <MobileSkillsView activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
-
-        {/* ── Desktop view ── */}
-        <div className="hidden md:block">
-          {/* Category filters */}
-          <div
-            className="flex flex-wrap justify-center gap-2 mb-6"
-            role="group"
-            aria-label="Filter skills by category"
-          >
-            <button
-              onClick={() => setActiveCategory(null)}
-              className={cn(
-                'px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200',
-                !activeCategory
-                  ? 'bg-brand-primary border-brand-primary text-white'
-                  : 'border-white/10 text-text-secondary hover:border-brand-primary/30 hover:text-text-primary'
-              )}
-              aria-pressed={!activeCategory}
-            >
-              All
-            </button>
-            {skillCategories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
-                className={cn(
-                  'px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200',
-                  activeCategory === cat
-                    ? 'text-white border-transparent'
-                    : 'border-white/10 text-text-secondary hover:text-text-primary'
-                )}
-                style={
-                  activeCategory === cat
-                    ? { backgroundColor: categoryColors[cat], borderColor: categoryColors[cat] }
-                    : {}
-                }
-                aria-pressed={activeCategory === cat}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Canvas */}
-          <div ref={containerRef} className="relative w-full">
-            <canvas
-              ref={canvasRef}
-              onClick={handleCanvasClick}
-              onTouchStart={handleCanvasTouch}
-              className="cursor-pointer rounded-2xl border border-white/5"
-              role="application"
-              aria-label="Interactive skills physics simulation. Click bubbles to interact."
-            />
-
-            {/* Selected skill tooltip */}
-            {selectedSkill && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="absolute top-4 right-4 glass p-4 max-w-xs"
-              >
-                <p className="font-display font-semibold text-text-primary">{selectedSkill.name}</p>
-                <p className="text-xs text-text-muted mt-1">{selectedSkill.category}</p>
-                <div className="flex items-center gap-2 mt-2">
-                  <span
-                    className="text-xs px-2 py-0.5 rounded-full font-medium"
-                    style={{
-                      backgroundColor: selectedSkill.color + '30',
-                      color: selectedSkill.color,
-                    }}
-                  >
-                    {selectedSkill.level}
-                  </span>
-                </div>
-                <button
-                  onClick={() => setSelectedSkill(null)}
-                  className="absolute top-2 right-2 text-text-muted hover:text-text-primary"
-                  aria-label="Close skill detail"
-                >
-                  ×
-                </button>
-              </motion.div>
-            )}
-          </div>
-        </div>
+        {isMobile ? (
+          <MobileSkillsView
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
+        ) : (
+          <DesktopPhysicsCanvas
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
+        )}
       </div>
     </section>
   )
