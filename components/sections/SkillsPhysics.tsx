@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { skills, skillCategories, categoryColors, type SkillCategory } from '@/data/skills'
@@ -51,8 +51,7 @@ function MobileSkillsView({
       {/* Horizontal scrollable category tabs */}
       <div
         className="flex overflow-x-auto gap-2 pb-3 -mx-4 px-4"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        style={{ scrollbarWidth: 'none' } as any}
+        style={{ scrollbarWidth: 'none' } as React.CSSProperties}
         role="group"
         aria-label="Filter skills by category"
       >
