@@ -1,51 +1,77 @@
 export const profile = {
   name: 'Krishna Annavaram',
-  headline: 'Generative AI Engineer | Azure AI-102 Certified · Graph-RAG · Multi-Agent AI · LLM Systems',
-  location: 'Denton, TX',
-  bio: `I'm a Generative AI Engineer with 5+ years of experience architecting and deploying production-grade AI systems — across healthcare (CVS Health), financial services (Morgan Stanley), and telecommunications (Verizon).
+  firstName: 'Krishna',
+  role: 'Generative AI Engineer',
+  headline: 'Generative AI Engineer',
+  tagline: 'I build LLM systems that hold up in production.',
+  location: 'Denton, Texas',
+  locationShort: 'Denton, TX',
+  availability: 'Open to Generative AI, Applied AI, and ML Engineering roles',
 
-I don't build demos. I build the agentic Graph RAG platform that hits 91% retrieval accuracy across CVS Health pharmacy workflows, the enterprise RAG pipeline indexing 350,000+ financial documents at Morgan Stanley with 60% retrieval efficiency improvement, and the churn and recommendation ML systems driving measurable outcomes for millions of Verizon subscribers.
+  /** One paragraph. The thing a hiring manager reads before deciding to scroll. */
+  intro: `I'm a Generative AI Engineer with five years of experience taking retrieval, agent, and NLP systems from notebook to production — currently at Virtusa, previously at Ideate Technologies, Cognizant, and Lemoius, with a graduate teaching assistantship at the University of North Texas in between.`,
 
-My edge is the architecture layer. Anyone can call an API. The hard part is designing knowledge graphs that capture entity relationships LLMs can't hallucinate around, engineering hybrid retrieval architectures that combine vector search, semantic search, and reranking, orchestrating LangGraph multi-agent workflows with MCP and A2A patterns under production load, and wrapping it all in MLOps infrastructure that sustains 99.5% service availability. That's what I've shipped — across three regulated enterprise environments — and every system delivers measurable outcomes.`,
-  philosophy: `A GPT-4o call is a commodity. The moat is everything around it: knowledge graph design that structures domain relationships before retrieval ever happens, hybrid dense-sparse search that fuses BM25 precision with embedding-based semantic depth, PEFT fine-tuning pipelines that adapt transformer models to specialized corpora without catastrophic forgetting, and zero-downtime MLOps infrastructure that makes the difference between a prototype and a system your team depends on daily.
-I've built all of it — across healthcare, financial services, and telecom — and I measure every delivery in production outcomes, not benchmark scores.`,
+  /** The argument for hiring him, in his own frame. */
+  positioning: `Most AI work fails at the engineering layer, not the model layer. A capable model behind a weak pipeline is still a demo — it drifts, it can't be evaluated, and nobody can tell you why it answered the way it did.
+
+I treat generative AI as a systems problem. That means structured outputs instead of free text, retrieval you can trace back to a source, evaluation harnesses that run on every change, and cost and latency budgets that are tracked rather than discovered in production. It's less exciting than a leaderboard score, and it's the difference between something a team uses daily and something they abandon after the pilot.`,
+
   principles: [
     {
-      title: 'Outcomes Over Accuracy Scores',
+      title: 'Structured contracts over prompt hacks',
       description:
-        "I track what actually moves: retrieval accuracy against real query sets, automation percentages measured against baseline workflows, latency under concurrent production load. If a metric isn't measured in a live deployment, it doesn't count.",
-      icon: 'Shield',
+        'A model that returns free text is an integration problem waiting to happen. I design schemas first and constrain generation to fit them, so downstream systems get something they can validate instead of something they have to parse.',
     },
     {
-      title: 'Architecture Before Implementation',
+      title: 'Retrieval you can trace',
       description:
-        'Graph-RAG instead of naive retrieval. LangGraph orchestration instead of monolithic chains. Hybrid dense-sparse search instead of single-index. Every architectural decision I make compounds — the right design at the start multiplies impact across every downstream metric.',
-      icon: 'Network',
+        'Grounding is only useful if you can show your work. I separate retrieval, reasoning, and validation into distinct stages so every answer carries its evidence — which also makes failures diagnosable instead of mysterious.',
     },
     {
-      title: 'Production Is the Only Standard',
+      title: 'Evaluation before scale',
       description:
-        "I've shipped AI into live environments where failure means missed SLAs, bad outputs reach real users, and engineering debt compounds fast. That pressure shaped how I build: every system includes monitoring, fallback logic, and MLOps infrastructure that runs reliably around the clock.",
-      icon: 'Server',
+        'Hallucination rate, answer accuracy, and latency are engineering metrics, not vibes. I build the measurement harness before the system grows, because you cannot improve a pipeline whose behaviour you are guessing at.',
+    },
+    {
+      title: 'Cost and latency are features',
+      description:
+        'Token spend and p95 response time decide whether a system is adopted or quietly switched off. I profile both from the start and treat a regression in either as a bug, not a trade-off to explain away.',
     },
   ],
+
+  education: [
+    {
+      institution: 'University of North Texas',
+      degree: 'Master of Science, Data Science',
+      focus: 'Applied Natural Language Processing & Generative AI',
+      location: 'Denton, TX',
+    },
+    {
+      institution: 'Kalasalingam University',
+      degree: 'Bachelor of Technology, Computer Science & Engineering',
+      focus: 'Machine Learning & Deep Learning',
+      location: 'India',
+    },
+  ],
+
+  idealRoles: [
+    'Generative AI Engineer',
+    'LLM Engineer',
+    'RAG Engineer',
+    'Applied AI Engineer',
+    'Machine Learning Engineer (NLP / LLMs)',
+    'AI Platform Engineer',
+  ],
+
   socials: {
     email: 'annavaramkrishna@gmail.com',
+    phone: '+1 972-957-7974',
     linkedin: 'https://www.linkedin.com/in/krishna-annavaram/',
     github: 'https://github.com/KrishnaAnnavaram',
-    scholar: '',
   },
-  availability: 'Open to Senior GenAI Engineer · Applied AI · LLM Platform roles',
+
   resumeUrl: '/resume/resume.pdf',
-  coverLetterUrl: '/resume/cover-letter.pdf',
-  differentiator:
-    'Most candidates say "Built a RAG pipeline." My record: 91% retrieval accuracy on a live Graph-RAG deployment at CVS Health, 60% document retrieval efficiency improvement across 350,000+ financial documents at Morgan Stanley, 22% upsell conversion lift via recommendation systems at Verizon — 3 industries, all measured, all shipped.',
-  idealRoles: [
-    'Senior Generative AI Engineer',
-    'LLM Platform Engineer',
-    'Applied AI Engineer',
-    'RAG / Graph-RAG Engineer',
-    'ML Engineer (NLP / LLMs)',
-    'AI Infrastructure Engineer',
-  ],
-}
+  siteUrl: 'https://krishnaannavaram.github.io',
+} as const
+
+export type Profile = typeof profile

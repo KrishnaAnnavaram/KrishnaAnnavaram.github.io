@@ -1,152 +1,118 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Download } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Menu, X } from 'lucide-react'
+import { navItems } from '@/data/nav'
+import { profile } from '@/data/profile'
 import { cn } from '@/lib/utils'
+import { ThemeToggle } from './ThemeToggle'
+import { CommandPalette, type PaletteItem } from './CommandPalette'
 
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/experience', label: 'Experience' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/publications', label: 'Publications' },
-  { href: '/writing', label: 'Writing' },
-  { href: '/contact', label: 'Contact' },
-]
-
-export function Header() {
-  const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
+export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
   const pathname = usePathname()
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
-    setMobileOpen(false)
+    setMenuOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
 
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-        scrolled ? 'glass border-b border-white/5 py-3' : 'py-5'
+        'sticky top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300',
+        scrolled
+          ? 'border-b border-rule bg-paper/85 backdrop-blur-md'
+          : 'border-b border-transparent bg-transparent'
       )}
     >
-      <nav className="container-wide px-4 flex items-center justify-between" aria-label="Primary navigation">
-        {/* Logo */}
+      <div className="page-x mx-auto flex h-16 max-w-page items-center justify-between gap-4">
         <Link
           href="/"
-          className="font-display font-bold text-xl text-text-primary hover:text-brand-primary transition-colors"
-          aria-label="Krishna Annavaram — Home"
+          className="group flex shrink-0 items-baseline gap-2.5 text-ink"
+          aria-label={`${profile.name} — home`}
         >
-          <span className="text-gradient">KA</span>
-          <span className="text-text-secondary ml-1 text-sm font-normal hidden sm:inline">
-            / GenAI Engineer
+          <span className="font-serif text-lg leading-none tracking-tight">{profile.name}</span>
+          <span className="hidden font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint sm:inline">
+            {profile.role}
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex items-center gap-1" role="list">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={cn(
-                  'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 relative',
-                  pathname === link.href
-                    ? 'text-brand-primary'
-                    : 'text-text-secondary hover:text-text-primary hover:bg-white/5'
-                )}
-                aria-current={pathname === link.href ? 'page' : undefined}
-              >
-                {link.label}
-                {pathname === link.href && (
-                  <motion.div
-                    layoutId="nav-indicator"
-                    className="absolute inset-0 rounded-lg bg-brand-primary/10 border border-brand-primary/20"
-                    transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
-                  />
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          <a
-            href="/resume/resume.pdf"
-            download
-            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-brand-primary/30 text-brand-primary text-sm font-medium hover:bg-brand-primary/10 transition-all duration-200"
-            aria-label="Download Resume PDF"
-          >
-            <Download size={14} aria-hidden="true" />
-            Resume
-          </a>
-        </div>
-
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 rounded-lg glass-sm text-text-secondary hover:text-text-primary transition-colors"
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-menu"
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-        >
-          {mobileOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            id="mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden glass border-t border-white/5"
-          >
-            <ul className="container-wide px-4 py-4 flex flex-col gap-1" role="list">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={cn(
-                      'block px-4 py-3 rounded-lg text-base font-medium transition-colors',
-                      pathname === link.href
-                        ? 'text-brand-primary bg-brand-primary/10'
-                        : 'text-text-secondary hover:text-text-primary hover:bg-white/5'
-                    )}
-                    aria-current={pathname === link.href ? 'page' : undefined}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              <li className="pt-2 border-t border-white/5">
-                <a
-                  href="/resume/resume.pdf"
-                  download
-                  className="flex items-center gap-2 px-4 py-3 text-brand-primary font-medium"
-                  aria-label="Download Resume PDF"
+        <div className="flex items-center gap-2">
+          <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+            {navItems.map((item) => {
+              const active = pathname.startsWith(item.href)
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={cn(
+                    'relative rounded-full px-3 py-1.5 text-sm transition-colors duration-200',
+                    active ? 'text-ink' : 'text-ink-muted hover:text-ink'
+                  )}
                 >
-                  <Download size={16} aria-hidden="true" />
-                  Download Resume
-                </a>
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  {item.label}
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-3 -bottom-px h-px bg-accent"
+                    />
+                  )}
+                </Link>
+              )
+            })}
+          </nav>
+
+          <div className="hidden sm:block">
+            <CommandPalette items={paletteItems} />
+          </div>
+          <ThemeToggle />
+
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-expanded={menuOpen}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            className="grid size-8 place-items-center rounded-full border border-rule bg-surface text-ink transition-colors hover:bg-sunken md:hidden"
+          >
+            {menuOpen ? <X size={15} aria-hidden /> : <Menu size={15} aria-hidden />}
+          </button>
+        </div>
+      </div>
+
+      {menuOpen && (
+        <nav
+          aria-label="Mobile"
+          className="page-x border-t border-rule bg-paper pb-6 pt-2 md:hidden"
+        >
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex items-baseline justify-between border-b border-rule py-3.5 last:border-0"
+            >
+              <span className="font-serif text-xl text-ink">{item.label}</span>
+              <span className="max-w-[55%] text-right text-xs text-ink-muted">{item.hint}</span>
+            </Link>
+          ))}
+        </nav>
+      )}
     </header>
   )
 }

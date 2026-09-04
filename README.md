@@ -1,76 +1,71 @@
-# Krishna Annavaram — Portfolio
+# krishnaannavaram.github.io
 
-Personal portfolio website for Krishna Annavaram, GenAI Engineer and Healthcare AI Specialist.
+Personal site for Krishna Annavaram — Generative AI Engineer. Static Next.js export, deployed to
+GitHub Pages.
 
-**Live:** https://krishnaannavaram.github.io
+**Read [`CONTENT_TODO.md`](./CONTENT_TODO.md) first** — it lists the content that still needs real
+detail and the claims that were removed from the previous version.
 
-## Tech Stack
+## Stack
 
-- **Framework:** Next.js 14 App Router with TypeScript (strict mode)
-- **Styling:** Tailwind CSS with custom design system tokens
-- **Animation:** Framer Motion 11+ and GSAP 3.12+
-- **3D:** React Three Fiber / Three.js with custom GLSL shaders
-- **AI:** Claude API integration via proxy endpoint
-- **Content:** MDX for writing section
-- **Deployment:** GitHub Pages via `next export`
+| | |
+|---|---|
+| Framework | Next.js 15 (App Router, `output: 'export'`) |
+| UI | React 19 |
+| Styling | Tailwind CSS v4 — CSS-first `@theme`, no config file |
+| Content | TypeScript data modules + MDX for essays |
+| Icons | lucide-react |
+| Hosting | GitHub Pages via Actions |
 
-## Local Development
+No animation library, no 3D, no charting library, no client-side AI. First Load JS is ~103 kB
+shared, 106–120 kB per route.
+
+## Commands
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build locally
-npx serve out
+npm run dev        # http://localhost:3000
+npm run build      # static export to ./out
+npm run typecheck
+npm run lint
 ```
 
-The dev server runs at http://localhost:3000
+## Where the content lives
 
-## Environment Variables
-
-Create a `.env.local` file for local development:
-
-```env
-# AI Concierge endpoint (your Vercel/Cloudflare Worker URL)
-NEXT_PUBLIC_AI_ENDPOINT=https://your-ai-proxy.vercel.app/api/concierge
-
-# Contact form endpoint
-NEXT_PUBLIC_CONTACT_ENDPOINT=https://your-form-handler.vercel.app/api/contact
-```
-
-For GitHub Pages deployment, add these as repository secrets:
-- `AI_ENDPOINT` → your AI proxy URL
-- `CONTACT_ENDPOINT` → your contact form handler URL
-
-## Project Structure
+Everything the site renders comes from `data/` and `content/`. No copy is hardcoded in components.
 
 ```
-├── app/                    # Next.js App Router pages
-├── components/
-│   ├── ai/                 # AI Concierge
-│   ├── layout/             # Header, Footer, MobileNav
-│   ├── sections/           # Homepage sections
-│   ├── three/              # Three.js 3D components
-│   └── ui/                 # Shared UI components
-├── content/writing/        # MDX blog posts
-├── data/                   # All profile/experience/project data
-├── lib/                    # Utilities and AI client code
-├── public/                 # Static assets
-└── styles/                 # Global CSS
+data/profile.ts          name, intro, positioning, principles, education, socials
+data/experience.ts       roles — the LinkedIn record is the source of truth
+data/work.ts             case studies (problem → approach → outcome)
+data/publications.ts     research, each entry backed by a PDF in public/reports/
+data/skills.ts           grouped technical inventory
+data/certifications.ts   credentials, with Credly verify links
+data/nav.ts              navigation and the command-palette hints
+content/writing/*.mdx    essays; frontmatter drives the index
 ```
 
-## Updating Content
+Adding a case study to `data/work.ts` with `featured: true` puts it on the home page, in `/work`,
+in the sitemap, and in the ⌘K palette — no other edits needed. Same for an MDX file dropped into
+`content/writing/`.
 
-See [CONTENT_GUIDE.md](./CONTENT_GUIDE.md) for instructions on updating profile data, adding projects, and writing new articles.
+## Design system
+
+Defined entirely in `app/globals.css`. Light and dark are both first-class: colours are authored
+as `oklch` tokens on `:root`, redefined under `prefers-color-scheme: dark` (guarded so an explicit
+light choice wins) and again under `[data-theme='dark']` so the toggle overrides in both
+directions.
+
+Type is Instrument Serif for display, Inter for text, JetBrains Mono for labels and data, all
+self-hosted at build time through `next/font`.
+
+Scroll reveals are CSS transitions armed by a `.js` class that the boot script adds before first
+paint. Without JavaScript nothing is hidden, and a three-second fallback timer reveals anything
+still hidden if hydration never lands — **content never depends on script**.
 
 ## Deployment
 
-See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for full deployment instructions.
+Pushing to `main` runs `.github/workflows/deploy.yml`: install → typecheck → lint → build →
+publish `out/` to Pages. A type error or lint warning fails the build before anything deploys.
 
-Deployment is automatic on push to `main` via GitHub Actions. The `claude/` branch is for AI-assisted development and should be merged to `main` when ready.
+To host under a subpath, set `NEXT_PUBLIC_BASE_PATH` in the workflow environment.

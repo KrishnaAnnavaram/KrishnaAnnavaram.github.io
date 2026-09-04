@@ -1,119 +1,77 @@
 import Link from 'next/link'
-import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import { navItems } from '@/data/nav'
 import { profile } from '@/data/profile'
 
-const footerLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Experience', href: '/experience' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Publications', href: '/publications' },
-  { label: 'Certifications', href: '/certifications' },
-  { label: 'Writing', href: '/writing' },
-  { label: 'Contact', href: '/contact' },
+const elsewhere = [
+  { label: 'Email', href: `mailto:${profile.socials.email}`, external: true },
+  { label: 'LinkedIn', href: profile.socials.linkedin, external: true },
+  { label: 'GitHub', href: profile.socials.github, external: true },
+  { label: 'Résumé (PDF)', href: profile.resumeUrl, external: true },
 ]
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
-
   return (
-    <footer className="border-t border-white/5 bg-background-secondary py-12 px-4 mt-20">
-      <div className="container-wide">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Brand */}
-          <div>
-            <Link href="/" className="font-display font-bold text-2xl text-gradient" aria-label="Home">
-              Krishna Annavaram
+    <footer className="rule-t mt-16">
+      <div className="page-x mx-auto max-w-page py-16">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]">
+          <div className="max-w-sm">
+            <p className="font-serif text-2xl leading-tight text-ink">
+              Building LLM systems that survive contact with production.
+            </p>
+            <p className="mt-4 text-sm text-ink-muted">{profile.availability}</p>
+            <Link
+              href="/contact/"
+              className="mt-6 inline-flex items-center gap-1.5 border-b border-accent pb-0.5 text-sm text-ink transition-colors hover:text-accent"
+            >
+              Get in touch
+              <ArrowUpRight size={14} aria-hidden />
             </Link>
-            <p className="mt-2 text-text-muted text-sm leading-relaxed">
-              GenAI Engineer · Graph-RAG · Multi-Agent AI · LLM Systems
-            </p>
-            <p className="mt-1 text-text-muted text-xs">
-              Denton, TX · Open to Senior GenAI roles
-            </p>
           </div>
 
-          {/* Navigation */}
-          <nav aria-label="Footer navigation">
-            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-widest mb-4">
-              Navigation
-            </h2>
-            <ul className="grid grid-cols-2 gap-x-4 gap-y-2" role="list">
-              {footerLinks.map((link) => (
-                <li key={link.href}>
+          <nav aria-label="Footer">
+            <h2 className="eyebrow">Pages</h2>
+            <ul className="mt-4 space-y-2.5">
+              {navItems.map((item) => (
+                <li key={item.href}>
                   <Link
-                    href={link.href}
-                    className="text-text-secondary text-sm hover:text-text-primary transition-colors"
+                    href={item.href}
+                    className="link-underline text-sm text-ink-soft transition-colors hover:text-ink"
                   >
-                    {link.label}
+                    {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
-          {/* Connect */}
           <div>
-            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-widest mb-4">
-              Connect
-            </h2>
-            <div className="flex flex-col gap-2">
-              <a
-                href={`mailto:${profile.socials.email}`}
-                className="flex items-center gap-2 text-text-secondary text-sm hover:text-brand-primary transition-colors"
-                aria-label={`Email Krishna at ${profile.socials.email}`}
-              >
-                <Mail size={14} aria-hidden="true" />
-                {profile.socials.email}
-              </a>
-              <a
-                href={profile.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-text-secondary text-sm hover:text-brand-primary transition-colors"
-                aria-label="LinkedIn profile (opens in new tab)"
-              >
-                <Linkedin size={14} aria-hidden="true" />
-                LinkedIn
-                <ExternalLink size={10} aria-hidden="true" />
-              </a>
-              <a
-                href={profile.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-text-secondary text-sm hover:text-brand-primary transition-colors"
-                aria-label="GitHub profile (opens in new tab)"
-              >
-                <Github size={14} aria-hidden="true" />
-                GitHub
-                <ExternalLink size={10} aria-hidden="true" />
-              </a>
-            </div>
+            <h2 className="eyebrow">Elsewhere</h2>
+            <ul className="mt-4 space-y-2.5">
+              {elsewhere.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-underline inline-flex items-center gap-1 text-sm text-ink-soft transition-colors hover:text-ink"
+                  >
+                    {item.label}
+                    <ArrowUpRight size={12} className="text-ink-faint" aria-hidden />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-text-muted text-xs">
-            © {currentYear} Krishna Annavaram. Built with Next.js & Three.js.
+        <div className="rule-t mt-16 flex flex-col gap-2 pt-6 text-2xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono uppercase tracking-[0.14em]">
+            © {new Date().getFullYear()} {profile.name}
           </p>
-          <div className="flex items-center gap-4">
-            <a
-              href={profile.resumeUrl}
-              download
-              className="text-text-muted text-xs hover:text-brand-primary transition-colors"
-              aria-label="Download Resume PDF"
-            >
-              Download Resume
-            </a>
-            <a
-              href={profile.coverLetterUrl}
-              download
-              className="text-text-muted text-xs hover:text-brand-primary transition-colors"
-              aria-label="Download Cover Letter PDF"
-            >
-              Cover Letter
-            </a>
-          </div>
+          <p className="font-mono uppercase tracking-[0.14em]">
+            {profile.locationShort} · Built with Next.js
+          </p>
         </div>
       </div>
     </footer>

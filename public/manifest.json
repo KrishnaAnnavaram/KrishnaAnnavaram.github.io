@@ -1,44 +1,9 @@
 {
-  "name": "Krishna Annavaram — GenAI Engineer",
-  "short_name": "Krishna A.",
-  "description": "GenAI Engineer specializing in production LLM systems, RAG pipelines, and healthcare AI.",
+  "name": "Krishna Annavaram — Generative AI Engineer",
+  "short_name": "K. Annavaram",
+  "description": "Generative AI Engineer building retrieval, agent, and NLP systems that run in production.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#050508",
-  "theme_color": "#6366f1",
-  "orientation": "portrait-primary",
-  "categories": ["portfolio", "technology"],
-  "icons": [
-    {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-maskable.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "screenshots": [],
-  "shortcuts": [
-    {
-      "name": "Projects",
-      "url": "/projects",
-      "description": "View portfolio projects"
-    },
-    {
-      "name": "Contact",
-      "url": "/contact",
-      "description": "Get in touch"
-    }
-  ]
+  "background_color": "#fafaf9",
+  "theme_color": "#fafaf9"
 }

@@ -3,13 +3,13 @@ title: "Deploying LLMs in Healthcare: The Engineering Reality"
 date: "2024-11-15"
 tags: [Healthcare AI, LLMs, Production, RAG, Engineering]
 readTime: 8
-excerpt: "What nobody tells you about running LLMs in healthcare environments: the gap between benchmark performance and production reliability, and how to close it."
+excerpt: "Healthcare is where the gap between benchmark performance and production reliability is widest. A look at why LLM systems break there, and the engineering that closes the gap."
 featured: true
 ---
 
 # Deploying LLMs in Healthcare: The Engineering Reality
 
-Healthcare AI is one of the most rewarding and unforgiving domains to build in. The models are impressive. The engineering requirements are brutal. Here is what I learned building and deploying LLM systems in healthcare environments.
+Healthcare is one of the most unforgiving domains to build AI in. The models are impressive; the engineering requirements are brutal. My own healthcare work has been on the data side — claims, utilisation, and incentive pipelines for US healthcare clients — but the retrieval and evaluation problems below are the same ones I work on now, and healthcare is where they bite hardest. This is an analysis of why, not a deployment memoir.
 
 ## The Benchmark Trap
 
@@ -29,7 +29,7 @@ The gap between benchmark and production is not a model problem. It is an engine
 
 ## What Actually Breaks in Production
 
-After building clinical document processing pipelines that ran on real operational data, I catalogued the failure modes:
+The failure modes that show up repeatedly in clinical document pipelines:
 
 ### 1. Context Length Failures
 Medical documents are long. Clinical notes, discharge summaries, prior authorization letters — these regularly exceed 8k tokens. Without careful chunking and retrieval strategies, you either truncate critical information or blow through context limits.
@@ -48,7 +48,7 @@ Healthcare data comes in many formats: structured (HL7, FHIR), semi-structured (
 
 ## The Architecture That Actually Works
 
-After several iterations, the architecture that proved reliable:
+The shape that holds up under these constraints:
 
 ```
 Document → Preprocessing → Chunking → Embedding → Vector Store
@@ -80,7 +80,7 @@ You cannot manage what you cannot measure. In healthcare, you particularly canno
 - Retrieval relevance scores
 - Token costs per document type
 
-**The evaluation cadence that worked:** Weekly automated evaluation on a curated held-out set, plus continuous sampling of production traffic for spot-checking. Any metric degradation > 2% triggers investigation before the next deployment.
+**A cadence that works:** Weekly automated evaluation on a curated held-out set, plus continuous sampling of production traffic for spot-checking. Any metric degradation > 2% triggers investigation before the next deployment.
 
 ## Privacy-Aware Design Patterns
 
@@ -103,9 +103,9 @@ The organizations that deploy healthcare AI responsibly build compounding advant
 
 The temptation is to cut corners on infrastructure to ship faster. In healthcare AI, cutting corners on reliability infrastructure means rebuilding everything after the first production failure.
 
-## What I Would Tell Past Me
+## Where to Start
 
-Start with evaluation infrastructure before building the application. Define what "good" means before writing a single prompt. Build the monitoring dashboards before the feature. Know how you will detect degradation before you deploy.
+Build the evaluation infrastructure before the application. Define what "good" means before writing a single prompt. Build the monitoring dashboards before the feature. Know how you will detect degradation before you deploy.
 
 The model is the easiest part. The engineering is the hard part. Treat it accordingly.
 
