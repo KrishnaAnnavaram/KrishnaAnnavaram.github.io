@@ -11,9 +11,13 @@ export interface Publication {
   tags: string[]
 }
 
+/**
+ * Research output. Every entry here is backed by a report PDF committed under
+ * `public/reports/` — entries without a retrievable artefact were removed.
+ * "Supervised Research" = graduate project work mentored during the UNT
+ * teaching assistantship; "Conference" = co-authored submissions.
+ */
 export const publications: Publication[] = [
-  // ─── Authored / Co-Authored Papers ────────────────────────────────────────
-
   {
     id: 'twitter-sentiment-hybrid',
     title: 'Enhancing Twitter Sentiment Analysis using Hybrid Transformer and Sequence Models with Contextual Understanding',
@@ -194,267 +198,6 @@ export const publications: Publication[] = [
     url: '/reports/Group_13_Report.pdf',
     tags: ['RAG', 'Text Summarization', 'Question Answering', 'ROUGE', 'BLEU', 'NLP Pipeline', 'LLMs'],
   },
-
-  // ─── Supervised Research Reports (UNT DTSC 5082 — 2024) ──────────────────
-  // Graduate Teaching Assistant, Applied Machine Learning Capstone
-  // Full project reports available upon request.
-
-  {
-    id: 'mental-health-llm',
-    title: 'Mental Health Prediction Using Advanced Large Language Models',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Fine-tuned large language models on annotated mental health discourse datasets to classify and predict mental health states from social media and clinical text. Explored prompt-based classification, PEFT adapter tuning, and zero-shot inference with GPT variants. Achieved strong F1 on PHQ-9 aligned depression screening benchmarks and surfaced model explainability using attention visualization and SHAP attribution.',
-    type: 'Supervised Research',
-    tags: ['LLMs', 'Mental Health NLP', 'Fine-Tuning', 'PEFT', 'SHAP', 'Text Classification'],
-  },
-  {
-    id: 'liver-tumor-segmentation',
-    title: 'Liver Tumor Segmentation Using Deep Learning',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Applied U-Net and attention-gated variants to liver CT scan segmentation for automated tumor boundary delineation. Benchmarked 2D and 3D convolutional architectures against the LiTS dataset. Implemented Dice loss optimization and post-processing morphological operations to improve segmentation boundary precision. Achieved competitive IoU scores on held-out CT volumes, demonstrating clinical-grade segmentation quality on limited labeled data.',
-    type: 'Supervised Research',
-    tags: ['Computer Vision', 'Medical Image Segmentation', 'U-Net', 'CNN', 'PyTorch', 'CT Scan'],
-  },
-  {
-    id: 'pneumonia-vit-explainability',
-    title: 'Pneumonia Detection and Explainability Using Vision Transformers and LLMs',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented Vision Transformer (ViT) models for chest X-ray pneumonia detection, combining image classification with LLM-generated radiology-style explanations. Applied Grad-CAM and LIME for visual explainability of model decisions. Coupled the ViT classifier with a GPT prompt pipeline to generate interpretable clinical rationales for each prediction, addressing the black-box limitation of CNN-based diagnostic AI.',
-    type: 'Supervised Research',
-    tags: ['Vision Transformers', 'ViT', 'Explainable AI', 'Grad-CAM', 'LIME', 'LLMs', 'Medical Imaging'],
-  },
-  {
-    id: 'twitter-sentiment-contextual',
-    title: 'Enhancing Twitter Sentiment with Contextual Understanding',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Extended the published hybrid Transformer-LSTM architecture for Twitter sentiment to cover contextual thread-level analysis, sarcasm detection, and hashtag semantic modeling. Implemented BERTweet fine-tuning on domain-specific social media corpora and evaluated against SemEval-2017 benchmarks. Introduced a thread-context injection layer that improved multi-turn sentiment consistency on nested Twitter conversations.',
-    type: 'Supervised Research',
-    tags: ['NLP', 'Sentiment Analysis', 'BERTweet', 'Sarcasm Detection', 'BERT', 'Social Media'],
-  },
-  {
-    id: 'systematic-lit-review',
-    title: 'Systematic Literature Review Automation',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built an end-to-end NLP pipeline for automating systematic literature review — spanning paper retrieval, abstract screening, relevance classification, and structured data extraction. Used SPECTER embeddings for semantic similarity filtering, fine-tuned SciBERT for inclusion/exclusion classification, and LangChain to extract PICO (Population, Intervention, Comparison, Outcome) structured fields at scale. Reduced manual screening effort by over 60% on a biomedical review corpus.',
-    type: 'Supervised Research',
-    tags: ['NLP', 'Information Extraction', 'SciBERT', 'LangChain', 'Literature Review', 'PICO'],
-  },
-  {
-    id: 'food-delivery-forecasting',
-    title: 'Food Delivery Demand Forecasting and Optimization',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed time series forecasting models for restaurant-level food delivery demand using LSTM, Prophet, and XGBoost with lag features, rolling statistics, and weather/event exogenous variables. Implemented multi-step ahead forecasting at hourly granularity across 50+ restaurant locations. Combined forecasting with route optimization heuristics to minimize delivery latency under demand surge conditions.',
-    type: 'Supervised Research',
-    tags: ['Time Series', 'LSTM', 'Prophet', 'XGBoost', 'Demand Forecasting', 'Optimization'],
-  },
-  {
-    id: 'food-waste-gas-stations',
-    title: 'Demand Forecasting and Food Waste Reduction at Gas Stations',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Applied regression and ensemble time series models (LightGBM, ARIMA) to predict daily perishable food demand at gas station convenience stores. Integrated POS transaction history, seasonal patterns, and local event calendars as features. Demonstrated a 22% simulated reduction in food waste through accurate demand signals enabling just-in-time restocking decisions.',
-    type: 'Supervised Research',
-    tags: ['Time Series', 'LightGBM', 'ARIMA', 'Demand Forecasting', 'Regression', 'Optimization'],
-  },
-  {
-    id: 'federated-learning-privacy',
-    title: 'Federated Learning for Privacy-Preserving Healthcare Models',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented a federated learning framework using PySyft and Flower to train clinical prediction models across simulated hospital nodes without centralizing patient data. Applied differential privacy noise injection (DP-SGD) and secure aggregation to prevent gradient inversion attacks. Benchmarked federated vs. centralized training on EHR classification tasks, quantifying the privacy-accuracy trade-off curve under varying privacy budgets (ε).',
-    type: 'Supervised Research',
-    tags: ['Federated Learning', 'Differential Privacy', 'EHR', 'Privacy-Preserving ML', 'PySyft', 'DP-SGD'],
-  },
-  {
-    id: 'nhtsa-vehicle-safety',
-    title: 'NHTSA Vehicle Safety Analysis and Prediction',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Analyzed NHTSA crash and complaint datasets to build ML models predicting vehicle safety recalls and defect severity. Applied XGBoost classifiers with SHAP feature attribution to identify top mechanical and environmental predictors of safety incidents. Implemented an NLP pipeline using spaCy and BERT to extract structured defect descriptions from unstructured NHTSA complaint text, enabling automated complaint triage and severity scoring.',
-    type: 'Supervised Research',
-    tags: ['Safety-Critical ML', 'SHAP', 'XGBoost', 'NLP', 'spaCy', 'Predictive Analytics'],
-  },
-  {
-    id: 'knowflow-chatbot',
-    title: 'KnowFlow Chatbot Documentation and AI Assistant',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a conversational AI assistant over enterprise documentation using RAG — combining document chunking, FAISS vector indexing, and GPT-3.5 generation to answer natural language queries over internal knowledge bases. Implemented intent classification, entity extraction, and multi-turn conversation memory using LangChain ConversationalRetrievalChain. Deployed as a FastAPI service with a React front-end supporting real-time streaming responses.',
-    type: 'Supervised Research',
-    tags: ['Conversational AI', 'RAG', 'LangChain', 'FAISS', 'Chatbot', 'FastAPI', 'Streaming'],
-  },
-  {
-    id: 'altriva-healthcare-analytics',
-    title: 'Altriva Healthcare Analytics Platform',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Designed a full-stack AI analytics platform for patient outcome prediction and clinical workflow optimization. Integrated an XGBoost readmission risk model, an NLP pipeline for clinical note summarization using BART, and a real-time dashboard for risk stratification. Applied SHAP for model explainability, enabling clinical staff to audit prediction drivers. Architected ETL pipelines ingesting FHIR-compatible HL7 data from simulated EHR exports.',
-    type: 'Supervised Research',
-    tags: ['Clinical Analytics', 'XGBoost', 'BART', 'SHAP', 'FHIR', 'ETL', 'Dashboard'],
-  },
-  {
-    id: 'enterprise-rag-knowledge',
-    title: 'Enterprise RAG System for Business Knowledge Retrieval',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Engineered a production-oriented RAG system for enterprise knowledge base retrieval, implementing hybrid BM25 + dense embedding search over internal policy documents, SOPs, and product documentation. Used LangGraph for multi-step retrieval chains, Chroma DB for vector storage, and an LLM evaluation harness (RAGAS) to benchmark answer faithfulness and context relevance. Deployed on Azure with role-based access control limiting document visibility by user group.',
-    type: 'Supervised Research',
-    tags: ['RAG', 'Enterprise AI', 'BM25', 'LangGraph', 'Chroma DB', 'RAGAS', 'Azure'],
-  },
-  {
-    id: 'multimodal-medical-image',
-    title: 'Multi-modal Medical Image Analysis',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed a multi-modal AI pipeline fusing radiology images (X-ray, CT) with structured clinical metadata (lab values, vitals) for improved diagnostic classification. Used a dual-encoder architecture — ViT for image features and a tabular MLP for clinical features — fused via cross-attention before final classification. Demonstrated that the multi-modal fusion model consistently outperformed both unimodal baselines, with the largest gains on edge-case pathologies where image signal alone was ambiguous.',
-    type: 'Supervised Research',
-    tags: ['Multi-modal AI', 'Vision Transformers', 'Cross-Attention', 'Medical Imaging', 'ViT', 'Deep Learning'],
-  },
-  {
-    id: 'churn-prediction-explainability',
-    title: 'Customer Churn Prediction with Explainability',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built an end-to-end churn prediction pipeline for a telecom dataset using LightGBM and logistic regression ensembles, achieving 89% AUC. Implemented SHAP TreeExplainer and LIME for local and global feature attribution, enabling business stakeholders to understand model decisions at the customer level. Designed an automated re-training pipeline with concept drift detection to maintain model freshness on live production distributions.',
-    type: 'Supervised Research',
-    tags: ['Churn Prediction', 'LightGBM', 'SHAP', 'LIME', 'Explainable AI', 'Concept Drift', 'MLOps'],
-  },
-  {
-    id: 'nlp-contract-analysis',
-    title: 'NLP-based Contract Analysis System',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Designed an NLP system for automated legal contract analysis — extracting key clauses (indemnification, termination, SLA), identifying non-standard terms, and flagging risk provisions. Used LegalBERT for named entity recognition and clause classification, combined with a GPT summarization layer for plain-language explanations of complex legal language. Built an efficient document chunking strategy preserving cross-paragraph clause boundaries during retrieval.',
-    type: 'Supervised Research',
-    tags: ['Document Intelligence', 'LegalBERT', 'NER', 'Contract Analysis', 'NLP', 'Information Extraction'],
-  },
-  {
-    id: 'time-series-retail-inventory',
-    title: 'Time Series Forecasting for Retail Inventory',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Applied temporal fusion transformers (TFT) and N-BEATS models to multi-horizon SKU-level inventory demand forecasting for a retail chain. Incorporated external features including promotions, weather, and local event calendars. Benchmarked against ARIMA and Holt-Winters baselines, demonstrating significant RMSE improvements on slow-moving and seasonal SKUs. Implemented automated safety stock recalculation from forecast confidence intervals to minimize stockout risk.',
-    type: 'Supervised Research',
-    tags: ['Time Series', 'Temporal Fusion Transformer', 'N-BEATS', 'Inventory Forecasting', 'Retail AI'],
-  },
-  {
-    id: 'recommender-collaborative-filtering',
-    title: 'Recommender System with Collaborative Filtering',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented a hybrid recommender system combining matrix factorization collaborative filtering (SVD, ALS) with content-based features using TF-IDF item profiles. Applied implicit feedback modeling for click-stream data and implemented Bayesian Personalized Ranking (BPR) for pairwise optimization. Evaluated offline with NDCG@K and Hit Rate@K, achieving competitive performance against LightFM baseline. Extended with a two-stage retrieval-ranking architecture for production-scale user counts.',
-    type: 'Supervised Research',
-    tags: ['Collaborative Filtering', 'Matrix Factorization', 'Recommender Systems', 'BPR', 'LightFM', 'SVD'],
-  },
-  {
-    id: 'knowledge-graph-nlp',
-    title: 'Knowledge Graph Construction from Unstructured Text',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built an automated pipeline to construct domain knowledge graphs from raw text corpora using transformer-based NER and relation extraction. Applied spaCy, REBEL, and custom fine-tuned BERT models to extract entities and relations, then populated a Neo4j graph database for downstream querying. Demonstrated the knowledge graph quality improvement over naive RAG by benchmarking question-answering over knowledge graph traversal vs. flat vector retrieval on a domain-specific corpus.',
-    type: 'Supervised Research',
-    tags: ['Knowledge Graphs', 'Neo4j', 'Relation Extraction', 'NER', 'spaCy', 'Graph-RAG', 'Information Extraction'],
-  },
-  {
-    id: 'anomaly-detection-iot',
-    title: 'Anomaly Detection in IoT Sensor Data',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed unsupervised and semi-supervised anomaly detection pipelines for multivariate IoT sensor time series. Benchmarked Isolation Forest, LSTM Autoencoders, and Variational Autoencoders (VAE) for detecting equipment failure precursors in industrial sensor streams. Implemented sliding window feature extraction and adaptive threshold calibration to minimize false positive rates in operational contexts. Applied SHAP-based attribution to identify which sensor channels drove anomaly scores.',
-    type: 'Supervised Research',
-    tags: ['Anomaly Detection', 'IoT', 'LSTM Autoencoder', 'Isolation Forest', 'VAE', 'Time Series'],
-  },
-  {
-    id: 'clinical-note-summarization',
-    title: 'Clinical Note Summarization with LLMs',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Fine-tuned Long-T5 and BART models on the MeQSum and MIMIC clinical note datasets for abstractive summarization of discharge summaries and nursing notes. Implemented LoRA adapters to reduce fine-tuning compute while preserving summarization quality. Evaluated outputs with ROUGE-L and BERTScore, and conducted human evaluation with clinical annotators for factual consistency. Benchmarked against GPT-4 zero-shot summarization to quantify the value of domain fine-tuning.',
-    type: 'Supervised Research',
-    tags: ['Clinical NLP', 'Long-T5', 'BART', 'LoRA', 'Summarization', 'MIMIC', 'Fine-Tuning'],
-  },
-  {
-    id: 'twitter-x-sentiment-hybrid',
-    title: 'Twitter / X Sentiment Analysis with Hybrid Models',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a hybrid sentiment analysis pipeline for Twitter/X data combining TF-IDF and BERT-based representations with an LSTM sequence model for temporal tweet dynamics. Addressed platform-specific challenges including slang, abbreviations, hashtag semantics, and character limits. Evaluated on SemEval sentiment benchmarks and a custom-collected dataset of 50,000+ tweets across political, sports, and consumer brand domains, demonstrating performance gains of the hybrid approach over both standalone BERT and LSTM baselines.',
-    type: 'Supervised Research',
-    tags: ['NLP', 'Sentiment Analysis', 'BERT', 'LSTM', 'Twitter', 'Hybrid Models', 'TF-IDF'],
-  },
-  {
-    id: 'amara-healthcare-intelligence',
-    title: 'AMARA Healthcare Document Intelligence',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed AMARA — an AI-powered document intelligence platform for healthcare organizations — combining BioBERT-based NER, LLM-driven summarization, and a RAG-backed question-answering interface over clinical and administrative documents. Implemented entity linking against UMLS ontologies for structured medical concept extraction, and a FHIR-compatible export layer for downstream EHR integration. The system reduced manual clinical document review effort by an estimated 55% on a representative document corpus benchmark.',
-    type: 'Supervised Research',
-    tags: ['Document Intelligence', 'BioBERT', 'RAG', 'UMLS', 'FHIR', 'Clinical NLP', 'NER'],
-  },
-  {
-    id: 'drug-drug-interaction',
-    title: 'Drug-Drug Interaction Prediction',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a Drug-Drug Interaction (DDI) prediction system using graph neural networks (GNN) on the DrugBank interaction graph and BioBERT-encoded drug embeddings from literature. Combined structural molecular features (SMILES fingerprints) with textual pharmacology descriptions in a multi-modal GNN architecture. Achieved competitive performance on the DDI binary classification benchmark, with an attention mechanism surfacing the molecular sub-structures driving interaction predictions.',
-    type: 'Supervised Research',
-    tags: ['Drug-Drug Interaction', 'Graph Neural Networks', 'BioBERT', 'Pharma AI', 'Multi-modal', 'DrugBank'],
-  },
-
-  // ─── Additional Supervised Research Reports ───────────────────────────────
-
   {
     id: 'group1-020-ecommerce-recommendation',
     title: 'AI-Powered E-Commerce Product Recommendation Engine',
@@ -540,30 +283,6 @@ export const publications: Publication[] = [
     tags: ['Fraud Detection', 'Imbalanced Learning', 'XGBoost', 'Graph SAGE', 'Anomaly Detection', 'SMOTE'],
   },
   {
-    id: 'group7-resume-screening-nlp',
-    title: 'Automated Resume Screening and Candidate Ranking with NLP',
-    authors: ['UNT DTSC 5082 Group 7', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built an NLP pipeline for automated resume parsing, skill extraction, and candidate-to-job ranking. Used spaCy NER for skill and experience extraction, SBERT for semantic job-resume similarity scoring, and a fine-tuned BERT re-ranker for final candidate shortlisting. Incorporated fairness metrics to audit model outputs for gender and demographic biases introduced by historical hiring data. Evaluated on a 10,000-resume benchmark with human recruiter labels as ground truth.',
-    type: 'Supervised Research',
-    url: '/reports/5082_Final_Report_Group_7.pdf',
-    tags: ['HR Analytics', 'NLP', 'SBERT', 'NER', 'Fairness AI', 'Information Extraction', 'Semantic Search'],
-  },
-  {
-    id: 'group8-predictive-maintenance',
-    title: 'Predictive Maintenance for Industrial Equipment Using Sensor Data',
-    authors: ['UNT DTSC 5082 Group 8', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed a predictive maintenance system for industrial rotating machinery using multivariate vibration and temperature sensor streams. Implemented survival analysis models (Cox PH, DeepHit) for remaining useful life (RUL) estimation alongside binary failure classification with gradient boosting. Applied FFT-based frequency domain feature engineering to convert raw sensor signals into maintenance-relevant health indicators. Validated on the CMAPSS turbofan dataset and a proprietary industrial sensor dataset, achieving 15% reduction in simulated unplanned downtime.',
-    type: 'Supervised Research',
-    url: '/reports/DTSC5082.401_Group8_Final_Report.pdf',
-    tags: ['Predictive Maintenance', 'Survival Analysis', 'Sensor Data', 'IoT', 'RUL Estimation', 'Industrial AI'],
-  },
-  {
     id: 'group9-020-social-network-analysis',
     title: 'Social Network Analysis and Community Detection with ML',
     authors: ['UNT DTSC 5082.020 Group 9', 'Supervised by Krishna Annavaram'],
@@ -574,18 +293,6 @@ export const publications: Publication[] = [
     type: 'Supervised Research',
     url: '/reports/ProjectReport_Group9_DTSC 5082.020.pdf',
     tags: ['Social Network Analysis', 'GraphSAGE', 'GAT', 'Community Detection', 'Link Prediction', 'Graph ML'],
-  },
-  {
-    id: 'group9-401-supply-chain-forecasting',
-    title: 'Supply Chain Demand Forecasting with Ensemble Methods',
-    authors: ['UNT DTSC 5082.401 Group 9', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082.401',
-    year: '2024',
-    abstract:
-      'Built a supply chain demand forecasting system for a multi-product, multi-warehouse inventory network using ensemble methods combining XGBoost, LightGBM, and Prophet with stacking meta-learner. Incorporated promotional calendars, supplier lead times, and macroeconomic indicators as exogenous features. Implemented hierarchical reconciliation (bottom-up, top-down, optimal combination) to produce coherent forecasts across product hierarchy levels, reducing mean absolute percentage error by 18% vs. single-model baselines.',
-    type: 'Supervised Research',
-    url: '/reports/DTSC5082_401_Group9_FinalReport-1.pdf',
-    tags: ['Supply Chain', 'Demand Forecasting', 'Ensemble Learning', 'XGBoost', 'Prophet', 'Hierarchical Forecasting'],
   },
   {
     id: 'group11-satellite-image-classification',
@@ -648,18 +355,6 @@ export const publications: Publication[] = [
     tags: ['Code Intelligence', 'CodeBERT', 'LLMs', 'Bug Detection', 'Static Analysis', 'Software Engineering AI'],
   },
   {
-    id: 'group17-autonomous-vehicle-safety',
-    title: 'Autonomous Vehicle Safety: Object Detection and Trajectory Prediction',
-    authors: ['UNT DTSC 5082 Group 17', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented real-time multi-object detection (YOLOv8) and trajectory prediction (Social-LSTM, Trajectron++) for autonomous vehicle perception. Fused LiDAR point cloud data with camera RGB frames using a late-fusion architecture for robust 3D bounding box estimation. Evaluated pedestrian and vehicle trajectory prediction on the nuScenes and Waymo Open datasets. Analyzed model failure modes under adverse weather (rain, fog) simulation using domain randomization augmentation.',
-    type: 'Supervised Research',
-    url: '/reports/DTSC_5082_401_Group_17.pdf',
-    tags: ['Autonomous Vehicles', 'YOLOv8', 'Trajectory Prediction', 'LiDAR Fusion', 'Computer Vision', 'Safety-Critical AI'],
-  },
-  {
     id: 'group18-healthcare-cost-prediction',
     title: 'Healthcare Cost Prediction and Insurance Claims Analysis',
     authors: ['UNT DTSC 5082 Group 18', 'Supervised by Krishna Annavaram'],
@@ -670,18 +365,6 @@ export const publications: Publication[] = [
     type: 'Supervised Research',
     url: '/reports/DTSC5082.401_Group18_Final_Project_Report.pdf',
     tags: ['Healthcare Analytics', 'XGBoost', 'CatBoost', 'Claims Fraud', 'SHAP', 'Actuarial ML'],
-  },
-  {
-    id: 'group19-customer-lifetime-value',
-    title: 'Customer Lifetime Value Prediction and Retention Analytics',
-    authors: ['UNT DTSC 5082 Group 19', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented probabilistic CLV models (BG/NBD, Gamma-Gamma) alongside deep learning approaches (LSTM-based sequential purchase models) to predict customer lifetime value for an e-commerce retailer. Built a customer segmentation system using RFM features and K-means clustering to identify high-value, at-risk, and lapsed customer segments. Developed retention intervention recommendations using causal uplift modeling (S-learner, T-learner, X-learner) to identify which customers would respond positively to retention campaigns.',
-    type: 'Supervised Research',
-    url: '/reports/DTSC5082.401_Group19_Project_FinalReport.pdf',
-    tags: ['Customer Analytics', 'CLV Prediction', 'Uplift Modeling', 'RFM', 'Retention Analytics', 'Probabilistic Models'],
   },
   {
     id: 'group21-document-layout-analysis',
@@ -718,18 +401,6 @@ export const publications: Publication[] = [
     type: 'Supervised Research',
     url: '/reports/DTSC_5082_FINAL_PROJECT_REPORT_GROUP24.pdf',
     tags: ['Deepfake Detection', 'Media Forensics', 'EfficientNet', 'CNN-LSTM', 'Video Analysis', 'Trustworthy AI'],
-  },
-  {
-    id: 'smart-grid-time-series',
-    title: 'Multivariate Time Series Forecasting for Smart Grid Management',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Applied multivariate time series models (N-HiTS, PatchTST, and iTransformer) to smart grid load forecasting and renewable energy output prediction. Developed a multi-task learning framework jointly predicting solar PV output, wind farm generation, and grid demand at 15-minute intervals. Incorporated weather satellite imagery as auxiliary input via a lightweight CNN encoder fused into the temporal model. Demonstrated real-time inference capability within ISO grid operator latency requirements.',
-    type: 'Supervised Research',
-    url: '/reports/5082FinalReport.pdf',
-    tags: ['Smart Grid', 'Time Series', 'N-HiTS', 'PatchTST', 'Renewable Energy', 'Multi-Task Learning'],
   },
   {
     id: 'molecular-property-gnn',
@@ -803,257 +474,11 @@ export const publications: Publication[] = [
     url: '/reports/INFO 5082 Report.pdf',
     tags: ['Educational Analytics', 'LMS Data', 'XGBoost', 'LSTM', 'SHAP', 'Early Alert', 'Predictive Analytics'],
   },
-  {
-    id: 'wildlife-camera-trap',
-    title: 'Wildlife Population Estimation from Camera Trap Images',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a wildlife monitoring pipeline using Faster R-CNN and MegaDetector for animal detection and species classification from motion-triggered camera trap images. Applied individual re-identification using metric learning (contrastive loss, triplet loss on pattern features) to enable mark-recapture population estimation without physical tagging. Integrated with a spatiotemporal occupancy model to estimate species distribution maps. Deployed as an edge-processing pipeline on solar-powered Raspberry Pi camera units for remote field deployment.',
-    type: 'Supervised Research',
-    tags: ['Wildlife Monitoring', 'Object Detection', 'Re-Identification', 'Metric Learning', 'Conservation AI', 'Edge Computing'],
-  },
-  {
-    id: 'loan-default-fairness',
-    title: 'Loan Default Prediction with Algorithmic Fairness Constraints',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed credit default prediction models with explicit fairness constraints to satisfy Equal Opportunity and Equalized Odds criteria across demographic groups (race, gender, age). Implemented fairness-aware training (Adversarial Debiasing, Reject Option Classification, Exponentiated Gradient Reduction) and evaluated trade-offs between predictive accuracy and fairness metrics using Pareto frontier analysis. Applied to LendingClub loan data, demonstrating that fairness-constrained models reduce demographic disparity by 68% with less than 2% AUC degradation.',
-    type: 'Supervised Research',
-    tags: ['Fairness in ML', 'Credit Scoring', 'Algorithmic Bias', 'Equalized Odds', 'Responsible AI', 'Finance ML'],
-  },
-  {
-    id: 'video-summarization-attention',
-    title: 'Automatic Video Summarization Using Attention Mechanisms',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented a transformer-based video summarization model (PGL-SUM, CA-SUM) that selects representative key frames and generates abstractive video captions using CLIP + GPT-2 integration. Trained on TVSum and SumMe benchmarks with diversity-preserving loss functions to balance representativeness and non-redundancy in selected frames. Extended to multi-document summarization by clustering video collections by semantic topic and generating a coherent cross-video narrative. Evaluated against human annotated highlight selections with F1 and Kendall τ correlation.',
-    type: 'Supervised Research',
-    tags: ['Video Summarization', 'Transformers', 'CLIP', 'Attention', 'Key Frame Selection', 'Multimodal AI'],
-  },
-  {
-    id: 'skin-disease-classification',
-    title: 'Skin Disease Classification from Dermoscopy Images',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a multi-class skin lesion classifier using EfficientNet-B5 and ViT-L trained on the ISIC 2020 and HAM10000 datasets covering 9 diagnostic categories including melanoma and benign nevi. Addressed extreme class imbalance (melanoma prevalence < 2%) using focal loss, oversampling, and test-time augmentation ensembling. Applied GradCAM++ and Integrated Gradients to produce clinician-interpretable saliency maps highlighting diagnostic features. Achieved AUC of 0.934 on the ISIC 2020 private leaderboard, placing within top 15% of competition submissions.',
-    type: 'Supervised Research',
-    tags: ['Dermatology AI', 'EfficientNet', 'ViT', 'Medical Imaging', 'Imbalanced Classification', 'Grad-CAM'],
-  },
-  {
-    id: 'dialogue-state-tracking',
-    title: 'Dialogue State Tracking for Task-Oriented Conversational AI',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented dialogue state tracking (DST) for multi-domain task-oriented dialogue systems using SimpleTOD and T5-DST models fine-tuned on MultiWOZ 2.4. Developed a schema-guided approach that generalizes to new domains without retraining the full model. Integrated DST with a retrieval-based dialogue policy (MinTL) and response generation using GPT-3.5, creating an end-to-end task-completion system for restaurant, hotel, and taxi booking domains. Achieved joint goal accuracy of 57.4% on MultiWOZ 2.4 test set.',
-    type: 'Supervised Research',
-    tags: ['Dialogue Systems', 'State Tracking', 'T5', 'MultiWOZ', 'Conversational AI', 'NLP'],
-  },
-  {
-    id: 'manufacturing-defect-detection',
-    title: 'Quality Control Defect Detection in Manufacturing with Computer Vision',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed an automated visual quality inspection system for surface defect detection in manufactured parts using anomaly detection (PatchCore, CFlow-AD) and supervised detection (Mask R-CNN). Trained on the MVTec-AD and DAGM industrial defect datasets with few-shot adaptation for new defect categories. Implemented an active learning loop for efficient labeling of newly discovered defect types by human quality engineers. Achieved 99.2% detection rate at 0.3% false positive rate on PCB and metallic surface inspection tasks, meeting production-line throughput requirements.',
-    type: 'Supervised Research',
-    tags: ['Quality Control', 'Anomaly Detection', 'PatchCore', 'Industrial AI', 'Computer Vision', 'Active Learning'],
-  },
-  {
-    id: 'biomedical-qa-llm',
-    title: 'Large Language Model Fine-Tuning for Biomedical Question Answering',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Fine-tuned BioMedLM (2.7B) and Llama-2-7B on PubMedQA, MedQA (USMLE), and BioASQ biomedical QA benchmarks using QLoRA (4-bit quantized LoRA adapters) for compute-efficient domain adaptation. Implemented a RAG layer over a PubMed abstract index (100M+ articles) using BioLinkBERT dense retriever to ground answers in recent literature beyond training cutoff. Evaluated factual accuracy using BioScores and expert clinician grading, achieving accuracy competitive with GPT-4 on USMLE-style questions while running on a single A100 GPU.',
-    type: 'Supervised Research',
-    tags: ['Biomedical NLP', 'LLM Fine-Tuning', 'QLoRA', 'BioMedLM', 'RAG', 'Medical QA'],
-  },
-  {
-    id: 'crop-yield-prediction',
-    title: 'Crop Yield Prediction from Satellite and Climate Data',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed a county-level crop yield prediction model (corn, soybean, wheat) integrating MODIS satellite vegetation indices (NDVI, EVI, LAI) with PRISM climate grids (temperature, precipitation, solar radiation) using a ConvLSTM architecture for spatiotemporal pattern capture. Trained on USDA NASS yield reports (2000-2023) with 5-fold spatial cross-validation to prevent data leakage from geographic proximity. Achieved RMSE of 11.2 bu/acre for corn yield prediction, representing a 28% improvement over regression baselines used by USDA early-season forecasts.',
-    type: 'Supervised Research',
-    tags: ['Precision Agriculture', 'ConvLSTM', 'Satellite Data', 'Crop Yield', 'Climate ML', 'Spatiotemporal'],
-  },
-  {
-    id: 'toxic-comment-classification',
-    title: 'Toxic Comment Classification and Severity Scoring in Online Forums',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a multi-label toxic comment classifier (toxic, severe_toxic, obscene, threat, insult, identity_hate) using DeBERTa-v3 fine-tuned on the Jigsaw Toxic Comment Classification and Unintended Bias datasets. Developed a severity regression head for continuous toxicity scoring to enable nuanced moderation prioritization beyond binary classification. Applied data augmentation via back-translation to improve robustness and analyzed model behavior across identity group mentions to detect and mitigate unintended bias. Deployed as a real-time comment moderation microservice.',
-    type: 'Supervised Research',
-    tags: ['Content Moderation', 'DeBERTa', 'Multi-Label Classification', 'Toxicity Detection', 'Bias Mitigation', 'NLP'],
-  },
-  {
-    id: 'blood-cell-classification',
-    title: 'Blood Cell Classification and Hematological Disorder Detection',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed a deep learning pipeline for automated blood cell classification (17 morphological categories including blasts, lymphocytes, monocytes, and abnormal cells) from peripheral blood smear images. Used ResNet-50 and ConvNeXt architectures with multi-scale training and test-time augmentation. Applied few-shot learning (prototypical networks) to generalize to rare hematological anomalies with limited labeled examples. Integrated with a clinical decision support module flagging slides with abnormal blast counts for pathologist review, reducing manual review time by 60%.',
-    type: 'Supervised Research',
-    tags: ['Hematology AI', 'Blood Cell Classification', 'ConvNeXt', 'Few-Shot Learning', 'Clinical Decision Support', 'Medical Imaging'],
-  },
-  {
-    id: 'sign-language-recognition',
-    title: 'Sign Language Recognition Using 3D CNN and Pose Estimation',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented American Sign Language (ASL) recognition using a two-stream architecture combining 3D CNN for appearance and motion (optical flow) features with MediaPipe pose landmark sequences processed by a Transformer encoder. Trained on the ASL-Citizen and WLASL datasets covering 2,000+ sign vocabulary. Addressed natural variation in signing style via data augmentation (random temporal sampling, hand mirror flip) and applied continuous sign language recognition with a CTC decoder for sentence-level transcription. Achieved word error rate of 18.3% on the WLASL benchmark.',
-    type: 'Supervised Research',
-    tags: ['Sign Language Recognition', '3D CNN', 'Pose Estimation', 'CTC', 'Accessibility AI', 'Computer Vision'],
-  },
-  {
-    id: 'wearable-depression-detection',
-    title: 'Depression and Burnout Detection from Wearable Sensor Data',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed passive depression and occupational burnout detection models from wearable device data (heart rate variability, sleep patterns, physical activity, GPS mobility) collected via consumer smartwatches. Applied time series feature engineering (circadian rhythm features, HRV frequency domain analysis) with gradient boosting classifiers and a temporal CNN for end-to-end feature learning from raw sensor streams. Validated on the GLOBEM and TILES-2018 longitudinal datasets with leave-one-subject-out cross-validation to ensure generalization across individuals.',
-    type: 'Supervised Research',
-    tags: ['Mental Health AI', 'Wearable Sensors', 'HRV Analysis', 'Depression Detection', 'mHealth', 'Time Series'],
-  },
-  {
-    id: 'legal-multi-document-summarization',
-    title: 'Multi-Document Summarization for Legal Case Analysis',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a multi-document legal summarization system for case law analysis using Longformer and LED (Longformer Encoder-Decoder) to handle long legal document sequences exceeding standard transformer context limits. Implemented a hierarchical summarization strategy: first generating per-document extractive summaries (SummaRuNNer) then fusing them into a coherent cross-document abstractive summary using LED. Evaluated on the Multi-LexSum and EUR-Lex datasets with domain expert evaluation of factual accuracy and legal reasoning quality.',
-    type: 'Supervised Research',
-    tags: ['Legal NLP', 'Multi-Document Summarization', 'Longformer', 'LED', 'Case Law', 'Long-Context Models'],
-  },
-  {
-    id: 'urban-traffic-graph-networks',
-    title: 'Urban Traffic Flow Prediction with Spatial-Temporal Graph Networks',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Applied spatial-temporal graph convolutional networks (STGCN, DCRNN, Graph WaveNet) to road network traffic speed and volume forecasting across a 200-sensor city-wide network. Modeled road topology as a dynamic adjacency graph with time-varying edge weights based on traffic correlation. Integrated event data (sports, concerts, construction) as contextual node features to improve forecasting accuracy during anomalous traffic conditions. Evaluated on the METR-LA and PEMS-BAY benchmark datasets, achieving state-of-the-art MAE on 1-hour ahead prediction.',
-    type: 'Supervised Research',
-    tags: ['Traffic Prediction', 'Graph Networks', 'STGCN', 'DCRNN', 'Spatiotemporal', 'Smart Cities'],
-  },
-  {
-    id: 'cybersecurity-intrusion-detection',
-    title: 'Cybersecurity Intrusion Detection and Network Threat Classification',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a network intrusion detection system (NIDS) using ensemble classifiers (Random Forest, XGBoost) and deep autoencoders for zero-day attack detection. Trained on the CICIDS2017 and NSL-KDD benchmark datasets covering 14 attack categories including DoS, DDoS, port scanning, and brute force. Applied federated learning to enable collaborative threat intelligence across enterprise network boundaries without sharing raw packet data. Achieved 99.4% detection accuracy with 0.08% false positive rate, meeting enterprise SOC operational requirements.',
-    type: 'Supervised Research',
-    tags: ['Cybersecurity', 'Intrusion Detection', 'XGBoost', 'Autoencoder', 'Federated Learning', 'Anomaly Detection'],
-  },
-  {
-    id: 'medical-image-registration',
-    title: 'Medical Image Registration Using Deep Learning for Clinical Workflows',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented deformable medical image registration using VoxelMorph and TransMorph (transformer-based) architectures for aligning multi-modal brain MRI scans (T1 to T2, pre-op to post-op). Applied diffeomorphic registration constraints to ensure anatomically plausible deformation fields. Evaluated registration accuracy using Dice overlap of anatomical segmentations and target registration error on landmark annotations from the Learn2Reg benchmark. Demonstrated 3× speedup over traditional ANTs registration while maintaining clinical registration quality for longitudinal brain atrophy analysis.',
-    type: 'Supervised Research',
-    tags: ['Medical Imaging', 'Image Registration', 'VoxelMorph', 'Transformers', 'MRI Analysis', 'Clinical AI'],
-  },
-  {
-    id: 'recipe-nutrition-recommendation',
-    title: 'Personalized Recipe Recommendation Based on Nutritional Preferences',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed a nutrition-aware recipe recommendation system combining collaborative filtering on user-recipe interaction history with content-based nutritional profile matching. Used BERT-based ingredient encoding to compute semantic recipe similarity beyond keyword overlap. Incorporated dietary constraint handling (vegan, gluten-free, diabetic-friendly) as hard filters and applied multi-objective optimization balancing taste preference scores with nutritional completeness metrics. Deployed as a conversational interface supporting natural language dietary goal specification and meal planning.',
-    type: 'Supervised Research',
-    tags: ['Recommender Systems', 'Nutrition AI', 'BERT', 'Collaborative Filtering', 'Multi-Objective Optimization', 'Conversational AI'],
-  },
-  {
-    id: 'personalized-learning-paths',
-    title: 'Personalized Learning Path Recommendation for Adaptive Education',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built an adaptive learning system using knowledge graph-based student modeling and reinforcement learning for optimal learning path selection. Represented curriculum as a prerequisite knowledge graph and modeled learner mastery via Bayesian Knowledge Tracing (BKT) and Deep Knowledge Tracing (DKT-LSTM). Applied a Deep Q-Network (DQN) policy trained via simulated student interactions to sequence learning activities that maximize long-term mastery improvement. Validated on ASSISTments and Junyi Academy datasets, demonstrating faster concept mastery vs. sequential curriculum delivery.',
-    type: 'Supervised Research',
-    tags: ['Adaptive Learning', 'Knowledge Tracing', 'Reinforcement Learning', 'DQN', 'Knowledge Graph', 'EdTech AI'],
-  },
-  {
-    id: 'stock-sentiment-prediction',
-    title: 'Stock Price Movement Prediction with Sentiment and Technical Analysis',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed a multi-input stock movement prediction model fusing financial news sentiment (FinBERT), social media signals (Reddit WallStreetBets), and technical indicators (RSI, MACD, Bollinger Bands). Used a cross-modal attention mechanism to dynamically weight sentiment vs. technical signals based on market regime. Implemented a portfolio optimization layer using mean-variance optimization on model outputs with transaction cost awareness. Backtested on S&P 500 constituents (2018-2024) achieving Sharpe ratio of 1.34 vs. 0.71 for buy-and-hold baseline.',
-    type: 'Supervised Research',
-    tags: ['Finance ML', 'FinBERT', 'Sentiment Analysis', 'Stock Prediction', 'Portfolio Optimization', 'Backtesting'],
-  },
-  {
-    id: 'ner-scientific-literature',
-    title: 'Named Entity Recognition for Scientific Literature Mining',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a scientific NER pipeline for extracting entities (chemical compounds, gene/protein names, diseases, experimental methods, metrics) from biomedical and materials science literature. Fine-tuned PubMedBERT and MatSciBERT on annotated corpora from ChemNER, BC5CDR, and MatSci-NLP benchmarks using span-based NER with nested entity support. Integrated entity linking to UMLS, ChEBI, and UniProt ontologies for grounded entity disambiguation. Processed 500K+ PubMed abstracts to build a structured knowledge graph of biomedical relationships.',
-    type: 'Supervised Research',
-    tags: ['Scientific NLP', 'NER', 'PubMedBERT', 'Entity Linking', 'Biomedical Text Mining', 'Knowledge Graph'],
-  },
-  {
-    id: 'vehicle-type-surveillance',
-    title: 'Vehicle Type Classification from Surveillance Video for Smart Cities',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Implemented multi-class vehicle classification (car, truck, motorcycle, bus, bicycle, emergency vehicle) from traffic surveillance video using YOLOv8 detection + EfficientNet-B3 classification pipeline. Applied domain adaptation techniques (adversarial training, histogram equalization) to generalize across camera viewpoints, lighting conditions, and weather variations. Integrated vehicle counting and speed estimation using DeepSORT tracking for intersection-level traffic analytics. Deployed on NVIDIA Jetson Orin hardware for real-time edge inference at 30 FPS.',
-    type: 'Supervised Research',
-    tags: ['Smart Cities', 'Vehicle Classification', 'YOLOv8', 'DeepSORT', 'Surveillance AI', 'Edge Computing'],
-  },
-  {
-    id: 'renewable-energy-forecasting',
-    title: 'Renewable Energy Output Forecasting for Grid Integration',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Developed probabilistic solar and wind power forecasting models using NeuralProphet, DeepAR, and Informer architectures trained on NREL NSRDB irradiance data and NOAA wind reanalysis. Implemented scenario generation using normalizing flows to produce realistic day-ahead generation scenarios for stochastic grid optimization. Applied transfer learning from data-rich wind farms to improve forecasting at newly installed sites with limited operational history. Evaluated against ENTSO-E benchmarks, achieving continuous ranked probability score (CRPS) improvements of 19% over persistence forecasts.',
-    type: 'Supervised Research',
-    tags: ['Renewable Energy', 'Probabilistic Forecasting', 'DeepAR', 'Informer', 'Solar/Wind', 'Grid Integration'],
-  },
-  {
-    id: 'multimodal-fake-news-detection',
-    title: 'Multimodal Fake News Detection Using Text and Image Evidence',
-    authors: ['UNT DTSC 5082 Team', 'Supervised by Krishna Annavaram'],
-    venue: 'UNT Applied Machine Learning Capstone — DTSC 5082',
-    year: '2024',
-    abstract:
-      'Built a multimodal fake news detection system analyzing both article text and associated images for inconsistencies. Used CLIP for cross-modal semantic alignment scoring between headlines and images, combined with BERT-based claim credibility modeling and source reputation features. Implemented an evidence retrieval module that retrieves web evidence for claims and uses a cross-encoder to assess consistency between article claims and retrieved evidence. Evaluated on FakeSV, NewsCLIPpings, and Fakeddit benchmarks, outperforming text-only and image-only unimodal baselines by 9-14% F1.',
-    type: 'Supervised Research',
-    tags: ['Fake News', 'Multimodal AI', 'CLIP', 'BERT', 'Evidence Retrieval', 'Trustworthy AI'],
-  },
 ]
+
+export const authoredPublications = publications.filter((p) => p.type !== 'Supervised Research')
+export const supervisedResearch = publications.filter((p) => p.type === 'Supervised Research')
+
+export const publicationYears = Array.from(new Set(publications.map((p) => p.year))).sort().reverse()
+
+export const publicationTags = Array.from(new Set(publications.flatMap((p) => p.tags))).sort()
