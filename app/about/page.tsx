@@ -1,168 +1,165 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
-import { Metadata } from 'next'
-import { ArrowRight, MapPin, Briefcase, GraduationCap, Award, Server, Shield, Network } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import { profile } from '@/data/profile'
+import { skillGroups } from '@/data/skills'
+import { certifications } from '@/data/certifications'
+import { formatMonthYear } from '@/lib/utils'
+import { PageHeader } from '@/components/ui/PageHeader'
+import { Reveal } from '@/components/ui/Reveal'
+import { Chip, TextLink } from '@/components/ui/Bits'
 
 export const metadata: Metadata = {
-  title: 'About Krishna Annavaram',
-  description: 'Generative AI Engineer with 5+ years shipping production LLM systems, Graph-RAG pipelines, and multi-agent AI across healthcare, financial services, and telecom.',
+  title: 'About',
+  description:
+    'Background, engineering principles, the full technical inventory, and verified certifications.',
 }
-
-const principleIcons = { Server, Shield, Network }
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen pt-24 pb-20 px-4">
-      <div className="container-narrow">
+    <>
+      <PageHeader
+        eyebrow="About"
+        title="A systems engineer who happens to work on models."
+      />
 
-        {/* Hero */}
-        <div className="flex flex-col md:flex-row gap-12 items-center mb-20">
-          <div className="flex-1">
-            <p className="text-brand-accent text-sm font-mono font-medium mb-3 tracking-widest uppercase">
-              About me
-            </p>
-            <h1 className="font-display text-4xl md:text-5xl font-bold text-text-primary mb-4">
-              The engineer who gets AI{' '}
-              <span className="text-gradient">into production</span>
-            </h1>
-            <div className="flex items-center gap-2 text-text-muted text-sm mb-6">
-              <MapPin size={14} aria-hidden="true" />
-              <span>{profile.location}</span>
-              <span aria-hidden="true">·</span>
-              <Briefcase size={14} aria-hidden="true" />
-              <span>{profile.availability}</span>
-            </div>
-            <div className="space-y-4 text-text-secondary leading-relaxed">
-              {profile.bio.split('\n\n').map((para, i) => (
-                <p key={i}>{para.trim()}</p>
+      <section className="page-x mx-auto max-w-page pb-16">
+        <div className="grid gap-12 lg:grid-cols-[1fr_16rem] lg:gap-16">
+          <Reveal>
+            <div className="prose-editorial text-lg">
+              <p>{profile.intro}</p>
+              {profile.positioning.split('\n\n').map((para) => (
+                <p key={para.slice(0, 32)}>{para}</p>
               ))}
+              <p>
+                Before the US, I worked in India — first at Lemoius building the NLP and ranking
+                layer of a hiring marketplace, then at Cognizant on enterprise ML for US healthcare
+                clients. I came to the University of North Texas for a master’s in Data Science,
+                and spent a year there as a teaching assistant: supporting graduate coursework,
+                mentoring project teams, and building a retrieval system that answered students’
+                research questions without inventing citations.
+              </p>
+              <p>
+                That mix — startup, enterprise, academic — is why I default to engineering
+                discipline over novelty. Enterprise work taught me what auditability costs.
+                Teaching taught me that if you can’t explain why a system answered the way it did,
+                you don’t understand it yet.
+              </p>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="shrink-0 relative">
-            <div className="w-56 h-56 rounded-2xl overflow-hidden border border-brand-primary/20 shadow-2xl glow-primary">
-              <Image
-                src="/images/profile/profile.png"
-                alt="Krishna Annavaram"
-                width={224}
-                height={224}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            {/* Education badge */}
-            <div className="absolute -bottom-4 -right-4 glass p-3 text-xs max-w-[160px]">
-              <div className="flex items-center gap-1.5 mb-1">
-                <GraduationCap size={12} className="text-brand-accent" aria-hidden="true" />
-                <span className="text-text-muted font-mono">Education</span>
+          <Reveal delay={100} className="lg:pt-2">
+            <Image
+              src="/images/profile/portrait.jpg"
+              alt={`${profile.name}, ${profile.role}`}
+              width={720}
+              height={960}
+              sizes="16rem"
+              className="w-40 rounded-sm object-cover grayscale-[0.15] lg:w-full"
+            />
+            <dl className="rule-t mt-6 space-y-3 pt-5 text-sm">
+              <div>
+                <dt className="eyebrow">Based in</dt>
+                <dd className="mt-1 text-ink">{profile.location}</dd>
               </div>
-              <p className="text-text-primary font-medium">MS Data Science</p>
-              <p className="text-text-muted">Univ. of North Texas</p>
-            </div>
-          </div>
+              <div>
+                <dt className="eyebrow">Looking for</dt>
+                <dd className="mt-1.5 space-y-1 text-ink-soft">
+                  {profile.idealRoles.map((role) => (
+                    <p key={role}>{role}</p>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+          </Reveal>
         </div>
+      </section>
 
-        {/* Philosophy */}
-        <section className="mb-20" aria-labelledby="philosophy-heading">
-          <h2 id="philosophy-heading" className="font-display text-2xl md:text-3xl font-bold text-text-primary mb-4">
-            Philosophy
-          </h2>
-          <p className="text-text-secondary leading-relaxed mb-8 max-w-2xl">
-            {profile.philosophy}
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {profile.principles.map((principle) => {
-              const Icon = principleIcons[principle.icon as keyof typeof principleIcons] ?? Server
-              return (
-                <div
-                  key={principle.title}
-                  className="glass p-6 group hover:border-brand-primary/20 border border-white/5 transition-all duration-300 cursor-default"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4 group-hover:bg-brand-primary/20 transition-colors">
-                    <Icon size={20} className="text-brand-primary" aria-hidden="true" />
-                  </div>
-                  <h3 className="font-display font-bold text-text-primary mb-2">{principle.title}</h3>
-                  <p className="text-text-secondary text-sm leading-relaxed">{principle.description}</p>
-                </div>
-              )
-            })}
-          </div>
-        </section>
-
-        {/* Education */}
-        <section className="mb-20" aria-labelledby="education-heading">
-          <h2 id="education-heading" className="font-display text-2xl md:text-3xl font-bold text-text-primary mb-8">
-            Education
-          </h2>
-          <div className="space-y-4">
-            <div className="glass p-6 flex gap-4">
-              <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center shrink-0">
-                <GraduationCap size={20} className="text-brand-primary" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-text-primary">Master of Science — Data Science</h3>
-                <p className="text-text-secondary text-sm">University of North Texas</p>
-                <p className="text-text-muted text-xs mt-1">Denton, TX</p>
-              </div>
-            </div>
-            <div className="glass p-6 flex gap-4">
-              <div className="w-10 h-10 rounded-xl bg-brand-secondary/10 flex items-center justify-center shrink-0">
-                <GraduationCap size={20} className="text-brand-secondary" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-text-primary">Bachelor of Technology — Computer Science & Engineering</h3>
-                <p className="text-text-secondary text-sm">Kalasalingam University</p>
-                <p className="text-text-muted text-xs mt-1">India</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* What differentiates */}
-        <section className="mb-20" aria-labelledby="differentiator-heading">
-          <h2 id="differentiator-heading" className="font-display text-2xl md:text-3xl font-bold text-text-primary mb-6">
-            What sets me apart
-          </h2>
-          <div className="glass p-8 border-l-4 border-brand-primary">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <p className="text-text-muted text-xs font-mono uppercase tracking-widest mb-3">Most candidates</p>
-                <p className="text-text-secondary italic text-lg">&ldquo;Built a RAG pipeline&rdquo;</p>
-              </div>
-              <div>
-                <p className="text-brand-accent text-xs font-mono uppercase tracking-widest mb-3">My record</p>
-                <p className="text-text-primary text-lg">
-                  &ldquo;91% retrieval accuracy on a live Graph-RAG deployment at CVS Health.
-                  60% document retrieval efficiency improvement across 350,000+ financial docs at Morgan Stanley.
-                  22% upsell conversion lift via recommendation systems at Verizon.
-                  3 industries. All measured. All shipped.&rdquo;
+      <section className="page-x rule-t mx-auto max-w-page py-16">
+        <div className="grid gap-10 lg:grid-cols-[10rem_1fr] lg:gap-16">
+          <h2 className="eyebrow sticky top-24 self-start">Principles</h2>
+          <ol className="grid gap-px overflow-hidden rounded-sm bg-rule sm:grid-cols-2">
+            {profile.principles.map((principle, i) => (
+              <Reveal as="li" key={principle.title} delay={i * 60} className="bg-paper p-6 sm:p-7">
+                <p className="font-mono text-2xs text-ink-faint">
+                  {String(i + 1).padStart(2, '0')}
                 </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <div className="flex flex-wrap gap-4">
-          <Link
-            href="/experience"
-            className="flex items-center gap-2 px-6 py-3 bg-brand-primary text-white font-semibold rounded-xl hover:bg-brand-primary/80 transition-all"
-          >
-            See my experience
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-          <Link
-            href="/projects"
-            className="flex items-center gap-2 px-6 py-3 glass border border-white/10 text-text-primary font-semibold rounded-xl hover:border-brand-primary/30 transition-all"
-          >
-            View projects
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
+                <h3 className="mt-3 font-sans text-base font-semibold tracking-tight text-ink">
+                  {principle.title}
+                </h3>
+                <p className="mt-2.5 text-sm text-ink-soft">{principle.description}</p>
+              </Reveal>
+            ))}
+          </ol>
         </div>
-      </div>
+      </section>
 
-    </div>
+      <section className="page-x rule-t mx-auto max-w-page py-16">
+        <div className="grid gap-10 lg:grid-cols-[10rem_1fr] lg:gap-16">
+          <h2 className="eyebrow sticky top-24 self-start">Toolkit</h2>
+          <div className="space-y-12">
+            {skillGroups.map((group, i) => (
+              <Reveal key={group.id} delay={i * 50}>
+                <h3 className="font-sans text-base font-semibold tracking-tight text-ink">
+                  {group.title}
+                </h3>
+                <p className="mt-1.5 text-sm text-ink-muted">{group.note}</p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <Chip key={item}>{item}</Chip>
+                  ))}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="page-x rule-t mx-auto max-w-page py-16">
+        <div className="grid gap-10 lg:grid-cols-[10rem_1fr] lg:gap-16">
+          <h2 className="eyebrow sticky top-24 self-start">Certifications</h2>
+          <ul className="max-w-text">
+            {certifications.map((cert) => (
+              <Reveal as="li" key={cert.id}>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-rule py-4">
+                  <div>
+                    <p className="text-ink">{cert.name}</p>
+                    <p className="mt-0.5 text-sm text-ink-muted">{cert.issuer}</p>
+                  </div>
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-mono text-2xs uppercase tracking-[0.1em] text-ink-faint">
+                      {formatMonthYear(cert.issued)}
+                    </span>
+                    {cert.verifyUrl && (
+                      <a
+                        href={cert.verifyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-mono text-2xs uppercase tracking-[0.1em] text-ink-muted transition-colors hover:text-accent"
+                      >
+                        Verify
+                        <ExternalLink size={11} aria-hidden />
+                        <span className="sr-only">{cert.name} on Credly</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="page-x rule-t mx-auto max-w-page py-12">
+        <p className="text-sm text-ink-muted">
+          Full role history on the{' '}
+          <TextLink href="/experience/">experience page</TextLink>, or download the{' '}
+          <TextLink href={profile.resumeUrl} external>
+            résumé
+          </TextLink>
+          .
+        </p>
+      </section>
+    </>
   )
 }
