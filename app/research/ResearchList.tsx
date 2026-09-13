@@ -5,33 +5,22 @@ import { FileText, Search } from 'lucide-react'
 import type { Publication } from '@/data/publications'
 import { cn } from '@/lib/utils'
 
-type Filter = 'all' | 'authored' | 'supervised'
+type Filter = 'all'
 
-const FILTERS: { value: Filter; label: string }[] = [
-  { value: 'all', label: 'All' },
-  { value: 'authored', label: 'Co-authored' },
-  { value: 'supervised', label: 'Supervised' },
-]
+/* The supervised-project filter was removed along with the entries it filtered.
+   A single-option filter is noise, so the control is gone; search remains. */
+const FILTERS: { value: Filter; label: string }[] = []
 
 export function ResearchList({ publications }: { publications: Publication[] }) {
   const [filter, setFilter] = useState<Filter>('all')
   const [query, setQuery] = useState('')
   const [openId, setOpenId] = useState<string | null>(null)
 
-  const counts = useMemo(
-    () => ({
-      all: publications.length,
-      authored: publications.filter((p) => p.type !== 'Supervised Research').length,
-      supervised: publications.filter((p) => p.type === 'Supervised Research').length,
-    }),
-    [publications]
-  )
+  const counts = useMemo(() => ({ all: publications.length }), [publications])
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase()
     return publications.filter((p) => {
-      if (filter === 'authored' && p.type === 'Supervised Research') return false
-      if (filter === 'supervised' && p.type !== 'Supervised Research') return false
       if (!q) return true
       return (
         p.title.toLowerCase().includes(q) ||
@@ -96,7 +85,7 @@ export function ResearchList({ publications }: { publications: Publication[] }) 
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                       <span className="font-mono text-2xs uppercase tracking-[0.14em] text-accent">
-                        {pub.type === 'Supervised Research' ? 'Supervised' : pub.type}
+                        {pub.type}
                       </span>
                       <span className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
                         {pub.year} · {pub.venue}

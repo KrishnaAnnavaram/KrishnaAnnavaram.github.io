@@ -37,7 +37,7 @@ export function buildPaletteIndex(): PaletteItem[] {
     ...publications.map((p) => ({
       href: `/research/#${p.id}`,
       label: p.title,
-      group: p.type === 'Supervised Research' ? 'Supervised' : 'Paper',
+      group: 'Research',
     })),
   ]
 }

@@ -28,8 +28,37 @@ describe('tokenize', () => {
     expect(tokenize('gpt-4 model')).toContain('gpt-4')
   })
 
-  it('stems plurals so "agents" matches "agent"', () => {
-    expect(tokenize('agents')).toEqual(tokenize('agent'))
+  it.each([
+    ['agents', 'agent'],
+    ['stages', 'stage'],
+    ['pipelines', 'pipeline'],
+    ['embeddings', 'embedding'],
+    ['findings', 'finding'],
+    ['diagrams', 'diagram'],
+    ['policies', 'policy'],
+    ['harnesses', 'harness'],
+  ])('stems %s to the same token as %s', (plural, singular) => {
+    expect(tokenize(plural)).toEqual(tokenize(singular))
+  })
+
+  it('never stems a word to something shorter than its own singular', () => {
+    // The original stemmer stripped 'es' and 'ing' unconditionally, splitting
+    // "pipeline"/"pipelines" into two posting lists. These are the words that
+    // actually occur in this corpus, so a regression here is a search defect.
+    for (const w of ['stage', 'pipeline', 'embedding', 'finding', 'process', 'analysis', 'status', 'corpus']) {
+      expect(tokenize(w), `"${w}" should stem to itself`).toEqual([w])
+    }
+  })
+
+  it('is idempotent — stemming a stem changes nothing', () => {
+    const words = [
+      'agents', 'stages', 'pipelines', 'embeddings', 'findings', 'processes',
+      'policies', 'harnesses', 'diagrams', 'systems', 'requirements', 'tests',
+    ]
+    for (const w of words) {
+      const once = tokenize(w)[0]
+      expect(tokenize(once)[0], `stem(stem("${w}")) drifted`).toBe(once)
+    }
   })
 
   it('returns nothing for a query made entirely of stop words', () => {
@@ -65,12 +94,22 @@ describe('grounding', () => {
     }
   })
 
-  it('an answer never contains prose that is not in an indexed passage', () => {
-    const answer = retriever.answer('what is bootshift')
-    const corpus = index.chunks.map((c) => c.text).join(' ')
-    for (const passage of answer.passages) {
-      expect(corpus).toContain(passage.chunk.text)
+  it('passages are returned verbatim, never rewritten', () => {
+    // Checks the returned object is the indexed one, not a copy that some
+    // intermediate step could have altered.
+    const byId = new Map(index.chunks.map((c) => [c.id, c]))
+    for (const q of ['bootshift', 'statute', 'how do I get in touch', 'MCP gateway']) {
+      for (const { chunk } of retriever.answer(q).passages) {
+        expect(byId.get(chunk.id)?.text).toBe(chunk.text)
+      }
     }
+  })
+
+  it('the skills inventory never outranks a passage about real work', () => {
+    // Listing a tool is not evidence of depth in it. A question about a
+    // technology should reach the work before it reaches the inventory.
+    const answer = retriever.answer('what has he built with MCP')
+    expect(answer.passages[0].chunk.source.kind).not.toBe('skills')
   })
 })
 
@@ -82,6 +121,9 @@ describe('refusal', () => {
     'what is his favourite restaurant in Denton',
     'what is his visa status',
     'quantum chromodynamics lattice gauge',
+    'does he have a security clearance',
+    'what is his salary expectation',
+    'what are his notice period requirements',
   ]
 
   it.each(outOfScope)('declines rather than guessing: %s', (query) => {
@@ -99,6 +141,49 @@ describe('refusal', () => {
   it('handles an empty query without throwing', () => {
     expect(retriever.answer('').confidence).toBe('none')
     expect(retriever.answer('   ').confidence).toBe('none')
+  })
+
+  /**
+   * The harder case, and the one the first version of this suite avoided:
+   * questions that are out of scope but share vocabulary with the corpus.
+   * A lexical retriever genuinely matches "Microsoft" in a certifications list
+   * and "Google" in "Google Cloud". It cannot refuse these, and pretending
+   * otherwise would be the dishonest fix — so the requirement is that it must
+   * not present them as answers.
+   *
+   * Not covered, deliberately: a single-token query naming an entity that does
+   * appear ("Amazon" → the AWS certification). One high-IDF term over a
+   * one-term query scores well by construction, and no threshold fixes that
+   * without breaking real one-word questions. What protects the reader there
+   * is the passage itself — it arrives under a "Certifications" heading with a
+   * link, which does not read as an employment claim.
+   */
+  it.each([
+    'Who is the CEO of Microsoft?',
+    'Tell me about his time at Google',
+    'what did he build at Netflix',
+  ])('never labels a lexical coincidence as grounded: %s', (query) => {
+    const answer = retriever.answer(query)
+    expect(answer.confidence).not.toBe('grounded')
+    if (answer.confidence === 'partial') {
+      expect(answer.lead).toMatch(/nothing here answers that directly/i)
+      expect(answer.lead).toMatch(/may not be relevant/i)
+    }
+  })
+
+  it('the lead sentence never introduces a fact of its own', () => {
+    // Only two lead templates exist. Both are checked here, because the lead is
+    // the one piece of assembled prose in the system and therefore the only
+    // place a false statement could originate.
+    const leads = new Set<string>()
+    for (const q of [...outOfScope, 'bootshift', 'statute architecture', 'Tell me about his time at Google']) {
+      leads.add(retriever.answer(q).lead)
+    }
+    for (const lead of leads) {
+      expect(lead).toMatch(
+        /^(From .+:|Nothing here answers that directly\..+|I don't have anything in the portfolio.+)$/s
+      )
+    }
   })
 })
 

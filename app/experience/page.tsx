@@ -10,7 +10,7 @@ import { Chip, TextLink } from '@/components/ui/Bits'
 export const metadata: Metadata = {
   title: 'Experience',
   description:
-    'Five years across generative AI engineering, enterprise ML for US healthcare clients, NLP ranking systems, and a graduate teaching assistantship at UNT.',
+    'Five years across generative AI engineering, incentive-compensation ML, NLP ranking systems, and a graduate teaching assistantship at UNT.',
 }
 
 export default function ExperiencePage() {
@@ -19,7 +19,7 @@ export default function ExperiencePage() {
       <PageHeader
         eyebrow="Experience"
         title="Where the work happened."
-        lede="Roles, dates, and what each one actually involved. Two current roles are listed without metrics — the detailed write-ups are still being put together rather than invented."
+        lede="Roles, dates, and what each one actually involved. Every figure here comes from the résumé; where a case study exists for the work, it links to the code and states how the number was obtained."
       />
 
       <section className="page-x mx-auto max-w-page">

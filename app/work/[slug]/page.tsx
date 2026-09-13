@@ -73,6 +73,13 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               <Stat key={o.label} value={o.value} label={o.label} />
             ))}
           </dl>
+
+          {/* Named, not implied. These figures come from a document rather than
+              from a repository anyone can re-measure, and the page says so
+              instead of borrowing the credibility of the ones that can be. */}
+          <p className="mt-9 max-w-text border-l-2 border-rule-strong pl-3.5 text-sm leading-relaxed text-ink-muted">
+            {study.provenance}
+          </p>
         </Reveal>
       </section>
 

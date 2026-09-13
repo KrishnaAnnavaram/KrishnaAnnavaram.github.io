@@ -43,7 +43,6 @@ export interface Chunk {
 }
 
 export interface KnowledgeIndex {
-  builtAt: string
   chunkCount: number
   chunks: Chunk[]
   /** Questions the assistant is known to answer well. Shown as prompts. */

@@ -19,6 +19,14 @@ export interface CaseStudy {
   outcomes: Outcome[]
   stack: string[]
   featured: boolean
+  /**
+   * Where these figures come from, stated on the page.
+   *
+   * Employment work has no repository to recompute against, so the honest
+   * thing is to name the source rather than imply the same verification the
+   * repo-backed case studies carry. Enforced by a unit test.
+   */
+  provenance: string
 }
 
 /**
@@ -76,6 +84,8 @@ export const caseStudies: CaseStudy[] = [
       'MLflow',
       'Terraform',
     ],
+    provenance:
+      'Figures as stated in the résumé. There is no public repository for this engagement, so — unlike the repository-backed systems — nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
     featured: true,
   },
 
@@ -115,6 +125,8 @@ export const caseStudies: CaseStudy[] = [
       'Azure',
       'RAG',
     ],
+    provenance:
+      'Figures as stated in the résumé. There is no public repository for this engagement, so — unlike the repository-backed systems — nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
     featured: true,
   },
 
@@ -155,6 +167,8 @@ export const caseStudies: CaseStudy[] = [
       'CodePipeline',
       'CloudWatch',
     ],
+    provenance:
+      'Figures as stated in the résumé. There is no public repository for this engagement, so — unlike the repository-backed systems — nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
     featured: false,
   },
 
@@ -184,6 +198,8 @@ export const caseStudies: CaseStudy[] = [
       { value: '40%', label: 'shorter model iteration cycles' },
     ],
     stack: ['Python', 'TF-IDF', 'Cosine Similarity', 'NLTK', 'scikit-learn', 'Git'],
+    provenance:
+      'Figures as stated in the résumé. There is no public repository for this engagement, so — unlike the repository-backed systems — nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
     featured: false,
   },
 ]

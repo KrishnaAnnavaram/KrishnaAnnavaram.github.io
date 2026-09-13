@@ -15,9 +15,16 @@ import { cn } from '@/lib/utils'
  * link to where it came from. When retrieval finds nothing above the relevance
  * floor it says so instead of assembling a plausible answer.
  *
- * That is a deliberate design position, not a hosting workaround. A portfolio
- * that argues for grounded retrieval and traceable evidence should not ship an
- * assistant that can invent its owner's work history.
+ * The claim that is true: it cannot compose a sentence, so it cannot state
+ * something the site does not already say. The claim that would NOT be true,
+ * and which the copy is careful to avoid: that it is therefore always right.
+ * Lexical retrieval has no notion of whether a passage answers the question —
+ * ask about Google and it will find "Google Cloud" in an unrelated role. That
+ * failure is visible, because the passage and its source are right there, and
+ * a weak match is labelled as a weak match rather than dressed up as an answer.
+ *
+ * A portfolio arguing for grounded retrieval should ship an assistant that is
+ * honest about its own failure mode, not one that claims not to have one.
  */
 
 const KIND_LABEL: Record<string, string> = {
@@ -227,9 +234,11 @@ export function Assistant({
           {status === 'ready' && !answer && (
             <div>
               <p className="text-sm leading-relaxed text-ink-soft">
-                This searches the portfolio and quotes what it finds. It doesn&rsquo;t generate
-                text, so it can&rsquo;t invent an answer — if nothing here covers your question it
-                will say so.
+                This searches the portfolio and quotes what it finds, word for word, with a link
+                to the source. It doesn&rsquo;t generate text, so it can&rsquo;t tell you anything
+                this site doesn&rsquo;t already say — though it can still hand you a passage that
+                doesn&rsquo;t answer your question. It will say when a match is weak, and say so
+                when it has nothing.
               </p>
               <p className="eyebrow mt-5">Try</p>
               <ul className="mt-2 space-y-1">
@@ -264,9 +273,9 @@ export function Assistant({
 
         {/* ── Footer: state the mechanism, plainly ───────────────────── */}
         <p className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-rule px-4 py-2.5 font-mono text-3xs uppercase tracking-[0.12em] text-ink-faint">
-          <span>Retrieval only — no model in the answer path</span>
-          <span aria-hidden>·</span>
           <span>BM25 over {retriever?.index.chunkCount ?? '—'} passages</span>
+          <span aria-hidden>·</span>
+          <span>Passages quoted verbatim — no model in the answer path</span>
         </p>
       </div>
     </div>

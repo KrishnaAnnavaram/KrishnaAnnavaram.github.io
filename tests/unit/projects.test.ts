@@ -8,6 +8,8 @@ import {
   relativeTime,
 } from '@/lib/projects'
 import { DOMAINS, projects, visibleProjects, featuredProjects } from '@/data/projects'
+import { caseStudies } from '@/data/work'
+import { publications } from '@/data/publications'
 import { diagramNodes, diagramToProse, NODE_KIND_META } from '@/lib/architecture'
 
 /**
@@ -61,6 +63,23 @@ describe('provenance discipline', () => {
       for (const evidence of project.evidence ?? []) {
         expect(evidence.method, `${project.slug}: "${evidence.label}" has no method`).toBeTruthy()
       }
+    }
+  })
+
+  it('every employment case study names where its figures come from', () => {
+    // These cannot carry a per-figure method — there is no repository to
+    // recompute against — so the requirement is that the page says so rather
+    // than borrowing the credibility of the figures that can be checked.
+    for (const study of caseStudies) {
+      expect(study.provenance, `${study.slug} has no provenance note`).toBeTruthy()
+      expect(study.provenance).toMatch(/résumé|resume/i)
+    }
+  })
+
+  it('publications are not described as peer-reviewed', () => {
+    for (const pub of publications) {
+      expect(pub.type).not.toBe('Conference')
+      expect(pub.url, `${pub.id} has no linked report`).toBeTruthy()
     }
   })
 

@@ -39,16 +39,30 @@ const STOP = new Set([
   'during','before','after','above','below','again','once','both','few','other','same','too',
 ])
 
-/** Light stemmer — plurals and common verb endings only. Aggressive stemming
- *  hurts a corpus this small more than it helps. */
+/**
+ * Plurals only, and it must be idempotent: stem(stem(w)) === stem(w).
+ *
+ * The previous version stripped 'ing' and 'es' unconditionally, which split the
+ * corpus's most common technical nouns across two posting lists — "pipeline"
+ * and "pipelines" stemmed to `pipeline` and `pipelin`, "stage"/"stages" to
+ * `stage`/`stag`, "embedding"/"embeddings" to `embedd`/`embedding`. A query for
+ * "pipelines" then missed every chunk that said "pipeline".
+ *
+ * Gerund stripping is gone entirely. Losing the "building"/"build" link costs
+ * far less than splitting the nouns this corpus is actually about.
+ */
 function stem(word: string): string {
   if (word.length <= 3) return word
-  for (const suffix of ['ing', 'edly', 'ies', 'es', 'ed', 's']) {
-    if (word.endsWith(suffix) && word.length - suffix.length >= 3) {
-      const base = word.slice(0, -suffix.length)
-      return suffix === 'ies' ? `${base}y` : base
-    }
-  }
+  // policies → policy
+  if (word.endsWith('ies') && word.length > 4) return `${word.slice(0, -3)}y`
+  // batches, boxes, analyses → batch, box, analys
+  if (/(?:s|x|z|ch|sh)es$/.test(word)) return word.slice(0, -2)
+  // stages → stage  (drop only the 's', keeping the silent 'e')
+  if (word.endsWith('es') && word.length > 4) return word.slice(0, -1)
+  // Latin-ish singulars already end in 's': analysis, basis, corpus, status.
+  if (/(?:sis|us)$/.test(word)) return word
+  // agents → agent, but never process → proces
+  if (word.endsWith('s') && !word.endsWith('ss')) return word.slice(0, -1)
   return word
 }
 
@@ -82,7 +96,11 @@ const SYNONYMS: Record<string, string[]> = {
   llm: ['language-model', 'gpt', 'model', 'generative', 'genai'],
   genai: ['generative', 'llm', 'language-model'],
   eval: ['evaluation', 'measure', 'benchmark', 'accuracy', 'test', 'validation'],
-  evaluation: ['eval', 'measure', 'benchmark', 'accuracy', 'validation'],
+  evaluate: ['evaluation', 'eval', 'measure', 'benchmark', 'accuracy', 'validation', 'test'],
+  evaluation: ['eval', 'measure', 'benchmark', 'accuracy', 'validation', 'test'],
+  measure: ['evaluation', 'metric', 'benchmark', 'evidence', 'method'],
+  production: ['deployed', 'deploy', 'shipped', 'operational', 'live', 'limitation'],
+  limitation: ['cannot', 'caveat', 'gap', 'known', 'weakness', 'production'],
   legacy: ['modernization', 'modernisation', 'migration', 'cobol', 'plsql', 'mainframe', 'reverse-engineering'],
   migration: ['migrate', 'modernization', 'upgrade', 'bootshift', 'legacy', 'transformation'],
   'reverse-engineering': ['reverse', 'statute', 'brd', 'plsql', 'decompile', 'analysis'],
@@ -103,7 +121,6 @@ const SYNONYMS: Record<string, string[]> = {
   java: ['spring', 'springboot', 'maven'],
   spring: ['springboot', 'java', 'bootshift', 'migration'],
   cost: ['token', 'latency', 'budget', 'spend', 'performance'],
-  production: ['deployed', 'deploy', 'shipped', 'operational', 'live'],
 }
 
 function expand(terms: string[]): { all: string[]; original: Set<string> } {
@@ -123,9 +140,25 @@ function expand(terms: string[]): { all: string[]; original: Set<string> } {
 
 const K1 = 1.4
 const B = 0.72
-/** Below this, the assistant declines rather than guessing. Tuned against the
- *  suggested questions plus a set of deliberately out-of-scope ones. */
-const SCORE_FLOOR = 3.0
+/**
+ * Below this, the assistant declines rather than guessing.
+ *
+ * The score is normalised per query term before it meets this floor. An
+ * unnormalised BM25 sum grows with query length, so a long question about
+ * something the site does not cover could clear an absolute threshold purely by
+ * having more words in it — and the same arithmetic decided whether an answer
+ * was labelled "grounded". Both are now length-independent.
+ *
+ * Calibrated against twelve questions the site can answer (lowest legitimate
+ * score 2.19) and ten it cannot (highest 2.52). Those ranges OVERLAP, and no
+ * threshold separates them, because a lexical retriever genuinely does match
+ * "Microsoft" in a certifications list and "Google" in "Google Cloud". The
+ * floor is therefore set to let real questions through, and a weak match is
+ * labelled as one rather than presented as an answer. Pretending a single
+ * number could separate relevance from coincidence would be the dishonest
+ * option here.
+ */
+const SCORE_FLOOR = 2.0
 
 /**
  * How hard a partial match is penalised.
@@ -149,10 +182,13 @@ export class Retriever {
   private prepared: Prepared[] = []
   private df = new Map<string, number>()
   private avgLength = 1
+  /** Overridable so the floor can be calibrated against real scores. */
+  private readonly floor: number
   readonly index: KnowledgeIndex
 
-  constructor(index: KnowledgeIndex) {
+  constructor(index: KnowledgeIndex, options?: { floor?: number }) {
     this.index = index
+    this.floor = options?.floor ?? SCORE_FLOOR
 
     for (const chunk of index.chunks) {
       const tf = new Map<string, number>()
@@ -206,12 +242,14 @@ export class Retriever {
       const coverage = matched.length / base.length
       score *= Math.pow(coverage, COVERAGE_EXPONENT)
       score *= p.chunk.boost
+      // Per-term, so a five-word question and a two-word one are comparable.
+      score /= base.length
 
       return { chunk: p.chunk, score, matched: [...new Set(matched)] }
     })
 
     return scored
-      .filter((r) => r.score >= SCORE_FLOOR)
+      .filter((r) => r.score >= this.floor)
       .sort((a, b) => b.score - a.score)
       .slice(0, limit)
   }
@@ -237,7 +275,7 @@ export class Retriever {
     }
 
     const top = hits[0]
-    const strong = top.score >= SCORE_FLOOR * 2
+    const strong = top.score >= this.floor * 1.9
     const sources: Source[] = []
     for (const hit of hits) {
       if (!sources.some((s) => s.href === hit.chunk.source.href)) {
@@ -245,9 +283,13 @@ export class Retriever {
       }
     }
 
+    /* A weak match is stated as a weak match. Retrieval has no notion of
+       whether a passage answers the question, and presenting a lexical
+       near-miss as "here is what it says" invites the reader to treat an
+       unrelated passage as an answer. */
     const lead = strong
       ? `From ${top.chunk.source.title}:`
-      : `The closest match in the portfolio is ${top.chunk.source.title}. Here is what it says:`
+      : `Nothing here answers that directly. The closest passages by wording are below — they may not be relevant.`
 
     return {
       query,

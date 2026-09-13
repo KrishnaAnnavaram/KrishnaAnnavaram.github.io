@@ -47,15 +47,15 @@ export const experience: Role[] = [
     highlights: [
       {
         text: 'Engineered Statute, an 8-stage PL/SQL reverse-engineering harness turning legacy Oracle code into traceable business requirements, BRDs, ERDs and gap registers',
-        metric: '41 requirements over a 353-node / 769-relationship knowledge graph, validated by 414 automated checks',
+        metric: '41 requirements over a 353-node / 769-relationship knowledge graph, validated by 414 assertions across 8 suites',
       },
       {
         text: 'Designed Smart Quant, a 3-agent reasoning and bounded-negotiation platform that validates methodology, required inputs and available capability before running any market-risk analytics',
         metric: '267K+ market observations across 56 governed capabilities',
       },
       {
-        text: 'Cut the incomplete-request path by putting deterministic preflight completeness checks ahead of retrieval and computation',
-        metric: 'From 5 agent handoffs, 4 vector searches and 4 model calls down to 2 handoffs, 0 searches and 1 model call',
+        text: 'Cut the path for an incomplete request — one that cannot be answered as asked — by putting deterministic preflight completeness checks ahead of retrieval and computation',
+        metric: 'That path went from 5 agent handoffs, 4 vector searches and 4 model calls down to 2 handoffs, 0 searches and 1 model call. A fully negotiated request still costs 6–13 model calls',
       },
       {
         text: 'Built an adaptive legacy code complexity harness covering cyclomatic, cognitive, coupling, dependency, architecture, database, runtime, testability and maintainability dimensions',
@@ -63,7 +63,7 @@ export const experience: Role[] = [
       },
       {
         text: 'Orchestrated Bootshift, a 20-stage Spring Boot modernisation harness spanning repository discovery, dependency and application graphs, OpenRewrite transformation, compiler-guided repair, and runtime and differential validation',
-        metric: '31 enforced safety controls, 190 automated tests',
+        metric: '31 enforced safety controls; 191 test methods across 21 test classes',
       },
       {
         text: 'Extended a 7-agent, 9-stage CWE vulnerability detection and adaptive auto-remediation harness with root-cause analysis, blast-radius assessment, controlled patching and red-team plus regression validation',
