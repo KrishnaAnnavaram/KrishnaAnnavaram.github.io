@@ -3,15 +3,19 @@ import { authoredPublications, supervisedResearch } from '@/data/publications'
 import { getPostMeta } from '@/lib/writing'
 import { formatMonthYear } from '@/lib/utils'
 import { Reveal } from '@/components/ui/Reveal'
-import { SectionLabel, TextLink } from '@/components/ui/Bits'
+import { TextLink } from '@/components/ui/Bits'
 
 export function ResearchWriting() {
   const posts = getPostMeta().slice(0, 3)
 
   return (
-    <section className="page-x rule-t mx-auto max-w-page py-20">
-      <div className="grid gap-10 lg:grid-cols-[10rem_1fr] lg:gap-16">
-        <SectionLabel>Beyond the job</SectionLabel>
+    <section className="page-x rule-t mx-auto max-w-page py-16">
+      <div className="spec-grid">
+        <div>
+          <p className="eyebrow lg:sticky lg:top-24">
+            <span className="text-ink-faint">05</span> &nbsp;Beyond the job
+          </p>
+        </div>
 
         <div className="grid gap-14 md:grid-cols-2 md:gap-12">
           <Reveal>

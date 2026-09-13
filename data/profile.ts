@@ -16,6 +16,36 @@ export const profile = {
 
 I treat generative AI as a systems problem. That means structured outputs instead of free text, retrieval you can trace back to a source, evaluation harnesses that run on every change, and cost and latency budgets that are tracked rather than discovered in production. It's less exciting than a leaderboard score, and it's the difference between something a team uses daily and something they abandon after the pilot.`,
 
+  /**
+   * What he is actually working on, as opposed to what he is interested in.
+   * Each entry points at something on the site that evidences it — an entry
+   * without evidence is a claim, and this section is meant to be the opposite.
+   * Edit this list and the home page follows; nothing else needs touching.
+   */
+  currentFocus: [
+    {
+      title: 'Agent systems with real boundaries',
+      detail:
+        'Multi-agent architectures where the interesting design work is deciding what each agent is not allowed to do — which process holds a credential, which stage may write, and where a refusal is the correct output.',
+      evidence: '/projects/smcp-gateway/',
+      evidenceLabel: 'SMCP Gateway',
+    },
+    {
+      title: 'Legacy modernisation that can prove what it changed',
+      detail:
+        'Migration and reverse-engineering harnesses for systems nobody has documentation for. The hard part is not the transformation; it is producing an evidence trail that survives review.',
+      evidence: '/projects/bootshift/',
+      evidenceLabel: 'Bootshift',
+    },
+    {
+      title: 'Knowing when not to use a model',
+      detail:
+        'Deterministic pipelines where a language model would be the obvious choice and the wrong one — because a generative system that invents a business rule fails invisibly, and a rule-based one that misses it fails in the open.',
+      evidence: '/projects/statute/',
+      evidenceLabel: 'Statute',
+    },
+  ],
+
   principles: [
     {
       title: 'Structured contracts over prompt hacks',

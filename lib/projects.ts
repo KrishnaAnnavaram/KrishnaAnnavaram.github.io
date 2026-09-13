@@ -135,6 +135,90 @@ export function activitySummary(limit = 6): ActivitySummary {
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   Unified explorer feed
+
+   Repo-backed systems and employment case studies are different kinds of
+   evidence, but a visitor looking for "his agentic work" should not have to
+   know which section it lives in. One feed covers both; each row says which
+   kind it is and links to wherever that case study already lives, so no
+   content is duplicated and no existing URL moves.
+   ───────────────────────────────────────────────────────────────────────── */
+
+import { caseStudies } from '@/data/work'
+import { DOMAINS, type DomainId } from '@/data/projects'
+
+export interface ExplorerFeedItem {
+  slug: string
+  name: string
+  tagline: string
+  year: string
+  featured: boolean
+  href?: string
+  external?: boolean
+  context: string
+  domains: { id: string; label: string }[]
+  stack: string[]
+  repoUrl?: string
+  language?: string | null
+  pushedAt?: string
+}
+
+/** Maps an employment case study's discipline onto the shared taxonomy. */
+const ENGAGEMENT_DOMAINS: Record<string, DomainId[]> = {
+  'academic-research-assistant': ['rag', 'nlp', 'evaluation'],
+  'healthcare-claims-ml-platform': ['machine-learning', 'data-engineering', 'cloud-mlops'],
+  'resume-job-matching': ['nlp', 'machine-learning'],
+}
+
+export function explorerFeed(): ExplorerFeedItem[] {
+  const systems: ExplorerFeedItem[] = allProjects.map((p) => ({
+    slug: p.slug,
+    name: p.name,
+    tagline: p.tagline,
+    year: p.year,
+    featured: p.status === 'featured',
+    href: p.problem ? `/projects/${p.slug}/` : p.github?.url,
+    external: !p.problem,
+    context: 'Repository',
+    domains: p.domains.map((id) => ({ id, label: DOMAINS[id] })),
+    stack: p.stack,
+    repoUrl: p.github?.url,
+    language: p.github?.primaryLanguage ?? null,
+    pushedAt: p.github?.pushedAt,
+  }))
+
+  const engagements: ExplorerFeedItem[] = caseStudies.map((c) => ({
+    slug: c.slug,
+    name: c.title,
+    tagline: c.summary,
+    year: c.year,
+    featured: false, // repo-backed systems carry the featured band
+    href: `/work/${c.slug}/`,
+    external: false,
+    context: c.context,
+    domains: (ENGAGEMENT_DOMAINS[c.slug] ?? []).map((id) => ({ id, label: DOMAINS[id] })),
+    stack: c.stack,
+    language: null,
+  }))
+
+  return [...systems, ...engagements]
+}
+
+/** Domain facets across the whole feed, not just the repo registry. */
+export function feedDomains(): { id: string; label: string; count: number }[] {
+  const counts = new Map<string, { label: string; count: number }>()
+  for (const item of explorerFeed()) {
+    for (const d of item.domains) {
+      const cur = counts.get(d.id)
+      counts.set(d.id, { label: d.label, count: (cur?.count ?? 0) + 1 })
+    }
+  }
+  return (Object.keys(DOMAINS) as DomainId[])
+    .filter((id) => counts.has(id))
+    .map((id) => ({ id, label: counts.get(id)!.label, count: counts.get(id)!.count }))
+}
+
 /** Relative time, for "pushed 3 days ago". Deterministic given a reference. */
 export function relativeTime(iso: string, now = Date.now()): string {
   const diff = now - +new Date(iso)
