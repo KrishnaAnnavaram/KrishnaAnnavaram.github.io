@@ -9,6 +9,16 @@ interface RevealProps {
   delay?: number
   as?: ElementType
   className?: string
+  /**
+   * Render immediately, with no reveal at all.
+   *
+   * Anything above the fold must set this. The reveal hides content until an
+   * IntersectionObserver runs after hydration, which made the hero paragraph
+   * the Largest Contentful Paint element at ~1,050ms on a loopback connection
+   * — a static page hiding its own first screen behind its JavaScript. First
+   * Contentful Paint was ~180ms; everything between the two was self-inflicted.
+   */
+  eager?: boolean
 }
 
 /**
@@ -16,10 +26,17 @@ interface RevealProps {
  * in globals.css under [data-reveal]; this only flips the attribute, so a
  * reduced-motion user sees the content immediately with no JS-driven animation.
  */
-export function Reveal({ children, delay = 0, as: Tag = 'div', className }: RevealProps) {
+export function Reveal({
+  children,
+  delay = 0,
+  as: Tag = 'div',
+  className,
+  eager = false,
+}: RevealProps) {
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    if (eager) return
     const node = ref.current
     if (!node) return
 
@@ -43,7 +60,11 @@ export function Reveal({ children, delay = 0, as: Tag = 'div', className }: Reve
 
     observer.observe(node)
     return () => observer.disconnect()
-  }, [])
+  }, [eager])
+
+  if (eager) {
+    return <Tag className={cn(className)}>{children}</Tag>
+  }
 
   return (
     <Tag

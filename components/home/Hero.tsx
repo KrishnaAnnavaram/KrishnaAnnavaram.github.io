@@ -19,7 +19,7 @@ export function Hero() {
     <section className="page-x mx-auto max-w-page pb-16 pt-14 sm:pt-20">
       <div className="grid items-start gap-10 lg:grid-cols-[1.7fr_1fr] lg:gap-16">
         <div>
-          <Reveal>
+          <Reveal eager>
             <p className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">
               <span className="text-accent">{profile.role}</span>
               <span aria-hidden className="text-ink-faint">
@@ -29,7 +29,7 @@ export function Hero() {
             </p>
           </Reveal>
 
-          <Reveal delay={70}>
+          <Reveal eager>
             <h1 className="mt-6 text-5xl">
               I build systems that
               <br />
@@ -37,11 +37,11 @@ export function Hero() {
             </h1>
           </Reveal>
 
-          <Reveal delay={140}>
+          <Reveal eager>
             <p className="mt-7 max-w-text text-lg text-ink-soft">{profile.intro}</p>
           </Reveal>
 
-          <Reveal delay={200}>
+          <Reveal eager>
             <p className="mt-5 max-w-text text-ink-muted">
               Most of what I ship is infrastructure for other engineers: migration harnesses,
               reverse-engineering pipelines, retrieval systems. The through-line is that each one
@@ -50,7 +50,7 @@ export function Hero() {
             </p>
           </Reveal>
 
-          <Reveal delay={260}>
+          <Reveal eager>
             <div className="mt-9 flex flex-wrap items-center gap-2.5">
               <Link
                 href="/projects/"
@@ -82,7 +82,7 @@ export function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={320}>
+          <Reveal eager>
             <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-2xs uppercase tracking-[0.14em]">
               <a
                 href={profile.socials.github}
@@ -111,7 +111,7 @@ export function Hero() {
         </div>
 
         {/* ── Identity plate: portrait plus the facts a recruiter checks ──── */}
-        <Reveal delay={180} className="order-first lg:order-none">
+        <Reveal eager className="order-first lg:order-none">
           <div className="mx-auto w-40 sm:w-48 lg:mx-0 lg:ml-auto lg:w-full lg:max-w-[16rem]">
             <Image
               src="/images/profile/portrait.jpg"

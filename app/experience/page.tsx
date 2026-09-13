@@ -27,7 +27,9 @@ export default function ExperiencePage() {
           {experience.map((role, i) => {
             const related = caseStudies.filter((c) => c.roleId === role.id)
             return (
-              <Reveal as="li" key={role.id} delay={i * 60} className="scroll-mt-24">
+              // The first role is above the fold, so it is never hidden
+              // pending hydration; the rest reveal on scroll as usual.
+              <Reveal as="li" key={role.id} delay={i * 60} eager={i === 0} className="scroll-mt-24">
                 <div id={role.id} className="grid gap-6 border-b border-rule py-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
                   <div className="lg:sticky lg:top-24 lg:self-start">
                     <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">

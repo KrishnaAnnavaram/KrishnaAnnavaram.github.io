@@ -80,7 +80,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <header className="pb-10 pt-20 sm:pt-28">
-        <Reveal>
+        <Reveal eager>
           <p className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">
             <Link href="/projects/" className="transition-colors hover:text-ink">
               Projects

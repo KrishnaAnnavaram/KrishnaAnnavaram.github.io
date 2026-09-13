@@ -6,6 +6,10 @@ import { profile } from '@/data/profile'
 /**
  * GitHub activity, read from the committed snapshot rather than the live API.
  *
+ * Merge-commit subjects are suppressed: "Merge pull request #13 from
+ * KrishnaAnnavaram/readme-full-documentation" is git plumbing, not a statement
+ * about the work, and reads as unedited noise on a portfolio.
+ *
  * Two failure modes are handled explicitly, because a section that silently
  * shows nothing is worse than one that explains itself:
  *
@@ -112,7 +116,7 @@ export function GitHubActivity({
                   </span>
                 </div>
 
-                {repo.lastCommit && (
+                {repo.lastCommit && !/^Merge (pull request|branch)/i.test(repo.lastCommit.message) && (
                   <p className="mt-1.5 flex items-start gap-1.5 text-xs text-ink-muted">
                     <GitCommitHorizontal
                       size={13}
