@@ -29,6 +29,52 @@ These were open and no longer are:
 
 ---
 
+## 0. Added by the independent review
+
+These came from three reviewers run against the built site. Full findings in
+[`docs/PORTFOLIO_CRITIQUE.md`](./docs/PORTFOLIO_CRITIQUE.md).
+
+**Education has no dates.** Every other entry on `/experience/` is dated; the two
+education entries are not, and the résumé does not supply them. A recruiter
+called this the first thing they look for. Add them to `data/profile.ts`.
+
+**Two timeline gaps and two roles in six months.** Nothing between Nov 2022 and
+Aug 2024, or May 2025 and Mar 2026; Ideate ran Mar–Jun 2026 and Virtusa from
+Jun 2026. Both reviewers noticed within a minute. One sentence on the experience
+page would let you frame it rather than leaving it to be inferred.
+
+**Publish the SMCP Gateway evaluation results.** The single strongest criticism
+of the site: it argues that evaluation is the discipline that matters and shows
+no evaluation result from any system on it. The harness exists — 13 cases × 11
+graders, including `rows_are_grounded`, `no_ungrounded_numbers` and
+`impossible_fields_refused`. Running it and publishing a table of pass rates,
+plus three failure cases with root causes, is roughly a day's work and would be
+the highest-value addition available.
+
+**The technology inventory is ~120 items, including six vector databases.** It
+is verbatim from your résumé, so it stays until you say otherwise — but on a page
+whose own subheading reads "chosen per access pattern, not per fashion", both
+reviewers read it as keyword stuffing. The assistant no longer treats it as
+evidence. Trimming it to the ~25 with artefacts on this site is your call.
+
+**The three essays are dated October–December 2024.** Factual contradictions in
+two of them are fixed. Beyond that: they contain no first-hand material, they
+predate every system the site now sells, and the recruiter rated the section the
+strongest AI-generated signal on the site. Rewrite them from the work in
+`/projects/`, or remove the section — an empty writing section costs nothing.
+
+**Tap targets.** 11–49 controls per route fall under 24×24px at 390px. Most are
+links in flowing prose, which WCAG 2.5.8 exempts. The standalone controls —
+"+ Detail", "+ Abstract", the sort toggles — are not exempt and are not yet fixed.
+
+**Add CI to the four repositories that lack it.** Bootshift, Statute, the MCP
+gateway and the complexity harness all disclose "There is no CI in the
+repository", while this portfolio gates deploys behind typecheck, lint, contrast,
+publication verification, unit tests, build and Playwright on two engines. The
+discipline is visible in the wrong place.
+
+---
+
 ## 1. Rotate a leaked API key — do this today
 
 `WeatherTSR-Net` has a **live OpenWeatherMap API key committed in plaintext** in

@@ -11,7 +11,8 @@ interface PageHeaderProps {
 export function PageHeader({ eyebrow, title, lede, meta }: PageHeaderProps) {
   return (
     <header className="page-x mx-auto max-w-page pb-14 pt-20 sm:pt-28">
-      <Reveal>
+      {/* Above the fold on every route — never hidden pending hydration. */}
+      <Reveal eager>
         <p className="eyebrow">{eyebrow}</p>
         <h1 className="mt-5 max-w-3xl text-4xl">{title}</h1>
         {lede && (

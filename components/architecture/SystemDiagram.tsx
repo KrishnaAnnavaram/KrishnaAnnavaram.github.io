@@ -162,6 +162,15 @@ export function SystemDiagram({ diagram }: { diagram: Diagram }) {
       <div className="rounded-[3px] border border-rule bg-sunken p-4 sm:p-5">
         {diagram.groups.map((group, gi) => (
           <div key={group.label ?? gi} className={gi > 0 ? 'mt-7' : undefined}>
+            {/* A boundary the system enforces, drawn rather than described. */}
+            {group.boundary && (
+              <p className="mb-4 flex items-center gap-3 border-t-2 border-dashed border-accent/50 pt-3">
+                <span className="font-mono text-3xs uppercase tracking-[0.12em] text-accent">
+                  {group.boundary}
+                </span>
+              </p>
+            )}
+
             {group.label && (
               <p className="eyebrow mb-3 flex items-center gap-3">
                 <span>{group.label}</span>
@@ -190,19 +199,25 @@ export function SystemDiagram({ diagram }: { diagram: Diagram }) {
 
         {/* Legend. Explains the one thing the diagram is really communicating:
             which stages are deterministic and which involve a model. */}
-        <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-rule pt-4">
+        {/* A grid, not flex-wrap: wrapped rows packed independently, so one
+            row's label started 15px right of the next one's and the first
+            description detached from its marker. */}
+        <ul className="mt-6 grid gap-x-4 gap-y-1.5 border-t border-rule pt-4 sm:grid-cols-[auto_auto_1fr]">
           {kindsUsed.map((kind) => {
             const meta = NODE_KIND_META[kind]
             return (
-              <li key={kind} className="flex items-center gap-2">
-                <span
-                  aria-hidden
-                  className={cn('h-0.5 w-4 rounded-full', TONE[meta.tone].bar)}
-                />
-                <span className="font-mono text-3xs uppercase tracking-[0.12em] text-ink-muted">
-                  {meta.label}
+              <li key={kind} className="contents">
+                <span className="flex items-center gap-2">
+                  <span
+                    aria-hidden
+                    className={cn('h-0.5 w-4 shrink-0 rounded-full', TONE[meta.tone].bar)}
+                  />
+                  <span className="font-mono text-3xs uppercase tracking-[0.12em] text-ink-muted">
+                    {meta.label}
+                  </span>
                 </span>
-                <span className="text-xs text-ink-faint">{meta.description}</span>
+                <span className="text-xs text-ink-soft">{meta.description}</span>
+                <span aria-hidden className="hidden sm:block" />
               </li>
             )
           })}

@@ -148,6 +148,7 @@ const bootshiftDiagram: SystemDiagram = {
     },
     {
       label: 'Per migration edge — the only stages that write (6 stages, repeated)',
+      boundary: 'Baseline seal — nothing above this line may modify source',
       nodes: [
         {
           id: 'bs-transform',
@@ -363,6 +364,7 @@ const decisionForgeDiagram: SystemDiagram = {
     },
     {
       label: 'Background — after the reply is sent',
+      boundary: 'The reply has already been sent — nothing below adds latency',
       nodes: [
         {
           id: 'df-memory',
@@ -391,7 +393,7 @@ const smcpDiagram: SystemDiagram = {
   id: 'smcp-gateway',
   title: 'SMCP Gateway — three agents, and a credential that never reaches the reasoning layer',
   caption:
-    'A risk question is answered in four movements: a free pre-flight gate, a grounded derivation of what data is actually needed, a bounded negotiation with the layer that knows what is retrievable, and execution behind two MCP servers. The agents reason; only the data server holds a database role, and it is read-only.',
+    'Three bands, read left to right. The agents understand the question, negotiate what data would actually answer it, and only then execute — across a boundary they never cross themselves. Every agent in the first two bands reasons; none of them holds a database credential.',
   groups: [
     {
       label: 'Understand — before anything is retrieved',
@@ -463,7 +465,8 @@ const smcpDiagram: SystemDiagram = {
       ],
     },
     {
-      label: 'Execute — across the privilege boundary',
+      label: 'Execute',
+      boundary: 'Privilege boundary — no agent above this line holds a credential',
       nodes: [
         {
           id: 'smcp-data',

@@ -86,14 +86,9 @@ It is less exciting than a leaderboard score, and it is the difference between s
     },
   ],
 
-  idealRoles: [
-    'Generative AI Engineer',
-    'Agentic AI Engineer',
-    'LLM Engineer',
-    'RAG / Retrieval Engineer',
-    'Applied AI Engineer',
-    'AI Platform Engineer',
-  ],
+  /* Three, not six. The earlier list named every near-synonym of the same job
+     and read as keyword stuffing rather than as a preference. */
+  idealRoles: ['Generative AI Engineer', 'Agentic AI Engineer', 'Applied AI Engineer'],
 
   socials: {
     email: 'annavaramkrishna@gmail.com',

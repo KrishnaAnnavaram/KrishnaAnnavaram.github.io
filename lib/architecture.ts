@@ -51,6 +51,15 @@ export interface DiagramNode {
 export interface DiagramGroup {
   /** Optional band label, e.g. "Analysis plane". */
   label?: string
+  /**
+   * A line drawn before this band, marking a boundary the system enforces —
+   * a privilege change, a seal, a point of no return.
+   *
+   * Added because the diagrams described boundaries in prose while drawing
+   * none of them: the single structural fact most worth a figure was the one
+   * the figure omitted.
+   */
+  boundary?: string
   nodes: DiagramNode[]
 }
 

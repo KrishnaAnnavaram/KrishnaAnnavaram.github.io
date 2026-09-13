@@ -33,20 +33,17 @@ export const certifications: Certification[] = [
     verifyUrl: 'https://www.credly.com/badges/c2d796f7-9c51-45c1-a3a8-9406efbe2bb3',
     featured: true,
   },
-  {
-    id: 'sap-abap',
-    name: 'SAP Certified Development Associate — ABAP',
-    issuer: 'SAP',
-    issued: '2021-03',
-    verifyUrl: 'https://www.credly.com/badges/e3d0d4ad-2c59-4417-8d14-7facdacd269a',
-    featured: true,
-  },
-  { id: 'ds-masters', name: 'Data Science Masters Program', issuer: 'Professional training', issued: '2022-01', featured: false },
-  { id: 'powerbi', name: 'Microsoft Power BI', issuer: 'Microsoft', issued: '2022-01', featured: false },
-  { id: 'excel-vba', name: 'Excel VBA', issuer: 'Microsoft', issued: '2021-06', featured: false },
-  { id: 'python-nptel', name: 'Python', issuer: 'NPTEL', issued: '2020-04', featured: false },
-  { id: 'iot', name: 'Internet of Things', issuer: 'Coursera', issued: '2020-06', featured: false },
-  { id: 'cambridge', name: 'Cambridge English Certification', issuer: 'Cambridge Assessment English', issued: '2019-08', featured: false },
 ]
+
+/*
+ * Removed: a "Data Science Masters Program" bootcamp certificate that read
+ * confusingly beside the actual MS, plus Power BI, Excel VBA, an NPTEL Python
+ * course, a Coursera IoT course and a Cambridge English certificate.
+ *
+ * They were all real. They were also seven undergraduate-era entries diluting
+ * the two current credentials that matter, and one of them (SAP ABAP) told a
+ * different career story entirely. The résumé lists AI-102 and AWS AI
+ * Practitioner and nothing else; the site now matches.
+ */
 
 export const featuredCertifications = certifications.filter((c) => c.featured)
