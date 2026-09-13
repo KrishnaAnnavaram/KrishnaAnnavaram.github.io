@@ -1,0 +1,763 @@
+{
+  "$schema": "https://krishnaannavaram.github.io/schemas/github-snapshot.json",
+  "user": "KrishnaAnnavaram",
+  "syncedAt": "2026-09-13T18:02:31.048Z",
+  "repoCount": 16,
+  "skippedPrivate": [
+    "decisionforge-ai"
+  ],
+  "repos": [
+    {
+      "name": "bootshift",
+      "fullName": "KrishnaAnnavaram/bootshift",
+      "url": "https://github.com/KrishnaAnnavaram/bootshift",
+      "homepage": null,
+      "description": "BootShift is a production-grade automated Spring Boot migration harness that analyzes source applications, selects a target state, applies version and code transformations, resolves migration issues, and validates the result through builds, tests, security checks, and behavioral verification.",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 931,
+      "createdAt": "2026-09-10T01:58:29Z",
+      "pushedAt": "2026-09-10T21:06:28Z",
+      "languages": [
+        {
+          "name": "Java",
+          "bytes": 1967136,
+          "share": 99.9
+        },
+        {
+          "name": "Gherkin",
+          "bytes": 1041,
+          "share": 0.1
+        }
+      ],
+      "primaryLanguage": "Java",
+      "lastCommit": {
+        "sha": "eacdca1",
+        "message": "Merge pull request #1 from KrishnaAnnavaram/openrewrite-engine",
+        "date": "2026-09-10T21:06:28Z",
+        "url": "https://github.com/KrishnaAnnavaram/bootshift/commit/eacdca1997c30b329be6ca683588e46f2c4584ed"
+      },
+      "readmeLead": "Bootshift does not merely change Spring Boot versions. It understands the repository, plans the migration from evidence, tracks every source change, validates the result structurally and behaviourally, and produces a defensible evidence trail explaining what changed, why it changed, what it affected, and how it was validated.",
+      "readmeText": "Bootshift\n\nbsh\n\nA Spring Boot migration harness that proves what it did\n\n \n\nBootshift does not merely change Spring Boot versions.\nIt understands the repository, plans the migration from evidence, tracks every source change,\nvalidates the result structurally and behaviourally, and produces a defensible evidence trail\nexplaining what changed, why it changed, what it affected, and how it was validated.\n\n \n\nTable of contents\n\n1. Project overview\n2. Why Bootshift exists\n3. Core principles\n4. What the harness can and cannot claim\n5. Source input model\n6. Source snapshot and workspace bootstrap\n7. Architecture overview\n8. Architecture decision records\n9. Three-plane architecture\n10. Environment provider contract\n11. Complete end-to-end flow\n12. Agent catalog\n13. Agent 01 — Inventory\n14. Agent 02 — Build Resolver\n15. Agent 03 — Application Graph\n16. Agent 04 — Baseline\n17. Agent 05 — Compatibility Registry\n18. Internal and company component onboarding\n19. Agent 06 — Target Resolver\n20. Agent 07 — Documentation Registry\n21. Agent 08 — Migration Knowledge\n22. Agent 09 — Impact Analyzer\n23. Agent 10 — Characterization\n24. Agent 11 — Migration Planner\n25. Agent 12 — Transformation\n26. FileMutationGateway\n27. Change Ledger\n28. Agent 13 — Build and Repair\n29. Agent 14 — Graph Rebuild and Graph Diff\n30. Agent 15 — Test Validation\n31. Agent 16 — Runtime Validation\n32. Runtime graph enrichment\n33. Agent 17 — Differential Validation\n34. Agent 18 — Approval\n35. Agent 19 — Evidence and Report\n36. Agent 20 — Provenance Graph and Q&A\n37. Application graph model\n38. File identity and lineage\n39. Migration edge model\n40. Composite transformation and checkpoint reconciliation\n41. Adaptive validation\n42. Evidence levels\n43. OSS tooling\n44. GenAI role and boundaries\n45. Security and threat model\n46. Sensitive data handling\n47. Retention\n48. Observability\n49. Repository structure\n50. State machine\n51. Artifact schemas\n52. CLI usage\n53. Example end-to-end run\n54. Failure behavior\n55. Testing strategy\n56. Fixture corpus\n57. Installation\n58. Configuration\n59. Development guide\n60. Troubleshooting\n61. Limitations and blind spots\n62. Future work\n63. License\n\n1. Project overview\n\nBootshift is a reusable harness that takes an existing Spring Boot repository and migrates it to a\nsupported target state, producing evidence for every step.\n\nIt is a pipeline of twenty deterministic stages, not twenty autonomous agents. The word agent\nin this project means a controlled stage with declared inputs, outputs, preconditions,\npostconditions and authority boundaries. Most stages contain no AI at all; the whole pipeline runs\ncorrectly with AIENABLED=false, which is the default.\n\nThe harness answers, with evidence:\n\n \n \n\nUnderstand\n1. What application did we receive?\n2. What files, modules, dependencies, beans, endpoints, repositories, entities and tests exist?\n3. How are they connected?\n4. What depends on a given file, symbol, bean, endpoint or property?\n5. What is the blast radius of a change?\n6. What is the baseline behaviour before migration?\n\nDecide\n7. What target version is safe and supportable?\n8. What migration path should be used?\n9. Which official documents and artifact-level facts apply?\n10. Which files and symbols does each fact affect?\n11. Which behaviours are already protected by tests?\n12. Which need characterizing first?\n13. What exact changes, in what order, by which tool?\n\n \n\nProve\n14. Which files were modified?\n15. Why was each one modified?\n16. Which tool modified it?\n17. What was the before and after hash?\n18. Was it renamed, split, merged, created or deleted?\n19. Which symbols and graph relationships changed?\n20. Did it compile?\n21. Did existing tests regress?\n22. Did runtime behaviour change?\n23. Did API, security, serialization, configuration binding, persistence, messaging or business\n behaviour change?\n24. Which changes are expected and backed by verified evidence?\n25. Which differences are unexplained, and therefore blocking?\n26. What evidence level was achieved per dimension?\n27. What blind spots remain?\n28. What evidence proves the final result?\n\n \n \n\nDiagram 1 — Product high-level flow\n\nmermaid\nflowchart LR\n S[\"Source Git or plain directory \"] -- U[\"Understand inventory, build, graph \"]\n U -- B[\"Baseline observe and seal \"]\n B -- D[\"Decide compatibility, target \"]\n D -- P[\"Plan knowledge, impact, edges \"]\n P -- M[\"Migrate gateway-mediated change \"]\n M -- V[\"Validate build, test, runtime, differential \"]\n V -- R[\"Prove claims and evidence levels \"]\n R -- Rep[\"Report sealed manifest and bundle \"]\n\n style B fill:#fff3cd,stroke:#856404\n style M fill:#f8d7da,stroke:#721c24\n style R fill:#d4edda,stroke:#155724\n text\nILLEGAL: Security = E4\n\nLEGAL: Security = E4\n Coverage: 41/44 protected endpoints observed\n 3 unobservable\n GAP-021\n mermaid\nflowchart TD\n IN{\"Input path\"}\n IN -- · \"contains .git\" · G[\"Git-backed intake\"]\n IN -- · \"plain directory\" · P[\"Plain-directory intake\"]\n\n G -- GP[\"Capture remote, branch, commit SHA, tree SHA\"]\n P -- PP[\"Compute deterministic content-manifest hash\"]\n\n GP -- SNAP[\"Immutable original snapshot\"]\n PP -- SNAP\n SNAP -- RO[\"original/ marked read-only held for the whole run\"]\n SNAP -- MIG[\"migration/ mutable worktree\"]\n MIG -- CKPT[\"internal checkpoint Git repository inside the external workspace \"]\n\n style RO fill:#e7f3ff,stroke:#0366d6\n style CKPT fill:#fff3cd,stroke:#856404\n json\n{\n \"kind\": \"PLAINDIRECTORY\",\n \"contentManifestHash\": \"743b1d181dcb80e00ef3f89d8e7a7f9037147c952595a17780b4b6229b619695\",\n \"capturedAt\": \"2026-09-10T05:39:41Z\"\n}\n mermaid\nflowchart TD\n subgraph USER[\"User input (read-only, never written)\"]\n SRC[\"./src\"]\n end\n\n subgraph WS[\"External workspace root — BOOTSHIFTWORKSPACEROOT/&lt;runid&gt;/\"]\n ORIG[\"original/ immutable, read-only, held for the entire run \"]\n MIGR[\"migration/ the mutable worktree \"]\n ROLD[\"runtime-old/ writable OLD build and run \"]\n RNEW[\"runtime-new/ NEW side runtime \"]\n CG[\"internal-checkpoint-git/\"]\n EV[\"evidence/ content-addressed \"]\n ST[\"state/\"]\n end\n\n subgraph OUT[\"Artifact plane — ./output/\"]\n STAGES[\"&lt;stage&gt;/&lt;timestamp&gt;/ &lt;stage&gt;/latest.json\"]\n end\n\n SRC -- · snapshot · ORIG\n SRC -- · snapshot · MIGR\n ORIG -- · seeded copy · ROLD\n MIGR -- CG\n MIGR -- · packaged · RNEW\n ORIG -.- · differential OLD side · ROLD\n\n style ORIG fill:#e7f3ff,stroke:#0366d6\n style MIGR fill:#f8d7da,stroke:#721c24\n mermaid\nflowchart TD\n subgraph APPS[\"apps/\"]\n CLI[\"migration-cli picocli, no migration semantics \"]\n end\n subgraph STAGES[\"stages/\"]\n ORCH[\"PipelineOrchestrator sequencing only \"]\n AG[\"Agents 01-20\"]\n end\n subgraph PORTS[\"ports/\"]\n P[\"16 port interfaces\"]\n end\n subgraph ADAPTERS[\"adapters/\"]\n A[\"Git, Maven, Gradle, JavaParser, JDK tools, HTTP, filesystem stores, transformers, environment, AI\"]\n end\n subgraph CORE[\"core/\"]\n C[\"domain, identity, graph, ledger, policy, state, evidence, provenance, security\"]\n end\n\n CLI -- ORCH\n ORCH -- AG\n AG -- P\n AG -- C\n A -.implements.- P\n P -- C\n A -- C\n\n style CORE fill:#d4edda,stroke:#155724\n style ADAPTERS fill:#fff3cd,stroke:#856404\n mermaid\nflowchart TB\n subgraph CONTROL[\"CONTROL PLANE — decides, never executes repository code\"]\n ORCH[\"Thin orchestrator\"]\n SM[\"State machine\"]\n POL[\"Policy engine\"]\n LIC[\"OSS license gate\"]\n IDR[\"Identity registry coordination\"]\n APR[\"Approval policy\"]\n end\n\n subgraph EXEC[\"EXECUTION PLANE — runs untrusted repository-controlled code, isolated\"]\n MVN[\"Maven / Gradle\"]\n AP[\"Annotation processors\"]\n TST[\"Test suites\"]\n RUN[\"Application startup\"]\n ANA[\"Java static analysis\"]\n TRF[\"Transformation tools\"]\n AI[\"Local OSS inference (optional)\"]\n end\n\n subgraph EVID[\"ARTIFACT / EVIDENCE PLANE — canonical machine-readable truth\"]\n ART[\"Stage artifacts + latest.json\"]\n REG[\"File and symbol registries\"]\n GRAPH[\"Application graphs\"]\n LED[\"Change ledger (hash chain)\"]\n OBS[\"Observations\"]\n MAN[\"Evidence manifest\"]\n end\n\n CONTROL -- · \"allowlisted commands, timeouts, resource limits\" · EXEC\n EXEC -- · \"results and raw captures\" · EVID\n EVID -- · \"state reconstruction (R23)\" · CONTROL\n\n style CONTROL fill:#e7f3ff,stroke:#0366d6\n style EXEC fill:#f8d7da,stroke:#721c24\n style EVID fill:#d4edda,stroke:#155724\n mermaid\nflowchart TD\n REQ[\"Environment requirement\"] -- MODE{\"Provider mode\"}\n\n MODE -- · MANAGED · M[\"Harness owns creation\"]\n MODE -- · DELEGATED · D[\"CI or infrastructure supplies it\"]\n\n M -- MC[\"Controls locale, timezone, clock, encoding, egress policy\"]\n M -- MP[\"Probes for a rootless OCI runtime\"]\n MP -- · absent · MG[\"Records NOOCIRUNTIME as a gap; infrastructure dimensions are unobservable\"]\n\n D -- DD[\"Reads declared attributes\"]\n DD -- DA{\"Attestation supplied for MUSTMATCH?\"}\n DA -- · no · DG[\"UNATTESTEDMUSTMATCH gap: a delegated environment cannot self-certify equivalence\"]\n DA -- · yes · DOK[\"Equivalence recorded as enforceable\"]\n\n MC -- EV[\"Every runtime and differential result records: mode, implementation, version, fingerprint, checks, gaps\"]\n MG -- EV\n DG -- EV\n DOK -- EV\n\n style MG fill:#fff3cd,stroke:#856404\n style DG fill:#fff3cd,stroke:#856404\n mermaid\nflowchart TD\n SRC[\"Input repository\"] -- BOOT[\"Bootstrap preflight, not an agent \"]\n BOOT -- A01[\"01 Inventory\"]\n A01 -- A02[\"02 Build Resolver\"]\n A02 -- A03[\"03 Application Graph\"]\n A03 -- A04[\"04 Baseline Capture + Seal\"]\n\n A04 -- A05[\"05 Compatibility &amp; Lifecycle\"]\n A05 -- A06[\"06 Target Resolver\"]\n A06 -- A07[\"07 Documentation Registry\"]\n A07 -- A08[\"08 Migration Knowledge\"]\n A08 -- A09[\"09 Impact Analyzer\"]\n A09 -- A10[\"10 Characterization\"]\n A10 -- A11[\"11 Migration Planner\"]\n\n A11 -- A12[\"12 Transformation\"]\n A12 -- A13[\"13 Build + Repair\"]\n A13 -- A14[\"14 Graph Rebuild + Diff\"]\n A14 -- A15[\"15 Test Validation\"]\n A15 -- A16[\"16 Runtime Validation\"]\n A16 -- A17[\"17 Differential Validation\"]\n\n A17 -- EDGE{\"More migration edges?\"}\n EDGE -- · Yes · A12\n EDGE -- · No · A18[\"18 Approval\"]\n A18 -- A19[\"19 Evidence + Report\"]\n A19 -- A20[\"20 Provenance Graph + Q&amp;A\"]\n A20 -- DONE[\"MIGRATIONCOMPLETE BLOCKED NEEDSHUMAN\"]\n\n style A04 fill:#fff3cd,stroke:#856404\n style A12 fill:#f8d7da,stroke:#721c24\n style A13 fill:#f8d7da,stroke:#721c24\n style A19 fill:#d4edda,stroke:#155724\n mermaid\nflowchart TD\n subgraph INIT[\"Phase 0 — Initialization\"]\n I1[\"Create run id\"] -- I2[\"Validate input path\"]\n I2 -- I3[\"OSS policy gate on harness components\"]\n I3 -- I4{\"Gate passes?\"}\n I4 -- · no · IBLOCK[\"exit 3 POLICYBLOCK\"]\n I4 -- · yes · I5[\"Create external workspaces\"]\n I5 -- I6[\"Immutable original snapshot + mutable migration worktree\"]\n I6 -- I7[\"Init internal checkpoint git\"]\n end\n\n subgraph UNDERSTAND[\"Phase 1 — Understand (read only)\"]\n U1[\"01 Inventory allocate FILEIDs\"] -- U2[\"Seal file registry\"]\n U2 -- U3[\"02 Build Resolver ask Maven or Gradle\"]\n U3 -- U4[\"03 Build application graph\"]\n U4 -- U5[\"Verify graph against inventory and build model\"]\n U5 -- U6{\"Integrity floors met?\"}\n U6 -- · no · UBLOCK[\"exit 3 POLICYBLOCK\"]\n end\n\n subgraph BASE[\"Phase 2 — Baseline\"]\n B1[\"Select a compatible toolchain\"] -- B2[\"Build, test, measure coverage\"]\n B2 -- B3[\"Start each module, observe runtime\"]\n B3 -- B4[\"Enrich baseline runtime graph\"]\n B4 -- B5[\"Establish environment equivalence contract\"]\n B5 -- B6[\"SEAL baseline manifest\"]\n end\n\n subgraph DECIDE[\"Phase 3 — Decide\"]\n D1[\"05 Compatibility and lifecycle from artifact metadata\"] -- D2[\"Probe internal components\"]\n D2 -- D3[\"06 Rank candidate targets\"]\n D3 -- D4{\"Any viable landing target?\"}\n D4 -- · no · DBLOCK[\"exit 3 with the trade-off explained\"]\n D4 -- · yes · D5[\"FREEZE target and path\"]\n end\n\n subgraph PLAN[\"Phase 4 — Plan\"]\n P1[\"07 Pin authoritative documents\"] -- P2[\"08 Documentation channel + artifact channel\"]\n P2 -- P3[\"Generate property rules from configuration metadata\"]\n P3 -- P4[\"09 Locate impacts, measure analyzer accuracy\"]\n P4 -- P5[\"10 Characterize behaviour\"]\n P5 -- P6[\"11 Discover capabilities, compute residual\"]\n P6 -- P7[\"Reconcile checkpoints\"]\n P7 -- P8[\"FREEZE validation depth per edge\"]\n end\n\n subgraph LOOP[\"Phase 5 — Migration edge loop\"]\n L1[\"Checkpoint: edge start\"] -- L2[\"12 Propose changes\"]\n L2 -- L3[\"FileMutationGateway the only writer \"]\n L3 -- L4[\"13 Compile, cluster root causes, repair\"]\n L4 -- L5[\"14 Full graph rebuild + diff\"]\n L5 -- L6{\"Scope authorized?\"}\n L6 -- · no · LBLOCK[\"exit 3 SCOPE VIOLATION\"]\n L6 -- · yes · L7[\"Read frozen validation depth\"]\n L7 -- L8{\"Tests required?\"}\n L8 -- · yes · L9[\"15 Test + coverage gate\"]\n L8 -- · no · L10\n L9 -- L10{\"Runtime required?\"}\n L10 -- · yes · L11[\"16 Runtime + binding provenance\"]\n L10 -- · no · L12\n L11 -- L12{\"Differential required?\"}\n L12 -- · yes · L13[\"17 OLD vs NEW\"]\n L12 -- · no · L14\n L13 -- L14[\"Checkpoint: edge complete\"]\n end\n\n subgraph PROVE[\"Phase 6 — Prove\"]\n V1[\"18 Raise approval gates\"] -- V2{\"Outstanding?\"}\n V2 -- · yes · VHUMAN[\"exit 4 NEEDSHUMAN\"]\n V2 -- · no · V3[\"19 Build claims with coverage\"]\n V3 -- V4[\"Verify ledger and index evidence\"]\n V4 -- V5[\"SEAL evidence manifest\"]\n V5 -- V6[\"20 Provenance graph + Q&amp;A\"]\n V6 -- V7[\"Export validated bundle\"]\n end\n\n INIT -- UNDERSTAND -- BASE -- DECIDE -- PLAN -- LOOP\n LOOP -- · more edges · LOOP\n LOOP -- · done · PROVE\n\n style BASE fill:#fff3cd,stroke:#856404\n style LOOP fill:#f8d7da,stroke:#721c24\n style PROVE fill:#d4edda,stroke:#155724\n text\nREAD ONLY · DETERMINISTIC · ZERO LLM · FIRST STAGE\n mermaid\nflowchart TD\n START[\"Enumerate the original snapshot\"] -- EX[\"Apply exclude policy target, build, .git, nodemodules \"]\n EX -- SL{\"Symbolic link?\"}\n SL -- · yes · SKIP[\"Skip: symlinks are an escape hatch out of the workspace\"]\n SL -- · no · CL[\"Classify role by extension and location\"]\n CL -- HASH[\"SHA-256 the content\"]\n HASH -- SCAN[\"Declare all observed paths before reattaching any of them\"]\n SCAN -- RE{\"Existing registry?\"}\n RE -- · no · ALLOC[\"Allocate FILE-&lt;ULID&gt;\"]\n RE -- · yes · ORDER[\"Reattachment order: 1 exact path 2 provider or Git rename 3 exact content hash 4 similarity above threshold 5 allocate new\"]\n ALLOC -- SIG\n ORDER -- SIG[\"Record migration SIGNALS never conclusions \"]\n SIG -- SEC[\"Scan for embedded credentials\"]\n SEC -- SEAL[\"Seal the registry: hash over identity-to-baseline bindings\"]\n SEAL -- PUB[\"Validate against schema, then publish\"]\n\n style SEAL fill:#fff3cd,stroke:#856404\n text\noutput/01-inventory/ /\n├── inventory-artifact.json\n├── file-registry.json\n├── inventory-signals.json\n├── inventory-issues.json\n└── manifest.json\n json\n{\n \"pipelinestage\": \"01-inventory\",\n \"runid\": \"RUN-01M24X67XDPR9YQXDK3QRS7FNB\",\n \"filecount\": 99,\n \"rolecounts\": {\n \"JAVAMAIN\": 51, \"JAVATEST\": 12, \"MAVENBUILD\": 6,\n \"CONFIGPROPERTIES\": 10, \"SETTINGS\": 12, \"RESOURCE\": 8\n },\n \"stats\": {\n \"fileregistryseal\": \"743b1d181dcb80e0...\",\n \"signalsrecorded\": 104\n }\n}\n json\n{\n \"kind\": \"CREDENTIALINSOURCE\",\n \"path\": \"employee-service/src/main/resources/application.properties\",\n \"line\": 3,\n \"redactedsample\": \"#spring.data.mongodb.uri=mongodb+srv://REDACTED:REDACTED@cluster0...\",\n \"evidencepolicy\": \"NEVERSTOREPLAINTEXT\"\n}\n mermaid\nflowchart TD\n D[\"Discover reactor roots\"] -- C[\"Build executable candidate chain: 1 repository wrapper 2 mvn on PATH 3 MAVENHOME / M2HOME\"]\n C -- PROBE[\"Probe each candidate with -version a wrapper is probed from its own module, because it resolves its base directory from cwd \"]\n PROBE -- OK{\"Any candidate responded?\"}\n OK -- · no · DEG[\"authoritative = false + BLOCKING issue + descriptor hints only\"]\n OK -- · yes · EP[\"help:effective-pom - managed versions\"]\n EP -- DL[\"dependency:list\"]\n DL -- DLOK{\"Resolved artifacts?\"}\n DLOK -- · no · DT[\"Fall back to dependency:tree tolerates a malformed upstream POM \"]\n DLOK -- · yes · PL\n DT -- DTOK{\"Resolved?\"}\n DTOK -- · no · BLOCK[\"BLOCKING issue; never substitute a version\"]\n DTOK -- · yes · PL[\"resolve-plugins\"]\n PL -- CP[\"build-classpath feeds the type solver in Agent 03 \"]\n CP -- FW[\"Detect framework anchors: Boot, Cloud, Framework, Java, Jackson\"]\n FW -- PUB[\"Publish\"]\n\n style DEG fill:#f8d7da,stroke:#721c24\n style DT fill:#fff3cd,stroke:#856404\n text\noutput/02-build/ /\n├── build-model.json modules, toolchains, frameworks, authoritative flag\n├── dependency-model.json 962 resolved records with scope and provenance\n├── bom-model.json 9,186 managed versions, imported BOMs\n├── plugin-model.json\n├── repository-model.json\n└── resolution-issues.json\n json\n{\n \"kind\": \"MAVEN\",\n \"toolversion\": \"Apache Maven 3.8.7\",\n \"wrapperused\": true,\n \"authoritative\": true,\n \"frameworks\": {\n \"spring-boot\": \"2.7.12\",\n \"spring-cloud\": \"2021.0.7\",\n \"spring-framework\": \"5.3.27\",\n \"jackson\": \"2.13.5\",\n \"java\": \"17\"\n }\n}\n mermaid\nflowchart TD\n MOD[\"Module nodes from the authoritative build model\"] -- LIB[\"Library nodes + DEPENDSONLIBRARY edges\"]\n LIB -- FILES[\"File nodes from the registry\"]\n FILES -- PARSE[\"JavaParser with symbol solver real dependency jars on the classpath \"]\n PARSE -- TYPES[\"Type nodes with Spring stereotype classification and attribution status\"]\n TYPES -- MEM[\"Member nodes: methods, constructors, fields\"]\n MEM -- AP[\"Synthesize annotation-processor members Lombok accessors, builder, log \"]\n AP -- LINK[\"Link relationships: EXTENDS, IMPLEMENTS, IMPORTS, USESTYPE, CALLS, INJECTS, CALLSSERVICE, CALLSREPOSITORY\"]\n LINK -- UNRES[\"Recover unresolved calls only when exactly one visible type matches; confidence 0.5, basis recorded\"]\n UNRES -- EP[\"Endpoint nodes from request mapping annotations\"]\n EP -- CFG[\"Configuration view: properties, profiles, placeholders\"]\n CFG -- INT[\"Integration view: Eureka, Config Server, MongoDB, brokers, external HTTP\"]\n INT -- VIEWS[\"Project ten view artifacts\"]\n VIEWS -- VER[\"Independent verification\"]\n\n style AP fill:#e7f3ff,stroke:#0366d6\n style VER fill:#d4edda,stroke:#155724\n mermaid\nflowchart TD\n ENV[\"Establish the environment equivalence contract before anything is measured \"] -- TC[\"Discover installed JDKs\"]\n TC -- SEL{\"A JDK matching the declared language level?\"}\n SEL -- · no · TCB[\"Blind spot BS-TOOLCHAIN-001: every observation below is unreliable\"]\n SEL -- · yes · HAZ[\"Check known toolchain hazards e.g. Lombok before 1.18.30 on JDK 21 \"]\n HAZ -- COPY[\"Seed runtime-old/ from original/ never build inside the pristine snapshot \"]\n COPY -- BUILD[\"Compile every module\"]\n BUILD -- TEST[\"Attach JaCoCo as a CLI goal editing the POM would violate R7 \"]\n TEST -- AGENT{\"Did the agent attach?\"}\n AGENT -- · no · RETRY[\"Re-run tests without coverage; record coverage unavailable with the reason\"]\n AGENT -- · yes · COV[\"Parse Surefire and JaCoCo\"]\n RETRY -- COV\n COV -- CFG[\"Capture configuration with sensitive values as metadata only\"]\n CFG -- PKG[\"Package, then start each module with derived isolation settings\"]\n PKG -- OBS[\"Observe context, health, beans, conditions, mappings, bound properties\"]\n OBS -- RG[\"Enrich the baseline runtime graph\"]\n RG -- SEAL[\"Hash every observation, the tree, the registry seal and the fingerprint\"]\n SEAL -- IMMUT[\"BASELINE SEALED — immutable for this run\"]\n\n style RETRY fill:#fff3cd,stroke:#856404\n style IMMUT fill:#fff3cd,stroke:#856404\n json\n{\n \"originaltreehash\": \"743b1d181dcb80e0...\",\n \"oldworkspacehash\": \"743b1d181dcb80e0...\",\n \"oldworkspacematchesoriginal\": true,\n \"fileregistryseal\": \"743b1d181dcb80e0...\",\n \"sealedenvironmentfingerprint\": \"8f2c…\",\n \"environmentmode\": \"MANAGED\",\n \"observationhashes\": {\n \"build\": \"…\", \"tests\": \"…\", \"coverage\": \"…\", \"configuration\": \"…\",\n \"runtime\": \"…\", \"runtimegraph\": \"…\", \"staticgraph\": \"…\", \"toolchain\": \"…\"\n },\n \"normalizationpolicyhash\": \"…\",\n \"sealed\": true,\n \"baselinemanifesthash\": \"217d0c7f7d8e8a1a…\"\n}\n mermaid\nflowchart TD\n META[\"maven-metadata.xml for spring-boot authoritative: which lines exist \"] -- LINES[\"Derive lines and newest stable patch\"]\n LINES -- LC{\"Curated lifecycle table still within its as-of window?\"}\n LC -- · yes · VER[\"quality = VERIFIED\"]\n LC -- · no · ADV[\"Consult the community aggregator quality = ADVISORY\"]\n ADV -- NONE{\"Still nothing?\"}\n NONE -- · yes · UNK[\"quality = UNKNOWN\"]\n VER -- CLOUD\n ADV -- CLOUD\n UNK -- CLOUD[\"For each Spring Cloud train line, read spring-cloud-starter-parent POM and take its Boot parent version\"]\n CLOUD -- AVAIL[\"Probe artifact existence for each candidate\"]\n AVAIL -- INT[\"Classify internal components by public-repository existence\"]\n INT -- PUB[\"Publish registry\"]\n\n style VER fill:#d4edda,stroke:#155724\n style ADV fill:#fff3cd,stroke:#856404\n style UNK fill:#f8d7da,stroke:#721c24\n mermaid\nflowchart TD\n DEP[\"Resolved dependency\"] -- MOD{\"One of the repository modules?\"}\n MOD -- · yes · SKIP[\"Not a third-party component\"]\n MOD -- · no · PROF{\"InternalComponentProfile on disk?\"}\n PROF -- · yes · USE[\"Use the declared compatibility and its evidence references\"]\n PROF -- · no · PROBE[\"Probe the public artifact repository\"]\n PROBE -- EX{\"Coordinate resolves?\"}\n EX -- · yes · PUBLIC[\"Public ecosystem component\"]\n EX -- · no · ONLINE{\"Repository reachable?\"}\n ONLINE -- · no · UNDET[\"UNDETERMINED cannot tell public from internal offline \"]\n ONLINE -- · yes · INTERNAL[\"INTERNALCOMPONENT compatibility = UNKNOWN\"]\n INTERNAL -- ACT{\"Policy action\"}\n ACT -- · BLOCK · B[\"Eliminates target candidates\"]\n ACT -- · WARN · W[\"Caution + approval gate\"]\n\n style INTERNAL fill:#fff3cd,stroke:#856404\n style B fill:#f8d7da,stroke:#721c24\n json\n{\n \"groupid\": \"com.acme\",\n \"artifactid\": \"acme-spring-starter\",\n \"componentversion\": \"4.2.1\",\n \"compatibility\": \"SUPPORTED\",\n \"javarange\": \"17-21\",\n \"springbootrange\": \"3.2.0-3.5.999\",\n \"springframeworkrange\": \"6.1.0-6.2.999\",\n \"transitivemanageddependencies\": [\"com.acme:acme-core:4.2.1\"],\n \"migrationnotes\": \"4.2.x drops the deprecated AcmeAutoConfiguration entry point.\",\n \"evidencereferences\": [\"https://internal.acme/…\", \"sha256:…\"],\n \"ownercontact\": \"platform-team@acme.example\",\n \"confidence\": \"HIGH\",\n \"status\": \"VERIFIED\"\n}\n mermaid\nflowchart TD\n LC[\"Lifecycle registry with evidence quality \"] -- CAND[\"Enumerate stable GA candidates\"]\n COMPAT[\"Compatibility registry\"] -- CAND\n AVAIL[\"Artifact availability\"] -- CAND\n INT[\"Internal components\"] -- CAND\n JDK[\"Installed JDKs\"] -- CAND\n\n CAND -- E1{\"Stable GA?\"}\n E1 -- · no · X1[\"eliminate\"]\n E1 -- · yes · E2{\"Newer than the current state?\"}\n E2 -- · no · X2[\"eliminate\"]\n E2 -- · yes · E3{\"Artifacts exist?\"}\n E3 -- · no · X3[\"eliminate\"]\n E3 -- · yes · E4{\"App uses Spring Cloud and a GA train exists?\"}\n E4 -- · no train · X4[\"eliminate: required artifacts do not exist\"]\n E4 -- · ok · E5{\"An installed JDK satisfies the range and the project level?\"}\n E5 -- · no · X5[\"eliminate\"]\n E5 -- · yes · E6{\"Lifecycle evidence quality?\"}\n E6 -- · VERIFIED + EOL · X6[\"eliminate\"]\n E6 -- · ADVISORY + EOL · C1[\"caution - approval gate\"]\n E6 -- · ok · RANK\n C1 -- RANK[\"Rank by support horizon, GA status, availability, evidence quality, train presence\"]\n RANK -- PICK{\"Any viable?\"}\n PICK -- · no · BLOCK[\"exit 3, naming the closest candidate and the exact policy flag that would admit it\"]\n PICK -- · yes · LAND[\"Landing target\"]\n LAND -- PATH[\"Compute transit checkpoints\"]\n PATH -- FREEZE[\"FREEZE target and path\"]\n\n style X4 fill:#f8d7da,stroke:#721c24\n style C1 fill:#fff3cd,stroke:#856404\n style FREEZE fill:#d4edda,stroke:#155724\n text\nPOLICY BLOCK: No Spring Boot line satisfies the active policy as a landing target.\n 2.7 - the application uses Spring Cloud but no GA release train targets this Boot line…; open-source support has ended\n 3.0 - open-source support has ended\n 3.1 - …no GA release train…; open-source support has ended\n 3.2 - …no GA release train…\n 3.3 - open-source support has ended\n 3.4 - open-source support has ended\n 3.5 - open-source support has ended\n 4.0 - the application uses Spring Cloud but no GA release train targets this Boot line…\n 4.1 - the application uses Spring Cloud but no GA release train targets this Boot line…\n\nClosest supportable candidate: 3.5.16 with Spring Cloud 2025.0.3.\nIt was rejected because: open-source support has ended.\nIf that is an accepted business risk, re-run with a policy that sets\nalloweollandingtarget=true, which records the exception explicitly rather than hiding it.\n text…",
+      "mermaid": [
+        "flowchart LR\n    S[\"Source<br/><i>Git or plain directory</i>\"] --> U[\"Understand<br/><i>inventory, build, graph</i>\"]\n    U --> B[\"Baseline<br/><i>observe and seal</i>\"]\n    B --> D[\"Decide<br/><i>compatibility, target</i>\"]\n    D --> P[\"Plan<br/><i>knowledge, impact, edges</i>\"]\n    P --> M[\"Migrate<br/><i>gateway-mediated change</i>\"]\n    M --> V[\"Validate<br/><i>build, test, runtime, differential</i>\"]\n    V --> R[\"Prove<br/><i>claims and evidence levels</i>\"]\n    R --> Rep[\"Report<br/><i>sealed manifest and bundle</i>\"]\n\n    style B fill:#fff3cd,stroke:#856404\n    style M fill:#f8d7da,stroke:#721c24\n    style R fill:#d4edda,stroke:#155724",
+        "flowchart TD\n    IN{\"Input path\"}\n    IN -->|\"contains .git\"| G[\"Git-backed intake\"]\n    IN -->|\"plain directory\"| P[\"Plain-directory intake\"]\n\n    G --> GP[\"Capture remote, branch,<br/>commit SHA, tree SHA\"]\n    P --> PP[\"Compute deterministic<br/>content-manifest hash\"]\n\n    GP --> SNAP[\"Immutable original snapshot\"]\n    PP --> SNAP\n    SNAP --> RO[\"original/ marked read-only<br/>held for the whole run\"]\n    SNAP --> MIG[\"migration/ mutable worktree\"]\n    MIG --> CKPT[\"internal checkpoint Git repository<br/><i>inside the external workspace</i>\"]\n\n    style RO fill:#e7f3ff,stroke:#0366d6\n    style CKPT fill:#fff3cd,stroke:#856404",
+        "flowchart TD\n    subgraph USER[\"User input (read-only, never written)\"]\n        SRC[\"./src\"]\n    end\n\n    subgraph WS[\"External workspace root — BOOTSHIFT_WORKSPACE_ROOT/&lt;run_id&gt;/\"]\n        ORIG[\"original/<br/><i>immutable, read-only,<br/>held for the entire run</i>\"]\n        MIGR[\"migration/<br/><i>the mutable worktree</i>\"]\n        ROLD[\"runtime-old/<br/><i>writable OLD build and run</i>\"]\n        RNEW[\"runtime-new/<br/><i>NEW side runtime</i>\"]\n        CG[\"internal-checkpoint-git/\"]\n        EV[\"evidence/<br/><i>content-addressed</i>\"]\n        ST[\"state/\"]\n    end\n\n    subgraph OUT[\"Artifact plane — ./output/\"]\n        STAGES[\"&lt;stage&gt;/&lt;timestamp&gt;/<br/>&lt;stage&gt;/latest.json\"]\n    end\n\n    SRC -->|snapshot| ORIG\n    SRC -->|snapshot| MIGR\n    ORIG -->|seeded copy| ROLD\n    MIGR --> CG\n    MIGR -->|packaged| RNEW\n    ORIG -.->|differential OLD side| ROLD\n\n    style ORIG fill:#e7f3ff,stroke:#0366d6\n    style MIGR fill:#f8d7da,stroke:#721c24"
+      ]
+    },
+    {
+      "name": "KrishnaAnnavaram.github.io",
+      "fullName": "KrishnaAnnavaram/KrishnaAnnavaram.github.io",
+      "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io",
+      "homepage": null,
+      "description": "Professional portfolio - Gen AI Engineer & AI Specialist",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 196316,
+      "createdAt": "2026-02-23T02:27:00Z",
+      "pushedAt": "2026-09-04T14:16:10Z",
+      "languages": [
+        {
+          "name": "TypeScript",
+          "bytes": 152072,
+          "share": 82.5
+        },
+        {
+          "name": "MDX",
+          "bytes": 21324,
+          "share": 11.6
+        },
+        {
+          "name": "CSS",
+          "bytes": 10473,
+          "share": 5.7
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 549,
+          "share": 0.3
+        }
+      ],
+      "primaryLanguage": "TypeScript",
+      "lastCommit": {
+        "sha": "157c853",
+        "message": "Merge pull request #24 from KrishnaAnnavaram/claude/new-session-azjppj",
+        "date": "2026-09-04T14:16:10Z",
+        "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io/commit/157c853138af31cfe7e15e21f7854a59ab3eabe9"
+      },
+      "readmeLead": "Personal site for Krishna Annavaram — Generative AI Engineer. Static Next.js export, deployed to GitHub Pages.",
+      "readmeText": "krishnaannavaram.github.io\n\nPersonal site for Krishna Annavaram — Generative AI Engineer. Static Next.js export, deployed to\nGitHub Pages.\n\nRead CONTENTTODO.md first — it lists the content that still needs real\ndetail and the claims that were removed from the previous version.\n\nStack\n · · \n --- · --- · \n Framework · Next.js 15 (App Router, output: 'export') · \n UI · React 19 · \n Styling · Tailwind CSS v4 — CSS-first @theme, no config file · \n Content · TypeScript data modules + MDX for essays · \n Icons · lucide-react · \n Hosting · GitHub Pages via Actions · \n\nNo animation library, no 3D, no charting library, no client-side AI. First Load JS is ~103 kB\nshared, 106–120 kB per route.\n\nCommands\n\n \n\nWhere the content lives\n\nEverything the site renders comes from data/ and content/. No copy is hardcoded in components.\n\n \n\nAdding a case study to data/work.ts with featured: true puts it on the home page, in /work,\nin the sitemap, and in the ⌘K palette — no other edits needed. Same for an MDX file dropped into\ncontent/writing/.\n\nDesign system\n\nDefined entirely in app/globals.css. Light and dark are both first-class: colours are authored\nas oklch tokens on :root, redefined under prefers-color-scheme: dark (guarded so an explicit\nlight choice wins) and again under [data-theme='dark'] so the toggle overrides in both\ndirections.\n\nType is Instrument Serif for display, Inter for text, JetBrains Mono for labels and data, all\nself-hosted at build time through next/font.\n\nScroll reveals are CSS transitions armed by a .js class that the boot script adds before first\npaint. Without JavaScript nothing is hidden, and a three-second fallback timer reveals anything\nstill hidden if hydration never lands — content never depends on script.\n\nDeployment\n\nPushing to main runs .github/workflows/deploy.yml: install → typecheck → lint → build →\npublish out/ to Pages. A type error or lint warning fails the build before anything deploys.\n\nTo host under a subpath, set NEXTPUBLICBASEPATH in the workflow environment.",
+      "mermaid": []
+    },
+    {
+      "name": "statute",
+      "fullName": "KrishnaAnnavaram/statute",
+      "url": "https://github.com/KrishnaAnnavaram/statute",
+      "homepage": null,
+      "description": null,
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 2,
+      "forks": 1,
+      "openIssues": 0,
+      "sizeKb": 4275,
+      "createdAt": "2026-07-27T14:50:35Z",
+      "pushedAt": "2026-09-01T18:49:40Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 8421657,
+          "share": 92.5
+        },
+        {
+          "name": "ANTLR",
+          "bytes": 359786,
+          "share": 4
+        },
+        {
+          "name": "Cypher",
+          "bytes": 259171,
+          "share": 2.8
+        },
+        {
+          "name": "PLSQL",
+          "bytes": 44257,
+          "share": 0.5
+        },
+        {
+          "name": "Mermaid",
+          "bytes": 15738,
+          "share": 0.2
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "8c99eef",
+        "message": "Merge pull request #13 from KrishnaAnnavaram/readme-full-documentation",
+        "date": "2026-09-01T18:49:40Z",
+        "url": "https://github.com/KrishnaAnnavaram/statute/commit/8c99eef8c58e6352918ac97c73f04c95d2459bb6"
+      },
+      "readmeLead": "Structured Translation & Analysis Tool for Undocumented Transactional Engines",
+      "readmeText": "STATUTE\n\nStructured Translation & Analysis Tool for Undocumented Transactional Engines\n\nReverse-engineers an Oracle PL/SQL codebase into a Business Requirements Document, diagrams, and a queryable knowledge graph — deterministically, with every statement traceable to a source line.\n\nPython 3.11+ · ANTLR4 · sqlglot · Mermaid · Neo4j (optional) · Zero LLM calls · 414 tests\n\n \n\n No language model generates, summarises, judges or rewrites any output.\n Structure comes from a formal Oracle PL/SQL grammar; SQL is decomposed with sqlglot; every sentence is assembled by rule from the resulting parse trees. The same source always produces the same document.\n Hallucination is not reduced — it is structurally impossible, because there is no model in the generation path. That is what makes it safe for every claim to cite a file and line.\n\nTable of Contents\n\nGetting oriented\n- 1. What it does\n- 2. Why it exists\n- 3. What it produces\n- 4. Quick start\n\nHow it is built\n- 5. Architecture at a glance\n- 6. Technology stack\n- 7. Repository structure\n- 8. Design principles\n\nThe eight agents\n- 9. Agent catalog and responsibility matrix\n- 10. Agent 1: Inventory\n- 11. Agent 2: Parser\n- 12. Agent 3: Data\n- 13. Agent 4: Logic\n- 14. Agent 5: Rules\n- 15. Agent 6: Diagram\n- 16. Agent 7: Synthesis\n- 17. Agent 8: Knowledge Graph\n\nHow it runs\n- 18. End-to-end workflow\n- 19. Data flow and lineage\n- 20. Control flow and state\n- 21. Formulas, thresholds and algorithms\n- 22. Error handling and recovery\n\nUsing and operating it\n- 23. Configuration\n- 24. The annotation layer\n- 25. Querying the knowledge graph\n- 26. Testing and evaluation\n- 27. Observability and troubleshooting\n- 28. Security\n- 29. Deployment\n\nReference\n- 30. Architecture decisions\n- 31. Known limitations\n- 32. Known gaps and open questions\n- 33. Extending the system\n- 34. References\n- 35. Full documentation index\n\n1. What it does\n\nPoint it at a directory of .sql files. It produces a specification a business analyst can review and a development team can rebuild from.\n\nmermaid\nflowchart LR\n A[(\"src/.sql Oracle PL/SQL\")] -- B[\"8-stage deterministic pipeline\"]\n B -- C[(\"brd.md Business Requirements\")]\n B -- D[(\".mmd ERD, flows, states\")]\n B -- E[(\"import.cypher knowledge graph\")]\n B -- F[(\"brdindex.json machine-readable\")]\n\n style B fill:#eaf3fb,stroke:#2c6fad,stroke-width:2px\n bash\npip install antlr4-python3-runtime sqlglot\n bash\npython .claude/scripts/01inventory.py src\npython .claude/scripts/02parser.py\npython .claude/scripts/03data.py\npython .claude/scripts/04logic.py\npython .claude/scripts/05rules.py\npython .claude/scripts/06diagram.py\npython .claude/scripts/07synthesis.py\npython .claude/scripts/08graph.py # optional\n bash\ncat output/finalreport/latest.json # names the run directory holding brd.md\n bash\npython .claude/scripts/08graph.py --ask \"what breaks if I change ACCOUNTS.BALANCE\"\n bash\nfor t in tests/test.py; do python \"$t\"; done # 414 checks\n mermaid\nflowchart TD\n SRC[(\"src/.sql\")] -- A1\n\n A1[\" 1 Inventory classify + stable fileid\"]\n A2[\" 2 Parser ANTLR4 → statements + CFG\"]\n A3[\" 3 Data DDL → schema + enforcement + ERD\"]\n A4[\" 4 Logic pseudocode + complexity + slices\"]\n A5[\" 5 Rules 9 sources → business rules\"]\n A6[\" 6 Diagram model → Mermaid\"]\n A7[\" 7 Synthesis the BRD\"]\n A8[\" 8 Graph knowledge graph + Q&A\"]\n\n A1 -- A2\n A1 -- A3\n A2 -- A3\n A2 -- A4\n A2 -- A5\n A3 -- A5\n A4 -- A5\n A2 -- A6\n A3 -- A6\n A4 -- A6\n A5 -- A6\n A1 -- A7\n A2 -- A7\n A3 -- A7\n A4 -- A7\n A5 -- A7\n A6 -- A7\n A7 -- A8\n\n A7 -- OUT[(\"brd.md brdindex.json gapsregister.json\")]\n A6 -- MMD[(\"diagrams/.mmd\")]\n A3 -- ERD[(\"erd.mmd\")]\n A8 -- CYP[(\"import.cypher + CSVs\")]\n ANN[(\"brdannotations.json\")] -.- · read-only · A7\n\n classDef opt stroke-dasharray: 4 2\n class A8 opt\n mermaid\nflowchart LR\n subgraph Ext[\"Outside the system\"]\n DEV[\"Analyst / Architect\"]\n SME[\"Business SME\"]\n NEO[\"Neo4j optional consumer \"]\n end\n subgraph Sys[\"STATUTE — local CLI pipeline\"]\n SRC[(\"src/.sql\")]\n PIPE[\"8 stage scripts\"]\n OUT[(\"output/ versioned artefacts\")]\n end\n DEV -- · runs stages · PIPE\n SRC -- PIPE\n PIPE -- OUT\n OUT -- DEV\n SME -- · annotations, read-only · PIPE\n OUT -.- · manual import · NEO\n classDef ext fill:#f5f5f5,stroke:#999\n class DEV,SME,NEO ext\n \n.claude/\n agents/ 8 agent specifications (harness metadata + rationale)\n scripts/\n 01inventory.py (724) Stage 1\n 02parser.py (858) Stage 2\n 03data.py (1,431) Stage 3 — largest\n 04logic.py (917) Stage 4\n 05rules.py (1,198) Stage 5\n 06diagram.py (1,207) Stage 6\n 07synthesis.py (1,308) Stage 7\n 08graph.py (419) Stage 8\n libbusinesslanguage.py (271) identifier → business language (Agents 7, 8)\n libgraphmodel.py (376) in-memory property graph (Agent 8)\n libgraphlanguage.py (433) plain-English intent catalogue (Agent 8)\n vendor/plsqlgrammar/ vendored ANTLR4 grammar + NOTICE\n archive/ superseded early scripts (not in the pipeline)\n skills/ 2 skill definitions\nsrc/ 7 PL/SQL files — the reference corpus\ntests/\n test.py 8 suites, 414 checks\n evaluaterules.py the only evaluation harness\n fixtures/groundtruth/ 4 annotated procedures + BASELINE.json\noutput/ versioned runs (gitignored)\ndocs/ 16 detailed technical documents\ntoolsantlrbuild/ grammar regeneration\nreference/ COBOL reference harness — GITIGNORED, guidance only\n mermaid\nflowchart TD\n CLI[\"01inventory.py sqldir\"] -- VAL{\"directory valid?\"}\n VAL -- · no · ERR[\"stderr + exit 1\"]\n VAL -- · yes · DISC[\"discover() recursive .sql walk\"]\n DISC -- SKIP{\"shouldexclude()\"}\n SKIP -- · excluded · DISC\n SKIP -- · kept · READ[\"readfilesafe() encoding fallback\"]\n READ -- · unreadable · WARN[\"status + warnings counted, not fatal\"]\n READ -- · ok · PROC[\"processfile()\"]\n PROC -- FID[\"makefileid() SLUG + SHA256(path)[0:8]\"]\n PROC -- ROLE[\"classifyfilerole()\"]\n PROC -- HINTS[\"extractcontenthints() 25 regex signals\"]\n PROC -- CX[\"infercomplexity()\"]\n FID -- SUM[\"buildsummary()\"]\n ROLE -- SUM\n HINTS -- SUM\n CX -- SUM\n SUM -- W[\"inventory-artifact.json\"]\n W -- PTR[\"latest.json (success only)\"]\n classDef err fill:#fdecea,stroke:#c0392b\n class ERR,WARN err\n mermaid\nflowchart TD\n IN[\"inventory-artifact.json\"] -- ROUTE[\"routefiles()\"]\n ROUTE -- · schemaddl / seeddata · PASS[\"passthrough → Agent 3\"]\n ROUTE -- · package/procedure/function/ trigger/mixed · PA[\"PASS A: discoverobjects()\"]\n PA -- LEX[\"ANTLR4 PlSqlLexer\"]\n LEX -- PARSE[\"ANTLR4 PlSqlParser\"]\n PARSE -- · syntax error · ISSUE[\"issues[]\"]\n PARSE -- WRAP{\"wrapped object?\"}\n WRAP -- · yes · SKIP[\"wrappedobjectskipped\"]\n WRAP -- · no · OMAP[\"object map\"]\n OMAP -- PB[\"PASS B: extractstatements()\"]\n PB -- CLS[\"classifystatement()\"]\n CLS -- TREE[\"nested tree parentid + scopepath\"]\n CLS -- · DML · SG[\"sqlglot enrichment tables / writes / predicatereads\"]\n CLS -- · CALL · RES[\"resolve vs object map\"]\n TREE -- CFG[\"buildcfg() SEQUENCE / BRANCHENTRY / EXCEPTIONEDGE / LOOPBACKEDGE\"]\n CFG -- OUT[\"rawstructure/.json + parserartifact.json\"]\n classDef err fill:#fdecea,stroke:#c0392b\n class ISSUE,SKIP err\n \n04MEDIUMPROCESSMONTHLYINTERESTCREDITB115DB87PROC-.SPPROCESSMONTHLYINTERESTCREDITSTMT0004\n mermaid\nflowchart TD\n INV[\"inventory\"] -- ROUTE[\"routeddlfiles() DDLROLES OR DDLCONTENTHINTS\"]\n PAR[\"parser artefact\"] -- XVAL[\"cross-validate refs resolve synonyms + views\"]\n ROUTE -- ANTLR[\"ANTLR4 parse\"]\n ANTLR -- COLS[\"extractcolumn() virtual / IDENTITY / default\"]\n ANTLR -- CONS[\"parseconstraintstate()\"]\n CONS -- ENF[\"enforcementsummary() STATUS x VALIDATED\"]\n ANTLR -- OTHER[\"FKs / CHECK / UNIQUE / indexes / sequences / partitioning\"]\n COLS -- TYPE[\"maporacletype() Oracle → normalized → PySpark\"]\n TYPE -- CAT[\"columncatalogue + usagecount\"]\n XVAL -- CAT\n ENF -- CAND[\"ddlrulecandidates → Agent 5\"]\n CAT -- ART[\"dataartifact.json\"]\n OTHER -- ERD[\"erd.mmd owned here, indexed by Agent 6 \"]\n \n\"enforced\" → (5, \"confirmed\", False)\n\"enforcednewdataonly\" → (4, \"high\", True)\n\"notenforced\" → (2, \"low\", True)\n mermaid\nflowchart TD\n PAR[\"parser records\"] -- LOOP{\"for each object\"}\n INV[\"inventory abspath\"] -- SRC[\"re-slice raw .sql for condition text\"]\n LOOP -- TREE[\"walk parentid tree\"]\n SRC -- PSEUDO\n TREE -- PSEUDO[\"renderobjectpseudocode() preserves IF/ELSIF/ELSE nesting\"]\n TREE -- CYC[\"computecyclomatic() M = D + 1\"]\n TREE -- COG[\"computecognitive() nesting-weighted\"]\n TREE -- SLICE[\"sliceforvariable() backward slice + control ancestors\"]\n TREE -- TX[\"analysetransactions() hazards\"]\n TREE -- SHAPE[\"classifyshape()\"]\n TREE -- LOOPS[\"loop termination\"]\n PSEUDO -- REC[\"per-object record\"]\n CYC -- REC\n COG -- REC\n SLICE -- REC\n TX -- REC\n SHAPE -- REC\n LOOPS -- REC\n REC -- ART[\"logicartifact.json\"]\n mermaid\nflowchart TD\n DDL[\"ddlrulecandidates (Agent 3)\"] -- M1[\"minefromddlcandidates()\"]\n PAR[\"statements + CFG (Agent 2)\"] -- M2[\"minefromstatements()\"]\n LOG[\"variableslices (Agent 4) — OPTIONAL\"] -- M3[\"minefromvariableslices()\"]\n\n M2 -- C1[\"cursor WHERE → eligibility\"]\n M2 -- C2[\"IF/ELSIF/ELSE → one rule per branch\"]\n M2 -- C3[\"CASE WHEN/ELSE → one rule per branch\"]\n M2 -- C4[\"RAISE → obligation (SBVR)\"]\n M2 -- C5[\"handlers → predefined / failureisolation / errorcontract / generic\"]\n\n M1 -- ENF[\"ENFORCEMENTTOCONFIDENCE\"]\n M3 -- DER{\"isderivation AND assignsvariable?\"}\n DER -- · no · DROP[\"dropped\"]\n\n C1 -- RULE[\"raw rules\"]\n C2 -- RULE\n C3 -- RULE\n C4 -- RULE\n C5 -- SPLIT{\"generic handler?\"}\n SPLIT -- · yes · CAT[\"errorhandlingcatalogue\"]\n SPLIT -- · no · RULE\n ENF -- RULE\n DER -- · yes · RULE\n\n RULE -- NAME[\"describecomparison() subject + qualifier from ONE clause\"]\n NAME -- DEDUP[\"deduplicate() obligation wins, then signalstrength\"]\n DEDUP -- SORT[\"assign BR-nnn\"]\n SORT -- ART[\"rulesartifact.json\"]\n classDef drop fill:#f5f5f5,stroke:#999,stroke-dasharray: 4 2\n class DROP,CAT drop\n \npamount + data / logic / rules / inventory (optional)\"] -- IDX[\"Indexes join on statementid\"]\n IDX -- M1[\"builddataflowspec()\"]\n IDX -- M2[\"buildstatespecs()\"]\n IDX -- M3[\"buildflowspec() per object\"]\n M3 -- LAB[\"labelforstatement() tier1 rule / tier2 structured / tier3 fallback\"]\n M3 -- RED[\"collapseruns() contiguous straight-line ONLY\"]\n RED -- INV{\"decisions / loops / errors / terminals preserved?\"}\n INV -- · always · ORD[\"order by source line\"]\n RED -- OVER{\"still over budget?\"}\n OVER -- · yes · DECL[\"declare OVERSIZE → BRD gaps register\"]\n M1 -- SPEC[\"DiagramSpec\"]\n M2 -- SPEC\n ORD -- SPEC\n DECL -- SPEC\n SPEC -- VS[\"validatespec()\"]\n VS -- · problem · FAIL[\"stderr + exit 1 stage fails \"]\n VS -- REND[\"MermaidRenderer.render()\"]\n REND -- VM[\"validatemermaid()\"]\n VM -- W[\"diagrams/.mmd\"]\n ERD[\"Agent 3 erd.mmd\"] -.- · indexed, never regenerated · W\n classDef err fill:#fdecea,stroke:#c0392b\n class FAIL err\n mermaid\nflowchart TD\n A1..6[\"all six upstream artefacts\"] -- CTX[\"buildcontext() capabilities / glossary / tx / loops / flow map / stats\"]\n ANN[(\"brdannotations.json read-only\")] -- CTX\n CTX -- GAPS[\"detectgaps() across all artefacts\"]\n CTX -- DOC[\"builddocument()\"]\n GAPS -- DOC\n DOC -- BL[\"libbusinesslanguage humanise / objecttitle / humanisecondition / plaintype\"]\n DOC -- MOD[\"rulemodality() alethic vs deontic\"]\n DOC -- VER[\"verificationmethod() Inspection vs Test\"]\n DOC -- PROV[\"humanisedescription() strip provenance from prose\"]\n DOC -- TOC[\"contentsblock() depth-limited\"]\n DOC -- MD[\"brd.md\"]\n CTX -- IDX[\"brdindex.json\"]\n GAPS -- REG[\"gapsregister.json\"]\n \nBR-002 — Enforce From Balance at or above Amount\n Exact condition in code · vfrombalance (parser required, six optional)\"] -- BUILD[\"libgraphmodel.buildgraph() 13 labels, 22 relationship types\"]\n BUILD -- GUARD[\"g.rel() endpoint guard drops edges to missing nodes\"]\n GUARD -- BS[\"BlindSpot nodes DYNAMICSQL / EXTERNALCALLERS / UNRESOLVEDCALLS / TRIGGERSIDEEFFECTS\"]\n BS -- MODE{\"CLI mode\"}\n MODE -- · --list-questions · LIST[\"print 12 intents\"]\n MODE -- · --ask · ASK[\"resolveentity() → match intent\"]\n ASK -- · no match · REFUSE[\"refusal + suggestions exit 2\"]\n ASK -- · matched · ANSWER[\"rows + equivalent Cypher exit 0\"]\n MODE -- · default · EXP[\"import.cypher (MERGE) nodes/.csv, rels/.csv README with cookbook\"]\n classDef refuse fill:#f5f5f5,stroke:#999,stroke-dasharray: 4 2\n class REFUSE refuse\n mermaid\nflowchart TD\n START([\"Operator runs stage 1\"]) -- S1[\"01inventory.py src\"]\n S1 -- C1{\"exit 0?\"}\n C1 -- · no · ABORT[\"Pipeline stops. latest.json unchanged.\"]\n C1 -- · yes · S2[\"02parser.py\"]\n S2 -- S3[\"03data.py\"]\n S3 -- S4[\"04logic.py\"]\n S4 -- S5[\"05rules.py\"]\n S5 -- S6[\"06diagram.py\"]\n S6 -- C6{\"validation passed?\"}\n C6 -- · no · FAIL6[\"problem list on stderr exit 1\"]\n C6 -- · yes · S7[\"07synthesis.py\"]\n S7 -- S8[\"08graph.py (optional)\"]\n S8 -- DONE([\"brd.md + diagrams + graph\"])\n S1 -.- · latest.json · S2\n S2 -.- · latest.json · S3\n S5 -.- · latest.json · S6\n S6 -.- · latest.json · S7\n S7 -.- · brdindex.json · S8\n classDef err fill:#fdecea,stroke:#c0392b\n class ABORT,FAIL6 err\n \nStage 1 7 files, 940 lines total, 603 code\nStage 2 5 objects, 124 statements, 0 parse errors, 0 unresolved calls\nStage 3 15 tables, 7 FKs + 1 inferred, 1 CHECK, 6 comment-only enums flagged\nStage 4 151 pseudocode lines, 25 slices, 1 over threshold, 1 SAVEPOINT hazard\nStage 5 41 rules — 19 validation, 12 limit-check, 6 calculation, 4 error-handling\nStage 6 7 figures, 100% decision labels, 100% branch traceability\nStage 7 41 requirements, 21 glossary terms, 41 traceability rows, 21 gaps\nStage 8 353 nodes / 769 relationships, 12 questions, 4 blind spots\n mermaid\nflowchart LR\n SQL[(\".sql\")] -- INV[\"inventory-artifact.json\"]\n INV -- PAR[\"parserartifact.json + rawstructure/\"]\n SQL -.- · re-read · PAR\n SQL -.- · re-read for conditions · LOG\n SQL -.- · re-read for conditions · RUL\n SQL -.- · re-read for SET values · DIA\n PAR -- DAT[\"dataartifact.json + erd.mmd\"]\n PAR -- LOG[\"logicartifact.json\"]\n DAT -- RUL[\"rulesartifact.json\"]\n LOG -- RUL\n PAR -- RUL\n RUL -- DIA[\"diagramsartifact.json + .mmd\"]\n PAR -- DIA\n DAT -- DIA\n LOG -- DIA\n INV -- SYN[\"brd.md + brdindex.json + gapsregister.json\"]\n PAR -- SYN\n DAT -- SYN\n LOG -- SYN\n RUL -- SYN\n DIA -- SYN\n ANN[(\"annotations\")] -.- SYN\n SYN -- GRA[\"import.cypher + CSVs\"]\n \nsrc/05mediumfundtransferwithvalidation.sql : line 79\n → Agent 1 fileid = 05MEDIUMFUNDTRANSFERWITHVALIDATION5E3A3BBB\n → Agent 2 statementid = PROC-.SPTRANSFERFUNDSSTMT00nn\n → Agent 5 BR-002, source.statementid + line 79\n → Agent 6 decision node + BRANCH edge labelled \"BR-002\"\n → Agent 7 §5 rule block + §12 traceability row citing file:line\n → Agent 8 (:BusinessRule {ruleid:\"BR-002\"})-[:IMPLEMENTEDAT]-(:Statement)\n mermaid\nstateDiagram-v2\n [] -- NoRun\n NoRun -- RunInProgress : stage starts\n RunInProgress -- OrphanRun : crash before write\n RunInProgress -- RunWritten : artefact on disk\n RunWritten -- RunPublished : latest.json updated\n RunPublished -- RunInProgress : next stage\n OrphanRun -- RunInProgress : re-run\n RunPublished -- []\n note right of OrphanRun\n Orphan directory persists.\n latest.json still points at\n the last good run, so\n downstream is unaffected.\n Nothing cleans it up.\n end note\n mermaid\nflowchart TD\n A[\"argparse\"] -- B[\"loadrun() upstream via latest.json or pinned run\"]\n B -- C{\"required present?\"}\n C -- · no · D[\"exception → non-zero exit\"]\n C -- · yes · E{\"optional present?\"}\n E -- · no · F[\"degrade + record\"]\n E -- · yes · G[\"full capability\"]\n F -- H[\"process\"]\n G -- H\n H -- I[\"write versioned run directory\"]\n I -- J{\"write ok?\"}\n J -- · no · K[\"latest.json NOT updated\"]\n J -- · yes · L[\"update latest.json\"]\n L -- M[\"print summary + next command\"]\n classDef err fill:#fdecea,stroke:#c0392b\n class D,K err\n mermaid\nflowchart TD\n E[\"Error occurs\"] -- T{\"Type\"}\n T -- · Missing required artefact · A[\"exception → non-zero exit\"]\n T -- · Missing optional artefact · B[\"degrade + record stage succeeds\"]\n T -- · Parse error in one file · C[\"issues[] entry run continues\"]\n T -- · Unreadable source file · D[\"status + warnings counted in summary\"]\n T -- · Diagram validation problem · F[\"stderr list → exit 1\"]\n T -- · Malformed annotations · G[\"empty dict placeholders rendered\"]\n T -- · Dangling graph edge · H[\"silently dropped\"]\n T -- · Unmatched question · I[\"structured refusal → exit 2\"]\n A -- R[\"latest.json unchanged previous run stays current\"]\n F -- R\n R -- RE[\"Recovery: fix and re-run. Nothing to clean up.\"]\n classDef err fill:#fdecea,stroke:#c0392b\n classDef ok fill:#eaf3fb,stroke:#2c6fad\n class A,F err\n class B,C,D,G,I ok\n json\n{\n \"annotations\": {\n \"BR-001\": {\n \"note\": \"365-day threshold is set by regulation, not policy.\",\n \"owner\": \"Head of Retail Operations\",\n \"priority\": \"Must have\"\n },\n \"table:ACCOUNTS\": { \"note\": \"Master record for every customer account.\" },\n \"term:ACCOUNTS.BALANCE\":{ \"note\": \"Cleared balance, excluding pending items.\" },\n \"object:PROC-.SPTRANSFERFUNDS\": { \"note\": \"Used by the mobile channel.\" },\n \"executivesummary\": { \"note\": \"Core retail ledger, in service since 2004.\" }\n }\n}\n bash\npython .claude/scripts/08graph.py --list-questions\npython .claude/scripts/08graph.py --ask \"what breaks if I change ACCOUNTS.BALANCE\"\npython .claude/scripts/08graph.py --ask \"...\" --json # for scripts\n \nQuestion type : What breaks if I change a given column?\nSubject : ACCOUNTS.BALANCE — NUMBER(18,2) — NOT NULL\nResults : 10\n\n BR-014 Restrict Account Status to allowed values constrains this table business rule\n Check Minimum Balance — line 21 reads SELECTINTO\n Process Monthly Interest Credit — line 58 writes UPDATE\n Transfer Funds — line 95 writes UPDATE\n Transfer Funds — line 109 writes UPDATE\n ...\n\nEquivalent Cypher:\n MATCH (c:Column {columnid: $column}) ...\n bash\ncd output/graph/ /\ncat import.cypher · cypher-shell -u neo4j -p \n bash\nfor t in tests/test.py; do python \"$t\"; done # 414 checks\npython tests/evaluaterules.py # rule extraction vs ground truth\n mermaid\nflowchart TD\n subgraph M[\"Single workstation\"]\n PY[\"Python 3.11+\"]\n DEPS[\"antlr4-python3-runtime + sqlglot installed manually — no manifest \"]\n SCR[\"8 scripts + 3 libraries\"]\n FS[(\"local filesystem\")]\n end\n OPT[\"Neo4j optional, separate, manual import \"]\n PY -- SCR\n DEPS -- SCR\n SCR FS\n FS -.- · human runs cypher-shell · OPT\n classDef opt stroke-dasharray: 4 2\n class OPT opt\n\nShort-lived sequential CLI processes on one machine. No Dockerfile, no CI/CD, no health checks, no service, no environment separation. Persistence is the local filesystem only.\n\n30. Architecture decisions\n\nEleven ADRs in Nygard format. Summary:\n # · Decision · Key consequence · \n --- · --- · --- · \n 001 · No language model in the generation path · Output is a pure function of input · \n 002 · Filesystem-mediated pipeline, no orchestrator · Any stage re-runnable in isolation; sequencing is manual · \n 003 · Path-derived stable identifiers · Editing a file preserves identity; moving it does not · \n 004 · Versioned runs, pointer-after-write · A crash cannot corrupt downstream; disk grows unbounded · \n 005 · Formal grammar over regex · Correct nesting; requires a post-generation patch · \n 006 · Two-axis constraint enforcement · The BRD never asserts a guarantee the database isn't providing · \n 007 · Separate diagram model from renderer · Budget enforceable; tests assert meaning · \n 008 · Stop at documentation · Scope matches demonstrated capability · \n 009 · Deterministic intent catalogue over generated Cypher · Total precision, imperfect recall · \n 010 · Annotations in a read-only sidecar · Human knowledge survives regeneration · \n 011 · Single collapse tier · Diagrams never imply an ordering that doesn't exist · \n\n31. Known limitations\n\n1. The rule-extraction F1 is tuned, not blind. Ground truth covers 4 of 5 procedures and each was used to fix the extractor. Defensible figures: F1 0.588, recall 0.400.\n2. Coverage metrics prove completeness, not usefulness. No automated documentation metric correlates meaningfully with expert judgement.\n3. Concepts cannot be recovered from code. vdaysinactive 365 becomes a lexical transformation; \"dormancy policy\" is nowhere in the source.\n4. The graph is a lower bound on dependencies, never an upper bound. Four blind-spot classes are declared.\n5. Single-domain corpus. 5 objects, 15 tables, one banking schema. Never run against foreign PL/SQL. Agent 5's category keywords are banking vocabulary.\n6. No dependency manifest, no CI, no container, no logging framework.\n7. TRANSITIONSTO graph edges are computed by Agent 6 but never emitted by Agent 8 — the deriving loop contains only pass.\n8. Condition text is re-sliced three times by Agents 4, 5 and 6.\n9. These are Solution/Functional requirements. By BABOK's classification the BRD describes what the system does, not why the business wanted it. Its scope chapter says so.\n10. Detailed flowcharts have weak empirical support (Shneiderman et al., 1977). The counter-argument — our reader cannot read PL/SQL — is an argument, not evidence.\n\n32. Known gaps and open questions\n\n \n Prioritised recommendations (none implemented) \n # · Recommendation · Addresses · \n --- · --- · --- · \n 1 · Add requirements.txt / pyproject.toml with pinned versions · Largest operational risk · \n 2 · Run against foreign, non-banking PL/SQL and re-measure · The only real generalisation test · \n 3 · Implement TRANSITIONSTO, or delete the misleading comment · A computed finding is discarded · \n 4 · Add CI running the 414 tests on push · Tests run only manually · \n 5 · Add a labelled corpus for file-role classification accuracy · Misclassification silently drops files · \n 6 · Sanitise annotation content · Markdown injection · \n 7 · Store condition text in Agent 2 · Removes three duplicate implementations · \n 8 · Publish JSON Schemas for each artefact · Shape enforced only by tests · \n 9 · Add run-directory pruning · Unbounded growth · \n 10 · Report a count when dangling edges are dropped · Silent data loss possible · \n\n \n\n \n Open questions requiring stakeholder input \n\n1. Why does Agent 2 not store condition text, forcing three re-implementations?\n2. Why is TRANSITIONSTO unimplemented when Agent 6 computes transitions?\n3. What Python and dependency versions are supported?\n4. Are complexity thresholds (10, 15) organisational standards or defaults?\n5. Why is PySpark the assumed rebuild target?\n6. What retention policy applies to run directories?\n7. Who owns brdannotations.json operationally?\n8. Should the BRD carry a classification marking?\n9. What is the largest codebase this has been run against?\n10. What intent-match recall is acceptable for Agent 8?\n\n \n\nFull detail: docs/known-gaps-and-open-questions.md\n\n33. Extending the system\n\nThe five changes with the widest blast radius:\n Change · Ripples to · \n --- · --- · \n fileid scheme (Agent 1) · Every downstream ID; golden fixture; full re-run · \n statementid format (Agent 2) · Agents 5, 6, 7, 8 — the pipeline's join key · \n Statement type strings (Agent 2) · Agents 4, 6, 8 all switch on them · \n A new rule source kind (Agent 5) · Agent 7 provenance labels; Agent 8 origin · \n Enforcement confidence strings (Agent 3) · Agent 5 keys on the string · \n\nTo add a ninth stage:\n\n1. Follow the pattern: main() + argparse + loadrun + versioned write + latest.json\n2. Read upstream via latest.json; degrade gracefully on optional inputs\n3. Emit the standard envelope (pipelinestage, schemaversion, generatedat, upstream, stats)\n4. Add tests/test .py using the shared check(condition, label) convention\n5. Add .claude/agents/ agent.md and docs/agents/agent-0 - .md\n\n34. References\n\n \n Directly influenced the implementation (named in code or specifications) \n\nMetrics and program analysis — McCabe (1976) cyclomatic complexity · Campbell cognitive complexity · Weiser (1981) program slicing · Yamaguchi, Golde, Arp & Rieck (2014) Code Property Graphs, IEEE S&P · Lehnert, A review of software change impact analysis\n\nRequirements and documentation — ISO/IEC/IEEE 29148:2018 · OMG SBVR 1.5 · IIBA BABOK v3 · Mavin et al. (EARS) · Chikofsky & Cross (1990) · Biggerstaff, Mitbander & Webster (1993) · Aghajani et al. (ICSE 2020) · Lethbridge, Singer & Forward (2003) · Cosentino et al. (WCRE 2013)\n\nVisualisation — Moody (2009) The \"Physics\" of Notations · Shneiderman (1996) The Eyes Have It · Shneiderman et al. (1977) CACM 20(6) · Purchase (1997/2002)…",
+      "mermaid": [
+        "flowchart LR\n    A[(\"src/*.sql<br/>Oracle PL/SQL\")] --> B[\"8-stage<br/>deterministic pipeline\"]\n    B --> C[(\"brd.md<br/>Business Requirements\")]\n    B --> D[(\"*.mmd<br/>ERD, flows, states\")]\n    B --> E[(\"import.cypher<br/>knowledge graph\")]\n    B --> F[(\"brd_index.json<br/>machine-readable\")]\n\n    style B fill:#eaf3fb,stroke:#2c6fad,stroke-width:2px",
+        "flowchart TD\n    SRC[(\"src/*.sql\")] --> A1\n\n    A1[\"<b>1 Inventory</b><br/>classify + stable file_id\"]\n    A2[\"<b>2 Parser</b><br/>ANTLR4 → statements + CFG\"]\n    A3[\"<b>3 Data</b><br/>DDL → schema + enforcement + ERD\"]\n    A4[\"<b>4 Logic</b><br/>pseudocode + complexity + slices\"]\n    A5[\"<b>5 Rules</b><br/>9 sources → business rules\"]\n    A6[\"<b>6 Diagram</b><br/>model → Mermaid\"]\n    A7[\"<b>7 Synthesis</b><br/>the BRD\"]\n    A8[\"<b>8 Graph</b><br/>knowledge graph + Q&A\"]\n\n    A1 --> A2\n    A1 --> A3\n    A2 --> A3\n    A2 --> A4\n    A2 --> A5\n    A3 --> A5\n    A4 --> A5\n    A2 --> A6\n    A3 --> A6\n    A4 --> A6\n    A5 --> A6\n    A1 --> A7\n    A2 --> A7\n    A3 --> A7\n    A4 --> A7\n    A5 --> A7\n    A6 --> A7\n    A7 --> A8\n\n    A7 --> OUT[(\"brd.md<br/>brd_index.json<br/>gaps_register.json\")]\n    A6 --> MMD[(\"diagrams/*.mmd\")]\n    A3 --> ERD[(\"erd.mmd\")]\n    A8 --> CYP[(\"import.cypher<br/>+ CSVs\")]\n    ANN[(\"brd_annotations.json\")] -.->|read-only| A7\n\n    classDef opt stroke-dasharray: 4 2\n    class A8 opt",
+        "flowchart LR\n    subgraph Ext[\"Outside the system\"]\n        DEV[\"Analyst / Architect\"]\n        SME[\"Business SME\"]\n        NEO[\"Neo4j<br/><i>optional consumer</i>\"]\n    end\n    subgraph Sys[\"STATUTE — local CLI pipeline\"]\n        SRC[(\"src/*.sql\")]\n        PIPE[\"8 stage scripts\"]\n        OUT[(\"output/<br/>versioned artefacts\")]\n    end\n    DEV -->|runs stages| PIPE\n    SRC --> PIPE\n    PIPE --> OUT\n    OUT --> DEV\n    SME -->|annotations, read-only| PIPE\n    OUT -.->|manual import| NEO\n    classDef ext fill:#f5f5f5,stroke:#999\n    class DEV,SME,NEO ext"
+      ]
+    },
+    {
+      "name": "semantic-mcp-data-access-gateway",
+      "fullName": "KrishnaAnnavaram/semantic-mcp-data-access-gateway",
+      "url": "https://github.com/KrishnaAnnavaram/semantic-mcp-data-access-gateway",
+      "homepage": null,
+      "description": "Semantic MCP data access gateway for intent-aware request understanding, intelligent data requirement planning, filtering, and optimized retrieval across enterprise data sources.",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 1,
+      "openIssues": 1,
+      "sizeKb": 4451,
+      "createdAt": "2026-08-11T18:47:29Z",
+      "pushedAt": "2026-08-30T22:15:21Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 2246021,
+          "share": 89.5
+        },
+        {
+          "name": "TypeScript",
+          "bytes": 240709,
+          "share": 9.6
+        },
+        {
+          "name": "PLpgSQL",
+          "bytes": 15411,
+          "share": 0.6
+        },
+        {
+          "name": "CSS",
+          "bytes": 3474,
+          "share": 0.1
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 1628,
+          "share": 0.1
+        },
+        {
+          "name": "Dockerfile",
+          "bytes": 1241,
+          "share": 0
+        },
+        {
+          "name": "HTML",
+          "bytes": 819,
+          "share": 0
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "a3a8d8a",
+        "message": "Merge pull request #21 from KrishnaAnnavaram/dev/krishnaannavaram",
+        "date": "2026-08-27T16:26:43Z",
+        "url": "https://github.com/KrishnaAnnavaram/semantic-mcp-data-access-gateway/commit/a3a8d8a1345fdc02e07c2a68f95737a991b39948"
+      },
+      "readmeLead": "SMCP Gateway — an agentic market-risk data access and reasoning system for U.S. Treasury interest rates.",
+      "readmeText": "Semantic MCP Data Access Gateway\n\nSMCP Gateway — an agentic market-risk data access and reasoning system for U.S. Treasury interest rates.\n\nThree A2A agents · two MCP servers · PostgreSQL · Qdrant · Redis · LangSmith · React\n\n \n\nTable of Contents\n\nOrientation\n1. Project Overview\n2. Architecture in One Paragraph\n3. High-Level Architecture\n4. Technology Stack\n5. Core System Philosophy\n\nStructure\n\n6. Repository Layout\n7. File-by-File Reference\n8. Detailed System Architecture\n\nAgents\n\n9. Agent Architecture\n10. Why Multiple Agents?\n11. Orchestrator — Detailed Behaviour\n12. Domain Expert Agent — Detailed Technical Architecture\n13. MCP Agent — Detailed Technical Architecture\n14. The Bounded Negotiation\n15. A2A Architecture\n16. Complete End-to-End Request Sequence\n\nData\n\n17. Dataset Architecture\n18. Dataset Ingestion Flow\n19. PostgreSQL Architecture\n20. Qdrant Vector Database Architecture\n21. Embedding Architecture\n22. Redis / Caching Architecture\n23. Qdrant vs PostgreSQL\n\nMCP\n\n24. MCP Architecture\n25. MCP Server Catalog\n26. Complete MCP Tool Catalog\n27. MCP Resources\n28. MCP Prompts\n29. Sampling, Elicitation and Roots\n30. MCP vs Normal Function Calling\n\nService & UI\n\n31. FastAPI / Backend API Architecture\n32. Frontend Architecture\n\nModels\n\n33. LLM Architecture\n34. LLM Evaluation and Model Selection\n35. GLM-5.2 vs Anthropic vs Kimi\n36. Why GLM-5.2 Was Selected\n37. The Earlier GLM Experiment\n38. Provider-Specific Behaviour: GLM vs Anthropic\n39. Structured Output & Validation Architecture\n\nUsing it\n\n40. What Can I Ask SMCP Gateway?\n41. Example Conversation\n42. Worked Example — A Complex Execution\n\nOperations\n\n43. Observability Architecture\n44. LangSmith Architecture\n45. Timeout / Long-Running Request Architecture\n46. Error Handling and Recovery\n47. Security and Guardrails\n48. Configuration and Environment Variables\n49. Local Development / Installation\n50. Service / Port Matrix\n51. Testing Architecture\n52. Health Check / Runtime Verification\n\nReference\n\n53. Design Decisions\n54. Implemented vs Experimental vs Not Present\n55. Known Limitations and Defects\n56. Troubleshooting\n57. Glossary\n58. Final End-to-End Architecture Summary\n59. Further Reading\n60. Licence\n\n How this document was produced. Every count, model identifier, endpoint, port, tool\n name, environment variable and command below was read from the repository at commit\n 2bdd2ff (branch dev/krishnaannavaram) on 2026-08-26. Where the repository's own\n prose documentation disagrees with the code, the code wins and the disagreement is\n recorded. Where something could not be verified, it says so rather than guessing.\n Live services (PostgreSQL, Qdrant, Redis, the backend) were not running during this\n audit — Docker was unavailable — so runtime facts come from the committed verification\n artefacts under data/metadata/ustreasury/ and from tests/usecases/questioncatalog.json,\n both of which are re-asserted against the live stores by the test suite.\n\n1. Project Overview\n · · \n --- · --- · \n Project name · Semantic MCP Data Access Gateway · \n Short name · SMCP Gateway · \n npm package (UI) · smcp-gateway-ui · \n Domain · U.S. Treasury interest-rate market risk · \n Repository · semantic-mcp-data-access-gateway · \n\nThe problem\n\nA market-risk analyst asking \"what is the 10-day 99% VaR on this book?\" is asking three\ndifferent questions at once, and only one of them is about data:\n\n1. A methodology question. How is historical VaR computed? How many trading days does it\n read? On what basis? — the answer lives in a risk-methodology corpus, not in a database.\n2. A capability question. Does the connected data source actually hold what that method\n needs? A par yield curve has no CUSIPs, no issuer names and no settlement dates, so a\n method that asks for them is unanswerable no matter how good the reasoning was.\n3. A retrieval-and-compute question. Fetch precisely the rows the agreed method reads,\n run the agreed calculation, and report what actually arrived.\n\nThe naive architecture — user → LLM → unrestricted SQL → dump — fails all three. It has no\ngrounded notion of what a method requires, no notion of what the source cannot serve, and it\npulls whatever the model guessed at into a context window.\n\nWhat \"Semantic MCP Data Access Gateway\" means\n Word · What it denotes here · \n --- · --- · \n Semantic · Intent is interpreted against a real knowledge corpus in a vector store before any data is touched. The row count for a VaR window must be quoted verbatim from a retrieved document, or it is discarded. · \n MCP · The Model Context Protocol is the only road from the reasoning layer to the data. Two stdio MCP servers publish tools, resources and prompts; nothing above them holds a database credential. · \n Data Access · The output is not prose about data — it is a bounded, provenanced dataset plus a deterministic calculation over it. · \n Gateway · One front door (POST /chat), one user-facing agent, and enforced boundaries behind it. · \n\nWhat makes the MCP implementation \"smart\"\n\nThree things a plain tool-calling loop does not do:\n\n1. All six MCP primitives are live, including the three that flow server→client mid-call\n (elicitation, roots, sampling). The data server can ask a question back when '30 year'\n matches both a nominal and a real series, rather than picking one.\n2. The tool surface is read live, not declared. Under DATABACKEND=mock the risk tools\n genuinely are not connected, and the planner is never shown a capability it cannot reach.\n3. The advertised capability set is deliberately smaller than the protocol surface. The\n risk server registers 42 tools; the domain expert is offered 30 executable + 4\n informational capabilities. A planner choosing under uncertainty gets worse, not better,\n with every extra near-duplicate entry.\n\nWhy unrestricted database retrieval is undesirable here\n Failure mode · What actually happens · \n --- · --- · \n Unbounded rows · A nominal curve history is 9,159 dates × 14 tenors. Reading it into a prompt is over 100,000 numbers no model needs to see to reason about. · \n Lost quoting basis · A bill discount rate (act/360) and a par coupon yield are different quantities. Stored as bare numbers they look interchangeable and eventually share a curve. · \n Ungrounded thresholds · \"VaR uses 250 days\" recalled from training is unfalsifiable — you cannot change it by editing a document and cannot audit it by reading one. · \n No refusal path · A model handed a table will answer something. CVA needs counterparty exposures this system does not hold; the honest answer is \"I don't have that\". · \n Privilege · An agent process holding the owner credential is one bug away from writing to the source of record. · \n\nHow the Domain Expert constrains retrieval before it happens\n\n \n\nEach stage can stop the turn. The gate stops a question missing an input no default can\nhonestly stand in for. Grounding verification discards a row count the corpus does not state.\nThe negotiation returns UNSUPPORTED when the source genuinely cannot serve the plan.\n\nIntended users\n Reader · Where to start · \n --- · --- · \n Engineering manager · Sections 1–5, 9–10, 53–55 · \n Software / GenAI architect · Sections 3, 8, 15, 24, 33, 53 · \n MCP engineer · Sections 24–30 · \n Quant developer · Sections 12, 17, 26, 40–42 · \n Backend engineer · Sections 8, 31, 39, 45–48 · \n Frontend engineer · Sections 31–32, 43–45 · \n New contributor · Sections 6–7, 49–52, 56 · \n Technical interviewer · Sections 5, 10, 14, 34–39, 53 · \n\n2. Architecture in One Paragraph\n\n SMCP Gateway is an agentic market-risk data access and reasoning system. A user asks a\n question in a React chat interface; the request enters a FastAPI service that acts as the\n user boundary and sends exactly one A2A message to an Orchestrator agent. The\n orchestrator routes the turn, and for a real data request delegates to a Domain Expert\n agent, which grounds an analytical requirement in two Qdrant collections and then\n negotiates that requirement — over A2A, in a bounded loop — with an MCP Agent that\n owns the tool surface. Once both agree, the MCP agent executes the plan through the\n DataProvider seam into two stdio MCP servers: a data server that reads PostgreSQL as a\n restricted mcpreader role, and a risk engine that holds no database credential at all.\n The orchestrator writes the final reply under explicit honesty rules. An optional Redis\n layer caches validated specialist work and records operational evidence; LangSmith\n traces every agent boundary, fail-open; and a Server-Sent-Events stream reports what the\n agents are doing while they do it.\n\n3. High-Level Architecture\n\nmermaid\nflowchart TB\n U([\"User\"])\n\n subgraph UI[\"Browser - smcp-gateway-ui\"]\n R[\"React 18 + Vite + Tailwind Zustand stores\"]\n end\n\n subgraph SVC[\"FastAPI service :8000 - the user boundary\"]\n API[\"POST /chat, /summarise GET /health, /chat/stream/id /trace/id, /langsmith/trace/id\"]\n MOUNT[\"Mounted A2A endpoints /a2a/orchestrator /a2a/domain-expert /a2a/mcp-agent\"]\n end\n\n subgraph AG[\"Agent tier - gateway-agents\"]\n ORCH[\"Orchestrator routes, reflects the only agent a user reaches\"]\n DE[\"Domain Expert grounds the requirement\"]\n MA[\"MCP Agent owns the tool surface\"]\n end\n\n subgraph MCPL[\"MCP tier - stdio child processes\"]\n DS[\"market-risk-data-mcp 14 tools, 5 resources, 3 prompts\"]\n RS[\"risk-engine-mcp 42 tools, 7 resources, 8 prompts\"]\n end\n\n subgraph DATA[\"Stores\"]\n PG[(\"PostgreSQL 17 267,517 observations\")]\n QD[(\"Qdrant quantknowledge marketriskkb\")]\n RD[(\"Redis 8.8 optional, fail-open\")]\n end\n\n LLM[\"ModelProvider seam Z.AI GLM-5.2 default Anthropic alternative\"]\n LS[\"LangSmith optional, fail-open\"]\n\n U -- R\n R -- · \"HTTPS JSON\" · API\n API -- · \"A2A handleuserturn\" · ORCH\n ORCH · \"A2A\" · DE\n ORCH · \"A2A\" · MA\n DE · \"A2A negotiation\" · MA\n DE -- QD\n MA -- · \"DataProvider seam\" · DS\n MA -- RS\n DS -- · \"as mcpreader\" · PG\n ORCH -.- LLM\n DE -.- LLM\n MA -.- LLM\n DE -.- RD\n MA -.- RD\n AG -.- LS\n MOUNT -.- AG\n API -- · \"SSE progress\" · R\n \nUser - LLM - unrestricted database - dump\n mermaid\nflowchart TD\n A[\"User question\"] -- B[\"Understand analytical intent (orchestrator route)\"]\n B -- C[\"Is the question executable as it stands? (pre-flight gate, no model call)\"]\n C -- · \"missing an input with no honest default\" · C2[\"One grouped clarification with real, clickable choices\"]\n C -- · \"complete\" · D[\"Determine required data (Qdrant-grounded Requirement)\"]\n D -- E[\"Constrain rows, columns, tenors, window, curve family\"]\n E -- F[\"Negotiate against what the source can actually serve\"]\n F -- · \"AGREED\" · G[\"Select approved MCP capability\"]\n F -- · \"UNSUPPORTED / CANNOTREACHAGREEMENT / NEEDSUSERINPUT\" · H[\"Say so, with the reason. No number is produced.\"]\n G -- I[\"Retrieve only the relevant data\"]\n I -- J[\"Run the deterministic calculation\"]\n J -- K[\"Validate the result against the agreed plan\"]\n K -- · \"blocking mismatch\" · H\n K -- · \"ok\" · L[\"Grounded, provenanced answer + decision trace\"]\n \nsemantic-mcp-data-access-gateway/\n├── agents/ gateway-agents — the three runtime agents\n│ ├── a2a/ protocol boundary (the ONLY place a2a.types is imported)\n│ ├── cache/ Redis intelligence (13 modules)\n│ ├── orchestratoragent.py agent 1\n│ ├── domainexpertagent.py agent 2\n│ ├── mcpagent.py agent 3\n│ ├── pipeline.py the orchestrator's own workflow\n│ ├── planning.py the bounded negotiation, over DataLayerPort\n│ ├── preflight.py the requirement completeness gate\n│ ├── contracts.py the dataclasses agents exchange\n│ ├── events.py live execution EventBus (SSE source)\n│ ├── answerbuilder.py the reply, as typed sections\n│ ├── observability.py LangSmith instrumentation\n│ └── redaction.py identifier scrubbing at user-facing exits\n├── backend/ gateway-backend — service, seams, workflows\n│ └── src/backend/\n│ ├── api/service.py FastAPI: /chat, /summarise, /health, SSE, trace\n│ ├── api/langsmithreader.py server-side trace read-back\n│ ├── knowledge/ KnowledgeBase, MarketRiskKnowledgeBase, chunker, VectorStore\n│ ├── providers/ DataProvider seam: mcp · postgres · mock\n│ └── workflows/riskworkflows.py deterministic marshalling into the risk engine\n├── llm/ gateway-llm — the ModelProvider seam\n│ └── src/llm/ base · config · contracts · factory · validation\n│ anthropicprovider · zaiprovider\n├── mcp/ mcp-servers — two stdio servers + the host\n│ └── src/mcpservers/\n│ ├── data/ market-risk-data-mcp (PostgreSQL, as mcpreader)\n│ ├── risk/ risk-engine-mcp (no DB credential at all)\n│ └── host/ the client that launches and drives both\n├── postgres/ treasury-db — migrations, loader, DB access\n│ ├── migrations/ V001 … V013\n│ └── src/treasurydb/ migrate · load · db · paths\n├── frontend/ smcp-gateway-ui — React + Vite + TS + Tailwind\n├── data/ source of record + the acquisition that fills it\n│ ├── acquisition/ downloadustreasury.py\n│ ├── processed/ustreasury/ five validated CSVs\n│ └── metadata/ustreasury/ manifests, schema report, verification reports\n├── knowledge/ RAG corpus → Qdrant quantknowledge (11 docs, 4 domains)\n├── docs/ design docs + market-risk-kb/ → Qdrant marketriskkb (47 docs)\n├── evaluation/ 13 cases × 11 scorers\n├── tests/ 1,835 tests\n├── tools/ setup.py · verifyload.py · verifymcp.py\n├── db/init/ Compose-mounted Postgres init dir (currently empty)\n├── .claude/ Claude Code CONFIGURATION ONLY — never product code\n├── docker-compose.yml postgres · qdrant · redis · redis-insight · agent\n├── Dockerfile backend image (see §55 — currently stale)\n├── requirements.txt pinned floors for every layer\n├── .env.example the full configuration reference\n├── AGENTS.md · CLAUDE.md agent-architecture and repo-instruction docs\n└── README.md this document\n mermaid\nflowchart LR\n subgraph BROWSER[\"Browser\"]\n direction TB\n VITE[\"Vite dev server :5173\"]\n RC[\"React components (26)\"]\n ZS[\"Zustand: chatStore · executionStore · themeStore\"]\n AC[\"api/client.ts\"]\n ES[\"api/executionStream.ts EventSource\"]\n RC --- ZS\n RC --- AC\n RC --- ES\n end\n\n subgraph FASTAPI[\"FastAPI :8000\"]\n direction TB\n CH[\"POST /chat\"]\n SM[\"POST /summarise\"]\n HL[\"GET /health\"]\n STR[\"GET /chat/stream/{id}\"]\n TR[\"GET /trace/{id} · /langsmith/trace/{id}\"]\n SESS[\"sessions: turns · clarified · waiting · clarification\"]\n A2AMOUNT[\"/a2a/ JSON-RPC + Agent Cards\"]\n end\n\n subgraph NET[\"AgentNetwork (one asyncio loop on a daemon thread)\"]\n direction TB\n LEDGER[\"TurnLedger + CallChain\"]\n OEX[\"OrchestratorExecutor\"]\n DEX[\"DomainExpertExecutor\"]\n MEX[\"McpAgentExecutor\"]\n end\n\n subgraph AGENTS[\"Agent domain objects (worker threads)\"]\n direction TB\n O[\"OrchestratorAgent + AgentPipeline\"]\n D[\"DomainExpertAgent + DataPlanner + preflight\"]\n M[\"McpAgent\"]\n end\n\n subgraph SEAMS[\"Seams\"]\n direction TB\n MP[\"ModelProvider\"]\n DP[\"DataProvider\"]\n VS[\"VectorStore\"]\n RI[\"RedisIntelligence\"]\n end\n\n subgraph EXT[\"External processes and services\"]\n direction TB\n ZAI[\"Z.AI api.z.ai/api/paas/v4\"]\n ANT[\"Anthropic Messages API\"]\n QDRANT[(\"Qdrant :6333\")]\n REDIS[(\"Redis :6379\")]\n HOST[\"McpHost\"]\n DSRV[\"market-risk-data-mcp stdio child\"]\n RSRV[\"risk-engine-mcp stdio child\"]\n PGDB[(\"PostgreSQL :5432\")]\n LSMITH[\"LangSmith SaaS\"]\n end\n\n AC -- · \"POST JSON\" · CH\n AC -- SM\n ES -- · \"GET text/event-stream\" · STR\n RC -- HL\n RC -- TR\n\n CH -- SESS\n CH -- · \"A2A message\" · OEX\n OEX -- LEDGER\n OEX -- · \"worker thread\" · O\n O -- · \"A2A\" · DEX\n O -- · \"A2A\" · MEX\n DEX -- · \"worker thread\" · D\n MEX -- · \"worker thread\" · M\n D -- · \"A2A\" · MEX\n\n O -- MP\n D -- MP\n M -- MP\n MP -- ZAI\n MP -.- ANT\n\n D -- VS -- QDRANT\n D -- RI\n M -- RI\n RI -- REDIS\n\n M -- DP -- HOST\n HOST -- · \"stdio JSON-RPC\" · DSRV\n HOST -- · \"stdio JSON-RPC\" · RSRV\n DSRV -- · \"psycopg2 as mcpreader\" · PGDB\n\n O -.- · \"traced spans\" · LSMITH\n D -.- LSMITH\n M -.- LSMITH\n TR -.- · \"server-side read-back\" · LSMITH\n AGENTS -.- · \"emit()\" · STR\n mermaid\nflowchart TB\n subgraph REAL[\"Agents — card, endpoint, task lifecycle\"]\n O[\"Orchestrator /a2a/orchestrator 3 skills\"]\n D[\"Domain Expert /a2a/domain-expert 3 skills\"]\n M[\"MCP Agent /a2a/mcp-agent 5 skills\"]\n end\n\n subgraph NOT[\"Not agents — services, adapters, helpers (no card, and none should have one)\"]\n H[\"McpHost\"]\n RW[\"RiskWorkflows\"]\n KB[\"KnowledgeBase MarketRiskKnowledgeBase\"]\n DPI[\"DataProvider implementations\"]\n SC[\"MCP sampling callback\"]\n HA[\"mcpservers/host/agent.py a standalone tool-calling loop\"]\n end\n\n O -- · \"A2A\" · D\n O -- · \"A2A\" · M\n D -- · \"A2A\" · M\n M -- DPI -- H\n M -- RW\n D -- KB\n H -- SC\n mermaid\nflowchart TD\n A[\"User turn arrives (query, history, alreadyclarified, pendingclarification)\"]\n A -- B{\"Is this the answer to a question we asked?\"}\n B -- · \"pendingclarification\" · B2[\"mergeclarification: 'compare the curve' + '(last 30 days)' - one complete sentence\"]\n B -- · no · C\n B2 -- C[\"orchestrator.classify structured output, 8 fields\"]\n C -- D{\"alreadyclarified AND route == clarify?\"}\n D -- · yes · D2[\"FORCE route = datarequest (a loop with no exit is worse than a wrong guess)\"]\n D -- · no · E\n D2 -- E{route}\n E -- · \"direct\" · F[\"Reply from directanswer. Stop. One routing turn.\"]\n E -- · \"clarify\" · G[\"A2A - MCP agent: listdatachoices\"]\n G -- G2[\"orchestrator.groundoptions rewrite options using real portfolios and scenarios\"]\n G2 -- G3[\"Ask ONE question with 2-4 clickable options\"]\n E -- · \"datarequest\" · H[\"The full path - §12–14\"]\n H -- I[\"orchestrator.reflect reply + interpretation, one call\"]\n I -- J[\"scrubidentifiers() then answerbuilder.build()\"]\n json\n{\n \"route\": \"direct · clarify · datarequest\",\n \"reasoning\": \"one line on why this route\",\n \"task\": \"what the data is for; empty when direct\",\n \"directanswer\": \"the reply; empty unless direct\",\n \"question\": \"one clarifying question; empty unless clarify\",\n \"options\": [{\"label\": \"what the user reads\",\n \"value\": \"natural language sent as their next message — NEVER a tool name\"}],\n \"requestedfields\": [\"any column names the user named\"],\n \"requestedrows\": 250\n}\n python\nif rows is not None and not quoteisgrounded(quote, context):\n rows, quote = None, None # discarded — and the user is told why\n mermaid\nflowchart TD\n Q[\"question, task, catalogue\"] -- PF[\"Stage 0 — pre-flight gate agents/preflight.py regex + lexicon, sub-millisecond, NO model call, NO vector search\"]\n PF -- · \"incomplete\" · PFX[\"CompletenessVerdict: intent, missing fields, one question each, why it matters - to the ORCHESTRATOR\"]\n PF -- · \"complete\" · R1\n\n subgraph RET[\"Stage 1 — dual retrieval (two collections, two query pairs)\"]\n R1[\"quantknowledge the EXECUTABLE contract\"]\n R2[\"marketriskkb the REFERENCE library\"]\n end\n R1 -- MERGE[\"merge by best distance\"]\n R2 -- MERGE\n MERGE -- CTX[\"Two explicitly separated context blocks in the prompt\"]\n\n CTX -- DER[\"Stage 2 — derive structuredcall, DOMAINEXPERT call site SCHEMA: 18 properties, 4 required\"]\n DER -- VAL[\"Stage 3 — validate strict schema + type validation (llm/validation.py)\"]\n VAL -- · \"violation\" · RETRY[\"ONE corrective retry carrying the model's own output\"]\n RETRY -- VAL\n VAL -- GRD[\"Stage 4 — grounding quoteisgrounded(quote, context) emphasis-normalised, not paraphrase-tolerant\"]\n GRD -- · \"ungrounded\" · DROP[\"rows = None, grounded = False 'the corpus does not state a window'\"]\n GRD -- BUILD[\"Stage 5 — build Requirement dataclass\"]\n DROP -- BUILD\n BUILD -- NEG[\"Stage 6 — negotiate - §14\"]\n NEG -- FIN[\"Final Requirement + citations + Negotiation\"]\n \n\"Show me the 10Y Treasury yield.\" - complete (latest observation)\n\"10-day 99% VaR on the book.\" - complete\n\"Calculate VaR.\" - complete for this gate — the router already\n refuses a compute request with no target, and\n two agents asking the same question is worse\n than one\n\"Compare the curve and show the moves.\" - INCOMPLETE: which period?\n\"Run a stress test on the demo book.\" - INCOMPLETE: which scenario?\n python\nif hasattr(self.data, \"calltool\"): # only McpDataProvider has this\n tools += [ToolSpec(\"priceportfolio\", …), ToolSpec(\"computedv01\", …), …]\n mermaid\nsequenceDiagram\n autonumber\n participant O as Orchestrator\n participant M as MCP Agent\n participant DP as DataProvider seam\n participant RW as RiskWorkflows (adapter)\n participant H as McpHost\n participant DS as market-risk-data-mcp\n participant RS as risk-engine-mcp\n participant PG as PostgreSQL\n\n O-M: A2A executedataplan(requirement, rowsrequestedbyuser)\n M-M: resolve curve family, tenors, temporal window\n alt requirement.calculation is null\n M-DP: getyieldcurve / getratehistory / getcurveslope\n DP-H: MCP tools/call\n H-DS: stdio JSON-RPC\n DS-PG: parameterised SELECT on analytics. (as mcpreader)\n PG--DS: rows\n DS--H: typed result + provenance + datasetsnapshotid\n H--DP: CallToolResult\n DP--M: dicts\n else requirement.calculation names a capability\n M-M: getattr(RiskWorkflows, requirement.calculation)\n M-RW: call with signature-filtered calculationparams\n RW-H: fetch book + curve (+ history) from DS\n H-DS: getportfolio / getcurve / getcurvehistorymatrix\n DS-PG: SELECT\n PG--DS: rows\n DS--RW: PortfolioSnapshot, CurveResult, matrix in meta\n RW-H: call the risk tool with typed inputs\n H-RS: stdio JSON-RPC (RS has NO database credential)\n RS--RW: deterministic result\n RW--M: shaped reply\n end\n alt a server raised a question only a human can answer\n DS--H: InputRequiredResult (elicitation)\n M--O: task state = input-required + requiredinformation + allowed answers\n Note over M,O: The MCP agent does NOT ask. It stops.\n else\n M--O: ARTIFACTDATASET + ARTIFACTCALCULATION + summary\n end\n mermaid\nflowchart LR\n subgraph WRONG[\"What this system does NOT do\"]\n S1[\"MCP server\"] -- A1[\"MCP Agent\"] -- U1([\"User\"])\n end\n subgraph RIGHT[\"What it does\"]\n S2[\"MCP server '30 year' matches BC30YEAR and TC30YEAR\"] -- · \"InputRequiredResult\" · A2[\"MCP Agent\"]\n A2 -- · \"task stays alive in input-required, carrying requiredinformation + allowed answers\" · O2[\"Orchestrator\"]\n O2 -- · \"one clarifying question with clickable options\" · U2([\"User\"])\n U2 -- · \"reply\" · O2\n O2 -- · \"deterministic match against the server's own enum, relayed into the SAME task id\" · A2\n A2 -- S2\n end\n mermaid\nsequenceDiagram\n autonumber\n participant D as Domain Expert\n participant M as MCP Agent\n\n D-M: describedatacapabilities\n M--D: ToolCatalogue (tools, fields, tenors, cancalculate, notes)\n\n Note over D: INITIALHYPOTHESIS objective · methodology · candidate inputs assumptions · limitations · open questions (keeps inputs the source may NOT have)\n\n loop rounds 1..MAXNEGOTIATIONROUNDS (5)\n D-M: assessdatarequirement(Requirement.ascapabilityrequest())\n M--D: CAPABILITYASSESSMENT available · unavailable · unnecessary tools · constraints · counter-proposal\n Note over D: REVISION accept · drop on evidence · challenge · re-ask\n D-D: describechanges(previous, revised) — a DIFF, not a claim\n alt decision committed\n Note over D,M: exit\n else 2 consecutive rounds changed nothing\n Note over D,M: CANNOTREACHAGREEMENT — the stall is named\n end\n end\n\n Note over D: FINALDECISION\n mermaid\nflowchart TB\n subgraph MOUNTS[\"FastAPI mounts (backend/api/service.py - agents/a2a/server.py)\"]\n M1[\"/a2a/orchestrator card + JSON-RPC\"]\n M2[\"/a2a/domain-expert card + JSON-RPC\"]\n M3[\"/a2a/mcp-agent card + JSON-RPC\"]\n end\n subgraph EXEC[\"Executors — adapters only\"]\n E1[\"OrchestratorExecutor\"]\n E2[\"DomainExpertExecutor\"]\n E3[\"McpAgentExecutor\"]\n end\n subgraph GUARD[\"Enforced by the RECEIVER, against its OWN config\"]\n G1[\"skill id must be on the target's card\"]\n G2[\"caller must be on the skill's allow-list\"]\n G3[\"CallChain: length store dies with the turn\"]\n end\n subgraph WORK[\"Worker threads — domain work never runs on the event loop\"]\n W1[\"OrchestratorAgent + AgentPipeline\"]\n W2[\"DomainExpertAgent + DataPlanner\"]\n W3[\"McpAgent\"]\n end\n M1 -- E1 -- GUARD -- W1\n M2 -- E2 -- W2\n M3 -- E3 -- W3\n mermaid\nsequenceDiagram\n autonumber\n actor U as User\n participant R as React UI\n participant F as FastAPI :8000\n participant O as Orchestrator\n participant D as Domain Expert\n participant Q as Qdrant\n participant X as Redis\n participant M as MCP Agent\n participant H as McpHost\n participant DS as market-risk-data-mcp\n participant RS as risk-engine-mcp\n participant P as PostgreSQL\n participant L as LangSmith\n\n U-R: types the question\n R-R:…",
+      "mermaid": [
+        "flowchart TB\n    U([\"User\"])\n\n    subgraph UI[\"Browser - smcp-gateway-ui\"]\n        R[\"React 18 + Vite + Tailwind<br/>Zustand stores\"]\n    end\n\n    subgraph SVC[\"FastAPI service :8000 - the user boundary\"]\n        API[\"POST /chat, /summarise<br/>GET /health, /chat/stream/id<br/>/trace/id, /langsmith/trace/id\"]\n        MOUNT[\"Mounted A2A endpoints<br/>/a2a/orchestrator<br/>/a2a/domain-expert<br/>/a2a/mcp-agent\"]\n    end\n\n    subgraph AG[\"Agent tier - gateway-agents\"]\n        ORCH[\"Orchestrator<br/>routes, reflects<br/>the only agent a user reaches\"]\n        DE[\"Domain Expert<br/>grounds the requirement\"]\n        MA[\"MCP Agent<br/>owns the tool surface\"]\n    end\n\n    subgraph MCPL[\"MCP tier - stdio child processes\"]\n        DS[\"market-risk-data-mcp<br/>14 tools, 5 resources, 3 prompts\"]\n        RS[\"risk-engine-mcp<br/>42 tools, 7 resources, 8 prompts\"]\n    end\n\n    subgraph DATA[\"Stores\"]\n        PG[(\"PostgreSQL 17<br/>267,517 observations\")]\n        QD[(\"Qdrant<br/>quant_knowledge<br/>market_risk_kb\")]\n        RD[(\"Redis 8.8<br/>optional, fail-open\")]\n    end\n\n    LLM[\"ModelProvider seam<br/>Z.AI GLM-5.2 default<br/>Anthropic alternative\"]\n    LS[\"LangSmith<br/>optional, fail-open\"]\n\n    U --> R\n    R -->|\"HTTPS JSON\"| API\n    API -->|\"A2A handle_user_turn\"| ORCH\n    ORCH <-->|\"A2A\"| DE\n    ORCH <-->|\"A2A\"| MA\n    DE <-->|\"A2A negotiation\"| MA\n    DE --> QD\n    MA -->|\"DataProvider seam\"| DS\n    MA --> RS\n    DS -->|\"as mcp_reader\"| PG\n    ORCH -.-> LLM\n    DE -.-> LLM\n    MA -.-> LLM\n    DE -.-> RD\n    MA -.-> RD\n    AG -.-> LS\n    MOUNT -.-> AG\n    API -->|\"SSE progress\"| R",
+        "flowchart TD\n    A[\"User question\"] --> B[\"Understand analytical intent<br/>(orchestrator route)\"]\n    B --> C[\"Is the question executable as it stands?<br/>(pre-flight gate, no model call)\"]\n    C -->|\"missing an input<br/>with no honest default\"| C2[\"One grouped clarification<br/>with real, clickable choices\"]\n    C -->|\"complete\"| D[\"Determine required data<br/>(Qdrant-grounded Requirement)\"]\n    D --> E[\"Constrain rows, columns,<br/>tenors, window, curve family\"]\n    E --> F[\"Negotiate against what the<br/>source can actually serve\"]\n    F -->|\"AGREED\"| G[\"Select approved MCP capability\"]\n    F -->|\"UNSUPPORTED /<br/>CANNOT_REACH_AGREEMENT /<br/>NEEDS_USER_INPUT\"| H[\"Say so, with the reason.<br/>No number is produced.\"]\n    G --> I[\"Retrieve only the relevant data\"]\n    I --> J[\"Run the deterministic calculation\"]\n    J --> K[\"Validate the result against the agreed plan\"]\n    K -->|\"blocking mismatch\"| H\n    K -->|\"ok\"| L[\"Grounded, provenanced answer<br/>+ decision trace\"]",
+        "flowchart LR\n    subgraph BROWSER[\"Browser\"]\n        direction TB\n        VITE[\"Vite dev server :5173\"]\n        RC[\"React components (26)\"]\n        ZS[\"Zustand: chatStore · executionStore · themeStore\"]\n        AC[\"api/client.ts\"]\n        ES[\"api/executionStream.ts<br/>EventSource\"]\n        RC --- ZS\n        RC --- AC\n        RC --- ES\n    end\n\n    subgraph FASTAPI[\"FastAPI :8000\"]\n        direction TB\n        CH[\"POST /chat\"]\n        SM[\"POST /summarise\"]\n        HL[\"GET /health\"]\n        STR[\"GET /chat/stream/{id}\"]\n        TR[\"GET /trace/{id} · /langsmith/trace/{id}\"]\n        SESS[\"_sessions: turns · clarified · waiting · clarification\"]\n        A2AMOUNT[\"/a2a/* JSON-RPC + Agent Cards\"]\n    end\n\n    subgraph NET[\"AgentNetwork (one asyncio loop on a daemon thread)\"]\n        direction TB\n        LEDGER[\"TurnLedger + CallChain\"]\n        OEX[\"OrchestratorExecutor\"]\n        DEX[\"DomainExpertExecutor\"]\n        MEX[\"McpAgentExecutor\"]\n    end\n\n    subgraph AGENTS[\"Agent domain objects (worker threads)\"]\n        direction TB\n        O[\"OrchestratorAgent<br/>+ AgentPipeline\"]\n        D[\"DomainExpertAgent<br/>+ DataPlanner + preflight\"]\n        M[\"McpAgent\"]\n    end\n\n    subgraph SEAMS[\"Seams\"]\n        direction TB\n        MP[\"ModelProvider\"]\n        DP[\"DataProvider\"]\n        VS[\"VectorStore\"]\n        RI[\"RedisIntelligence\"]\n    end\n\n    subgraph EXT[\"External processes and services\"]\n        direction TB\n        ZAI[\"Z.AI api.z.ai/api/paas/v4\"]\n        ANT[\"Anthropic Messages API\"]\n        QDRANT[(\"Qdrant :6333\")]\n        REDIS[(\"Redis :6379\")]\n        HOST[\"McpHost\"]\n        DSRV[\"market-risk-data-mcp<br/>stdio child\"]\n        RSRV[\"risk-engine-mcp<br/>stdio child\"]\n        PGDB[(\"PostgreSQL :5432\")]\n        LSMITH[\"LangSmith SaaS\"]\n    end\n\n    AC -->|\"POST JSON\"| CH\n    AC --> SM\n    ES -->|\"GET text/event-stream\"| STR\n    RC --> HL\n    RC --> TR\n\n    CH --> SESS\n    CH -->|\"A2A message\"| OEX\n    OEX --> LEDGER\n    OEX -->|\"worker thread\"| O\n    O -->|\"A2A\"| DEX\n    O -->|\"A2A\"| MEX\n    DEX -->|\"worker thread\"| D\n    MEX -->|\"worker thread\"| M\n    D -->|\"A2A\"| MEX\n\n    O --> MP\n    D --> MP\n    M --> MP\n    MP --> ZAI\n    MP -.-> ANT\n\n    D --> VS --> QDRANT\n    D --> RI\n    M --> RI\n    RI --> REDIS\n\n    M --> DP --> HOST\n    HOST -->|\"stdio JSON-RPC\"| DSRV\n    HOST -->|\"stdio JSON-RPC\"| RSRV\n    DSRV -->|\"psycopg2 as mcp_reader\"| PGDB\n\n    O -.->|\"traced spans\"| LSMITH\n    D -.-> LSMITH\n    M -.-> LSMITH\n    TR -.->|\"server-side read-back\"| LSMITH\n    AGENTS -.->|\"emit()\"| STR"
+      ]
+    },
+    {
+      "name": "adaptive-legacy-code-complexity-harness",
+      "fullName": "KrishnaAnnavaram/adaptive-legacy-code-complexity-harness",
+      "url": "https://github.com/KrishnaAnnavaram/adaptive-legacy-code-complexity-harness",
+      "homepage": null,
+      "description": "Adaptive, language-aware harness for identifying legacy source code, selecting applicable complexity analyses, orchestrating execution, generating traceable metric-level reports, and consolidating results into a unified code complexity artifact.",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 685,
+      "createdAt": "2026-08-10T19:01:57Z",
+      "pushedAt": "2026-08-25T19:26:11Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 413682,
+          "share": 99.7
+        },
+        {
+          "name": "Java",
+          "bytes": 1222,
+          "share": 0.3
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "f69de76",
+        "message": "Merge pull request #13 from KrishnaAnnavaram/agent3-flow-and-python-target-report",
+        "date": "2026-08-25T19:26:11Z",
+        "url": "https://github.com/KrishnaAnnavaram/adaptive-legacy-code-complexity-harness/commit/f69de762e861bada15514ec35d488a8654da088d"
+      },
+      "readmeLead": "Adaptive, language-aware harness for identifying legacy source code, selecting applicable complexity analyses, orchestrating execution, generating traceable metric-level reports, and consolidating results into a unified code complexity artifact.",
+      "readmeText": "adaptive-legacy-code-complexity-harness\n\nAdaptive, language-aware harness for identifying legacy source code, selecting applicable\ncomplexity analyses, orchestrating execution, generating traceable metric-level reports,\nand consolidating results into a unified code complexity artifact.\n\nInput: a Java repository (or any parse tree — ANTLR, AST, or an upstream parser artifact).\nOutput: one unified complexity artifact — and, optionally, the same artifact projected onto a target migration language.\nShape: four agents, twenty skills, one contract.\n\nTable of contents\n\n- Architecture\n - Data flow\n - Directory map\n - The three layers, and why they are separate\n - Execution order\n - Stage 1 has no skills, deliberately\n - Agent 3 up close — the complexity run and the target-fit skill\n- The twenty complexities\n- The top 5 complexities, in depth\n - 1. Cyclomatic Complexity\n - 2. Cognitive Complexity\n - 3. NPath Complexity\n - 4. Coupling Complexity\n - 5. Maintainability Complexity\n- Run it\n- Stage 4 — projecting onto a target language\n- The rule everything rests on\n- Audited, not asserted\n- Add complexity #21\n- Known limits\n\nArchitecture\n\nData flow\n\nFour stages, each owning one job and handing off a documented artifact. Stages\n1–3 are each one agent that calls one deterministic script — the agent decides\nwhen and how to run it and reports the outcome; the script is what\nactually does the work, not the other way around. Stage 4 is not a separate\nagent: it is the target-fit-complexity skill, which the Stage 3\nComplexity Agent invokes on demand — only when the request names a target\nlanguage. No target named, no Stage 4.\n\nmermaid\nflowchart TD\n R[Java repo] -- S1\n S1[\"Stage 1 — Inventory\\nagent: java-inventory\"] -- · inventoryartifact.json · S2\n S2[\"Stage 2 — Parser\\nagent: java-parser\"] -- · Normalized Tree · S3\n S3[\"Stage 3 — Complexity\\nagent: complexity-analyzer\"] -- · complexityartifact.json\\n+ one report per skill · OUT[Output]\n S2 -- · Normalized Tree · S4\n TL[\"target language named?\\n(python, java, cobol, plsql, ...)\"] -- · only if named · S3\n S3 -- · invokes skill when a\\ntarget language is named · S4\n S4[\"Stage 4 — Target-Fit\\nskill: target-fit-complexity\\n(invoked by Stage 3)\"] -- · target/&lt;lang&gt;/complexityartifact.json\\n+ one report per skill · OUT2[Target output]\n S3 -.- · comparison / traceability only,\\nnever the scoring mechanism · S4\n \nadaptive-legacy-code-complexity-harness/\n│\n├── CLAUDE.md Project memory. Loaded into every Claude Code\n│ session: commands, conventions, the rules.\n├── README.md This file.\n│\n├── .claude/ ⚠ Contains PRODUCT CODE, not just tool config\n│ │\n│ ├── settings.json Shared permissions. Checked in. Denies all\n│ │ access to plsqltobrd/.\n│ │\n│ ├── agents/ WHO orchestrates\n│ │ ├── 1inventoryagent.md name: java-inventory\n│ │ ├── 2parseragent.md name: java-parser\n│ │ └── 3complexityagent.md name: complexity-analyzer\n│ │ (invokes the target-fit-complexity skill\n│ │ when a target language is named)\n│ │\n│ ├── rules/ Path-scoped instructions. Load only when\n│ │ └── analyzer-code.md touching .py under complexities/ or tools/.\n│ │\n│ ├── skills/ WHAT each complexity is, and WHEN to use it\n│ │ ├── cyclomatic-complexity/SKILL.md\n│ │ ├── runtime-complexity/SKILL.md\n│ │ ├── … 20 in total, one per complexity\n│ │ └── target-fit-complexity/SKILL.md Stage 4 — the on-demand target-language\n│ │ counterpart to Stage 3, invoked only\n│ │ when a target language is named\n│ │\n│ ├── complexities/ HOW each complexity is computed ← product code\n│ │ ├── core.py The shared contract. Read this first.\n│ │ ├── 01…20.py One implementation per skill, paired by number\n│ │ ├── runpipeline.py The runner\n│ │ └── supersededstylea/ Original Style-A analyzers, preserved\n│ │\n│ ├── inventory/ Stage 1 ← product code\n│ │ └── scanner.py Java repo scanner\n│ │\n│ ├── parser/ Stage 2 ← product code\n│ │ └── parser.py Tokenizer + statement scanner; builds the Normalized Tree\n│ │\n│ └── targetfit/ Stage 4 (driven by the skill) ← product code\n│ ├── projecttree.py Projects a Normalized Tree onto a target language\n│ ├── targetfit.py Orchestrator the skill runs: project → re-run the 20 skills → compare vs. stage 3\n│ ├── schema.md What a target-language descriptor must declare\n│ └── languages/ One JSON per target (cobol, plsql, java, python, …), plus\n│ pending/ for drafts not yet reviewed\n│\n├── docs/\n│ ├── system-overview.md Start here\n│ ├── inventory-contract.md Shape of inventoryartifact.json\n│ ├── analyzer-contract.md How to build complexity #21\n│ ├── target-fit-contract.md How stage 4 projects a tree and stays honest about it\n│ └── architecture-decisions.md Why it is built this way, and what would reverse it\n│\n├── samples/\n│ └── cobolpayroll.tree.json Reference tree. Exercises every field.\n│\n└── tools/\n ├── judge.py Audits the analyzers — 10 adversarial checks each\n ├── 99canarycomplexity.py Defective on purpose; proves the judge has teeth\n └── treebridge.py Converts legacy Style-A trees\n \nsize → structural → data → coupling → hazard → composite\n bash\npython .claude/inventory/scanner.py --repo-root -o out\n mermaid\nflowchart TD\n IN[\"Normalized Tree (+ optional TARGETLANGUAGE)\"] -- CORE\n\n subgraph CORE[\"Agent 3 — source-side run (always)\"]\n direction TB\n D1[\"DISCOVER — scan .claude/complexities/NN.py\"] -- D2[\"ORDER — dependency depth, then tier, then sno\"]\n D2 -- D3[\"GATE — check each SPEC.requires; unmet → insufficientinput, never a zero\"]\n D3 -- D4[\"RUN the 20 analyzers\"]\n D4 -- D5[\"CONSOLIDATE\"]\n end\n\n CORE -- SRC[\"complexityartifact.json + complexityreport.md (source language)\"]\n\n SRC -- Q{\"Target language named in the request?\"}\n Q -- · No · DONE([\"Done — source-side only\"])\n Q -- · Yes · INVOKE[\"Agent 3 invokes the target-fit-complexity SKILL\"]\n\n subgraph SKILL[\"target-fit-complexity skill — target-side run (on demand)\"]\n direction TB\n S0{\"source complexityartifact.json already on disk?\"}\n S0 -- · Yes · REUSE[\"reuse it as the baseline (skip re-running the source pass)\"]\n S0 -- · No · RUNSRC[\"run the source pass first, then continue\"]\n REUSE -- P\n RUNSRC -- P\n P[\"PROJECT the tree (projecttree.py): • drop units with unexpressible jumps (GOTO/ALTER) • drop types if target has no object model • strip loc / commentlines / halstead\"]\n P -- R2[\"RUN the SAME 20 analyzers on the projected tree (runpipeline.py's own functions — not duplicated)\"]\n R2 -- CMP[\"COMPARE vs. the source baseline (traceability only — never the scoring mechanism)\"]\n end\n\n INVOKE -- SKILL\n CMP -- OUT[\"target/&lt;lang&gt;/complexityartifact.json + complexityreport.md\"]\n \nv(G) = 1 + (number of decision nodes in the unit's control-flow graph)\n mermaid\nflowchart TD\n S([enter]) -- D1{if a?}\n D1 -- · yes · B1[do X]\n D1 -- · no · D2{while b?}\n B1 -- D2\n D2 -- · yes · B2[loop body]\n B2 -- D2\n D2 -- · no · E([exit])\n %% 2 decision nodes (if a, while b) - v(G) = 1 + 2 = 3\n \ncognitive = Σ over flow-breaking nodes of ( 1 + nestingdepthatthatnode )\n + Σ over flat boolean chains (AND / OR / TERNARY) of ( 1 ) # no nesting bonus\n ( ELSE / DEFAULT add 0 )\n mermaid\nflowchart TD\n A[\"if — depth 0 → +1\"] -- B[\" if — depth 1 → +2\"]\n B -- C[\" for — depth 2 → +3\"]\n C -- D[\" if — depth 3 → +4\"]\n D -- E[\"cognitive = 1+2+3+4 = 10 (cyclomatic would be just 1+4 = 5)\"]\n \nNPath(unit) = Π over the CFG of the per-construct factor\n IF / ELIF / TERNARY / AND / OR / CATCH → 2 (taken / not taken)\n loop → 2 (entered / skipped)\n CASE with n arms → n\n (counting is capped at 10¹² — beyond that the exact figure conveys nothing)\n mermaid\nflowchart LR\n S([enter]) -- A{if 1}\n A -- B{if 2}\n B -- C{if 3}\n C -- D{if 4}\n D -- E([exit])\n %% four independent binary decisions in sequence\n %% NPath = 2 x 2 x 2 x 2 = 16 (cyclomatic = 1 + 4 = 5)\n \nfanin = number of distinct units that call this one\nfanout = number of distinct units this one calls\ninformationflow = (fanin × fanout)²\n mermaid\nflowchart TD\n C1[caller 1] -- H\n C2[caller 2] -- H\n C3[caller 3] -- H\n H[\"HUB unit fanin=3, fanout=3 flow = (3×3)² = 81\"]\n H -- D1[callee 1]\n H -- D2[callee 2]\n H -- D3[callee 3]\n \nMI = max(0, 171 − 5.2·ln(V) − 0.23·CC − 16.2·ln(LOC)) × 100 / 171\n + 50·sin(√(2.4 · commentratio)) # bounded comment-density bonus\n\n V = Halstead volume (parser's value if present, else estimated from size)\n CC = cyclomatic complexity (the SAME v(G) as metric #1, via Tree.cyclomatic — they never disagree)\n LOC = lines of code\n mermaid\nflowchart LR\n LOC[LOC] -- MI\n CC[\"Cyclomatic v(G) (shared with #1)\"] -- MI\n V[\"Halstead volume V\"] -- MI\n CR[comment ratio] -- MI\n MI[\"MI = 171 − 5.2·ln(V) − 0.23·CC − 16.2·ln(LOC) rescaled to 0–100 + comment bonus\"]\n MI -- B{{\"band, inverted: ≥85 L1 … /target/ /\n reports/NN.json ← one per skill, same shape stage 3 writes\n complexityartifact.json ← same overall structure as stage 3's, plus\n sourcelanguage/targetlanguage/projection/\n comparison (vs. stage 3's real baseline,\n traceability only — never the scoring input)\n bash\npython tools/judge.py samples/cobolpayroll.tree.json --self-test\n20 pass 0 minor 0 CRITICAL\nself-test OK: canary correctly flagged CRITICAL\n bash\ncp .claude/complexities/01cyclomaticcomplexity.py .claude/complexities/21mycomplexity.py\nmkdir .claude/skills/my-complexity\n\nEdit the SPEC, write analyze(), add the SKILL.md. Nothing else changes — the agent\nand pipeline discover it by scanning. Full contract in\ndocs/analyzer-contract.md.\n\nKnown limits\n\n- Band calibration is judgement, not measurement. Thresholds reflect published\n practice and field experience, not a statistical study of a reference corpus. Re-fit\n them against your own codebase once enough runs exist.\n- A tree is only as good as its parser. Skills report what the tree carries. If the\n parser drops comments, data references or a control-flow graph, the affected skills say\n insufficientinput — which is a parser gap, not a clean codebase.\n- supersededstylea/ holds the original Style-A analyzers, preserved unmodified.\n tools/treebridge.py converts a Style-A tree if you still have one.\n- Stage 4 has no judge yet. Unlike the 20 skills, target-language projection has no\n adversarial audit or planted-defect canary — only hand-written unit tests\n (tests/testtargetfit.py). One already found a real, pre-existing crash in\n 18configurationcomplexity.py (a None comparison it never guarded), exposed only\n because stage 4 strips loc unconditionally — a reminder that this stage is useful\n precisely because it stresses stage 3's skills in ways stage 3's own pipeline never did.\n- Only three descriptor fields currently drive projection (supportsgoto,\n supportsalterstyledynamicjump, multipleinheritance). A descriptor's richer\n fields (numericmodel, exceptionmodel, nativescreenio, nativesqlaccess) are\n read by the human-written report, not by the projection itself — a codebase relying on\n fixed-point arithmetic or platform screen calls gets no score impact for that risk yet.",
+      "mermaid": [
+        "flowchart TD\n    R[Java repo] --> S1\n    S1[\"Stage 1 — Inventory\\nagent: java-inventory\"] -->|inventory_artifact.json| S2\n    S2[\"Stage 2 — Parser\\nagent: java-parser\"] -->|Normalized Tree| S3\n    S3[\"Stage 3 — Complexity\\nagent: complexity-analyzer\"] -->|complexity_artifact.json\\n+ one report per skill| OUT[Output]\n    S2 -->|Normalized Tree| S4\n    TL[\"target language named?\\n(python, java, cobol, plsql, ...)\"] -->|only if named| S3\n    S3 -->|invokes skill when a\\ntarget language is named| S4\n    S4[\"Stage 4 — Target-Fit\\nskill: target-fit-complexity\\n(invoked by Stage 3)\"] -->|target/&lt;lang&gt;/complexity_artifact.json\\n+ one report per skill| OUT2[Target output]\n    S3 -.->|comparison / traceability only,\\nnever the scoring mechanism| S4",
+        "flowchart TD\n    IN[\"Normalized Tree<br/>(+ optional TARGET_LANGUAGE)\"] --> CORE\n\n    subgraph CORE[\"Agent 3 — source-side run (always)\"]\n        direction TB\n        D1[\"DISCOVER — scan .claude/complexities/NN_*.py\"] --> D2[\"ORDER — dependency depth, then tier, then sno\"]\n        D2 --> D3[\"GATE — check each SPEC.requires;<br/>unmet → insufficient_input, never a zero\"]\n        D3 --> D4[\"RUN the 20 analyzers\"]\n        D4 --> D5[\"CONSOLIDATE\"]\n    end\n\n    CORE --> SRC[\"complexity_artifact.json<br/>+ complexity_report.md<br/>(source language)\"]\n\n    SRC --> Q{\"Target language<br/>named in the request?\"}\n    Q -->|No| DONE([\"Done — source-side only\"])\n    Q -->|Yes| INVOKE[\"Agent 3 invokes the<br/>target-fit-complexity SKILL\"]\n\n    subgraph SKILL[\"target-fit-complexity skill — target-side run (on demand)\"]\n        direction TB\n        S0{\"source complexity_artifact.json<br/>already on disk?\"}\n        S0 -->|Yes| REUSE[\"reuse it as the baseline<br/>(skip re-running the source pass)\"]\n        S0 -->|No| RUNSRC[\"run the source pass first, then continue\"]\n        REUSE --> P\n        RUNSRC --> P\n        P[\"PROJECT the tree (project_tree.py):<br/>• drop units with unexpressible jumps (GOTO/ALTER)<br/>• drop types if target has no object model<br/>• strip loc / comment_lines / halstead\"]\n        P --> R2[\"RUN the SAME 20 analyzers on the projected tree<br/>(run_pipeline.py's own functions — not duplicated)\"]\n        R2 --> CMP[\"COMPARE vs. the source baseline<br/>(traceability only — never the scoring mechanism)\"]\n    end\n\n    INVOKE --> SKILL\n    CMP --> OUT[\"target/&lt;lang&gt;/complexity_artifact.json<br/>+ complexity_report.md\"]",
+        "flowchart TD\n    S([enter]) --> D1{if a?}\n    D1 -->|yes| B1[do X]\n    D1 -->|no| D2{while b?}\n    B1 --> D2\n    D2 -->|yes| B2[loop body]\n    B2 --> D2\n    D2 -->|no| E([exit])\n    %% 2 decision nodes (if a, while b) -> v(G) = 1 + 2 = 3"
+      ]
+    },
+    {
+      "name": "ResumeForge-AI",
+      "fullName": "KrishnaAnnavaram/ResumeForge-AI",
+      "url": "https://github.com/KrishnaAnnavaram/ResumeForge-AI",
+      "homepage": null,
+      "description": null,
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": null,
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 78,
+      "createdAt": "2026-03-25T14:36:44Z",
+      "pushedAt": "2026-03-26T00:26:41Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 131156,
+          "share": 68.5
+        },
+        {
+          "name": "TypeScript",
+          "bytes": 54833,
+          "share": 28.6
+        },
+        {
+          "name": "HTML",
+          "bytes": 4100,
+          "share": 2.1
+        },
+        {
+          "name": "PLpgSQL",
+          "bytes": 1160,
+          "share": 0.6
+        },
+        {
+          "name": "CSS",
+          "bytes": 127,
+          "share": 0.1
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 81,
+          "share": 0
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "6ca6303",
+        "message": "Merge pull request #2 from KrishnaAnnavaram/claude/supabase-migrations-YPcLx",
+        "date": "2026-03-26T00:26:41Z",
+        "url": "https://github.com/KrishnaAnnavaram/ResumeForge-AI/commit/6ca6303607d988fc26e14322850bf2dca37eaf82"
+      },
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "springboard",
+      "fullName": "KrishnaAnnavaram/springboard",
+      "url": "https://github.com/KrishnaAnnavaram/springboard",
+      "homepage": null,
+      "description": null,
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "claude/springboard-job-automation-PthuG",
+      "license": null,
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 131,
+      "createdAt": "2026-02-07T17:00:02Z",
+      "pushedAt": "2026-02-08T20:13:41Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 424826,
+          "share": 99.4
+        },
+        {
+          "name": "Shell",
+          "bytes": 1836,
+          "share": 0.4
+        },
+        {
+          "name": "Dockerfile",
+          "bytes": 713,
+          "share": 0.2
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "8dcc9ee",
+        "message": "Merge pull request #1 from KrishnaAnnavaram/claude/springboard-system-audit-dMU9J",
+        "date": "2026-02-08T20:13:41Z",
+        "url": "https://github.com/KrishnaAnnavaram/springboard/commit/8dcc9eeec76e2207bc67ac02c734197fb7c8964c"
+      },
+      "readmeLead": "Springboard is an AI-powered multi-agent system that automates your LinkedIn job search, from discovery to application. Built with LangGraph for orchestration, Claude API for intelligence, and Streamlit for visualization.",
+      "readmeText": "🚀 Springboard - LinkedIn Job Application Automation\n\nSpringboard is an AI-powered multi-agent system that automates your LinkedIn job search, from discovery to application. Built with LangGraph for orchestration, Claude API for intelligence, and Streamlit for visualization.\n\nFeatures\n\n- Automated Job Discovery — Scrapes LinkedIn jobs based on your criteria using Selenium\n- AI-Powered Matching — Scores jobs against your profile using Claude API with weighted criteria\n- Resume Customization — Generates tailored resumes and cover letters for each position\n- One-Click Applications — Submits LinkedIn Easy Apply applications automatically\n- Real-Time Dashboard — 8-page Streamlit dashboard for monitoring and analytics\n- Smart Rate Limiting — Configurable delays and daily limits to avoid detection\n- Checkpoint Recovery — Resumable workflows via LangGraph state management\n\nArchitecture\n\n \n\nQuick Start\n\nPrerequisites\n- Python 3.10+\n- Chrome browser (for Selenium)\n- LinkedIn account\n- Anthropic API key\n\nInstallation\n\n \n\nConfiguration\n\n1. Copy .env.example to .env and fill in your credentials\n2. Edit config/config.yaml to customize job search parameters\n3. Set up your profile in the dashboard's Profile page\n\nDashboard Pages\n Page · Description · \n ------ · ------------- · \n 🏠 Home · Overview metrics, activity feed, quick actions · \n 🔍 Job Search · Configure and launch job searches · \n 📋 Jobs · Browse, filter, and manage job listings · \n 📄 Applications · Track application status and history · \n 👤 Profile · Manage skills, experience, and preferences · \n 🤖 Agent Monitor · Control workflow and monitor agents · \n 📈 Analytics · Charts, funnels, and success metrics · \n ⚙️ Settings · Credentials, automation, and system config · \n\nTech Stack\n\n- Python 3.10+ — Core language\n- Streamlit — Dashboard UI\n- LangGraph + LangChain — Multi-agent orchestration\n- SQLAlchemy — ORM (SQLite/PostgreSQL)\n- Selenium — Browser automation\n- Anthropic Claude API — AI matching and generation\n- Plotly — Interactive charts\n\nProject Structure\n\n \n\nSafety & Ethics\n\n- Configurable daily application limits (default: 20/day)\n- Random delays between actions to mimic human behavior\n- Never stores passwords in code (uses .env)\n- Screenshot proof of every application\n- Full audit trail in database\n\nLicense\n\nMIT License",
+      "mermaid": []
+    },
+    {
+      "name": "medxpert",
+      "fullName": "KrishnaAnnavaram/medxpert",
+      "url": "https://github.com/KrishnaAnnavaram/medxpert",
+      "homepage": null,
+      "description": "A Generative AI-powered medical assistant with NLP + Q&A system",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 1,
+      "sizeKb": 3035,
+      "createdAt": "2025-06-18T21:00:55Z",
+      "pushedAt": "2026-01-29T17:13:35Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 29408,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "c627e1e",
+        "message": "README.md",
+        "date": "2025-06-18T22:15:27Z",
+        "url": "https://github.com/KrishnaAnnavaram/medxpert/commit/c627e1e672d189f4c610cba175667164d3409d94"
+      },
+      "readmeLead": "MedXpert is a multi-agent, LLM-powered medical chatbot that transforms natural language symptom queries into structured insights, multilingual medicine summaries, and interactive dashboards using real-time SQL + vector search.",
+      "readmeText": "💊 MedXpert – Multilingual GenAI-Powered Medical Assistant\n\nMedXpert is a multi-agent, LLM-powered medical chatbot that transforms natural language symptom queries into structured insights, multilingual medicine summaries, and interactive dashboards using real-time SQL + vector search.\n\nBuilt with a modular, secure, and production-scalable architecture, MedXpert blends cutting-edge GenAI (GPT-4), RAG systems, and multilingual NLP to assist patients, researchers, and clinicians in navigating medicine information.\n\n🚀 Key Features\n\n- 🧠 Symptom Understanding via Module Context Protocol (MCP)\n- 📂 SQL Agent: GPT-4 powered dynamic query generator for structured databases\n- 🔎 Vector Agent: ChromaDB + MiniLM for semantic similarity over medical content\n- 📄 LLM Summarizer: Generates patient-level, multilingual medicine descriptions\n- 🌐 Manual Generator: 100+ language support using MarianMT + Prompt Engineering\n- 🧾 OCR-Based Input: Read prescriptions using Tesseract OCR + NER\n- 📊 Rating Visualization: Auto-generated medicine performance charts\n- 🔒 Clean Architecture: Modular components and optional HIPAA-safe deployment\n\n🛠️ Tech Stack\n Layer · Stack · \n ------------------- · ----------------------------------------------------------------------- · \n LLM · GPT-4 (OpenAI), LangChain-style Agents, SentenceTransformers (MiniLM) · \n NLP + Search · TF-IDF, Cosine Similarity, ChromaDB, Vector Indexing · \n Multilingual NLP · MarianMT, HuggingFace Transformers, spaCy · \n Data & BI · PostgreSQL, Power BI, Matplotlib · \n Frontend · Streamlit · \n Deployment · Docker (Optional), Azure, GCP App Engine · \n Other Tools · GitHub Actions, FastAPI, Tesseract OCR, MLflow, Jira, SharePoint · \n\n🧠 Architecture Highlights\n\n \n\n🔗 Dataset Sources\n\n- DailyMed Structured Product Labels\n- Kaggle 11K+ medicine info\n- Custom labeled translations (MarianMT + Post-processing)\n\n📂 Project Structure\n\n \n\n🧪 How to Run\n\n \n\nRequires .env file with:\n\n \n\n📖 Example Use Cases\n\n- 🤒 “What to take for sore throat?” → GPT-4 → SQL → PostgreSQL\n- 🌍 “Tell me about this medicine in Telugu” → MarianMT → User Manual\n- 📷 Upload prescription → Tesseract OCR → NLP pipeline\n- 📊 Get best-rated alternatives → Chart output by Streamlit\n\n🧑‍💻 Contributors\n\n- Krishna Annavaram \n LinkedIn · annavaramkrishna02@gmail.com\n\n- Vighnasree Vara \n NLP & GenAI Research Collaborator\n\n📜 License\n\nMIT License\n\n🙌 Acknowledgments\n\nThanks to the University of North Texas – College of Information for academic and technical mentorship in LLM-based AI systems. \nSpecial appreciation to the GenAI & NLP teams at Creative Sense Pvt Ltd for enabling healthcare RAG system deployment.",
+      "mermaid": []
+    },
+    {
+      "name": "profalign-ai",
+      "fullName": "KrishnaAnnavaram/profalign-ai",
+      "url": "https://github.com/KrishnaAnnavaram/profalign-ai",
+      "homepage": null,
+      "description": "An NLP-driven professor recommendation system for academic alignment",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 4825,
+      "createdAt": "2025-12-20T17:39:38Z",
+      "pushedAt": "2025-12-20T18:04:25Z",
+      "languages": [
+        {
+          "name": "Jupyter Notebook",
+          "bytes": 1095321,
+          "share": 98.7
+        },
+        {
+          "name": "HTML",
+          "bytes": 9003,
+          "share": 0.8
+        },
+        {
+          "name": "Python",
+          "bytes": 5237,
+          "share": 0.5
+        }
+      ],
+      "primaryLanguage": "Jupyter Notebook",
+      "lastCommit": {
+        "sha": "877926e",
+        "message": "Enhance README with project details and structure",
+        "date": "2025-12-20T18:04:25Z",
+        "url": "https://github.com/KrishnaAnnavaram/profalign-ai/commit/877926e650ef89d19516a0d1d71c4e8c9787e825"
+      },
+      "readmeLead": "ProfAlign AI An NLP-Driven Professor Recommendation System for Academic Alignment",
+      "readmeText": "ProfAlign AI \nAn NLP-Driven Professor Recommendation System for Academic Alignment\n\nProfAlign AI is an intelligent professor recommendation system designed to help students identify professors whose research interests, teaching style, and academic metrics align with their learning goals. \nThe system applies Natural Language Processing (NLP) and machine learning–based similarity modeling to generate ranked, data-driven faculty recommendations.\n\n📌 Problem Statement\n\nStudents often struggle to choose the right professor due to:\n- Unstructured and scattered faculty research information \n- Lack of transparency around teaching difficulty and engagement \n- Reliance on word-of-mouth rather than data \n\nProfAlign AI addresses this gap by combining textual similarity with quantitative academic metrics to support informed decision-making.\n\n🧠 System Overview\n\nThe system analyzes:\n- Faculty research descriptions and publications \n- Student input describing research interests and preferences \n- Academic feedback and engagement indicators \n\nUsing NLP and similarity modeling, ProfAlign AI produces a ranked list of professors with interpretable relevance indicators.\n\n🏗 Architecture & Pipeline\n\n1. Data Collection\n- Faculty profiles and research data scraped from public university sources \n- Implemented using Selenium and BeautifulSoup\n\n2. Data Preprocessing\n- Handling missing values \n- Text normalization and cleaning \n- Removal of noise and irrelevant attributes \n\n3. Feature Engineering\nCustom academic quality metrics were introduced:\n- Course Difficulty Index (CDI) \n- Student Feedback Index (SFI) \n- Professor Engagement Index (PEI) \n\nThese metrics enhance recommendation reliability beyond text similarity alone.\n\n4. Text Representation\n- Faculty research text vectorized using TF-IDF\n- Student input transformed into the same vector space \n\n5. Similarity & Ranking\n- Cosine Similarity measures research alignment \n- K-Nearest Neighbors (KNN) integrates similarity with CDI, SFI, and PEI \n- Produces Top-N ranked professor recommendations \n\n6. User Interface\n- Web application built using Flask\n- Simple UI for student input and recommendation display \n\n🔁 Workflow\n\n1. Student enters research interests and preferences \n2. Input is preprocessed and vectorized \n3. Faculty profiles are compared using similarity metrics \n4. Academic quality indices refine the ranking \n5. Final recommendations are displayed to the user \n\n📊 Evaluation\n\nThe system was evaluated using:\n- Exploratory Data Analysis (EDA) on faculty datasets \n- Distribution analysis of CDI, SFI, and PEI \n- Qualitative validation of recommendation relevance \n\nResults showed improved alignment when text similarity is combined with academic metrics.\n\n🧪 Technology Stack\n\n- Python\n- Flask\n- scikit-learn\n- TF-IDF Vectorization\n- Cosine Similarity\n- K-Nearest Neighbors (KNN)\n- Selenium & BeautifulSoup\n- Pandas / NumPy\n- NLTK\n\n👤 My Role\n\nThis project was developed as part of a research-focused academic team.\n\nMy contributions included:\n- NLP preprocessing pipeline design \n- Feature engineering (CDI, SFI, PEI metrics) \n- Similarity modeling and ranking logic \n- Evaluation, analysis, and documentation \n\n📄 Publication\n\nThis project was accepted and published at MIRS (University of North Texas).\n\nPaper Title: \nProfessor Recommendation System\n\n🚀 Future Enhancements\n\n- Deep-learning embeddings (BERT / SBERT) \n- User feedback–driven adaptive recommendations \n- Improved metric normalization \n- Cross-department and cross-university support \n\n⚠️ Notes\n\n- All data used is publicly available academic information \n- No private or sensitive data is included \n- This repository reflects a research implementation, not a production system \n\n📜 License\n\nThis project is licensed under the MIT License.\nprofalign-ai\nAn NLP-driven professor recommendation system for academic alignment",
+      "mermaid": []
+    },
+    {
+      "name": "virtual-professor-ai",
+      "fullName": "KrishnaAnnavaram/virtual-professor-ai",
+      "url": "https://github.com/KrishnaAnnavaram/virtual-professor-ai",
+      "homepage": null,
+      "description": "A LangGraph-Orchestrated Multi-Agent Research Mentoring System",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 22,
+      "createdAt": "2025-12-20T14:52:23Z",
+      "pushedAt": "2025-12-20T16:25:10Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 43072,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "14c24d5",
+        "message": "Create README.md",
+        "date": "2025-12-20T16:25:07Z",
+        "url": "https://github.com/KrishnaAnnavaram/virtual-professor-ai/commit/14c24d57e111e9d5f257cb1c6adc5ce30bebcf1e"
+      },
+      "readmeLead": "Virtual Professor AI is a LangGraph-orchestrated, multi-agent GenAI system designed to provide continuous, context-aware research mentoring for graduate students. It combines multi-agent reasoning, hybrid retrieval (RAG), and long-term conversational memory to deliver academically grounded guidance across the full research lifecycle.",
+      "readmeText": "Virtual Professor AI\n\nVirtual Professor AI is a LangGraph-orchestrated, multi-agent GenAI system designed to provide continuous, context-aware research mentoring for graduate students.\nIt combines multi-agent reasoning, hybrid retrieval (RAG), and long-term conversational memory to deliver academically grounded guidance across the full research lifecycle.\n\n📌 Motivation\n\nGraduate programs face a growing mentorship gap due to rising enrollment and limited faculty availability. Traditional chatbots and single-agent LLM systems fail to provide:\n\nRole-specialized academic reasoning\n\nIntegration of structured and unstructured academic data\n\nLong-term research context across sessions\n\nVirtual Professor AI addresses these limitations by simulating a faculty-style mentoring workflow using coordinated AI agents.\n\n🧠 System Overview\n\nThe system is built as a multi-agent architecture coordinated through LangGraph, where each agent is responsible for a specific academic role.\n\nCore Capabilities\n\nMulti-agent task routing and supervision\n\nHybrid retrieval over academic knowledge sources\n\nEvidence-grounded response generation\n\nLong-term conversational continuity\n\n🏗 Architecture\n\nVirtual Professor AI is organized into five logical layers:\n\nUser Interaction Layer\n\nStreamlit-based interface for research queries and iterative refinement\n\nAgent Orchestration Layer (LangGraph)\n\nSupervisor Agent routes queries to specialized agents\n\nDeterministic state transitions for structured reasoning\n\nHybrid Retrieval Layer\n\nFAISS for semantic retrieval over unstructured documents\n\nPostgreSQL for structured academic data via SQL generation\n\nJSON knowledge base for templates and definitions\n\nUNT Library API for real-time scholarly access\n\nMemory & Session Layer\n\nRedis-backed long-term memory for multi-turn research continuity\n\nResponse Generation & Validation\n\nLLM-based synthesis with supervisory validation for academic rigor\n\n🤖 Agents\nSupervisor Agent\n\nInterprets user intent\n\nRoutes tasks to appropriate agents\n\nMaintains coherence across multi-turn interactions\n\nProfessor Agent\n\nConceptual reasoning\n\nMethodological guidance\n\nResearch framing and scholarly refinement\n\nTeaching Assistant (TA) Agent\n\nProcedural guidance\n\nCode and SQL assistance\n\nAssignment and rubric clarification\n\nSQL Agent\n\nConverts natural language queries into schema-consistent SQL\n\nRetrieves structured academic data from PostgreSQL\n\n📚 Knowledge Sources\nUnstructured\n\nCapstone reports\n\nResearch papers\n\nTextbooks\n\nUploaded PDFs\n(Indexed using FAISS vector embeddings)\n\nStructured\n\nCourse policies\n\nAssignment deadlines\n\nRubrics\n\nStudent and course metadata\n(Stored in PostgreSQL)\n\nExternal\n\nUNT Library API for peer-reviewed literature\n\n🔁 Workflow\n\nUser submits a research query\n\nSupervisor Agent identifies intent\n\nAppropriate agent is activated\n\nHybrid retrieval is triggered (FAISS / SQL / external APIs)\n\nLLM synthesizes an evidence-grounded response\n\nResponse is validated and returned\n\nContext is stored for future interactions\n\nThis enables continuous research mentoring, not isolated Q&A.\n\n📊 Evaluation Highlights\n\nThe system was empirically evaluated using both quantitative and qualitative metrics:\n\nSemantic Retrieval Precision (Top-5): 94%\n\nFAISS Retrieval Latency: < 20 ms\n\nSQL Query Accuracy: High schema consistency and correctness\n\nHallucination Rate: < 5%\n\nMulti-turn Context Retention: Strong session coherence\n\nPilot user studies showed improvements in:\n\nResearch problem articulation\n\nMethodological alignment\n\nMilestone adherence\n\n🧪 Technology Stack\n\nPython\n\nLangGraph (multi-agent orchestration)\n\nLarge Language Models (LLMs)\n\nFAISS (vector search)\n\nPostgreSQL (structured retrieval)\n\nRedis (session memory)\n\nStreamlit (UI)\n\n👤 My Role\n\nLed system architecture and design\n\nImplemented LangGraph-based multi-agent orchestration\n\nDesigned hybrid retrieval pipeline (FAISS + PostgreSQL)\n\nBuilt SQL agent for structured academic querying\n\nIntegrated long-term conversational memory\n\nConducted evaluation and performance analysis\n\n⚠️ Notes\n\nSensitive credentials and datasets are excluded\n\n.env.example is provided for configuration reference\n\nThis repository reflects the research and system implementation described in the accepted paper\n\n📄 Publication\n\nThis project is based on the accepted research paper:\n\n“Bridging the Mentorship Gap: An AI-Driven Multi-Agent Framework for Continuous Research Guidance”\nUniversity of North Texas\n\n🚀 Future Work\n\nAdaptive model selection per agent\n\nAutomated academic data refresh pipelines\n\nReinforcement learning from user feedback\n\nExpanded long-term personalization",
+      "mermaid": []
+    },
+    {
+      "name": "pick-n-play",
+      "fullName": "KrishnaAnnavaram/pick-n-play",
+      "url": "https://github.com/KrishnaAnnavaram/pick-n-play",
+      "homepage": null,
+      "description": null,
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 34096,
+      "createdAt": "2025-04-16T05:25:04Z",
+      "pushedAt": "2025-12-01T16:22:07Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 21063504,
+          "share": 75
+        },
+        {
+          "name": "C",
+          "bytes": 5038887,
+          "share": 17.9
+        },
+        {
+          "name": "Tcl",
+          "bytes": 1576492,
+          "share": 5.6
+        },
+        {
+          "name": "C++",
+          "bytes": 128812,
+          "share": 0.5
+        },
+        {
+          "name": "HTML",
+          "bytes": 79391,
+          "share": 0.3
+        },
+        {
+          "name": "Shell",
+          "bytes": 73877,
+          "share": 0.3
+        },
+        {
+          "name": "Makefile",
+          "bytes": 63548,
+          "share": 0.2
+        },
+        {
+          "name": "CMake",
+          "bytes": 24744,
+          "share": 0.1
+        },
+        {
+          "name": "Perl",
+          "bytes": 21918,
+          "share": 0.1
+        },
+        {
+          "name": "Roff",
+          "bytes": 15915,
+          "share": 0.1
+        },
+        {
+          "name": "PowerShell",
+          "bytes": 9082,
+          "share": 0
+        },
+        {
+          "name": "Batchfile",
+          "bytes": 1852,
+          "share": 0
+        },
+        {
+          "name": "CSS",
+          "bytes": 1325,
+          "share": 0
+        },
+        {
+          "name": "DTrace",
+          "bytes": 1008,
+          "share": 0
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "b9eae8c",
+        "message": "Added Dev Container Folder",
+        "date": "2025-12-01T16:22:07Z",
+        "url": "https://github.com/KrishnaAnnavaram/pick-n-play/commit/b9eae8c83e6384100d3d4058d0d6f3568a27fe0f"
+      },
+      "readmeLead": "Pick-n-Play is a Streamlit-powered smart group selector app designed to randomly pick student project groups from an uploaded Excel file — without repetition.",
+      "readmeText": "🎲 Pick-n-Play\n\nPick-n-Play is a Streamlit-powered smart group selector app designed to randomly pick student project groups from an uploaded Excel file — without repetition.\n\n✨ Features\n\n- ✅ Upload an Excel file with group information\n- ✅ Randomly pick one group at a time\n- ✅ Prevent duplicate selections (non-repeating logic)\n- ✅ Exclude any groups before starting\n- ✅ Track completed and excluded groups\n- ✅ Simple reset functionality\n\n📁 Excel Format\n\nThe uploaded .xlsx file should have the following columns:\n Group · Student Name · Project Idea · \n --------- · -------------------------- · ------------------------------------------ · \n Group 1 · Krishna Annavaram · Smart Healthcare Assistant · \n · Charmika Sadhula · · \n · Vighnasree Vara · · \n Group 2 · John Smith · AI Weather Forecaster · \n · Jane Doe · · \n\n- Only the first row of each group should contain the project title and group number.\n- Group members follow below without repeating the group number.\n\n🚀 How to Run the App Locally\n\nbash\nClone the repo\ngit clone https://github.com/KrishnaAnnavaram/pick-n-play.git\ncd pick-n-play\n\n(Optional) Create a virtual environment\npython -m venv venv\nsource venv/bin/activate # On Windows: venv\\Scripts\\activate\n\nInstall dependencies\npip install -r requirements.txt\n\nRun the Streamlit app\nstreamlit run app.py",
+      "mermaid": []
+    },
+    {
+      "name": "KnowFlow-RAG",
+      "fullName": "KrishnaAnnavaram/KnowFlow-RAG",
+      "url": "https://github.com/KrishnaAnnavaram/KnowFlow-RAG",
+      "homepage": null,
+      "description": " KnowFlow-Agentic is an AI-powered, role-aware internal knowledge transfer assistant built on an Agentic Retrieval-Augmented Generation (RAG) architecture. It dynamically delivers accurate, personalized responses to enterprise employees using BM25, FAISS, and GPT-4.",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": null,
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 3962,
+      "createdAt": "2025-07-16T02:18:47Z",
+      "pushedAt": "2025-07-16T14:17:06Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 15076,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "579a7ba",
+        "message": "Rename POWERPOINT PRESENTATION.pptx to POWERPOINT PRESENTATION.pptx",
+        "date": "2025-07-16T14:17:05Z",
+        "url": "https://github.com/KrishnaAnnavaram/KnowFlow-RAG/commit/579a7ba9fd5e94ebca7f9e29e8531d2881b3a00a"
+      },
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "WeatherTSR-Net",
+      "fullName": "KrishnaAnnavaram/WeatherTSR-Net",
+      "url": "https://github.com/KrishnaAnnavaram/WeatherTSR-Net",
+      "homepage": null,
+      "description": "Weather-aware Traffic Sign Recognition using CNN-DNN Hybrid Architecture with Real-time Metadata",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": null,
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 4496,
+      "createdAt": "2025-07-15T21:23:07Z",
+      "pushedAt": "2025-07-15T21:27:25Z",
+      "languages": [
+        {
+          "name": "Jupyter Notebook",
+          "bytes": 1087896,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Jupyter Notebook",
+      "lastCommit": {
+        "sha": "6daf63c",
+        "message": "Add files via upload",
+        "date": "2025-07-15T21:27:25Z",
+        "url": "https://github.com/KrishnaAnnavaram/WeatherTSR-Net/commit/6daf63cc30a831d1dc405b0414dcade452af61df"
+      },
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "eda-strategies",
+      "fullName": "KrishnaAnnavaram/eda-strategies",
+      "url": "https://github.com/KrishnaAnnavaram/eda-strategies",
+      "homepage": null,
+      "description": null,
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 8118,
+      "createdAt": "2025-06-22T19:11:09Z",
+      "pushedAt": "2025-06-23T16:55:06Z",
+      "languages": [],
+      "primaryLanguage": null,
+      "lastCommit": {
+        "sha": "5aa49fd",
+        "message": "Create LICENSE",
+        "date": "2025-06-23T16:55:06Z",
+        "url": "https://github.com/KrishnaAnnavaram/eda-strategies/commit/5aa49fd65d8933f9fb29fb71fe959a198dff15ef"
+      },
+      "readmeLead": "This repository presents a comprehensive walkthrough of Exploratory Data Analysis (EDA) created as part of my personal exploration and practice in data science.",
+      "readmeText": "🧪 Exploratory Data Analysis (EDA) – Strategies & Techniques\n\nThis repository presents a comprehensive walkthrough of Exploratory Data Analysis (EDA) created as part of my personal exploration and practice in data science.\n\nThe presentation covers the most essential concepts, tools, and techniques used by professionals to understand and prepare data before modeling.\n\n📊 What's Inside?\n\nThe presentation includes:\n\n- ✅ EDA in the Data Science Workflow \n- ✅ Metadata and Data Type Identification \n- ✅ Data Cleaning Techniques (Missing Values, Duplicates, Type Corrections) \n- ✅ Univariate, Bivariate, and Multivariate Analysis \n- ✅ Statistical Insights & Hypothesis Testing \n- ✅ Encoding Categorical Variables \n- ✅ Dimensionality Reduction (PCA & t-SNE) \n- ✅ Tools & Libraries Used for EDA \n- ✅ Real-World Applications Across Industries \n- ✅ Future Scope of EDA \n- ✅ Industry-Standard Summary & Takeaways\n\n📁 File Included\n\n- ExploratoryDataAnalysisStrategiesKrishnaAnnavaram.pptx – Full presentation\n\n👨‍💻 Author\n\nKrishna Annavaram \nAspiring Data Scientist · M.S. in Data Science \n📍 Based in Texas, USA \n🔗 LinkedIn Profile \n✉️ annavaramkrishna@gmail.com\n\n💬 Feedback or Collaboration?\n\nFeel free to connect or open an issue if you have suggestions or would like to collaborate on data-centric projects.\n\n \"Every dataset tells a story – EDA helps us learn its language.\"",
+      "mermaid": []
+    },
+    {
+      "name": "web-Scraping",
+      "fullName": "KrishnaAnnavaram/web-Scraping",
+      "url": "https://github.com/KrishnaAnnavaram/web-Scraping",
+      "homepage": null,
+      "description": null,
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": null,
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 0,
+      "createdAt": "2025-04-18T16:21:47Z",
+      "pushedAt": "2025-04-18T16:21:47Z",
+      "languages": [],
+      "primaryLanguage": null,
+      "lastCommit": null,
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "KrishnaAnnavaram",
+      "fullName": "KrishnaAnnavaram/KrishnaAnnavaram",
+      "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram",
+      "homepage": "https://github.com/Krishna-Annavaram",
+      "description": "Config files for my GitHub profile.",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": null,
+      "topics": [
+        "config",
+        "github-config"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 0,
+      "createdAt": "2024-03-05T20:32:18Z",
+      "pushedAt": "2024-03-05T20:32:19Z",
+      "languages": [],
+      "primaryLanguage": null,
+      "lastCommit": null,
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    }
+  ]
+}

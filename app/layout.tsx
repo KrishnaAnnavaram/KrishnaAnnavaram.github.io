@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
+import { Inter, Newsreader, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -12,10 +12,16 @@ const inter = Inter({
   display: 'swap',
 })
 
-const instrument = Instrument_Serif({
+/**
+ * Newsreader over a display serif: it is an optical-size text face, so the same
+ * family carries a 60px headline and a 20px lead paragraph without either one
+ * looking wrong. Display serifs break down at body size; this one does not.
+ */
+const newsreader = Newsreader({
   subsets: ['latin'],
-  weight: '400',
-  variable: '--font-instrument',
+  weight: ['400', '500'],
+  style: ['normal', 'italic'],
+  variable: '--font-newsreader',
   display: 'swap',
 })
 
@@ -69,8 +75,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fafaf9' },
-    { media: '(prefers-color-scheme: dark)', color: '#101014' },
+    { media: '(prefers-color-scheme: light)', color: '#fbfbfa' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f1013' },
   ],
 }
 
@@ -93,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
