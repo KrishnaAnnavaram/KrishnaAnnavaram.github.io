@@ -1,37 +1,38 @@
 import Link from 'next/link'
-import { authoredPublications, supervisedResearch } from '@/data/publications'
+import { authoredPublications } from '@/data/publications'
 import { getPostMeta } from '@/lib/writing'
 import { formatMonthYear } from '@/lib/utils'
 import { Reveal } from '@/components/ui/Reveal'
-import { SectionLabel, TextLink } from '@/components/ui/Bits'
+import { TextLink } from '@/components/ui/Bits'
 
 export function ResearchWriting() {
   const posts = getPostMeta().slice(0, 3)
 
   return (
-    <section className="page-x rule-t mx-auto max-w-page py-20">
-      <div className="grid gap-10 lg:grid-cols-[10rem_1fr] lg:gap-16">
-        <SectionLabel>Beyond the job</SectionLabel>
+    <section className="page-x rule-t mx-auto max-w-page py-16">
+      <div className="spec-grid">
+        <div>
+          <h2 className="eyebrow lg:sticky lg:top-24">
+            <span className="text-ink-faint">05</span> &nbsp;Beyond the job
+          </h2>
+        </div>
 
         <div className="grid gap-14 md:grid-cols-2 md:gap-12">
           <Reveal>
             <h3 className="text-2xl text-ink">Research</h3>
             <p className="mt-3 text-ink-soft">
-              Co-authored NLP and computer-vision papers, plus graduate projects mentored during
-              the teaching assistantship at UNT. Every entry links to its full report.
+              Co-authored NLP and computer-vision research reports from graduate study at UNT.
+              Every entry links to its full report, and every one was checked against that
+              document. None is peer-reviewed.
             </p>
-            <dl className="mt-7 flex gap-10">
+            <dl className="mt-7">
               <div>
-                <dt className="font-serif text-3xl leading-none text-ink">
+                <dt className="font-serif text-3xl leading-none text-ink tabular">
                   {authoredPublications.length}
                 </dt>
-                <dd className="mt-2 text-xs text-ink-muted">co-authored papers</dd>
-              </div>
-              <div>
-                <dt className="font-serif text-3xl leading-none text-ink">
-                  {supervisedResearch.length}
-                </dt>
-                <dd className="mt-2 text-xs text-ink-muted">supervised projects</dd>
+                <dd className="mt-2 max-w-[18rem] text-xs text-ink-muted">
+                  co-authored graduate research reports, each verified against the PDF it links to
+                </dd>
               </div>
             </dl>
             <div className="mt-7">

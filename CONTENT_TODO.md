@@ -1,76 +1,151 @@
 # Content that needs your input
 
-The site was rebuilt with your **LinkedIn profile as the source of truth**. This file lists
-everything I could not verify from a source document, plus what I removed and why.
+Updated after the résumé at `public/resume/resume.pdf` replaced the previous one
+and became the source of truth for every claim on the site.
 
-Nothing here blocks the site — it builds and deploys as-is. These are the places where filling in
-real detail would make it noticeably stronger.
+Nothing here blocks the site — it builds and deploys as-is.
 
 ---
 
-## 1. Virtusa and Ideate Technologies need real detail
+## Resolved by the new résumé
 
-`data/experience.ts` → roles `virtusa` and `ideate-technologies`, both marked `needsDetail: true`.
+These were open and no longer are:
 
-Your LinkedIn confirms the companies, titles, and dates. Neither your résumé nor the LinkedIn
-export describes what you actually built there, so those two roles are written as generic
-Generative AI Engineer responsibilities with **no metrics attached**. I deliberately did not
-invent numbers.
+- **Virtusa and Ideate now have real detail.** Both roles previously carried
+  generic responsibilities with no metrics, marked `needsDetail`. They now carry
+  the actual work and the actual figures, and the flag is gone.
+- **The résumé no longer contradicts the site.** The old PDF listed WorkingFox
+  and Creative Sense and gave a different Cognizant title and date range. The
+  current one matches what the site says, because the site is now written from it.
+- **Two case studies were factually wrong and are corrected.** The Cognizant
+  study described healthcare claims, SAP ICM and Workday; the work was incentive
+  compensation for a medical-device sales organisation, using S3, Lambda,
+  SageMaker Batch Transform, NLTK and XGBoost. The Lemoius study described BERT
+  and sentence embeddings; the work used TF-IDF and cosine similarity.
+- **Azure AI-102 is back.** It was removed earlier because no source document
+  listed it. The current résumé does.
+- **A new case study was added** for the Graph-RAG clinical decision support
+  system at Ideate, which was not represented anywhere before.
 
-For each role, replace the `highlights` array with real work. The shape:
+---
 
-```ts
-{ text: 'What you built and why', metric: '43% fewer support escalations' }
-```
+## 0. Added by the independent review
 
-`metric` is optional — omit it rather than estimating. Where a figure is approximate, prefix it
-with `~`, matching how your résumé handles it.
+These came from three reviewers run against the built site. Full findings in
+[`docs/PORTFOLIO_CRITIQUE.md`](./docs/PORTFOLIO_CRITIQUE.md).
 
-If either role produced something substantial, add a case study to `data/work.ts` and it will
-appear on the home page and in `/work` automatically.
+**Education has no dates.** Every other entry on `/experience/` is dated; the two
+education entries are not, and the résumé does not supply them. A recruiter
+called this the first thing they look for. Add them to `data/profile.ts`.
 
-## 2. Résumé PDF is out of date
+**Two timeline gaps and two roles in six months.** Nothing between Nov 2022 and
+Aug 2024, or May 2025 and Mar 2026; Ideate ran Mar–Jun 2026 and Virtusa from
+Jun 2026. Both reviewers noticed within a minute. One sentence on the experience
+page would let you frame it rather than leaving it to be inferred.
 
-`public/resume/resume.pdf` still lists **WorkingFox** and **Creative Sense Pvt Ltd** — companies
-that appear nowhere on your LinkedIn. It also gives Cognizant as *Machine Learning Consultant,
-Aug 2021 – Nov 2022*, while LinkedIn says *Programming Analyst, Jul 2021 – Nov 2022*.
+**Publish the SMCP Gateway evaluation results.** The single strongest criticism
+of the site: it argues that evaluation is the discipline that matters and shows
+no evaluation result from any system on it. The harness exists — 13 cases × 11
+graders, including `rows_are_grounded`, `no_ungrounded_numbers` and
+`impossible_fields_refused`. Running it and publishing a table of pass rates,
+plus three failure cases with root causes, is roughly a day's work and would be
+the highest-value addition available.
 
-The site follows LinkedIn throughout. Right now a recruiter who reads the site and then opens the
-résumé link will see two different work histories. **Replace this PDF before sharing the site.**
+**The technology inventory is ~120 items, including six vector databases.** It
+is verbatim from your résumé, so it stays until you say otherwise — but on a page
+whose own subheading reads "chosen per access pattern, not per fashion", both
+reviewers read it as keyword stuffing. The assistant no longer treats it as
+evidence. Trimming it to the ~25 with artefacts on this site is your call.
 
-## 3. Claims removed from the previous site
+**The three essays are dated October–December 2024.** Factual contradictions in
+two of them are fixed. Beyond that: they contain no first-hand material, they
+predate every system the site now sells, and the recruiter rated the section the
+strongest AI-generated signal on the site. Rewrite them from the work in
+`/projects/`, or remove the section — an empty writing section costs nothing.
 
-The old site presented work at **CVS Health**, **Morgan Stanley**, and **Verizon**, with detailed
-metrics (91% retrieval accuracy, 350,000+ indexed documents, 22% upsell lift). None of those three
-employers appears on your LinkedIn or in your résumé. All of it was removed.
+**Tap targets.** 11–49 controls per route fall under 24×24px at 390px. Most are
+links in flowing prose, which WCAG 2.5.8 exempts. The standalone controls —
+"+ Detail", "+ Abstract", the sort toggles — are not exempt and are not yet fixed.
 
-Also removed: **Microsoft Certified: Azure AI Engineer Associate (AI-102)**, which the old site
-listed and used in its headline, but which is in neither your LinkedIn certifications nor your
-résumé. If you do hold it, add it back to `data/certifications.ts` with the credential URL.
+**Add CI to the four repositories that lack it.** Bootshift, Statute, the MCP
+gateway and the complexity harness all disclose "There is no CI in the
+repository", while this portfolio gates deploys behind typecheck, lint, contrast,
+publication verification, unit tests, build and Playwright on two engines. The
+discipline is visible in the wrong place.
 
-## 4. Publications were cut from 90 to 38
+---
 
-The old `data/publications.ts` had 90 entries. 46 had no linked report at all, and 6 more were
-duplicates pointing at a report already listed under a different title. Only entries backed by a
-PDF that exists in `public/reports/` survived: **15 co-authored, 23 supervised**.
+## 1. Rotate a leaked API key — do this today
 
-If any of the removed entries are real, add them back with a link to the report.
+`WeatherTSR-Net` has a **live OpenWeatherMap API key committed in plaintext** in
+`Final Project_Code.ipynb` (and in its byte-identical duplicate notebook), in all
+three commits of a public repository.
+
+Deleting the file does not help — the value is in git history. **Rotate the key.**
+The repo is hidden from the portfolio until this is done.
+
+## 2. Remove a dataset of named individuals
+
+`profalign-ai` commits `info_data_final.xlsx`: 6,726 rows of named, identifiable
+faculty with a derived "Course Difficulty Index" and Hard/Easy labels.
+
+Publishing difficulty ratings of named academics is a privacy and reputational
+liability. The repo is hidden from the portfolio until the dataset is removed
+from the working tree and from history.
+
+## 3. Repositories that are hidden, and what each needs
+
+Set `status` in `data/projects.ts` to un-hide any of these once fixed. The
+reasoning for each is recorded in that file.
+
+| Repo | What it needs |
+|---|---|
+| `ResumeForge-AI` | A README and a test suite. The architecture is genuinely good — LangGraph with Postgres checkpointing and human-in-the-loop gates — but a visitor arriving from here finds an unexplained repository. Also: the internal classes named "MCP" are not the Model Context Protocol, and describing them that way to a technical reader is a claim the code does not support. |
+| `virtual-professor-ai` | The README describes a multi-agent LangGraph system with Redis memory, hybrid retrieval and a library API, and reports evaluation figures. The graph has one node, Redis appears nowhere in the source, only FAISS is wired, the library integration returns mock data, and nothing in the repo produces the figures. Correct the README to describe the working FAISS retrieval chatbot it actually is. It also names three collaborators while the README claims sole authorship. |
+| `springboard` | Three things: the default branch is `claude/springboard-job-automation-PthuG`, which is the public face of the repo; `audit_report.md` is committed and stale, advertising six "critical" bugs that a later commit already fixed; and it automates LinkedIn Easy Apply with credentialed login, which is a User Agreement problem on a job-seeking portfolio. |
+| `medxpert` | The README lists MarianMT, spaCy, FastAPI, MLflow, Docker, Power BI, GitHub Actions, Azure and GCP — none appear in the code. `database/` is gitignored and was never committed, so the app cannot start from a fresh clone. `qdrant-client` and `pytesseract` are imported but missing from requirements, and the pinned `openai==0.28.1` is incompatible with the API the code calls. |
+| `pick-n-play` | 4,122 of 4,130 tracked files are a committed virtualenv — and it is not just vendored Python. It ships ~50 MB of Windows binaries and debug symbols, including `python312.dll` (7.3 MB), `python312.pdb` (15.3 MB), `libcrypto-3-x64.dll` (5.3 MB) and `libcrypto-3-x64.pdb` (16.1 MB). A pinned old OpenSSL build sitting in a public repo is a stale-binary liability on its own, and it is what produces the repo's misleading language bar (C, Tcl, Perl, PowerShell — none of it yours). The actual app is 109 lines. `git rm -r --cached playenv/`. |
+| `eda-strategies` | Three files: a PowerPoint, a licence and a README that names a different filename than the one committed. Nothing to fix — consider deleting. |
+| `web-Scraping` | Zero commits, zero bytes. Delete it; an empty public repo is a small unforced credibility hit. |
+
+## 4. DecisionForge has a credential in its history
+
+`decisionforge-ai` is private and is presented on the site **without a repository
+link** for that reason. Before it could ever be made public: a hardcoded password
+string sits in `.devcontainer/devcontainer.json` and `setup.sh`, present in 44 of
+its 51 commits. History would need rewriting, not just a deletion commit.
+
+Its own documentation also overstates several things the code does not do —
+Stage 5 and Stage 7 make no model calls, no embedding is ever computed despite
+the vector columns, and there is no QLoRA. The case study on this site follows
+the code and omits the unmeasured cost and latency figures entirely.
 
 ## 5. Two gaps in the timeline
 
-LinkedIn shows nothing between **Nov 2022 and Aug 2024** (presumably the move to the US and the
-start of the MS) or between **May 2025 and Mar 2026**. The site doesn't draw attention to either,
-but an interviewer will notice. Worth having an answer ready, or adding the roles if they exist.
+Nothing between **Nov 2022 and Aug 2024** (presumably the move to the US and the
+start of the MS) or between **May 2025 and Mar 2026**. The site does not draw
+attention to either, but an interviewer will notice. Worth having an answer
+ready, or adding the roles if they exist.
 
 ## 6. Headshot
 
-`public/images/profile/portrait.jpg` is your original photo cropped to portrait framing — which
-also removed the generative-AI watermark that was in the bottom-right corner of the source file.
-A real photograph would serve you better here if you have one.
+`public/images/profile/portrait.jpg` is your original photo cropped to portrait
+framing — which also removed the generative-AI watermark that was in the
+bottom-right corner of the source file. A real photograph would serve you better.
 
-## 7. Writing
+## 7. The CWE remediation harness has no public artefact
 
-The three essays carried over from the old site. `healthcare-llm-production.mdx` was originally
-written in the first person as though you had deployed clinical LLM systems; since your healthcare
-work was claims and utilisation data rather than clinical documents, I reframed it as analysis.
-The technical content is unchanged. Read it over and make sure it sounds like you.
+The résumé describes a 7-agent, 9-stage CWE vulnerability detection and
+auto-remediation harness. It appears in your Virtusa experience on the site, but
+there is no repository for it, so it gets no case study. If a public or shareable
+version exists, it is the one remaining piece of Virtusa work that could carry a
+full write-up.
+
+## 8. Writing
+
+The three essays carried over from the previous site.
+`healthcare-llm-production.mdx` was originally written in the first person as
+though you had deployed clinical LLM systems. At the time that was unsupported;
+the current résumé does describe a hospital-deployed Graph-RAG system at Ideate,
+so the first-person framing is now defensible and could be restored. Read it over
+and make sure it sounds like you.

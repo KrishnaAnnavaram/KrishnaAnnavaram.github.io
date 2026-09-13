@@ -1,0 +1,88 @@
+name: Sync GitHub projects
+
+# Refreshes data/generated/github.json from the GitHub API and commits it when
+# it changes. The committed snapshot is what the static build reads, so the
+# site never calls GitHub at request time and a GitHub outage cannot break a
+# deploy.
+#
+# Triggers:
+#   schedule            — nightly, so pushes to other repos show up without action
+#   workflow_dispatch   — manual "update my projects now" button
+#   repository_dispatch — POST from a webhook or another repo's workflow
+#
+# A push made with GITHUB_TOKEN does not trigger other workflows (GitHub
+# prevents that recursion), so this job dispatches the deploy explicitly.
+
+on:
+  schedule:
+    - cron: '17 6 * * *' # 06:17 UTC daily
+  workflow_dispatch:
+  repository_dispatch:
+    types: [project-updated]
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: sync-github
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # The sync script itself has no dependencies, but rebuilding the
+      # knowledge index needs tsx and gray-matter.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch repository metadata
+        id: sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # To feature a private repo, add its name here. Doing so publishes its
+          # name, description and topics into this public repository.
+          SYNC_INCLUDE_PRIVATE: ''
+        run: node scripts/sync-github.mjs
+
+      - name: Rebuild the assistant's knowledge index
+        if: steps.sync.outputs.changed == 'true'
+        run: npm run knowledge
+
+      - name: Commit the snapshot
+        id: commit
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/generated/github.json public/ai/knowledge.json
+          if git diff --cached --quiet; then
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m 'chore: sync GitHub project metadata [skip ci]'
+            git push
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Trigger a deploy
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref "${{ github.ref_name }}"
+
+      - name: Summary
+        run: |
+          {
+            echo "### GitHub sync"
+            echo ""
+            echo "- snapshot changed: \`${{ steps.sync.outputs.changed }}\`"
+            echo "- committed: \`${{ steps.commit.outputs.pushed || 'false' }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -4,10 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run knowledge && npm run og",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "knowledge": "tsx scripts/build-knowledge-index.mts",
+    "sync:github": "node scripts/sync-github.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "og": "tsx scripts/build-og-image.mts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
@@ -24,15 +32,23 @@
     "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.0.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
     "@types/node": "^22.13.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.1.1",
     "eslint": "^9.20.0",
     "eslint-config-next": "^15.5.0",
+    "jsdom": "^29.1.1",
     "postcss": "^8.5.0",
     "prettier": "^3.5.0",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.0"
+    "tsx": "^4.23.13",
+    "typescript": "^5.7.0",
+    "vitest": "^5.0.0"
   }
 }

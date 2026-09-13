@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
+import { Inter, Newsreader, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { AssistantProvider } from '@/components/assistant/AssistantProvider'
 import { buildPaletteIndex } from '@/lib/palette'
 import { profile } from '@/data/profile'
 
@@ -12,10 +13,16 @@ const inter = Inter({
   display: 'swap',
 })
 
-const instrument = Instrument_Serif({
+/**
+ * Newsreader over a display serif: it is an optical-size text face, so the same
+ * family carries a 60px headline and a 20px lead paragraph without either one
+ * looking wrong. Display serifs break down at body size; this one does not.
+ */
+const newsreader = Newsreader({
   subsets: ['latin'],
-  weight: '400',
-  variable: '--font-instrument',
+  weight: ['400', '500'],
+  style: ['normal', 'italic'],
+  variable: '--font-newsreader',
   display: 'swap',
 })
 
@@ -55,11 +62,23 @@ export const metadata: Metadata = {
     siteName: `${profile.name} — Generative AI Engineer`,
     title: `${profile.name} — Generative AI Engineer`,
     description,
+    // Explicit, and pointing at the .png copy the postbuild step makes:
+    // Pages serves the extensionless file Next emits as octet-stream, which
+    // crawlers reject.
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: `${profile.name} — Generative AI Engineer`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${profile.name} — Generative AI Engineer`,
     description,
+    images: ['/og.png'],
   },
   robots: { index: true, follow: true },
   manifest: '/manifest.json',
@@ -69,8 +88,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fafaf9' },
-    { media: '(prefers-color-scheme: dark)', color: '#101014' },
+    { media: '(prefers-color-scheme: light)', color: '#fbfbfa' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f1013' },
   ],
 }
 
@@ -93,7 +112,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
@@ -105,9 +124,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Header paletteItems={paletteItems} />
-        <main id="main">{children}</main>
-        <Footer />
+        <AssistantProvider>
+          <Header paletteItems={paletteItems} />
+          <main id="main">{children}</main>
+          <Footer />
+        </AssistantProvider>
       </body>
     </html>
   )

@@ -1,17 +1,31 @@
 @import 'tailwindcss';
 
-/* ═══════════════════════════════════════════════════════════════════════
-   Design tokens — editorial minimal
-   One accent. Real light + dark. Fluid type. Nothing decorative.
-   ═══════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — "Specification"
+
+   The site reads as a typeset engineering specification: numbered sections, a
+   metadata rail, hairline rules that delineate structure, monospace for every
+   identifier and measurement, and a serif reserved for argument.
+
+   Two colours carry meaning and nothing else does:
+     accent  — the author's own voice: links, current state, emphasis
+     verify  — "this was measured / this is deterministic". Used in diagrams
+               and evidence blocks only, never decoratively.
+
+   There is no ambient motion anywhere in this file. Motion is attached to
+   state changes only. See docs/DESIGN_SYSTEM.md for the full rationale.
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
-  /* ── Type families (bound in app/layout.tsx via next/font) ─────────── */
+  /* ── Families (bound in app/layout.tsx via next/font) ─────────────────── */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: var(--font-instrument), 'Iowan Old Style', Georgia, serif;
-  --font-mono: var(--font-mono-jb), ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-serif: var(--font-newsreader), 'Iowan Old Style', Charter, Georgia, serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
-  /* ── Fluid type scale (1.200 minor third, viewport-interpolated) ───── */
+  /* ── Type scale — 1.2 minor third, viewport-interpolated ──────────────── */
+  --text-3xs: 0.625rem;
+  --text-3xs--line-height: 1.4;
+  --text-3xs--letter-spacing: 0.1em;
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1.45;
   --text-2xs--letter-spacing: 0.08em;
@@ -23,84 +37,113 @@
   --text-base--line-height: 1.7;
   --text-lg: clamp(1.0625rem, 1rem + 0.31vw, 1.25rem);
   --text-lg--line-height: 1.6;
-  --text-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --text-xl: clamp(1.1875rem, 1.1rem + 0.44vw, 1.4375rem);
   --text-xl--line-height: 1.4;
-  --text-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
-  --text-2xl--line-height: 1.25;
-  --text-3xl: clamp(1.875rem, 1.5rem + 1.9vw, 2.75rem);
-  --text-3xl--line-height: 1.15;
-  --text-4xl: clamp(2.25rem, 1.6rem + 3.2vw, 4rem);
-  --text-4xl--line-height: 1.06;
-  --text-5xl: clamp(2.75rem, 1.6rem + 5.6vw, 6rem);
-  --text-5xl--line-height: 0.98;
+  --text-2xl: clamp(1.4375rem, 1.25rem + 0.94vw, 1.9375rem);
+  --text-2xl--line-height: 1.24;
+  --text-3xl: clamp(1.75rem, 1.4rem + 1.75vw, 2.625rem);
+  --text-3xl--line-height: 1.14;
+  --text-4xl: clamp(2.125rem, 1.5rem + 3vw, 3.75rem);
+  --text-4xl--line-height: 1.05;
+  --text-5xl: clamp(2.5rem, 1.5rem + 5vw, 5.5rem);
+  --text-5xl--line-height: 0.97;
 
-  /* ── Semantic colour (light is the default authored state) ─────────── */
-  --color-paper: oklch(0.985 0.002 90);
+  /* ── Colour — light is the authored default ───────────────────────────── */
+  /* Neutrals carry a slight cool cast so the warm accent stays distinct.
+     Every foreground below clears 4.5:1 against paper, surface and sunken in
+     both themes — verified by `node scripts/check-contrast.mjs`, which
+     converts these oklch values to sRGB and computes the real ratios. The
+     muted and faint steps were darkened from their original values because
+     they failed; oklch lightness gives no indication of WCAG compliance. */
+  --color-paper: oklch(0.988 0.0015 265);
   --color-surface: oklch(1 0 0);
-  --color-sunken: oklch(0.965 0.003 90);
-  --color-ink: oklch(0.18 0.006 280);
-  --color-ink-soft: oklch(0.42 0.008 280);
-  --color-ink-muted: oklch(0.58 0.008 280);
-  --color-ink-faint: oklch(0.72 0.006 280);
-  --color-rule: oklch(0.9 0.004 280);
-  --color-rule-strong: oklch(0.84 0.005 280);
-  --color-accent: oklch(0.53 0.163 32);
-  --color-accent-hover: oklch(0.46 0.16 32);
-  --color-accent-wash: oklch(0.96 0.02 40);
+  --color-sunken: oklch(0.967 0.003 265);
+  --color-ink: oklch(0.17 0.008 265);
+  --color-ink-soft: oklch(0.40 0.009 265);
+  --color-ink-muted: oklch(0.48 0.009 265);
+  --color-ink-faint: oklch(0.545 0.009 265);
+  /* Raised from 0.905/0.83. Hairlines are this design's main structuring
+     device and were rendering at 1.28:1 — visible only on a bright, calibrated
+     display. WCAG 1.4.11 asks 3:1 of anything that conveys structure; these
+     are the compromise that keeps the line quiet without making it notional. */
+  --color-rule: oklch(0.86 0.005 265);
+  --color-rule-strong: oklch(0.76 0.007 265);
 
-  /* ── Layout ────────────────────────────────────────────────────────── */
-  --spacing-gutter: clamp(1.25rem, 5vw, 2.5rem);
-  --container-prose: 68ch;
-  --container-text: 46rem;
-  --container-page: 78rem;
+  /* Signal — vermilion. Deliberately warm: the AI-portfolio field is
+     saturated with blue and violet, and warmth reads as human, not machine. */
+  --color-accent: oklch(0.545 0.185 32);
+  --color-accent-hover: oklch(0.47 0.175 30);
+  --color-accent-wash: oklch(0.955 0.022 38);
 
-  /* ── Motion ────────────────────────────────────────────────────────── */
+  /* Verified — used ONLY where something was measured or is deterministic. */
+  --color-verify: oklch(0.50 0.085 185);
+  --color-verify-wash: oklch(0.955 0.018 185);
+
+  /* ── Layout ───────────────────────────────────────────────────────────── */
+  --spacing-gutter: clamp(1.125rem, 4.5vw, 2.75rem);
+  --container-prose: 66ch;
+  --container-text: 44rem;
+  --container-page: 80rem;
+  /* Width of the metadata rail on desktop — the spec-document signature. */
+  --spacing-rail: 11rem;
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-fast: 140ms;
+  --duration-base: 240ms;
+  --duration-slow: 560ms;
 }
 
-/* ── Dark theme ─────────────────────────────────────────────────────────
-   Explicit choice wins via [data-theme]; system preference is the default. */
+/* ── Dark theme ─────────────────────────────────────────────────────────────
+   Three-way: authored light on :root, system preference guarded so an explicit
+   light choice wins, then [data-theme='dark'] so the toggle overrides both. */
 @layer base {
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme='light']) {
-      --color-paper: oklch(0.155 0.005 280);
-      --color-surface: oklch(0.185 0.006 280);
-      --color-sunken: oklch(0.135 0.005 280);
-      --color-ink: oklch(0.96 0.002 280);
-      --color-ink-soft: oklch(0.76 0.006 280);
-      --color-ink-muted: oklch(0.62 0.008 280);
-      --color-ink-faint: oklch(0.45 0.008 280);
-      --color-rule: oklch(0.27 0.007 280);
-      --color-rule-strong: oklch(0.36 0.008 280);
-      --color-accent: oklch(0.72 0.152 38);
-      --color-accent-hover: oklch(0.79 0.14 40);
-      --color-accent-wash: oklch(0.24 0.035 35);
+      --color-paper: oklch(0.158 0.006 265);
+      --color-surface: oklch(0.192 0.007 265);
+      --color-sunken: oklch(0.132 0.005 265);
+      --color-ink: oklch(0.955 0.002 265);
+      --color-ink-soft: oklch(0.755 0.007 265);
+      --color-ink-muted: oklch(0.68 0.008 265);
+      --color-ink-faint: oklch(0.60 0.008 265);
+      --color-rule: oklch(0.34 0.009 265);
+      --color-rule-strong: oklch(0.45 0.011 265);
+      --color-accent: oklch(0.735 0.155 40);
+      --color-accent-hover: oklch(0.80 0.135 44);
+      --color-accent-wash: oklch(0.255 0.04 36);
+      --color-verify: oklch(0.755 0.095 185);
+      --color-verify-wash: oklch(0.24 0.03 185);
     }
   }
 
   :root[data-theme='dark'] {
-    --color-paper: oklch(0.155 0.005 280);
-    --color-surface: oklch(0.185 0.006 280);
-    --color-sunken: oklch(0.135 0.005 280);
-    --color-ink: oklch(0.96 0.002 280);
-    --color-ink-soft: oklch(0.76 0.006 280);
-    --color-ink-muted: oklch(0.62 0.008 280);
-    --color-ink-faint: oklch(0.45 0.008 280);
-    --color-rule: oklch(0.27 0.007 280);
-    --color-rule-strong: oklch(0.36 0.008 280);
-    --color-accent: oklch(0.72 0.152 38);
-    --color-accent-hover: oklch(0.79 0.14 40);
-    --color-accent-wash: oklch(0.24 0.035 35);
+    --color-paper: oklch(0.158 0.006 265);
+    --color-surface: oklch(0.192 0.007 265);
+    --color-sunken: oklch(0.132 0.005 265);
+    --color-ink: oklch(0.955 0.002 265);
+    --color-ink-soft: oklch(0.755 0.007 265);
+    --color-ink-muted: oklch(0.68 0.008 265);
+    --color-ink-faint: oklch(0.60 0.008 265);
+    --color-rule: oklch(0.34 0.009 265);
+    --color-rule-strong: oklch(0.45 0.011 265);
+    --color-accent: oklch(0.735 0.155 40);
+    --color-accent-hover: oklch(0.80 0.135 44);
+    --color-accent-wash: oklch(0.255 0.04 36);
+    --color-verify: oklch(0.755 0.095 185);
+    --color-verify-wash: oklch(0.24 0.03 185);
   }
 }
 
-/* ── Base ───────────────────────────────────────────────────────────── */
+/* ── Base ───────────────────────────────────────────────────────────────── */
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
     color-scheme: light;
+    /* Sticky header height, so in-page anchors don't land under it. */
+    scroll-padding-top: 5rem;
   }
   :root[data-theme='dark'] { color-scheme: dark; }
   @media (prefers-color-scheme: dark) {
@@ -123,17 +166,29 @@
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
     font-weight: 400;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.012em;
     text-wrap: balance;
   }
 
   p, li { text-wrap: pretty; }
 
+  /* Paths, identifiers and repository names appear throughout the prose and
+     have no break opportunities. Without this they set the min-content width
+     of whatever contains them and push the layout past the viewport. */
+  code, .font-mono { overflow-wrap: anywhere; }
+
+  /* Tabular figures everywhere a number is compared against another number. */
+  table, dl, time, .tabular { font-variant-numeric: tabular-nums; }
+
   ::selection {
     background: var(--color-accent);
-    color: var(--color-paper);
+    color: oklch(0.99 0 0);
   }
 
+  /* The one focus indicator on the site. Nothing should set `outline-none`
+     without replacing it — three inputs did, leaving a ~1.2:1 border change as
+     the only focus cue, well under the 3:1 WCAG 1.4.11 requires. An E2E test
+     now focuses every input on every route and fails if the ring is absent. */
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
@@ -152,7 +207,9 @@
   ::-webkit-scrollbar-thumb:hover { background: var(--color-ink-faint); }
 }
 
-/* ── Utilities ──────────────────────────────────────────────────────── */
+/* ── Utilities ──────────────────────────────────────────────────────────── */
+
+/* The small uppercase monospace label that structures the whole site. */
 @utility eyebrow {
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
@@ -169,29 +226,45 @@
   border-top: 1px solid var(--color-rule);
 }
 
-/* Underline that grows from the left on hover — the only link flourish. */
+/* Spec-document section grid: numbered metadata rail, then content.
+   Collapses to a single column below `lg` — the rail becomes a header. */
+@utility spec-grid {
+  display: grid;
+  gap: 1.75rem;
+  @media (width >= 64rem) {
+    grid-template-columns: var(--spacing-rail) minmax(0, 1fr);
+    gap: 3.5rem;
+  }
+}
+
+/* Underline that grows from the left. The only link flourish on the site. */
 @utility link-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;
   background-repeat: no-repeat;
   background-position: 0 100%;
-  transition: background-size 0.35s var(--ease-out-quint);
-
-  &:hover {
-    background-size: 100% 1px;
-  }
+  transition: background-size var(--duration-slow) var(--ease-out-quint);
+  &:hover { background-size: 100% 1px; }
 }
 
-/* ── Scroll reveal ─────────────────────────────────────────────────────
-   Gated on .js so content is visible by default. Without JavaScript — or
-   before hydration — nothing is hidden; the animation is pure enhancement. */
+/* Hairline plate used for figures, diagrams and evidence blocks. */
+@utility plate {
+  border: 1px solid var(--color-rule);
+  border-radius: 3px;
+  background: var(--color-surface);
+}
+
+/* ── Scroll reveal ──────────────────────────────────────────────────────────
+   Gated on `.js`, which the boot script adds before first paint. Without
+   JavaScript — or before hydration, or if hydration never lands — nothing is
+   hidden. Content never depends on script. */
 @layer components {
   .js [data-reveal] {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
     transition:
-      opacity 0.7s var(--ease-out-quint),
-      transform 0.7s var(--ease-out-quint);
+      opacity var(--duration-slow) var(--ease-out-quint),
+      transform var(--duration-slow) var(--ease-out-quint);
     transition-delay: var(--reveal-delay, 0ms);
   }
   .js [data-reveal='shown'] {
@@ -200,86 +273,100 @@
   }
 }
 
-/* ── Long-form prose ────────────────────────────────────────────────── */
+/* ── Long-form prose ────────────────────────────────────────────────────── */
 @layer components {
-  .prose-editorial {
+  .prose-spec {
     max-width: var(--container-prose);
     color: var(--color-ink-soft);
   }
-  .prose-editorial > * + * { margin-top: 1.35em; }
-  .prose-editorial h2 {
+  .prose-spec > * + * { margin-top: 1.3em; }
+  .prose-spec h2 {
     font-size: var(--text-2xl);
     color: var(--color-ink);
-    margin-top: 2.4em;
-    margin-bottom: 0.6em;
+    margin-top: 2.3em;
+    margin-bottom: 0.55em;
   }
-  .prose-editorial h3 {
+  .prose-spec h3 {
     font-family: var(--font-sans);
     font-size: var(--text-lg);
     font-weight: 600;
     color: var(--color-ink);
-    margin-top: 2em;
-    margin-bottom: 0.4em;
-    letter-spacing: -0.01em;
+    margin-top: 1.9em;
+    margin-bottom: 0.35em;
+    letter-spacing: -0.008em;
   }
-  .prose-editorial a {
+  .prose-spec a {
     color: var(--color-ink);
     text-decoration: underline;
     text-decoration-color: var(--color-accent);
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
   }
-  .prose-editorial a:hover { color: var(--color-accent); }
-  .prose-editorial ul { list-style: none; padding-left: 0; }
-  .prose-editorial ul > li {
+  .prose-spec a:hover { color: var(--color-accent); }
+  .prose-spec ul { list-style: none; padding-left: 0; }
+  .prose-spec ul > li {
     position: relative;
-    padding-left: 1.4em;
-    margin-top: 0.6em;
+    padding-left: 1.35em;
+    margin-top: 0.55em;
   }
-  .prose-editorial ul > li::before {
+  .prose-spec ul > li::before {
     content: '';
     position: absolute;
     left: 0.1em;
-    top: 0.75em;
+    top: 0.78em;
     width: 0.45em;
     height: 1px;
     background: var(--color-accent);
   }
-  .prose-editorial ol { padding-left: 1.2em; }
-  .prose-editorial ol > li { margin-top: 0.6em; padding-left: 0.3em; }
-  .prose-editorial blockquote {
+  .prose-spec ol { padding-left: 1.2em; }
+  .prose-spec ol > li { margin-top: 0.55em; padding-left: 0.3em; }
+  .prose-spec blockquote {
     border-left: 2px solid var(--color-accent);
-    padding-left: 1.25rem;
+    padding-left: 1.2rem;
     font-family: var(--font-serif);
     font-size: var(--text-lg);
     color: var(--color-ink);
   }
-  .prose-editorial code {
+  .prose-spec code {
     font-family: var(--font-mono);
-    font-size: 0.875em;
+    font-size: 0.86em;
     background: var(--color-sunken);
     border: 1px solid var(--color-rule);
-    border-radius: 4px;
+    border-radius: 3px;
     padding: 0.1em 0.35em;
   }
-  .prose-editorial pre {
+  .prose-spec pre {
     background: var(--color-sunken);
     border: 1px solid var(--color-rule);
-    border-radius: 8px;
-    padding: 1.25rem;
+    border-radius: 3px;
+    padding: 1.15rem;
     overflow-x: auto;
     font-size: var(--text-sm);
   }
-  .prose-editorial pre code {
-    background: none;
-    border: 0;
-    padding: 0;
-    font-size: inherit;
+  .prose-spec pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+  .prose-spec strong { color: var(--color-ink); font-weight: 600; }
+  .prose-spec table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
   }
-  .prose-editorial strong { color: var(--color-ink); font-weight: 600; }
+  .prose-spec th, .prose-spec td {
+    border-bottom: 1px solid var(--color-rule);
+    padding: 0.6rem 0.75rem 0.6rem 0;
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose-spec th {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    font-weight: 400;
+  }
 }
 
-/* ── Reduced motion ─────────────────────────────────────────────────── */
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -288,4 +375,12 @@
     transition-duration: 0.01ms !important;
   }
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
+}
+
+/* ── Print — a recruiter who prints the page should get something usable ── */
+@media print {
+  header, footer, [data-noprint] { display: none !important; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  a[href^='http']::after { content: ' (' attr(href) ')'; font-size: 9pt; word-break: break-all; }
+  .plate { break-inside: avoid; }
 }

@@ -1,25 +1,28 @@
 import { profile } from '@/data/profile'
 import { Reveal } from '@/components/ui/Reveal'
-import { SectionLabel } from '@/components/ui/Bits'
 
 export function Approach() {
   return (
-    <section className="page-x rule-t mx-auto max-w-page py-20">
-      <div className="grid gap-10 lg:grid-cols-[10rem_1fr] lg:gap-16">
-        <SectionLabel>How I work</SectionLabel>
+    <section className="page-x rule-t mx-auto max-w-page py-16">
+      <div className="spec-grid">
+        <div>
+          <h2 className="eyebrow lg:sticky lg:top-24">
+            <span className="text-ink-faint">04</span> &nbsp;How I work
+          </h2>
+        </div>
 
         <div>
           <Reveal>
-            <div className="prose-editorial max-w-text text-lg">
+            <div className="prose-spec max-w-text text-lg">
               {profile.positioning.split('\n\n').map((para) => (
                 <p key={para.slice(0, 32)}>{para}</p>
               ))}
             </div>
           </Reveal>
 
-          <ol className="mt-14 grid gap-px overflow-hidden rounded-sm bg-rule sm:grid-cols-2">
+          <ol className="mt-14 grid gap-px overflow-hidden rounded-[3px] border border-rule bg-rule sm:grid-cols-2">
             {profile.principles.map((principle, i) => (
-              <Reveal as="li" key={principle.title} delay={i * 70} className="bg-paper p-6 sm:p-7">
+              <Reveal as="li" key={principle.title} delay={i * 70} className="bg-surface p-6 sm:p-7">
                 <p className="font-mono text-2xs text-ink-faint">
                   {String(i + 1).padStart(2, '0')}
                 </p>

@@ -23,7 +23,7 @@ export function ContactForm() {
   )}&body=${encodeURIComponent(body)}`
 
   const field =
-    'w-full rounded-sm border border-rule bg-surface px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-faint focus:border-rule-strong'
+    'w-full rounded-sm border border-rule bg-surface px-3.5 py-2.5 text-sm text-ink transition-colors placeholder:text-ink-faint focus:border-rule-strong'
 
   return (
     <form

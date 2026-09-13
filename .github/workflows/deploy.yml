@@ -1,7 +1,15 @@
 name: Deploy to GitHub Pages
 
+# One pipeline, two jobs. `verify` has to pass before `build` runs, so nothing
+# that fails typecheck, lint, unit tests, contrast or E2E can reach Pages.
+#
+# The E2E suite runs against the real static export rather than a dev server —
+# the artefact that ships is the one that gets tested.
+
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -11,11 +19,12 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  verify:
+    name: Verify
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,15 +43,51 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Colour contrast (WCAG AA)
+        run: node scripts/check-contrast.mjs
+
+      # Every publication entry must name its author and match the document it
+      # links to. This gate exists because 23 entries once did neither.
+      - name: Verify publications against their PDFs
+        run: node scripts/verify-publications.mjs
+
+      # Regenerate BEFORE the tests, so the unit suite validates the index that
+      # is about to ship rather than the one last committed.
+      - name: Rebuild the knowledge index
+        run: npm run knowledge
+
+      - name: Unit tests
+        run: npm test
+
       - name: Build
         run: npm run build
 
-      - uses: actions/upload-pages-artifact@v3
+      # Chromium and WebKit cover the two engines that matter most for this
+      # audience; the full five-profile matrix runs locally before a release.
+      - name: Install browsers
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: End-to-end and accessibility tests
+        run: npx playwright test --project=chromium --project=webkit
+
+      - name: Upload failure report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Upload the site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
   deploy:
-    needs: build
+    name: Deploy
+    needs: verify
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
