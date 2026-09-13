@@ -9,6 +9,7 @@ import { profile } from '@/data/profile'
 import { cn } from '@/lib/utils'
 import { ThemeToggle } from './ThemeToggle'
 import { CommandPalette, type PaletteItem } from './CommandPalette'
+import { AskButton } from '@/components/assistant/AskButton'
 
 export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
   const pathname = usePathname()
@@ -80,7 +81,8 @@ export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
             })}
           </nav>
 
-          <div className="hidden sm:block">
+          <div className="hidden items-center gap-3 sm:flex">
+            <AskButton variant="quiet" />
             <CommandPalette items={paletteItems} />
           </div>
           <ThemeToggle />
@@ -105,12 +107,15 @@ export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-baseline justify-between border-b border-rule py-3.5 last:border-0"
+              className="flex items-baseline justify-between border-b border-rule py-3.5"
             >
               <span className="font-serif text-xl text-ink">{item.label}</span>
               <span className="max-w-[55%] text-right text-xs text-ink-muted">{item.hint}</span>
             </Link>
           ))}
+          <div className="pt-4">
+            <AskButton />
+          </div>
         </nav>
       )}
     </header>

@@ -26,7 +26,7 @@ export default function AboutPage() {
       <section className="page-x mx-auto max-w-page pb-16">
         <div className="grid gap-12 lg:grid-cols-[1fr_16rem] lg:gap-16">
           <Reveal>
-            <div className="prose-editorial text-lg">
+            <div className="prose-spec text-lg">
               <p>{profile.intro}</p>
               {profile.positioning.split('\n\n').map((para) => (
                 <p key={para.slice(0, 32)}>{para}</p>

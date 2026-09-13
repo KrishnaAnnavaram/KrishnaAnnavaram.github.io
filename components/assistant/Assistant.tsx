@@ -34,10 +34,14 @@ const KIND_LABEL: Record<string, string> = {
 
 type Status = 'idle' | 'loading' | 'ready' | 'error'
 
+/* Inlined at build time, so the index resolves correctly when the site is
+   served from a subpath rather than the domain root. */
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
 export function Assistant({
   open,
   onClose,
-  basePath = '',
+  basePath = BASE_PATH,
 }: {
   open: boolean
   onClose: () => void

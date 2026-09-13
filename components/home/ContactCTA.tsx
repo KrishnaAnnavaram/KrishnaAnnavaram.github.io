@@ -4,9 +4,11 @@ import { ButtonLink } from '@/components/ui/Bits'
 
 export function ContactCTA() {
   return (
-    <section className="page-x rule-t mx-auto max-w-page py-20">
-      <Reveal className="grid gap-8 lg:grid-cols-[10rem_1fr] lg:gap-16">
-        <p className="eyebrow">Contact</p>
+    <section className="page-x rule-t mx-auto max-w-page py-16">
+      <Reveal className="spec-grid">
+        <p className="eyebrow">
+          <span className="text-ink-faint">06</span> &nbsp;Contact
+        </p>
         <div>
           <h2 className="max-w-2xl text-3xl">
             If you’re building something that has to work on real traffic, I’d like to hear about

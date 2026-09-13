@@ -67,7 +67,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </div>
       </header>
 
-      <div className="prose-editorial rule-t py-12">
+      <div className="prose-spec rule-t py-12">
         <MDXRemote
           source={post.content}
           components={mdxComponents}
