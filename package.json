@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run knowledge",
+    "prebuild": "npm run knowledge && npm run og",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "og": "tsx scripts/build-og-image.mts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
