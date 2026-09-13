@@ -62,8 +62,12 @@
   --color-ink-soft: oklch(0.40 0.009 265);
   --color-ink-muted: oklch(0.48 0.009 265);
   --color-ink-faint: oklch(0.545 0.009 265);
-  --color-rule: oklch(0.905 0.004 265);
-  --color-rule-strong: oklch(0.83 0.006 265);
+  /* Raised from 0.905/0.83. Hairlines are this design's main structuring
+     device and were rendering at 1.28:1 — visible only on a bright, calibrated
+     display. WCAG 1.4.11 asks 3:1 of anything that conveys structure; these
+     are the compromise that keeps the line quiet without making it notional. */
+  --color-rule: oklch(0.86 0.005 265);
+  --color-rule-strong: oklch(0.76 0.007 265);
 
   /* Signal — vermilion. Deliberately warm: the AI-portfolio field is
      saturated with blue and violet, and warmth reads as human, not machine. */
@@ -104,8 +108,8 @@
       --color-ink-soft: oklch(0.755 0.007 265);
       --color-ink-muted: oklch(0.68 0.008 265);
       --color-ink-faint: oklch(0.60 0.008 265);
-      --color-rule: oklch(0.275 0.008 265);
-      --color-rule-strong: oklch(0.375 0.009 265);
+      --color-rule: oklch(0.34 0.009 265);
+      --color-rule-strong: oklch(0.45 0.011 265);
       --color-accent: oklch(0.735 0.155 40);
       --color-accent-hover: oklch(0.80 0.135 44);
       --color-accent-wash: oklch(0.255 0.04 36);
@@ -122,8 +126,8 @@
     --color-ink-soft: oklch(0.755 0.007 265);
     --color-ink-muted: oklch(0.68 0.008 265);
     --color-ink-faint: oklch(0.60 0.008 265);
-    --color-rule: oklch(0.275 0.008 265);
-    --color-rule-strong: oklch(0.375 0.009 265);
+    --color-rule: oklch(0.34 0.009 265);
+    --color-rule-strong: oklch(0.45 0.011 265);
     --color-accent: oklch(0.735 0.155 40);
     --color-accent-hover: oklch(0.80 0.135 44);
     --color-accent-wash: oklch(0.255 0.04 36);
@@ -168,6 +172,11 @@
 
   p, li { text-wrap: pretty; }
 
+  /* Paths, identifiers and repository names appear throughout the prose and
+     have no break opportunities. Without this they set the min-content width
+     of whatever contains them and push the layout past the viewport. */
+  code, .font-mono { overflow-wrap: anywhere; }
+
   /* Tabular figures everywhere a number is compared against another number. */
   table, dl, time, .tabular { font-variant-numeric: tabular-nums; }
 
@@ -176,6 +185,10 @@
     color: oklch(0.99 0 0);
   }
 
+  /* The one focus indicator on the site. Nothing should set `outline-none`
+     without replacing it — three inputs did, leaving a ~1.2:1 border change as
+     the only focus cue, well under the 3:1 WCAG 1.4.11 requires. An E2E test
+     now focuses every input on every route and fails if the ring is absent. */
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;

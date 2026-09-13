@@ -117,8 +117,8 @@ export function ProjectExplorer({
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name, technology, or domain…"
-            className="w-full bg-transparent text-sm text-ink outline-none placeholder:text-ink-faint"
+            placeholder="Search projects…"
+            className="w-full min-w-0 bg-transparent py-1 text-sm text-ink placeholder:text-ink-faint"
           />
           {filtered && (
             <button
