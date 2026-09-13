@@ -3,55 +3,31 @@
 import { useMemo, useState } from 'react'
 import { FileText, Search } from 'lucide-react'
 import type { Publication } from '@/data/publications'
-import { cn } from '@/lib/utils'
 
-type Filter = 'all'
-
-/* The supervised-project filter was removed along with the entries it filtered.
-   A single-option filter is noise, so the control is gone; search remains. */
-const FILTERS: { value: Filter; label: string }[] = []
-
+/* The co-authored/supervised tabs went when the supervised entries did. Every
+   remaining entry is the same kind, so a filter with one option would be noise.
+   Search stays, because 15 entries is enough to want it. */
 export function ResearchList({ publications }: { publications: Publication[] }) {
-  const [filter, setFilter] = useState<Filter>('all')
   const [query, setQuery] = useState('')
   const [openId, setOpenId] = useState<string | null>(null)
 
-  const counts = useMemo(() => ({ all: publications.length }), [publications])
-
   const results = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return publications.filter((p) => {
-      if (!q) return true
-      return (
+    if (!q) return publications
+    return publications.filter(
+      (p) =>
         p.title.toLowerCase().includes(q) ||
         p.tags.some((t) => t.toLowerCase().includes(q)) ||
         p.abstract.toLowerCase().includes(q)
-      )
-    })
-  }, [publications, filter, query])
+    )
+  }, [publications, query])
 
   return (
     <>
       <div className="page-x mx-auto flex max-w-page flex-wrap items-center justify-between gap-4 pb-8">
-        <div role="tablist" aria-label="Filter research" className="flex flex-wrap gap-1.5">
-          {FILTERS.map((f) => (
-            <button
-              key={f.value}
-              role="tab"
-              aria-selected={filter === f.value}
-              onClick={() => setFilter(f.value)}
-              className={cn(
-                'rounded-full border px-3.5 py-1.5 text-sm transition-colors duration-200',
-                filter === f.value
-                  ? 'border-ink bg-ink text-paper'
-                  : 'border-rule text-ink-muted hover:border-rule-strong hover:text-ink'
-              )}
-            >
-              {f.label}
-              <span className="ml-1.5 font-mono text-2xs tabular">{counts[f.value]}</span>
-            </button>
-          ))}
-        </div>
+        <p className="eyebrow tabular">
+          {results.length} of {publications.length}
+        </p>
 
         <div className="relative w-full sm:w-64">
           <Search

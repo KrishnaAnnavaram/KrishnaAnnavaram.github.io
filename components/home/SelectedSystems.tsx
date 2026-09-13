@@ -26,7 +26,7 @@ export function SelectedSystems() {
 
         <div>
           <p className="max-w-text text-ink-soft">
-            Four or five repositories carry most of the argument. Each one states what it cannot do
+            Five repositories carry most of the argument. Each one states what it cannot do
             alongside what it can, and every figure below was computed against a clone rather than
             copied from a README.
           </p>
