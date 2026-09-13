@@ -42,9 +42,9 @@ function Section({
     <section className="rule-t py-12">
       <div className="spec-grid">
         <div>
-          <p className="eyebrow lg:sticky lg:top-24">
+          <h2 className="eyebrow lg:sticky lg:top-24">
             <span className="text-ink-faint">{n}</span> &nbsp;{label}
-          </p>
+          </h2>
         </div>
         <div>{children}</div>
       </div>

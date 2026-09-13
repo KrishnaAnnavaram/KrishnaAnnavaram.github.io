@@ -14,9 +14,9 @@ export function CurrentFocus() {
     <section className="page-x rule-t mx-auto max-w-page py-16">
       <div className="spec-grid">
         <div>
-          <p className="eyebrow lg:sticky lg:top-24">
+          <h2 className="eyebrow lg:sticky lg:top-24">
             <span className="text-ink-faint">02</span> &nbsp;Current focus
-          </p>
+          </h2>
         </div>
 
         <div>

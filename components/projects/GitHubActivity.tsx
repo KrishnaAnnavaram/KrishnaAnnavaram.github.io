@@ -31,10 +31,10 @@ export function GitHubActivity({
     <section className="page-x rule-t mx-auto max-w-page py-14">
       <div className="spec-grid">
         <div>
-          <p className="eyebrow lg:sticky lg:top-24">
+          <h2 className="eyebrow lg:sticky lg:top-24">
             {sectionNumber && <span className="text-ink-faint">{sectionNumber} &nbsp;</span>}
             GitHub
-          </p>
+          </h2>
           <p className="mt-2 font-mono text-2xs text-ink-faint">
             Synced {relativeTime(activity.syncedAt)}
           </p>
@@ -47,7 +47,7 @@ export function GitHubActivity({
 
         <div>
           <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h2 className="text-2xl text-ink">Recent activity</h2>
+            <h3 className="text-2xl text-ink">Recent activity</h3>
             <a
               href={profile.socials.github}
               target="_blank"

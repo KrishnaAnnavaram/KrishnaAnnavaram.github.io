@@ -31,7 +31,10 @@ export default function ProjectsPage() {
         lede="Every entry is a repository you can open. Where a project has a case study, it states the problem, the architecture, what was measured and how — and what the system still cannot do."
       />
 
-      <section className="page-x mx-auto max-w-page pb-16">
+      <section className="page-x mx-auto max-w-page pb-16" aria-labelledby="all-projects">
+        <h2 id="all-projects" className="sr-only">
+          All projects
+        </h2>
         <ProjectExplorer items={items} domains={feedDomains()} />
       </section>
 

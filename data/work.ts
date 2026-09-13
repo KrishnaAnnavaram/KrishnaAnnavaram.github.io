@@ -22,15 +22,68 @@ export interface CaseStudy {
 }
 
 /**
- * Case studies are written from work described in the résumé and LinkedIn
- * record. Figures marked "~" are the approximations given in those sources.
+ * Employment case studies.
+ *
+ * Source of truth is the résumé at `public/resume/resume.pdf`. Every figure
+ * below appears in that document; nothing here is estimated, extrapolated or
+ * rounded up.
+ *
+ * The repository-backed systems built at Virtusa live in `data/projects.ts`
+ * instead, because those can be read as code and are documented against the
+ * code rather than against the résumé.
  */
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: 'clinical-decision-support-graph-rag',
+    title: 'Graph-RAG clinical decision support for US hospitals',
+    summary:
+      'A diagnostic reasoning pipeline over a clinical knowledge graph and vector search, built so that a wrong answer is caught before it reaches a clinician.',
+    context: 'Ideate Technologies',
+    year: '2026',
+    roleId: 'ideate-technologies',
+    discipline: 'Graph-RAG · Clinical AI',
+    problem:
+      'Clinical decision support is the setting where a plausible-sounding wrong answer does the most damage. Pure vector retrieval over clinical text returns passages that read as relevant while missing the relationships that actually determine a diagnosis — which condition contraindicates which medication, which finding rules out which differential. Those are edges in a graph, not similarities in an embedding space, and a system that only knows how to measure similarity cannot see them.',
+    approach: [
+      'Unified a Neo4j clinical knowledge graph with FAISS vector search, so retrieval could follow explicit clinical relationships as well as semantic similarity.',
+      'Put Azure OpenAI behind that retrieval rather than in front of it, keeping generation constrained to what the graph and the index actually returned.',
+      'Integrated live EHR data through FHIR, so reasoning ran against the patient record in front of the clinician rather than a stale extract.',
+      'Fine-tuned Long-T5 and BART on clinical corpora using PEFT/LoRA for the summarisation path, where a general-purpose model produced handoff notes that were fluent and incomplete.',
+      'Built the intake side as a separate voice pipeline — Azure Speech-to-Text into LangGraph multi-agent orchestration, persisting to Cosmos DB — so capture and reasoning failed independently.',
+      'Ran it all on zero-downtime MLOps: AKS, Azure ML, MLflow, Terraform and GitHub Actions, because a clinical service that needs a maintenance window is a clinical service people route around.',
+    ],
+    architecture:
+      'Clinical corpora + live FHIR EHR data → Neo4j knowledge graph and FAISS vector index → hybrid graph-and-vector retrieval → Azure OpenAI reasoning constrained to retrieved evidence → clinician-facing recommendation. Intake runs in parallel: Azure Speech-to-Text → LangGraph multi-agent orchestration → Cosmos DB. Deployed on AKS via Azure ML, MLflow, Terraform and GitHub Actions.',
+    outcomes: [
+      { value: '91%', label: 'retrieval accuracy in the diagnostic reasoning pipeline' },
+      { value: '45%', label: 'fewer unsafe clinical recommendations' },
+      { value: '50%', label: 'less physician review time, with handoff summaries at 92% completeness' },
+      { value: '85%', label: 'of clinical data capture automated, cutting intake cycle time by 60%' },
+      { value: '99.9%', label: 'uptime, with 70% less deployment effort' },
+    ],
+    stack: [
+      'Neo4j',
+      'FAISS',
+      'Azure OpenAI',
+      'LangGraph',
+      'FHIR',
+      'Long-T5',
+      'BART',
+      'PEFT/LoRA',
+      'Azure Speech',
+      'Cosmos DB',
+      'AKS',
+      'MLflow',
+      'Terraform',
+    ],
+    featured: true,
+  },
+
   {
     slug: 'academic-research-assistant',
     title: 'Grounded research assistant for graduate coursework',
     summary:
-      'A retrieval system over course materials and library databases that answered students’ research questions with citations instead of guesses.',
+      'A retrieval system over course materials and academic databases that answered students’ research questions with citations instead of guesses.',
     context: 'University of North Texas',
     year: '2024–2025',
     roleId: 'unt-gta',
@@ -38,74 +91,100 @@ export const caseStudies: CaseStudy[] = [
     problem:
       'Graduate students repeatedly asked the same categories of research question — where to find a method, which database indexed a given journal, how a technique from lecture applied to their project. Faculty and teaching assistants answered each one individually. A general-purpose chatbot was worse than useless here: it invented citations, and in an academic setting a fabricated reference is a serious failure, not a rough edge.',
     approach: [
-      'Scoped the corpus deliberately — course materials plus UNT Library academic databases — so every answer had a retrievable source rather than relying on model recall.',
-      'Built the retrieval layer on FAISS for dense semantic search, with PostgreSQL holding document metadata and provenance so each response could name where it came from.',
+      'Scoped the corpus deliberately — course materials plus academic databases, over 10,000 documents — so every answer had a retrievable source rather than relying on model recall.',
+      'Built the retrieval layer on FAISS for dense search with PostgreSQL holding document metadata and provenance, so each response could name where it came from.',
+      'Ran hybrid dense-sparse retrieval through a LangGraph pipeline on Azure with sentence-transformer embeddings, holding sub-second responses under concurrent multi-user load.',
       'Used Redis for session state, which is what made multi-turn research conversations coherent: a follow-up question inherits the context of the one before it instead of starting cold.',
-      'Tuned chunking and retrieval depth against real student queries collected during the semester, rather than against a synthetic benchmark that would not reflect actual usage.',
+      'Tuned FAISS index parameters and added Redis caching against real student queries collected during the semester, rather than against a synthetic benchmark that would not reflect actual usage.',
       'Constrained generation to retrieved context and declined to answer when retrieval returned nothing relevant — refusing is the correct behaviour when the alternative is a plausible-looking invented citation.',
     ],
     architecture:
-      'Course materials + library database records → chunking and embedding → FAISS dense index (PostgreSQL for metadata and provenance) → top-k retrieval with relevance threshold → grounded generation with citations → Redis-backed session context for multi-turn continuity.',
+      'Course materials + academic database records (10,000+ documents) → chunking and sentence-transformer embedding → hybrid dense-sparse retrieval over FAISS, with PostgreSQL for metadata and provenance → relevance threshold → grounded generation with citations → Redis-backed session context for multi-turn continuity. Orchestrated with LangGraph on Azure.',
     outcomes: [
-      { value: '~88–92%', label: 'retrieval relevance in real academic use' },
-      { value: '~40–45%', label: 'reduction in repetitive faculty and TA guidance effort' },
-      { value: 'Low', label: 'hallucination rate with stable session continuity' },
+      { value: '88–92%', label: 'retrieval relevance across thousands of student and faculty queries' },
+      { value: '35%', label: 'faster vector retrieval after index tuning and Redis caching' },
+      { value: '40–45%', label: 'less repeated-query resolution time through student self-service' },
     ],
-    stack: ['Python', 'FAISS', 'PostgreSQL', 'Redis', 'RAG', 'Hugging Face', 'Embeddings'],
+    stack: [
+      'Python',
+      'FAISS',
+      'PostgreSQL',
+      'Redis',
+      'LangGraph',
+      'Sentence Transformers',
+      'Azure',
+      'RAG',
+    ],
     featured: true,
   },
+
   {
-    slug: 'healthcare-claims-ml-platform',
-    title: 'ML pipelines for healthcare claims and incentive compensation',
+    slug: 'incentive-compensation-pipelines',
+    title: 'Batch ML pipelines for medical-device sales compensation',
     summary:
-      'Enterprise pipelines over claims and incentive data for US healthcare clients — forecasting payouts and cutting the reconciliation work that surrounded them.',
+      'Three daily AWS pipelines that replaced spreadsheet commission calculation and had to close inside a 24-hour window, every day.',
     context: 'Cognizant',
     year: '2021–2022',
     roleId: 'cognizant',
     discipline: 'Applied ML · Data engineering',
     problem:
-      'Incentive compensation for US healthcare clients depended on data spread across SAP ICM, Workday, and claims systems that did not agree with each other. Payout forecasting was unreliable because the inputs were unreliable, and analysts spent more time reconciling records than analysing them. Any modelling work sat on top of that problem and inherited it.',
+      'Incentive compensation for a US medical-device sales organisation ran on daily flat-file feeds and spreadsheets. Business rules, territory hierarchies and manager reassignments arrived as unstructured text that someone had to read and apply by hand — which is slow, and which quietly introduces a different kind of error than a broken pipeline does, because a misread rule produces a number that looks entirely reasonable. Underneath that, county-level payouts had to be calculated inside a 24-hour window whether or not the inputs cooperated.',
     approach: [
-      'Attacked the data layer first — standardised feature pipelines that integrated SAP ICM, Workday, and claims datasets into a consistent representation, because no model was going to compensate for contradictory inputs.',
-      'Built the forecasting and utilisation models in Python and SQL on top of that unified layer, where the features finally meant the same thing across sources.',
-      'Split inference into batch and near-real-time paths on SageMaker, Lambda, and containerised services, so scoring matched how each downstream reporting system actually consumed it.',
-      'Built analytics-ready data marts on S3 and Athena, giving regional, county, and state-level stakeholders direct query access instead of routing every question through an analyst.',
-      'Versioned models and pipelines and automated releases through AWS CodePipeline, Git, and CloudWatch, so a deployment was reproducible and a regression was traceable.',
+      'Deployed three automated batch pipelines on AWS — Python, S3, Lambda and SageMaker Batch Transform — processing the daily compensation files end to end.',
+      'Engineered an NLTK document-parsing pipeline to extract compensation rules, territory hierarchies and manager reassignments from the flat-file feeds, removing the human reading step that was the source of the quiet errors.',
+      'Trained XGBoost classification models on multi-year sales performance data to predict commission attainment tiers across county-level territories, retiring the spreadsheet calculation rather than running alongside it.',
+      'Owned CI/CD for the whole cross-functional team — CodePipeline, Git branching and CloudWatch alerting — because a payout pipeline that needs a maintenance window does not have one.',
+      'Mentored junior engineers on the same standards, so the release discipline survived people rotating off the project.',
     ],
     architecture:
-      'SAP ICM + Workday + claims sources → standardised feature pipelines (Python/Pandas) → model training and versioning → SageMaker batch + Lambda near-real-time inference → S3/Athena analytics marts → stakeholder reporting. Release path: CodePipeline + Git, monitored via CloudWatch.',
+      'Daily flat-file feeds → S3 → NLTK parsing of business rules, territory hierarchies and reassignments → feature preparation → XGBoost attainment-tier models on SageMaker Batch Transform → county-level payout calculation inside the 24-hour window → downstream reporting. Release path: CodePipeline and Git, monitored through CloudWatch.',
     outcomes: [
-      { value: '35%', label: 'better payout forecasting and utilisation analytics' },
-      { value: '55%', label: 'less preprocessing and reconciliation effort' },
-      { value: 'Multi-region', label: 'KPI visibility across US territories' },
+      { value: '40%', label: 'shorter commission calculation cycle' },
+      { value: '55%', label: 'of manual business-rules processing eliminated' },
+      { value: '35%', label: 'better incentive-payout forecasting accuracy' },
+      { value: 'Zero', label: 'downtime deployments across three pipelines running 24/7' },
     ],
-    stack: ['Python', 'SQL', 'Pandas', 'AWS SageMaker', 'Lambda', 'S3', 'Athena', 'SAP ICM', 'CodePipeline'],
-    featured: true,
+    stack: [
+      'Python',
+      'SQL',
+      'AWS SageMaker',
+      'AWS Lambda',
+      'S3',
+      'XGBoost',
+      'NLTK',
+      'CodePipeline',
+      'CloudWatch',
+    ],
+    featured: false,
   },
+
   {
     slug: 'resume-job-matching',
-    title: 'Semantic resume-to-job matching for a hiring marketplace',
+    title: 'Content-based job matching for a hiring marketplace',
     summary:
-      'Replaced keyword matching with sentence embeddings and a scored ranking layer, so relevant candidates surfaced instead of merely literal ones.',
+      'Replaced manual recruiter shortlisting with TF-IDF ranking over 20,000+ candidate profiles, delivering a ranked list for every new posting.',
     context: 'Lemoius',
     year: '2020–2021',
     roleId: 'lemoius',
     discipline: 'NLP · Ranking',
     problem:
-      'The marketplace matched candidates to roles on keyword overlap. That misses the obvious cases — a resume saying "PyTorch" never matched a posting asking for "deep learning frameworks" — so recruiters saw thin candidate pools while qualified applicants stayed invisible. The failure was representational: the system compared strings when it needed to compare meaning.',
+      'Every new job posting on the marketplace started a manual shortlisting pass over more than twenty thousand candidate profiles. Recruiters saw whoever they got to first rather than whoever fit best, and qualified applicants stayed invisible for no better reason than where they sat in the list. The bottleneck was not judgement — it was that nothing ranked the pool before a human looked at it.',
     approach: [
-      'Built NLP pipelines that parsed unstructured resumes into semantic representations using BERT embeddings, so skills were compared by meaning rather than by exact token.',
-      'Implemented ranking on sentence embeddings and cosine similarity, combined with feature-based scoring so structured signals like seniority and location still carried weight.',
-      'Evaluated iteratively against recruiter shortlisting behaviour — the metric that mattered was whether recruiters engaged with the candidates surfaced, not offline similarity scores.',
-      'Kept experiments version-controlled and reproducible through Git-based workflows, which made model comparisons trustworthy across iterations.',
+      'Built a real-time content-based recommendation engine using TF-IDF vectorisation and cosine-similarity ranking over candidate profile and job description text.',
+      'Engineered the NLP preprocessing pipeline behind it in NLTK — tokenisation, stopword removal, lemmatisation and n-gram extraction — turning raw candidate data into model-ready feature vectors at scale.',
+      'Productionised top-N ranking so a ranked candidate list was produced for every new posting automatically, with no manual step in the loop.',
+      'Standardised experiments on scikit-learn pipelines under Git version control, which is what made model comparisons trustworthy across iterations rather than anecdotal.',
     ],
+    architecture:
+      'Candidate profiles + job description text → NLTK preprocessing (tokenisation, stopword removal, lemmatisation, n-grams) → TF-IDF vectorisation → cosine-similarity scoring → real-time top-N ranked candidate list per posting. Experiments versioned through scikit-learn pipelines and Git.',
     outcomes: [
-      { value: '~35%', label: 'improvement in job discovery relevance' },
-      { value: '~30%', label: 'improvement in matching accuracy' },
-      { value: '~25%', label: 'better shortlisting quality and recruiter engagement' },
+      { value: '35%', label: 'better candidate-to-role match relevance across 20,000+ profiles' },
+      { value: '30%', label: 'faster candidate profile processing' },
+      { value: '25%', label: 'more efficient recruiter shortlisting' },
+      { value: '40%', label: 'shorter model iteration cycles' },
     ],
-    stack: ['Python', 'BERT', 'Sentence Embeddings', 'Cosine Similarity', 'scikit-learn', 'Git'],
-    featured: true,
+    stack: ['Python', 'TF-IDF', 'Cosine Similarity', 'NLTK', 'scikit-learn', 'Git'],
+    featured: false,
   },
 ]
 

@@ -6,14 +6,14 @@ export function ContactCTA() {
   return (
     <section className="page-x rule-t mx-auto max-w-page py-16">
       <Reveal className="spec-grid">
-        <p className="eyebrow">
+        <h2 className="eyebrow">
           <span className="text-ink-faint">06</span> &nbsp;Contact
-        </p>
+        </h2>
         <div>
-          <h2 className="max-w-2xl text-3xl">
+          <h3 className="max-w-2xl text-3xl">
             If you’re building something that has to work on real traffic, I’d like to hear about
             it.
-          </h2>
+          </h3>
           <p className="mt-5 max-w-text text-ink-soft">
             {profile.availability}. The fastest way to reach me is email — I read every message.
           </p>

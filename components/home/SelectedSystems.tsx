@@ -19,9 +19,9 @@ export function SelectedSystems() {
     <section className="page-x rule-t mx-auto max-w-page py-16">
       <div className="spec-grid">
         <div>
-          <p className="eyebrow lg:sticky lg:top-24">
+          <h2 className="eyebrow lg:sticky lg:top-24">
             <span className="text-ink-faint">01</span> &nbsp;Selected systems
-          </p>
+          </h2>
         </div>
 
         <div>

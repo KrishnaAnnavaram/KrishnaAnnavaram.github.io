@@ -3,6 +3,7 @@ import { Inter, Newsreader, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { AssistantProvider } from '@/components/assistant/AssistantProvider'
 import { buildPaletteIndex } from '@/lib/palette'
 import { profile } from '@/data/profile'
 
@@ -111,9 +112,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Header paletteItems={paletteItems} />
-        <main id="main">{children}</main>
-        <Footer />
+        <AssistantProvider>
+          <Header paletteItems={paletteItems} />
+          <main id="main">{children}</main>
+          <Footer />
+        </AssistantProvider>
       </body>
     </html>
   )

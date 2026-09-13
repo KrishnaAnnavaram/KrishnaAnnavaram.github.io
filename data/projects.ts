@@ -593,6 +593,8 @@ export const projects: Project[] = [
   {
     slug: 'smcp-gateway',
     name: 'Semantic MCP Data Access Gateway',
+    // Delivered at Virtusa as "Smart Quant"; the repository keeps the
+    // descriptive name. Both refer to the same system.
     tagline:
       'Three agents negotiate what data a risk question actually needs — and the layer that reasons never holds a database credential.',
     kind: 'system',

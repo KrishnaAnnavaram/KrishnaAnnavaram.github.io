@@ -49,14 +49,19 @@
   --text-5xl--line-height: 0.97;
 
   /* ── Colour — light is the authored default ───────────────────────────── */
-  /* Neutrals carry a slight cool cast so the warm accent stays distinct.     */
+  /* Neutrals carry a slight cool cast so the warm accent stays distinct.
+     Every foreground below clears 4.5:1 against paper, surface and sunken in
+     both themes — verified by `node scripts/check-contrast.mjs`, which
+     converts these oklch values to sRGB and computes the real ratios. The
+     muted and faint steps were darkened from their original values because
+     they failed; oklch lightness gives no indication of WCAG compliance. */
   --color-paper: oklch(0.988 0.0015 265);
   --color-surface: oklch(1 0 0);
   --color-sunken: oklch(0.967 0.003 265);
   --color-ink: oklch(0.17 0.008 265);
   --color-ink-soft: oklch(0.40 0.009 265);
-  --color-ink-muted: oklch(0.56 0.009 265);
-  --color-ink-faint: oklch(0.71 0.007 265);
+  --color-ink-muted: oklch(0.48 0.009 265);
+  --color-ink-faint: oklch(0.545 0.009 265);
   --color-rule: oklch(0.905 0.004 265);
   --color-rule-strong: oklch(0.83 0.006 265);
 
@@ -97,8 +102,8 @@
       --color-sunken: oklch(0.132 0.005 265);
       --color-ink: oklch(0.955 0.002 265);
       --color-ink-soft: oklch(0.755 0.007 265);
-      --color-ink-muted: oklch(0.615 0.008 265);
-      --color-ink-faint: oklch(0.455 0.008 265);
+      --color-ink-muted: oklch(0.68 0.008 265);
+      --color-ink-faint: oklch(0.60 0.008 265);
       --color-rule: oklch(0.275 0.008 265);
       --color-rule-strong: oklch(0.375 0.009 265);
       --color-accent: oklch(0.735 0.155 40);
@@ -115,8 +120,8 @@
     --color-sunken: oklch(0.132 0.005 265);
     --color-ink: oklch(0.955 0.002 265);
     --color-ink-soft: oklch(0.755 0.007 265);
-    --color-ink-muted: oklch(0.615 0.008 265);
-    --color-ink-faint: oklch(0.455 0.008 265);
+    --color-ink-muted: oklch(0.68 0.008 265);
+    --color-ink-faint: oklch(0.60 0.008 265);
     --color-rule: oklch(0.275 0.008 265);
     --color-rule-strong: oklch(0.375 0.009 265);
     --color-accent: oklch(0.735 0.155 40);

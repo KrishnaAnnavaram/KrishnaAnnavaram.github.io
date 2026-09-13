@@ -51,6 +51,9 @@ export function Assistant({
   const [retriever, setRetriever] = useState<Retriever | null>(null)
   const [query, setQuery] = useState('')
   const [answer, setAnswer] = useState<Answer | null>(null)
+  /* A question asked before the index arrived. Typing is never blocked, so it
+     is answered as soon as retrieval is available rather than being lost. */
+  const [pending, setPending] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
 
@@ -69,11 +72,14 @@ export function Assistant({
 
   useEffect(() => {
     if (open) {
-      const t = setTimeout(() => inputRef.current?.focus(), 40)
-      return () => clearTimeout(t)
+      // rAF rather than a timer: focus lands on the first painted frame, and
+      // the field is never disabled, so it can always take focus.
+      const id = requestAnimationFrame(() => inputRef.current?.focus())
+      return () => cancelAnimationFrame(id)
     }
     setQuery('')
     setAnswer(null)
+    setPending(null)
   }, [open])
 
   useEffect(() => {
@@ -116,12 +122,26 @@ export function Assistant({
   const ask = useCallback(
     (q: string) => {
       const trimmed = q.trim()
-      if (!trimmed || !retriever) return
+      if (!trimmed) return
       setQuery(trimmed)
-      setAnswer(retriever.answer(trimmed))
+      if (retriever) {
+        setPending(null)
+        setAnswer(retriever.answer(trimmed))
+      } else {
+        // Asked before the index landed — hold it rather than dropping it.
+        setPending(trimmed)
+      }
     },
     [retriever]
   )
+
+  /* Answer anything that was asked while the index was still loading. */
+  useEffect(() => {
+    if (retriever && pending) {
+      setAnswer(retriever.answer(pending))
+      setPending(null)
+    }
+  }, [retriever, pending])
 
   if (!open) return null
 
@@ -159,10 +179,13 @@ export function Assistant({
               name="q"
               ref={inputRef}
               defaultValue={query}
+              // The dialog unmounts when closed, so the input is freshly
+              // mounted on every open and autoFocus is the reliable path.
+              // The rAF above is the fallback for the re-open case.
+              autoFocus
               autoComplete="off"
               placeholder="Ask about projects, architecture, or experience…"
-              disabled={status !== 'ready'}
-              className="w-full bg-transparent text-base text-ink outline-none placeholder:text-ink-faint disabled:opacity-60"
+              className="w-full bg-transparent text-base text-ink outline-none placeholder:text-ink-faint"
             />
           </form>
           <button
@@ -177,10 +200,10 @@ export function Assistant({
 
         {/* ── Body ───────────────────────────────────────────────────── */}
         <div className="max-h-[62vh] overflow-y-auto px-4 py-4">
-          {status === 'loading' && (
+          {status === 'loading' && !answer && (
             <p className="flex items-center gap-2 py-6 text-sm text-ink-muted">
               <Loader2 size={14} className="animate-spin" aria-hidden />
-              Loading the index…
+              {pending ? 'Loading the index, then answering…' : 'Loading the index…'}
             </p>
           )}
 
