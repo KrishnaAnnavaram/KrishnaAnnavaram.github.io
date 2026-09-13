@@ -90,9 +90,17 @@ It is less exciting than a leaderboard score, and it is the difference between s
      and read as keyword stuffing rather than as a preference. */
   idealRoles: ['Generative AI Engineer', 'Agentic AI Engineer', 'Applied AI Engineer'],
 
+  /*
+   * No phone number here.
+   *
+   * It was defined and never rendered — but `profile` is imported by client
+   * components, so it was bundled into the layout chunk and shipped on every
+   * page: invisible to a reader, trivially scrapable by anyone reading the
+   * JavaScript. It is still in the résumé PDF, which is a deliberate
+   * publication; this was not. A unit test now scans the built output for it.
+   */
   socials: {
     email: 'annavaramkrishna@gmail.com',
-    phone: '+1 972-957-7974',
     linkedin: 'https://www.linkedin.com/in/krishna-annavaram/',
     github: 'https://github.com/KrishnaAnnavaram',
   },
