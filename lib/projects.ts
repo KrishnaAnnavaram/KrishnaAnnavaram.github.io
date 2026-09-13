@@ -166,8 +166,9 @@ export interface ExplorerFeedItem {
 
 /** Maps an employment case study's discipline onto the shared taxonomy. */
 const ENGAGEMENT_DOMAINS: Record<string, DomainId[]> = {
+  'clinical-decision-support-graph-rag': ['rag', 'multi-agent', 'mcp', 'nlp', 'cloud-mlops'],
   'academic-research-assistant': ['rag', 'nlp', 'evaluation'],
-  'healthcare-claims-ml-platform': ['machine-learning', 'data-engineering', 'cloud-mlops'],
+  'incentive-compensation-pipelines': ['machine-learning', 'data-engineering', 'cloud-mlops'],
   'resume-job-matching': ['nlp', 'machine-learning'],
 }
 

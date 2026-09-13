@@ -32,6 +32,11 @@ const STOP = new Set([
   'these','they','this','to','was','we','were','what','when','where','which','who','why','will',
   'with','you','your','about','any','also','more','most','such','tell',
   'give','know','krishna','krishnas','done','much','many',
+  // Function words that are rare enough in this corpus to earn a misleadingly
+  // high IDF. "per" matching "per-edge" is what motivated this list.
+  'per','me','my','him','his','her','our','us','am','being','could','would','should',
+  'may','might','must','very','just','only','even','still','via','upon','against',
+  'during','before','after','above','below','again','once','both','few','other','same','too',
 ])
 
 /** Light stemmer — plurals and common verb endings only. Aggressive stemming
@@ -50,6 +55,11 @@ function stem(word: string): string {
 export function tokenize(text: string): string[] {
   return text
     .toLowerCase()
+    // Strip diacritics first, so a visitor typing "résumé" reaches the same
+    // token as the corpus's "resume". Without this the accented form is torn
+    // into fragments and matches nothing.
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9+#./-]+/g, ' ')
     .split(/\s+/)
     .filter((t) => t.length > 1 && !STOP.has(t))
@@ -115,7 +125,18 @@ const K1 = 1.4
 const B = 0.72
 /** Below this, the assistant declines rather than guessing. Tuned against the
  *  suggested questions plus a set of deliberately out-of-scope ones. */
-const SCORE_FLOOR = 2.4
+const SCORE_FLOOR = 3.0
+
+/**
+ * How hard a partial match is penalised.
+ *
+ * BM25 rewards a rare term heavily, which is usually right and is exactly
+ * wrong for an incidental word: a question about hourly rates matched one
+ * chunk on "per" alone and scored well above the floor. Scaling by coverage
+ * close to linearly means a chunk that answers one third of the question
+ * cannot outrank the floor on the strength of a single lucky term.
+ */
+const COVERAGE_EXPONENT = 0.9
 
 interface Prepared {
   chunk: Chunk
@@ -183,7 +204,7 @@ export class Retriever {
 
       // Reward chunks that cover more of the query rather than one term loudly.
       const coverage = matched.length / base.length
-      score *= 0.6 + 0.4 * coverage
+      score *= Math.pow(coverage, COVERAGE_EXPONENT)
       score *= p.chunk.boost
 
       return { chunk: p.chunk, score, matched: [...new Set(matched)] }

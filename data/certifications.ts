@@ -9,12 +9,21 @@ export interface Certification {
 }
 
 /**
- * Verified against the LinkedIn certifications export. The two featured entries
- * carry live Credly badges; the rest are self-reported coursework.
- * The previously listed Azure AI-102 credential was removed — it appears in no
- * source document. See CONTENT_TODO.md.
+ * Verified against the résumé and the LinkedIn certifications export. Entries
+ * with a `verifyUrl` carry a live Credly badge; the rest are self-reported.
+ *
+ * Azure AI-102 was removed in an earlier pass because it appeared in no source
+ * document available at the time. The current résumé lists it, so it is back —
+ * without a Credly link, because none has been supplied yet.
  */
 export const certifications: Certification[] = [
+  {
+    id: 'azure-ai-102',
+    name: 'Microsoft Certified: Azure AI Engineer Associate (AI-102)',
+    issuer: 'Microsoft',
+    issued: '2025-01',
+    featured: true,
+  },
   {
     id: 'aws-ai-practitioner',
     name: 'AWS Certified AI Practitioner',

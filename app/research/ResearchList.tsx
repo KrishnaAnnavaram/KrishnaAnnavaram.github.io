@@ -59,7 +59,7 @@ export function ResearchList({ publications }: { publications: Publication[] }) 
               )}
             >
               {f.label}
-              <span className="ml-1.5 font-mono text-2xs opacity-60">{counts[f.value]}</span>
+              <span className="ml-1.5 font-mono text-2xs tabular">{counts[f.value]}</span>
             </button>
           ))}
         </div>
@@ -86,6 +86,7 @@ export function ResearchList({ publications }: { publications: Publication[] }) 
           {results.length} {results.length === 1 ? 'entry' : 'entries'}
         </p>
 
+        <h2 className="sr-only">Publications and supervised projects</h2>
         <ul>
           {results.map((pub) => {
             const open = openId === pub.id
