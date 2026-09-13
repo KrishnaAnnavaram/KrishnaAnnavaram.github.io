@@ -62,11 +62,23 @@ export const metadata: Metadata = {
     siteName: `${profile.name} — Generative AI Engineer`,
     title: `${profile.name} — Generative AI Engineer`,
     description,
+    // Explicit, and pointing at the .png copy the postbuild step makes:
+    // Pages serves the extensionless file Next emits as octet-stream, which
+    // crawlers reject.
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: `${profile.name} — Generative AI Engineer`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${profile.name} — Generative AI Engineer`,
     description,
+    images: ['/og.png'],
   },
   robots: { index: true, follow: true },
   manifest: '/manifest.json',
