@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Assistant } from './Assistant'
 
 /**
@@ -29,9 +29,23 @@ export function useAssistant(): AssistantApi {
 
 export function AssistantProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setOpen] = useState(false)
+  /* Whatever had focus when the dialog opened. Closing without restoring it
+     drops a keyboard user at the top of the tab order, which is a worse place
+     than where they started. */
+  const opener = useRef<HTMLElement | null>(null)
 
-  const open = useCallback(() => setOpen(true), [])
-  const close = useCallback(() => setOpen(false), [])
+  const open = useCallback(() => {
+    opener.current = document.activeElement as HTMLElement | null
+    setOpen(true)
+  }, [])
+
+  const close = useCallback(() => {
+    setOpen(false)
+    const target = opener.current
+    opener.current = null
+    // After the dialog unmounts, so focus is not immediately stolen back.
+    requestAnimationFrame(() => target?.focus?.())
+  }, [])
 
   /* `/` is the near-universal "search this site" key. Registered once, and
      ignored while the visitor is typing into something. */

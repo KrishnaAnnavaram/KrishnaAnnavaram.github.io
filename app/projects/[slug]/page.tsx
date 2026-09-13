@@ -195,12 +195,24 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <Section n="05" label="Evidence">
           <dl className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
             {project.evidence.map((e) => (
-              <div key={e.label}>
+              /* `min-w-0`: a grid item defaults to `min-width: auto`, so it
+                 refuses to shrink below the min-content width of its longest
+                 unbroken token and overflows its own track instead. */
+              <div key={e.label} className="min-w-0">
                 <dt className="font-serif text-3xl leading-none text-ink tabular">{e.value}</dt>
                 <dd className="mt-2.5 text-sm text-ink-soft">
                   {e.label}
+                  {/* These notes carry unbroken artefact paths — one filename
+                      had a 597px min-content width, which stretched the grid
+                      track and pushed the whole Evidence section off the right
+                      edge of every phone.
+
+                      `[overflow-wrap:anywhere]` rather than Tailwind's
+                      `break-words`: `break-word` wraps the rendered text but
+                      does not reduce the element's min-content width, so the
+                      track stayed 482px wide inside a 320px viewport. */}
                   {e.method && (
-                    <span className="mt-1.5 block border-l border-rule pl-2.5 font-mono text-2xs leading-relaxed text-ink-faint">
+                    <span className="mt-1.5 block [overflow-wrap:anywhere] border-l border-rule pl-2.5 font-mono text-2xs leading-relaxed text-ink-faint">
                       {e.method}
                     </span>
                   )}

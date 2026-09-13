@@ -65,7 +65,7 @@ export function ResearchList({ publications }: { publications: Publication[] }) 
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Filter by topic…"
             aria-label="Filter research by topic"
-            className="w-full rounded-full border border-rule bg-surface py-1.5 pl-9 pr-3 text-sm text-ink outline-none transition-colors placeholder:text-ink-faint focus:border-rule-strong"
+            className="w-full rounded-full border border-rule bg-surface py-1.5 pl-9 pr-3 text-sm text-ink transition-colors placeholder:text-ink-faint focus:border-rule-strong"
           />
         </div>
       </div>
