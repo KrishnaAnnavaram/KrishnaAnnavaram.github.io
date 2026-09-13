@@ -9,7 +9,7 @@ export const profile = {
   availability: 'Open to Generative AI, Agentic AI, and Applied AI Engineering roles',
 
   /** One paragraph. The thing a hiring manager reads before deciding to scroll. */
-  intro: `I'm a Generative AI Engineer with five years building production LLM systems — RAG and Graph-RAG pipelines, multi-agent orchestration, and the evaluation scaffolding around them — across enterprise modernisation, financial risk and healthcare. Currently at Virtusa, building reusable AI-assisted engineering harnesses on Google Cloud; previously at Ideate Technologies, Cognizant and Lemoius, with a graduate teaching assistantship at the University of North Texas in between.`,
+  intro: `I'm a Generative AI Engineer. Five years in machine learning and NLP, the last two of them on production LLM systems — RAG and Graph-RAG pipelines, multi-agent orchestration, and the evaluation scaffolding around them — across enterprise modernisation, financial risk and healthcare. Currently at Virtusa, building reusable AI-assisted engineering harnesses on Google Cloud; previously at Ideate Technologies, Cognizant and Lemoius, with a graduate teaching assistantship at the University of North Texas in between.`,
 
   /** The argument for hiring him, in his own frame. */
   positioning: `Most AI work fails at the engineering layer, not the model layer. A capable model behind a weak pipeline is still a demo — it drifts, it can't be evaluated, and nobody can tell you why it answered the way it did.

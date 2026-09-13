@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { authoredPublications, supervisedResearch } from '@/data/publications'
+import { authoredPublications } from '@/data/publications'
 import { getPostMeta } from '@/lib/writing'
 import { formatMonthYear } from '@/lib/utils'
 import { Reveal } from '@/components/ui/Reveal'
@@ -21,21 +21,18 @@ export function ResearchWriting() {
           <Reveal>
             <h3 className="text-2xl text-ink">Research</h3>
             <p className="mt-3 text-ink-soft">
-              Co-authored NLP and computer-vision papers, plus graduate projects mentored during
-              the teaching assistantship at UNT. Every entry links to its full report.
+              Co-authored NLP and computer-vision research reports from graduate study at UNT.
+              Every entry links to its full report, and every one was checked against that
+              document. None is peer-reviewed.
             </p>
-            <dl className="mt-7 flex gap-10">
+            <dl className="mt-7">
               <div>
-                <dt className="font-serif text-3xl leading-none text-ink">
+                <dt className="font-serif text-3xl leading-none text-ink tabular">
                   {authoredPublications.length}
                 </dt>
-                <dd className="mt-2 text-xs text-ink-muted">co-authored papers</dd>
-              </div>
-              <div>
-                <dt className="font-serif text-3xl leading-none text-ink">
-                  {supervisedResearch.length}
-                </dt>
-                <dd className="mt-2 text-xs text-ink-muted">supervised projects</dd>
+                <dd className="mt-2 max-w-[18rem] text-xs text-ink-muted">
+                  co-authored graduate research reports, each verified against the PDF it links to
+                </dd>
               </div>
             </dl>
             <div className="mt-7">

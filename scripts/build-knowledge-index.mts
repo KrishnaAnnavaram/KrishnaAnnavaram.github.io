@@ -61,9 +61,13 @@ add({
   boost: 1.25,
 })
 
+/* Derived from the open end date, not from array position — reordering
+   data/experience.ts must not change who the assistant calls current. */
+const current = experience.find((r) => r.end === null) ?? experience[0]
+
 add({
   heading: 'Current focus',
-  text: `${profile.availability}. Based in ${profile.location}. Currently ${experience[0].title} at ${experience[0].company}, since ${formatRoleDate(experience[0].start)}.`,
+  text: `${profile.availability}. Based in ${profile.location}. Currently ${current.title} at ${current.company}, since ${formatRoleDate(current.start)}.`,
   source: profileSource,
   keywords: ['now', 'current', 'currently', 'focus', 'available', 'availability', 'location', 'today', 'working'],
   boost: 1.7,
@@ -256,10 +260,14 @@ for (const study of caseStudies) {
 for (const group of skillGroups) {
   add({
     heading: `Stack — ${group.title}`,
-    text: `${group.note} ${group.items.join(', ')}.`,
+    /* Framed as an inventory rather than a claim of depth. Listing a tool is
+       not evidence of having shipped with it, and this passage should not be
+       read as if it were — the case studies are where the depth is shown. */
+    text: `Listed in the technical inventory under ${group.title} — these are tools used or worked with, not a claim of depth in each. ${group.note} ${group.items.join(', ')}.`,
     source: { title: 'About', href: '/about/', kind: 'skills' },
     keywords: ['skills', 'stack', 'technology', 'tools', 'framework', 'languages', group.title, ...group.items],
-    boost: 1.2,
+    // Below neutral, so a passage describing real work outranks the inventory.
+    boost: 0.8,
   })
 }
 
@@ -299,12 +307,14 @@ for (const file of await readdir(writingDir)) {
 /* ── Research ────────────────────────────────────────────────────────────── */
 
 const { publications } = await import('../data/publications')
-const supervised = publications.filter((p) => p.type === 'Supervised Research').length
-const coAuthored = publications.length - supervised
+/* Counted, not asserted — an earlier version hardcoded the claim that every
+   entry was backed by a report, which nothing validated. */
+const withReports = publications.filter((p) => Boolean(p.url)).length
+const coAuthored = publications.length
 
 add({
   heading: 'Research',
-  text: `${coAuthored} co-authored papers and ${supervised} supervised graduate capstone projects, each backed by a report published on the site. Topics span NLP, retrieval, computer vision, healthcare prediction and applied machine learning.`,
+  text: `${coAuthored} co-authored graduate research reports from the MS at UNT, ${withReports} of them linked to the full PDF on this site. They are coursework typeset in an IEEE template, not peer-reviewed conference papers. Topics span NLP, retrieval, computer vision and applied machine learning.`,
   source: { title: 'Research', href: '/research/', kind: 'research' },
   keywords: ['research', 'papers', 'publication', 'academic', 'supervised', 'capstone', 'student', 'teaching'],
   boost: 1.3,
@@ -313,7 +323,9 @@ add({
 /* ── Write ───────────────────────────────────────────────────────────────── */
 
 const index: KnowledgeIndex = {
-  builtAt: new Date().toISOString(),
+  /* No build timestamp. This file is committed, and a timestamp made it differ
+     on every build — a permanently dirty working tree and a merge conflict
+     surface, for a field nothing reads. */
   chunkCount: chunks.length,
   chunks,
   suggestions: [

@@ -46,6 +46,16 @@ jobs:
       - name: Colour contrast (WCAG AA)
         run: node scripts/check-contrast.mjs
 
+      # Every publication entry must name its author and match the document it
+      # links to. This gate exists because 23 entries once did neither.
+      - name: Verify publications against their PDFs
+        run: node scripts/verify-publications.mjs
+
+      # Regenerate BEFORE the tests, so the unit suite validates the index that
+      # is about to ship rather than the one last committed.
+      - name: Rebuild the knowledge index
+        run: npm run knowledge
+
       - name: Unit tests
         run: npm test
 
