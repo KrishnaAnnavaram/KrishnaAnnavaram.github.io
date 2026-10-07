@@ -59,7 +59,7 @@ the accent (teal), the layout and every component.
 |---|---|
 | A dashboard aesthetic reads cold to a recruiter | The first screen has no console material at all |
 | A photo that swaps on a timer is a WCAG 2.2.2 issue and a second LCP candidate | Slot chosen before first paint; a 7-minute crossfade, not motion; Pause and Next controls; instant under reduced motion; the studio frame everywhere a single image is needed |
-| A trace replay looks staged | Every verdict transcribed from `docs/agent_output` at `007b0a2`; the replay states that the recorded approvals were programmatic; no durations shown |
+| A trace replay looks staged | Every verdict transcribed from `docs/agent_output` at `07c1644`; the replay states that the recorded approvals were programmatic; no durations shown |
 | Seventy-five archive entries drown six flagships | Archive placed after experience, visually quieter, entered through category counts |
 | Archive metrics would publish synthetic results as findings | No metric field exists on an archive entry; a unit test fails the build if one appears in its notes |
 | A rewrite risks regressions | Token names kept, so every existing component re-themed without edits; data model, diagrams, assistant and palette reused |

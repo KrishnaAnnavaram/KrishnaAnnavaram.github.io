@@ -3,7 +3,9 @@
 
    Every verdict below is transcribed from the evidence MARS commits for each
    issue under docs/agent_output/ (00-issues … 07-ship), read at commit
-   007b0a2 (2026-10-03). Nothing is simulated except the pacing: the replay
+   07c1644 (2026-10-03; the repository's history was rewritten on 2026-10-07
+   to redact a credential, which changed every SHA and nothing else in these
+   files). Nothing is simulated except the pacing: the replay
    steps at a fixed interval, and the site claims no durations.
 
    All four runs end Blocked. That is the point of showing them — the pipeline
@@ -12,7 +14,7 @@
    QA gate failed.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-export const MARS_EVIDENCE_COMMIT = '007b0a2'
+export const MARS_EVIDENCE_COMMIT = '07c1644'
 export const MARS_REPO = 'https://github.com/KrishnaAnnavaram/MARS'
 
 export type StepKind = 'deterministic' | 'model' | 'human'

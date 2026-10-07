@@ -19,7 +19,7 @@ export function EarlierWork() {
           label="Earlier work"
           id="earlier-title"
           title={`${archive.length} more projects, each its own repository`}
-          lede="Applied ML and GenAI work across retrieval, agents, evaluation, NLP, medical imaging and forecasting. Every one has a test suite and CI; none is presented with a headline accuracy, because most validate on synthetic data."
+          lede="Earlier projects, recently published to GitHub — retrieval, agents, evaluation, NLP, medical imaging and forecasting. Each is its own repository with a test suite and CI."
           aside={
             <Link
               href="/projects/#archive"

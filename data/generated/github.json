@@ -1,12 +1,169 @@
 {
   "$schema": "https://krishnaannavaram.github.io/schemas/github-snapshot.json",
   "user": "KrishnaAnnavaram",
-  "syncedAt": "2026-10-07T20:40:10.564Z",
+  "syncedAt": "2026-10-07T21:26:08.950Z",
   "repoCount": 94,
   "skippedPrivate": [
     "decisionforge-ai"
   ],
   "repos": [
+    {
+      "name": "CredPilot",
+      "fullName": "KrishnaAnnavaram/CredPilot",
+      "url": "https://github.com/KrishnaAnnavaram/CredPilot",
+      "homepage": null,
+      "description": null,
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": null,
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 10713,
+      "createdAt": "2026-09-20T06:00:11Z",
+      "pushedAt": "2026-10-07T21:13:30Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 1769987,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "7f23a5b",
+        "message": "Merge pull request #4 from KrishnaAnnavaram/chore/unify-synthetic-data",
+        "date": "2026-09-21T20:54:04Z",
+        "url": "https://github.com/KrishnaAnnavaram/CredPilot/commit/7f23a5bb17489bba686f85e5a360ef544f5624a6"
+      },
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "MARS",
+      "fullName": "KrishnaAnnavaram/MARS",
+      "url": "https://github.com/KrishnaAnnavaram/MARS",
+      "homepage": null,
+      "description": "Modernization, Assessment, Remediation & Security",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": null,
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 5206,
+      "createdAt": "2026-09-24T18:50:33Z",
+      "pushedAt": "2026-10-07T21:11:33Z",
+      "languages": [
+        {
+          "name": "JavaScript",
+          "bytes": 769882,
+          "share": 54.5
+        },
+        {
+          "name": "TypeScript",
+          "bytes": 573979,
+          "share": 40.6
+        },
+        {
+          "name": "Java",
+          "bytes": 59192,
+          "share": 4.2
+        },
+        {
+          "name": "CSS",
+          "bytes": 6366,
+          "share": 0.5
+        },
+        {
+          "name": "Python",
+          "bytes": 1704,
+          "share": 0.1
+        },
+        {
+          "name": "Gherkin",
+          "bytes": 1041,
+          "share": 0.1
+        },
+        {
+          "name": "HTML",
+          "bytes": 687,
+          "share": 0
+        }
+      ],
+      "primaryLanguage": "JavaScript",
+      "lastCommit": {
+        "sha": "07c1644",
+        "message": "Merge pull request #13 from KrishnaAnnavaram/docs/readme-ste",
+        "date": "2026-10-03T20:29:23Z",
+        "url": "https://github.com/KrishnaAnnavaram/MARS/commit/07c1644273fbe2a53e5a49cf954ca7be3bf1ce0d"
+      },
+      "readmeLead": "MARS is an agentic remediation harness for Java and Spring Boot systems. It takes a reported defect or vulnerability through all of these steps to a scored ship decision that you can audit:",
+      "readmeText": "MARS — Modernization, Assessment, Remediation & Security\n\nMARS is an agentic remediation harness for Java and Spring Boot systems. It takes a reported\ndefect or vulnerability through all of these steps to a scored ship decision that you can audit:\n\nunderstand the code → diagnose the issue → measure its reach → plan a fix → get human approval → implement it → verify it → test it → build it → decide → document it.\n\nSummary ·\nAgents ·\nSkills ·\nWorkflow ·\nShip decision ·\nRun MARS ·\nGlossary\n\n \n\n [!NOTE]\n This README uses ASD-STE100 Simplified Technical English. The writing rules and the project\n vocabulary are in docs/ste-style-guide.md. Each term in the\n Glossary has only one meaning.\n\nMARS uses the same pipeline for framework and Java version migrations. It can migrate Spring Boot\nfrom any published line to any later line.\n\nThis README is the one location that explains all of MARS. It gives these topics:\n\n- the general design\n- each of the 7 agents\n- each of the 18 skills: its purpose, its contents and its procedure, step by step\n- the decision rules\n- the data map\n- observability\n- the runbook\n- the known problems\n\nThis README describes the harness. It does not describe the Java application that MARS analyses.\n If you are… · Read · \n --- · --- · \n A manager or reviewer · 1, 3, 4, 12, 17, 19 · \n A developer who joins the project · All sections, in sequence. Keep 15, 16 and 18 open while you work · \n An operator who runs a remediation · 15, then the section for the agent that you will run (sections 6 to 11) · \n A person who needs one skill · The skill index, then the detailed section for that skill · \n\nTable of contents\n\n1. 🧭 Summary\n2. 🏗️ How MARS is built\n - 2.1 Agents, skills, scripts and the AI runtime\n - 2.2 System context\n - 2.3 .github and .claude\n - 2.4 The 7 agents\n - 2.5 The 18 skills\n - 2.6 Which agent uses which skill\n3. 🛡️ Design rules\n4. 🔄 The end-to-end workflow\n5. 📊 The input — skill 00-issue-register\n6. 🔵 Phase A · Understand\n - 6.1 Agent 01 — Architect · skills 01a, 01b, 01c, 01d\n - 6.2 Agent 02 — Root Cause Analyst · skill 02\n - 6.3 Agent 03 — Blast Radius Analyst · skill 03\n7. 🟢 Phase B · Fix — Agent 04 Fix Generator\n8. 🧠 Agent 04, Stage 1 — Strategize · skills 04a, 04a1, 04a2\n9. ⏸️ Human approval and Fix Type\n10. 🛠️ Agent 04, Stage 2 — Implement · skills 04b, 04c, 04d\n11. 🟣 Phase C · Verify & Ship\n - 11.1 Agent 05 — Existing App Test Agent · skill 05\n - 11.2 Agent 06 — Additional Test Execution · skills 06a, 06b\n - 11.3 Agent 07 — Audit & PR · skills 07a, 07b\n12. ⚖️ The ship decision and status vocabulary\n13. 🗂️ Data and file map\n14. 📡 Observability — telemetry and Mission Control\n15. ▶️ How to run MARS\n16. 🧩 How to extend MARS\n17. ✅ Validation results\n18. ⚠️ Known problems\n19. 📌 Key points\n20. 📖 Glossary\n\n1. Summary\n\nThe problem. It is easy to make a patch. The difficult questions come after the patch:\n\n- Does the patch close the issue?\n- Can a different path still reach the issue?\n- Did the patch also change something that nobody expected?\n- Does the patch build? Do the tests pass?\n- Is it safe to ship the patch? Who decided that?\n\nMARS gives each of these questions its own stage. Each stage writes a record that the next stage\nreads.\n Item · Value · \n --- · --- · \n Agents · 7, run in order 01 → 07 · \n Skills (the folders that the agents use) · 18, with the number of the agent that runs them · \n Phases · A · Understand (01–03) → B · Fix (04) → C · Verify & Ship (05–07) · \n Human checkpoints · 2: approve the fix plan · make an explicit request for a pull request · \n Release authority · 1: only a Cleared verdict from Agent 07 lets a patch ship · \n Hard gates (a score cannot cancel them) · 3: still vulnerable · build failed · migration not passed · \n Input · One Excel issue register, issue-register.xlsx. MARS only reads it. · \n Output · One Markdown report for each issue and each stage in docs/agentoutput/, and diff files · \n Kinds of fix · Code fix (04b), dependency upgrade (04c), framework or Java version migration (04d) · \n Safety · A script tries each patch in a temporary git worktree or in a private sandbox. Analysis never changes the real code. · \n\nmermaid\nflowchart LR\n IN[\"📊 Issue register (Excel, read-only)\"] -- A\n subgraph A[\"PHASE A · UNDERSTAND\"]\n direction TB\n A1[\"01 Architect\"] -- A2[\"02 Root Cause\"] -- A3[\"03 Blast Radius\"]\n end\n A -- B\n subgraph B[\"PHASE B · FIX\"]\n direction TB\n B1[\"04 Strategize (plan, no code)\"] -- H{{\"⏸ Human approves\"}} -- B2[\"04 Implement (04b · 04c · 04d)\"]\n end\n B -- C\n subgraph C[\"PHASE C · VERIFY & SHIP\"]\n direction TB\n C1[\"05 Re-scan · Red-team · Behaviour\"] -- C2[\"06 QA test · Build gate\"] -- C3[\"07 Score · Verdict · PR · Audit\"]\n end\n C -- OUT[\"✅ Cleared or 🚫 Blocked + PR content + audit trail\"]\n\n classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n class H human\n mermaid\nflowchart LR\n RT[\"AI runtime (Copilot Chat / Claude Code)\"] -- · \"loads\" · AG[\"Agent NNname.agent.md\"]\n AG -- · \"reads SKILL.md, runs\" · SC[\"Skill scripts (deterministic)\"]\n SC -- · \"facts\" · F[/\"facts.json / facts.md (briefing)\"/]\n F -- AG\n AG -- · \"judgement, schema-checked\" · J[/\"analysis / verdict / strategy .json\"/]\n J -- SC\n SC -- · \"render\" · R[/\"docs/agentoutput/ report.md\"/]\n mermaid\nflowchart TB\n subgraph REPO[\"Repository\"]\n APP[\"Application under analysis (Spring Boot microservices)\"]\n REG[\"docs/agentoutput/00-issues/ issue-register.xlsx\"]\n OUT[\"docs/agentoutput/01…07 stage reports (committed)\"]\n H[\"Harness .github/ (canonical) · .claude/ (mirror) agents · skills · pipeline contract · lint\"]\n PC[\".pipeline-context/ facts + agent JSON (gitignored)\"]\n MC[\"mission-control/ + telemetry ledger (observability)\"]\n end\n LLM[\"AI runtime\"]\n NEO[(\"Neo4j knowledge graph (optional)\")]\n MVN[\"Maven + JDKs (builds, tests)\"]\n OR[\"OpenRewrite (04d, open-source recipes by default)\"]\n\n LLM -- · \"follows agents, runs scripts, writes JSON\" · H\n APP -- H\n REG -- H\n H -- PC\n H -- OUT\n H NEO\n H -- MVN\n H -- OR\n OUT -- MC\n mermaid\nflowchart LR\n subgraph AG[\"Agents\"]\n direction TB\n G01[\"01 Architect\"]\n G02[\"02 Root Cause\"]\n G03[\"03 Blast Radius\"]\n G04[\"04 Fix Generator\"]\n G05[\"05 Existing App Test\"]\n G06[\"06 Additional Test Exec\"]\n G07[\"07 Audit & PR\"]\n end\n subgraph SK[\"Skills\"]\n direction TB\n S00[\"00 issue-register\"]\n S01a[\"01a code-cartographer\"]\n S01b[\"01b context-weaver\"]\n S01c[\"01c graph-forge\"]\n S01d[\"01d blueprint-scribe\"]\n S02[\"02 root-cause-analyst\"]\n S03[\"03 blast-radius-analyst\"]\n S04a[\"04a fix-strategist\"]\n S04a1[\"04a1 remediation-intelligence\"]\n S04a2[\"04a2 remediation-research\"]\n S04b[\"04b fixer\"]\n S04c[\"04c dependency-upgrader\"]\n S04d[\"04d version-migration\"]\n S05[\"05 verify\"]\n S06a[\"06a qa-runner\"]\n S06b[\"06b build-gatekeeper\"]\n S07a[\"07a merge-arbiter\"]\n S07b[\"07b scribe\"]\n end\n G01 -- S01a & S01b & S01c & S01d\n G02 -- S02\n G03 -- S03\n G04 -- S04a & S04a1 & S04a2 & S04b & S04c & S04d\n G05 -- S05\n G06 -- S06a & S06b\n G07 -- S07a & S07b\n S02 & S03 & S04a & S05 & S07a & S07b -.- · \"read issues through\" · S00\n mermaid\nflowchart LR\n UP[/\"Upstream reports\"/] -- COL[\"1 · COLLECT deterministic script\"]\n COL -- F[/\"ID.facts.json + facts.md (the agent's briefing)\"/]\n F -- AG[\"2 · AUTHOR agent, inside a JSON schema\"]\n AG -- J[/\"ID.analysis / narrative / verdict / strategy .json\"/]\n J -- REN[\"3 · RENDER deterministic script: validate, merge, index\"]\n F -- REN\n REN -- R[/\"docs/agentoutput/NN-stage/ reportID.md + README.md index\"/]\n\n classDef script fill:#16213E,stroke:#0a1020,color:#fff,font-weight:bold\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class COL,REN script\n class AG agent\n mermaid\nflowchart TD\n REG[/\"00 · issue-register.xlsx human input · read-only\"/]\n SRC[/\"Application source\"/]\n\n A01[\"01 Architect scan → describe → graph → docs\"]\n D01[/\"01-architecture/ architecture.md · function-reference.md\"/]\n G[(\"Neo4j graph\")]\n\n A02[\"02 Root Cause Analyst\"]\n D02[/\"02-root-cause/rootcauseID.md\"/]\n A03[\"03 Blast Radius Analyst\"]\n D03[/\"03-blast-radius/blastradiusID.md\"/]\n\n S1[\"04 Stage 1 · Strategize 04a catalog → 04a1 KB → 04a2 research\"]\n P[/\"04-remediation/fixplanID.md Status: Proposed · Fix Type\"/]\n HUMAN{{\"⏸ HUMAN Status → Approved / Rejected\"}}\n R{\"Fix Type\"}\n B4[\"04b Fixer CODEFIX\"]\n C4[\"04c Dependency upgrader DEPENDENCYUPGRADE\"]\n D4[\"04d Version migration VERSIONMIGRATION\"]\n FIX[/\"04-remediation/fixID.md + fixID.diff Compiled · Compile Failed · Refused\"/]\n\n A05[\"05 Existing App Test Agent re-scan · red-team · behaviour\"]\n D05[/\"05-verify/\"/]\n A06[\"06 Additional Test Execution QA gate · build gate\"]\n D06[/\"06-test-gate/\"/]\n A07a[\"07 Arbitrate deterministic score + hard gates\"]\n V[/\"07-ship/verdictID.md Cleared / Blocked\"/]\n A07b[\"07 Write up PR content + audit trail\"]\n PR{{\"⏸ HUMAN explicit PR request (Cleared only)\"}}\n PUB([\"Branch + PR after re-validation\"])\n\n SRC -- A01 -- D01\n A01 -- G\n REG -- A02\n D01 -- A02\n G -- A02\n A02 -- D02 -- A03\n D01 -- A03\n G -- A03\n A03 -- D03\n D02 -- S1\n D03 -- S1\n S1 -- P -- HUMAN -- R\n R -- B4 -- FIX\n R -- C4 -- FIX\n R -- D4 -- FIX\n FIX -- A05 -- D05\n FIX -- A06 -- D06\n D05 -- A07a\n D06 -- A07a\n A07a -- V -- A07b\n A07b -- PR -- PUB\n\n classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n class HUMAN,PR human\n mermaid\nstateDiagram-v2\n [] -- Registered: row added to issue-register.xlsx\n Registered -- Diagnosed: 02 root cause report\n Diagnosed -- Measured: 03 blast radius report\n Measured -- Proposed: 04 Stage 1 renders a plan\n Diagnosed -- Proposed: (03 is optional for 04)\n Proposed -- Approved: human edits Status\n Proposed -- Rejected: human edits Status\n Rejected -- []\n Approved -- Compiled: 04 Stage 2, verified diff\n Approved -- CompileFailed: diff drafted, build failed\n Approved -- Refused: no diff (for example a blocked migration)\n Refused -- []\n Compiled -- Verified: 05 + 06 reports\n CompileFailed -- Verified: 05 + 06 still run\n Verified -- Cleared: no hard gate, score ≥ threshold\n Verified -- Blocked: hard gate, or score below threshold\n Cleared -- Published: explicit PR request + re-validation\n Cleared -- []\n Blocked -- []: PR content + audit still written\n Published -- []\n mermaid\nsequenceDiagram\n autonumber\n actor H as Human\n participant AG as Agent (AI runtime)\n participant SC as Skill scripts\n participant FS as docs/agentoutput + .pipeline-context\n participant WT as Temporary worktree / sandbox\n\n H-FS: Add a row to issue-register.xlsx\n H-AG: run 01architect (one time for each codebase)\n AG-SC: scan · select · validate · graph · docs\n SC-FS: architecture.md, function-reference.md\n H-AG: run 02, then 03\n AG-SC: collect facts\n SC-FS: evidence / facts files\n AG-FS: analysis.json / narrative.json (schema)\n AG-SC: render\n SC-FS: rootcauseID.md, blastradiusID.md\n H-AG: run 04 (Stage 1)\n SC-FS: fixplanID.md (Status: Proposed, Fix Type)\n H-FS: Edit Status → Approved\n H-AG: run 04 again (Stage 2)\n AG-FS: patch.diff + rationale.json\n SC-WT: worktree add · git apply · compile\n SC-FS: fixID.md + fixID.diff\n H-AG: run 05, then 06\n SC-WT: apply patch (+ new test) · test · verify\n SC-FS: verify, QA and build reports (script-decided)\n H-AG: run 07\n SC-FS: score.json → verdictID.md\n SC-FS: prID.md + auditID.md\n H--AG: (optional) \"publish the PR\" — Cleared only\n mermaid\nflowchart LR\n X[/\"issue-register.xlsx\"/] -- RD[\"read sheet (row 1 = header)\"]\n RD -- SK{\"issueid blank?\"}\n SK -- · yes · SKIP[\"skip row\"]\n SK -- · no · N[\"normalise: scalars · multi-value lists\"]\n N -- MD[\"synthesise Markdown body ## Summary · ## Observed Behavior · ## Detection Notes …\"]\n MD -- ISS[\"issue object id · severity · services · symbols · files · entryPoints · body · raw\"]\n ISS -- C[\"consumers 02 · 03 · 04a · 05 · 07\"]\n mermaid\nflowchart LR\n S[\"01a Code Cartographer scan\"] -- AJ[/\"artifacts.json\"/]\n AJ -- W[\"01b Context Weaver select significant nodes\"]\n W -- BR[/\"context-workload.md (briefing)\"/]\n BR -- AG[\"Agent writes descriptions.json\"]\n AG -- VAL{\"01b validate\"}\n VAL -- · errors · AG\n VAL -- · ok · GF[\"01c Graph Forge load Neo4j\"]\n GF -- BS[\"01d Blueprint Scribe write reports\"]\n BS -- DOCS[/\"architecture.md function-reference.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class AG agent\n mermaid\nflowchart LR\n P[/\"pom.xml files\"/] -- M[\"discover modules + dependencies\"]\n J[/\".java files\"/] -- T[\"tree-sitter parse (syntax tree)\"]\n T -- X[\"extract types · fields · methods · annotations · REST mappings · call sites\"]\n M -- A[/\"artifacts.json\"/]\n X -- A\n mermaid\nflowchart TD\n AJ[/\"artifacts.json\"/] -- SC[\"score every node\"]\n SC -- TH{\"above threshold?\"}\n TH -- · no · OUT[\"not described (information only)\"]\n TH -- · yes · FP{\"described at the same fingerprint?\"}\n FP -- · yes · SKIP[\"skip (incremental)\"]\n FP -- · no: new or stale · BR[/\"context-workload.md signature · annotations · collaborators · call edges · exact source\"/]\n BR -- AG[\"Agent (or optional batch generator) writes descriptions.json\"]\n AG -- V{\"validate\"}\n V -- · errors · AG\n V -- · pass · GF[\"→ 01c Graph Forge\"]\n mermaid\nflowchart LR\n AJ[/\"artifacts.json\"/] -- C[\"create constraints\"]\n C -- N[\"MERGE nodes + relationships (structure, calls, endpoints, deps)\"]\n D[/\"descriptions.json (optional)\"/] -- FP[\"calculate fingerprints again\"]\n N -- CTX[\"MATCH known nodes, set ctx properties, flag ctxStale\"]\n FP -- CTX\n CTX -- NEO[(\"Neo4j\")]\n mermaid\nflowchart LR\n AJ[/\"artifacts.json\"/] -- G1[\"overview generator\"]\n NEO[(\"Neo4j if available\")] -.- G1\n AJ -- G2[\"function-reference generator (call graph from artifacts)\"]\n G1 -- A[/\"architecture.md\"/]\n G2 -- F[/\"function-reference.md\"/]\n mermaid\nflowchart LR\n L[\"list issues\"] -- C[\"collect facts issue register + reports + artifacts + Neo4j\"]\n C -- E[/\"rca/ID.evidence.md\"/]\n E -- RD[\"Agent reads briefing and the real source\"]\n RD -- A[\"Agent writes ID.analysis.json\"]\n A -- R[\"render + validate\"]\n R -- O[/\"02-root-cause/rootcauseID.md\"/]\n R -- · \"field not found\" · A\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class RD,A agent\n mermaid\nflowchart LR\n L[\"list root causes\"] -- M[\"measure reach call graph · endpoints · jobs · HTTP consumers · shared infra\"]\n M -- F[/\"blast-radius/ID.facts.md\"/]\n F -- Q{\"Does the service still run?\"}\n Q -- N[\"Agent writes ID.narrative.json\"]\n N -- R[\"render: use status rules, draw diagrams\"]\n R -- O[/\"03-blast-radius/blastradiusID.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class Q,N agent\n mermaid\nflowchart TD\n RC[/\"rootcauseID.md (+ blastradiusID.md)\"/] -- CC[\"04a collect remediation context CWE candidates, affected source\"]\n CC -- Q{\"Any detected CWE in the catalog?\"}\n Q -- · yes · ST[\"Agent writes strategy.json from the catalog entry\"]\n Q -- · \"every CWE is a gap\" · KB[\"04a1 knowledge base + rank fixes\"]\n KB -- · found · ST2[\"derived strategy (Low confidence)\"]\n KB -- · \"KB gap\" · RS[\"04a2 structured research\"]\n RS -- ST3[\"novel strategy (Low) or evidence-gap plan\"]\n ST -- REN[\"render fix plan + classify Fix Type from facts\"]\n ST2 -- REN\n ST3 -- REN\n REN -- PLAN[/\"fixplanID.md Status: Proposed\"/]\n PLAN -- H{{\"⏸ HUMAN Proposed → Approved / Rejected\"}}\n H -- · Approved · RT{\"Fix Type\"}\n RT -- · CODEFIX · B[\"04b Fixer\"]\n RT -- · DEPENDENCYUPGRADE · C[\"04c Dependency upgrader\"]\n RT -- · VERSIONMIGRATION · D[\"04d Version migration\"]\n B -- FX[/\"fixID.md + fixID.diff\"/]\n C -- FX\n D -- FX\n\n classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n class H human\n mermaid\nflowchart TD\n L[\"list workload\"] -- C[\"collect context diagnosis · reach · source · CWE scan\"]\n C -- B[/\"fix-strategy/ID.context.md\"/]\n B -- READ[\"Agent reads the briefing + the matched catalog entry in full (canonicalapproach + antipatterns)\"]\n READ -- G{\"catalog gap for every CWE?\"}\n G -- · no · W[\"Agent writes strategy.json one CWE · prose · cited · verification plan\"]\n G -- · yes · FB[\"fallback 04a1 → 04a2\"]\n FB -- W2[/\"strategy.json (from the fallback)\"/]\n W -- RN[\"render-fix-plan\"]\n W2 -- RN\n RN -- FT[\"classify Fix Type (checks the real pom.xml)\"]\n FT -- P[/\"fixplanID.md Status: Proposed\"/]\n mermaid\nflowchart TD\n D[\"detect-gap\"] -- Q{\"every detected CWE uncatalogued?\"}\n Q -- · no · STOP1[\"not for 04a1 (04a does it)\"]\n Q -- · yes · K{\"gap CWE in the KB?\"}\n K -- · no · KG[\"report KB gap → send to 04a2\"]\n K -- · yes · R[\"rank historical fixes keyword + TF-IDF (+ embedding)\"]\n R -- X[\"extract reusable pattern from the top match\"]\n X -- S[/\"strategy.json Low · cited · derivedpattern\"/]\n S -- RN[\"04a render-fix-plan → Status: Proposed\"]\n mermaid\nflowchart LR\n S1[\"1 Confirm the gap\"] -- S2[\"2 Collect context (Agents 1–3)\"] -- S3[\"3 Understand the vulnerability\"] -- S4[\"4 Validate root cause facts · conclusions · hypotheses\"]\n S4 -- S5[\"5 Threat model\"] -- S6[\"6 Security objective (the invariant)\"] -- S7[\"7 Research approaches\"] -- S8[\"8 Make ≥ 2 candidates\"]\n S8 -- S9[\"9 Evaluate them\"] -- S10[\"10 Select the smallest safe one\"] -- S11[\"11 Define validation tests\"] -- S12[\"12 Attach evidence + provenance\"] -- S13[\"13 Write strategy.json (Low, Proposed)\"]\n mermaid\nflowchart TD\n ST[/\"strategy.json\"/] -- VM{\"versionmigration recorded?\"}\n VM -- · yes · CK1{\"pom.xml declares sourceversion AND major or Java jump?\"}\n CK1 -- · yes · T3[\"VERSIONMIGRATION → 04d\"]\n CK1 -- · no · REF1[\"refuse fix plan\"]\n VM -- · no · DU{\"dependencyupgrade recorded?\"}\n DU -- · yes · CK2{\"platform parent/BOM across a major?\"}\n CK2 -- · yes · REF2[\"refuse: plan it as versionmigration\"]\n CK2 -- · no · T2[\"DEPENDENCYUPGRADE → 04c\"]\n DU -- · no · T1[\"CODEFIX → 04b\"]\n mermaid\nflowchart LR\n P[/\"Approved plan\"/] -- A[\"Agent writes smallest patch in the current style of the file\"]\n A -- R[\"Agent writes rationale.json (deviations if code ≠ plan)\"]\n R -- V[\"verify-patch\"]\n subgraph WT[\"Temporary worktree of HEAD\"]\n direction TB\n W1[\"git apply --check\"] -- W2[\"git apply\"] -- W3[\"detect affected module\"] -- W4[\"mvnw compile (+ named test)\"]\n end\n V -- WT\n WT -- RM[\"remove worktree\"]\n RM -- REN[\"render\"]\n REN -- O[/\"fixID.md + fixID.diff Compiled · Compile Failed · Refused\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A,R agent\n mermaid\nflowchart LR\n P[/\"Approved CWE-1104 plan\"/] -- A[\"Agent: raise one &lt;version&gt; to ≥ minimumfixedversion\"]\n A -- V[\"apply-version-bump\"]\n subgraph WT[\"Temporary worktree\"]\n direction TB\n C1[\"1 · declared version ≥ target?\"] -- C2[\"2 · compile the module\"] -- C3[\"3 · mvn dependency:tree\"] -- C4[\"4 · resolved version ≥ target?\"]\n end\n V -- WT -- O[/\"fixID.md + fixID.diff\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A agent\n mermaid\nflowchart TD\n A[\"detect-baseline (routed: checks Approved + Fix Type again, reads target from the fix plan)\"] -- P{\"path SUPPORTED?\"}\n P -- · no · BL([\"BLOCKED → hand-off Status Refused\"])\n P -- · yes · W[\"prepare-workspace sandbox copy + private git repo\"]\n W -- R0[\"IMMUTABLE ROUND 0 baseline build + baseline probe on the current JDK\"]\n R0 -- PL[\"Agent: migration-plan.json impact · constraints · probes · candidates\"]\n PL -- E{\"next ladder edge\"}\n E -- DR[\"OpenRewrite dry-run (no source change)\"]\n DR -- IN{\"Agent inspects preview against the plan\"}\n IN -- · \"out of scope\" · DR\n IN -- · accepted · AP[\"apply in sandbox checkpoint · scope check · auto-revert\"]\n AP -- B[\"build round on the JDK of the edge\"]\n B -- · fails · G[\"grouped errors → residual edit from evidence\"]\n G -- B\n B -- · \"passes on edge version\" · E\n E -- · landed · FP[\"final test round + final probe endpoint inventory compare\"]\n FP -- J[\"Agent: migration.json (judgement)\"]\n J -- REN[\"render report + diff + MIGRATIONSUMMARY + fixID hand-off\"]\n REN -- AG[\"apply-migration dry-run by default · eligibility gate · --to-project only on explicit request\"]\n mermaid\nflowchart LR\n FX[/\"fixID.md + fixID.diff\"/] -- V05[\"05 · three static checks\"]\n FX -- V06[\"06 · two deterministic gates\"]\n V05 -- R1[/\"rescan\"/] & R2[/\"redteam\"/] & R3[/\"behavior\"/]\n V06 -- R4[/\"qa\"/] & R5[/\"build\"/]\n R1 & R2 & R3 & R4 & R5 -- A07[\"07 · score + hard gates\"]\n A07 -- D{\"Decision\"}\n D -- CL[\"✅ Cleared\"]\n D -- BL[\"🚫 Blocked\"]\n CL & BL -- W[\"PR content + audit trail\"]\n mermaid\nflowchart LR\n FX[/\"fixID.md + .diff\"/] -- M[\"make the patched files worktree + git apply (no build)\"]\n M -- R1[\"collect-rescan\"]\n M -- R2[\"collect-redteam\"]\n M -- R3[\"collect-behavior\"]\n R1 -- V1[\"Agent: rescan verdict\"]\n R2 -- V2[\"Agent: redteam verdict\"]\n R3 -- V3[\"Agent: behaviour verdict\"]\n V1 -- O1[/\"rescanID.md\"/]\n V2 -- O2[/\"redteamID.md\"/]\n V3 -- O3[/\"behaviorID.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class V1,V2,V3 agent\n mermaid\nflowchart LR\n FX[/\"fix diff + source\"/] -- A[\"Agent drafts ONE test adversarial input + benign input, asserts what the patch constructs\"]\n A -- G[\"run-qa-gate\"]\n subgraph WT[\"Temporary worktree\"]\n direction TB\n W1[\"apply fix diff\"] -- W2[\"apply test diff\"] -- W3[\"mvnw test -Dtest=NewTest\"] -- W4{\"--existing-test named?\"}\n W4 -- · \"needs live infrastructure\" · SK[\"SKIPPED (with reason)\"]\n W4 -- · \"can run\" · W5[\"run it also\"]\n end\n G -- WT -- RJ[/\"result.json Passed / Failed (exit code)\"/]\n RJ -- R[\"render-qa-report\"] -- O[/\"qaID.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A agent\n mermaid\nflowchart LR\n FX[/\"fix diff\"/] -- G[\"run-build-gate\"]\n subgraph WT[\"Temporary worktree\"]\n direction TB\n B1[\"mvn dependency:tree (before)\"] -- B2[\"apply fix diff\"] -- B3[\"mvnw verify -DskipITs\"] -- B4[\"mvn dependency:tree (after)\"] -- B5[\"diff the two trees\"]\n end\n G -- WT -- RJ[/\"result.json\"/] -- R[\"render-build-report\"] -- O[/\"buildID.md Passed / Failed + dependency diff\"/]\n mermaid\nflowchart TD\n IN[\"5 upstream reports + severity + Fix Type / Migration Status\"] -- G{\"Hard gates\"}\n G -- · \"re-scan = STILLVULNERABLE\" · BL[\"🚫 BLOCKED\"]\n G -- · \"migration not PASS / PARTIAL PASS\" · BL\n G -- · \"build = Failed\" · BL\n G -- · \"no gate triggered\" · S[\"score = red-team + behaviour + QA (0 – 100)\"]\n S -- T{\"score ≥ severity threshold?\"}\n T -- · yes · CL[\"✅ CLEARED\"]\n T -- · no · BL\n CL -- OV{\"Agent override? (Cleared → Blocked only, with a cited reason)\"}\n OV -- · no · FIN[/\"verdictID.md\"/]\n OV -- · yes · BL\n BL -- FIN\n\n classDef gate fill:#F5C542,stroke:#b8901f,color:#3d2f00,font-weight:bold\n classDef bad fill:#C0392B,stroke:#8d2618,color:#fff,font-weight:bold\n classDef good fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class G,T,OV gate\n class BL bad\n class CL good\n mermaid\nflowchart LR\n CH[\"collect-chain links + full text from every stage\"] -- F[/\"chain.facts.md\"/]\n F -- A[\"Agent writes content.json auditnarrative (every claim linked) · prtitle · prsummary · prtestplan\"]\n A -- R[\"render-scribe\"]\n V[/\"verdictID.md (Decision read mechanically)\"/] -- R\n R -- AU[/\"auditID.md chronological chain of custody\"/]\n R -- PR[/\"prID.md + 'BLOCKED — do not open' banner when not Cleared\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A agent\n \n.github/ canonical harness\n├── agents/ 01architect … 07audit-and-pr (.agent.md)\n├── skills/ 00 … 07b — 18 self-contained skill folders\n│ ├── 00-issue-register/ shared, read-only register loader\n│ ├── 01a-code-cartographer/ ┐\n│ ├── 01b-context-weaver/ ├─ Agent 01, in this order\n│ ├── 01c-graph-forge/ │\n│ ├── 01d-blueprint-scribe/ ┘\n│ ├── 02-root-cause-analyst/\n│ ├── 03-blast-radius-analyst/\n│ ├── 04a-fix-strategist/ + catalog/cwe-patterns.json · routing ┐\n│ ├── 04a1-remediation-intelligence/ + knowledge/ · ranking-weights │ Agent 04, Stage 1\n│ ├── 04a2-remediation-research/ ┘\n│ ├── 04b-fixer/ ┐\n│ ├── 04c-dependency-upgrader/ ├─ Agent 04, Stage 2 (by Fix Type)\n│ ├── 04d-version-migration/ ┘ + references/ (packs, ladder, recipes)\n│ ├── 05-verify/ Agent 05\n│ ├── 06a-qa-runner/ ┐ Agent 06\n│ ├── 06b-build-gatekeeper/ ┘\n│ ├── 07a-merge-arbiter/ + scoring.json ┐ Agent 07\n│ └── 07b-scribe/ ┘\n├── pipeline-contract.md ownership · transitions · routing · decision policy\n├── scripts/pipeline-lint.js contract text checks\n└── HARNESS.md harness overview (not README.md, so GitHub shows…",
+      "mermaid": [
+        "flowchart LR\n    IN[\"📊 Issue register<br/>(Excel, read-only)\"] --> A\n    subgraph A[\"PHASE A · UNDERSTAND\"]\n      direction TB\n      A1[\"01 Architect\"] --> A2[\"02 Root Cause\"] --> A3[\"03 Blast Radius\"]\n    end\n    A --> B\n    subgraph B[\"PHASE B · FIX\"]\n      direction TB\n      B1[\"04 Strategize<br/>(plan, no code)\"] --> H{{\"⏸ Human approves\"}} --> B2[\"04 Implement<br/>(04b · 04c · 04d)\"]\n    end\n    B --> C\n    subgraph C[\"PHASE C · VERIFY & SHIP\"]\n      direction TB\n      C1[\"05 Re-scan · Red-team · Behaviour\"] --> C2[\"06 QA test · Build gate\"] --> C3[\"07 Score · Verdict · PR · Audit\"]\n    end\n    C --> OUT[\"✅ Cleared or 🚫 Blocked<br/>+ PR content + audit trail\"]\n\n    classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n    class H human",
+        "flowchart LR\n    RT[\"AI runtime<br/>(Copilot Chat / Claude Code)\"] -->|\"loads\"| AG[\"Agent<br/>NN_name.agent.md\"]\n    AG -->|\"reads SKILL.md,<br/>runs\"| SC[\"Skill scripts<br/>(deterministic)\"]\n    SC -->|\"facts\"| F[/\"facts.json / facts.md<br/>(briefing)\"/]\n    F --> AG\n    AG -->|\"judgement,<br/>schema-checked\"| J[/\"analysis / verdict /<br/>strategy .json\"/]\n    J --> SC\n    SC -->|\"render\"| R[/\"docs/agent_output/<br/>report.md\"/]",
+        "flowchart TB\n    subgraph REPO[\"Repository\"]\n      APP[\"Application under analysis<br/>(Spring Boot microservices)\"]\n      REG[\"docs/agent_output/00-issues/<br/>issue-register.xlsx\"]\n      OUT[\"docs/agent_output/01…07<br/>stage reports (committed)\"]\n      H[\"Harness<br/>.github/ (canonical) · .claude/ (mirror)<br/>agents · skills · pipeline contract · lint\"]\n      PC[\".pipeline-context/<br/>facts + agent JSON (gitignored)\"]\n      MC[\"mission-control/ + telemetry ledger<br/>(observability)\"]\n    end\n    LLM[\"AI runtime\"]\n    NEO[(\"Neo4j knowledge graph<br/>(optional)\")]\n    MVN[\"Maven + JDKs<br/>(builds, tests)\"]\n    OR[\"OpenRewrite<br/>(04d, open-source recipes by default)\"]\n\n    LLM -->|\"follows agents,<br/>runs scripts, writes JSON\"| H\n    APP --> H\n    REG --> H\n    H --> PC\n    H --> OUT\n    H <--> NEO\n    H --> MVN\n    H --> OR\n    OUT --> MC"
+      ]
+    },
+    {
+      "name": "KrishnaAnnavaram.github.io",
+      "fullName": "KrishnaAnnavaram/KrishnaAnnavaram.github.io",
+      "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io",
+      "homepage": null,
+      "description": "Professional portfolio - Gen AI Engineer & AI Specialist",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 196697,
+      "createdAt": "2026-02-23T02:27:00Z",
+      "pushedAt": "2026-10-07T21:09:33Z",
+      "languages": [
+        {
+          "name": "TypeScript",
+          "bytes": 425772,
+          "share": 89
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 19115,
+          "share": 4
+        },
+        {
+          "name": "CSS",
+          "bytes": 18723,
+          "share": 3.9
+        },
+        {
+          "name": "MDX",
+          "bytes": 14849,
+          "share": 3.1
+        }
+      ],
+      "primaryLanguage": "TypeScript",
+      "lastCommit": {
+        "sha": "7aaf74e",
+        "message": "Merge pull request #26 from KrishnaAnnavaram/redesign/ai-portfolio-2026",
+        "date": "2026-10-07T21:09:33Z",
+        "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io/commit/7aaf74e7d3ba7ab16ab9da04492d00eda0b33d90"
+      },
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    },
     {
       "name": "hotfood-forecast",
       "fullName": "KrishnaAnnavaram/hotfood-forecast",
@@ -3242,76 +3399,6 @@
       "mermaid": []
     },
     {
-      "name": "MARS",
-      "fullName": "KrishnaAnnavaram/MARS",
-      "url": "https://github.com/KrishnaAnnavaram/MARS",
-      "homepage": null,
-      "description": "Modernization, Assessment, Remediation & Security",
-      "private": false,
-      "archived": false,
-      "fork": false,
-      "defaultBranch": "main",
-      "license": null,
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "openIssues": 0,
-      "sizeKb": 5206,
-      "createdAt": "2026-09-24T18:50:33Z",
-      "pushedAt": "2026-10-03T20:29:23Z",
-      "languages": [
-        {
-          "name": "JavaScript",
-          "bytes": 769882,
-          "share": 54.5
-        },
-        {
-          "name": "TypeScript",
-          "bytes": 573979,
-          "share": 40.6
-        },
-        {
-          "name": "Java",
-          "bytes": 59192,
-          "share": 4.2
-        },
-        {
-          "name": "CSS",
-          "bytes": 6366,
-          "share": 0.5
-        },
-        {
-          "name": "Python",
-          "bytes": 1704,
-          "share": 0.1
-        },
-        {
-          "name": "Gherkin",
-          "bytes": 1041,
-          "share": 0.1
-        },
-        {
-          "name": "HTML",
-          "bytes": 687,
-          "share": 0
-        }
-      ],
-      "primaryLanguage": "JavaScript",
-      "lastCommit": {
-        "sha": "007b0a2",
-        "message": "Merge pull request #13 from KrishnaAnnavaram/docs/readme-ste",
-        "date": "2026-10-03T20:29:23Z",
-        "url": "https://github.com/KrishnaAnnavaram/MARS/commit/007b0a24b912026c55fedbbaa1115613b6453003"
-      },
-      "readmeLead": "MARS is an agentic remediation harness for Java and Spring Boot systems. It takes a reported defect or vulnerability through all of these steps to a scored ship decision that you can audit:",
-      "readmeText": "MARS — Modernization, Assessment, Remediation & Security\n\nMARS is an agentic remediation harness for Java and Spring Boot systems. It takes a reported\ndefect or vulnerability through all of these steps to a scored ship decision that you can audit:\n\nunderstand the code → diagnose the issue → measure its reach → plan a fix → get human approval → implement it → verify it → test it → build it → decide → document it.\n\nSummary ·\nAgents ·\nSkills ·\nWorkflow ·\nShip decision ·\nRun MARS ·\nGlossary\n\n \n\n [!NOTE]\n This README uses ASD-STE100 Simplified Technical English. The writing rules and the project\n vocabulary are in docs/ste-style-guide.md. Each term in the\n Glossary has only one meaning.\n\nMARS uses the same pipeline for framework and Java version migrations. It can migrate Spring Boot\nfrom any published line to any later line.\n\nThis README is the one location that explains all of MARS. It gives these topics:\n\n- the general design\n- each of the 7 agents\n- each of the 18 skills: its purpose, its contents and its procedure, step by step\n- the decision rules\n- the data map\n- observability\n- the runbook\n- the known problems\n\nThis README describes the harness. It does not describe the Java application that MARS analyses.\n If you are… · Read · \n --- · --- · \n A manager or reviewer · 1, 3, 4, 12, 17, 19 · \n A developer who joins the project · All sections, in sequence. Keep 15, 16 and 18 open while you work · \n An operator who runs a remediation · 15, then the section for the agent that you will run (sections 6 to 11) · \n A person who needs one skill · The skill index, then the detailed section for that skill · \n\nTable of contents\n\n1. 🧭 Summary\n2. 🏗️ How MARS is built\n - 2.1 Agents, skills, scripts and the AI runtime\n - 2.2 System context\n - 2.3 .github and .claude\n - 2.4 The 7 agents\n - 2.5 The 18 skills\n - 2.6 Which agent uses which skill\n3. 🛡️ Design rules\n4. 🔄 The end-to-end workflow\n5. 📊 The input — skill 00-issue-register\n6. 🔵 Phase A · Understand\n - 6.1 Agent 01 — Architect · skills 01a, 01b, 01c, 01d\n - 6.2 Agent 02 — Root Cause Analyst · skill 02\n - 6.3 Agent 03 — Blast Radius Analyst · skill 03\n7. 🟢 Phase B · Fix — Agent 04 Fix Generator\n8. 🧠 Agent 04, Stage 1 — Strategize · skills 04a, 04a1, 04a2\n9. ⏸️ Human approval and Fix Type\n10. 🛠️ Agent 04, Stage 2 — Implement · skills 04b, 04c, 04d\n11. 🟣 Phase C · Verify & Ship\n - 11.1 Agent 05 — Existing App Test Agent · skill 05\n - 11.2 Agent 06 — Additional Test Execution · skills 06a, 06b\n - 11.3 Agent 07 — Audit & PR · skills 07a, 07b\n12. ⚖️ The ship decision and status vocabulary\n13. 🗂️ Data and file map\n14. 📡 Observability — telemetry and Mission Control\n15. ▶️ How to run MARS\n16. 🧩 How to extend MARS\n17. ✅ Validation results\n18. ⚠️ Known problems\n19. 📌 Key points\n20. 📖 Glossary\n\n1. Summary\n\nThe problem. It is easy to make a patch. The difficult questions come after the patch:\n\n- Does the patch close the issue?\n- Can a different path still reach the issue?\n- Did the patch also change something that nobody expected?\n- Does the patch build? Do the tests pass?\n- Is it safe to ship the patch? Who decided that?\n\nMARS gives each of these questions its own stage. Each stage writes a record that the next stage\nreads.\n Item · Value · \n --- · --- · \n Agents · 7, run in order 01 → 07 · \n Skills (the folders that the agents use) · 18, with the number of the agent that runs them · \n Phases · A · Understand (01–03) → B · Fix (04) → C · Verify & Ship (05–07) · \n Human checkpoints · 2: approve the fix plan · make an explicit request for a pull request · \n Release authority · 1: only a Cleared verdict from Agent 07 lets a patch ship · \n Hard gates (a score cannot cancel them) · 3: still vulnerable · build failed · migration not passed · \n Input · One Excel issue register, issue-register.xlsx. MARS only reads it. · \n Output · One Markdown report for each issue and each stage in docs/agentoutput/, and diff files · \n Kinds of fix · Code fix (04b), dependency upgrade (04c), framework or Java version migration (04d) · \n Safety · A script tries each patch in a temporary git worktree or in a private sandbox. Analysis never changes the real code. · \n\nmermaid\nflowchart LR\n IN[\"📊 Issue register (Excel, read-only)\"] -- A\n subgraph A[\"PHASE A · UNDERSTAND\"]\n direction TB\n A1[\"01 Architect\"] -- A2[\"02 Root Cause\"] -- A3[\"03 Blast Radius\"]\n end\n A -- B\n subgraph B[\"PHASE B · FIX\"]\n direction TB\n B1[\"04 Strategize (plan, no code)\"] -- H{{\"⏸ Human approves\"}} -- B2[\"04 Implement (04b · 04c · 04d)\"]\n end\n B -- C\n subgraph C[\"PHASE C · VERIFY & SHIP\"]\n direction TB\n C1[\"05 Re-scan · Red-team · Behaviour\"] -- C2[\"06 QA test · Build gate\"] -- C3[\"07 Score · Verdict · PR · Audit\"]\n end\n C -- OUT[\"✅ Cleared or 🚫 Blocked + PR content + audit trail\"]\n\n classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n class H human\n mermaid\nflowchart LR\n RT[\"AI runtime (Copilot Chat / Claude Code)\"] -- · \"loads\" · AG[\"Agent NNname.agent.md\"]\n AG -- · \"reads SKILL.md, runs\" · SC[\"Skill scripts (deterministic)\"]\n SC -- · \"facts\" · F[/\"facts.json / facts.md (briefing)\"/]\n F -- AG\n AG -- · \"judgement, schema-checked\" · J[/\"analysis / verdict / strategy .json\"/]\n J -- SC\n SC -- · \"render\" · R[/\"docs/agentoutput/ report.md\"/]\n mermaid\nflowchart TB\n subgraph REPO[\"Repository\"]\n APP[\"Application under analysis (Spring Boot microservices)\"]\n REG[\"docs/agentoutput/00-issues/ issue-register.xlsx\"]\n OUT[\"docs/agentoutput/01…07 stage reports (committed)\"]\n H[\"Harness .github/ (canonical) · .claude/ (mirror) agents · skills · pipeline contract · lint\"]\n PC[\".pipeline-context/ facts + agent JSON (gitignored)\"]\n MC[\"mission-control/ + telemetry ledger (observability)\"]\n end\n LLM[\"AI runtime\"]\n NEO[(\"Neo4j knowledge graph (optional)\")]\n MVN[\"Maven + JDKs (builds, tests)\"]\n OR[\"OpenRewrite (04d, open-source recipes by default)\"]\n\n LLM -- · \"follows agents, runs scripts, writes JSON\" · H\n APP -- H\n REG -- H\n H -- PC\n H -- OUT\n H NEO\n H -- MVN\n H -- OR\n OUT -- MC\n mermaid\nflowchart LR\n subgraph AG[\"Agents\"]\n direction TB\n G01[\"01 Architect\"]\n G02[\"02 Root Cause\"]\n G03[\"03 Blast Radius\"]\n G04[\"04 Fix Generator\"]\n G05[\"05 Existing App Test\"]\n G06[\"06 Additional Test Exec\"]\n G07[\"07 Audit & PR\"]\n end\n subgraph SK[\"Skills\"]\n direction TB\n S00[\"00 issue-register\"]\n S01a[\"01a code-cartographer\"]\n S01b[\"01b context-weaver\"]\n S01c[\"01c graph-forge\"]\n S01d[\"01d blueprint-scribe\"]\n S02[\"02 root-cause-analyst\"]\n S03[\"03 blast-radius-analyst\"]\n S04a[\"04a fix-strategist\"]\n S04a1[\"04a1 remediation-intelligence\"]\n S04a2[\"04a2 remediation-research\"]\n S04b[\"04b fixer\"]\n S04c[\"04c dependency-upgrader\"]\n S04d[\"04d version-migration\"]\n S05[\"05 verify\"]\n S06a[\"06a qa-runner\"]\n S06b[\"06b build-gatekeeper\"]\n S07a[\"07a merge-arbiter\"]\n S07b[\"07b scribe\"]\n end\n G01 -- S01a & S01b & S01c & S01d\n G02 -- S02\n G03 -- S03\n G04 -- S04a & S04a1 & S04a2 & S04b & S04c & S04d\n G05 -- S05\n G06 -- S06a & S06b\n G07 -- S07a & S07b\n S02 & S03 & S04a & S05 & S07a & S07b -.- · \"read issues through\" · S00\n mermaid\nflowchart LR\n UP[/\"Upstream reports\"/] -- COL[\"1 · COLLECT deterministic script\"]\n COL -- F[/\"ID.facts.json + facts.md (the agent's briefing)\"/]\n F -- AG[\"2 · AUTHOR agent, inside a JSON schema\"]\n AG -- J[/\"ID.analysis / narrative / verdict / strategy .json\"/]\n J -- REN[\"3 · RENDER deterministic script: validate, merge, index\"]\n F -- REN\n REN -- R[/\"docs/agentoutput/NN-stage/ reportID.md + README.md index\"/]\n\n classDef script fill:#16213E,stroke:#0a1020,color:#fff,font-weight:bold\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class COL,REN script\n class AG agent\n mermaid\nflowchart TD\n REG[/\"00 · issue-register.xlsx human input · read-only\"/]\n SRC[/\"Application source\"/]\n\n A01[\"01 Architect scan → describe → graph → docs\"]\n D01[/\"01-architecture/ architecture.md · function-reference.md\"/]\n G[(\"Neo4j graph\")]\n\n A02[\"02 Root Cause Analyst\"]\n D02[/\"02-root-cause/rootcauseID.md\"/]\n A03[\"03 Blast Radius Analyst\"]\n D03[/\"03-blast-radius/blastradiusID.md\"/]\n\n S1[\"04 Stage 1 · Strategize 04a catalog → 04a1 KB → 04a2 research\"]\n P[/\"04-remediation/fixplanID.md Status: Proposed · Fix Type\"/]\n HUMAN{{\"⏸ HUMAN Status → Approved / Rejected\"}}\n R{\"Fix Type\"}\n B4[\"04b Fixer CODEFIX\"]\n C4[\"04c Dependency upgrader DEPENDENCYUPGRADE\"]\n D4[\"04d Version migration VERSIONMIGRATION\"]\n FIX[/\"04-remediation/fixID.md + fixID.diff Compiled · Compile Failed · Refused\"/]\n\n A05[\"05 Existing App Test Agent re-scan · red-team · behaviour\"]\n D05[/\"05-verify/\"/]\n A06[\"06 Additional Test Execution QA gate · build gate\"]\n D06[/\"06-test-gate/\"/]\n A07a[\"07 Arbitrate deterministic score + hard gates\"]\n V[/\"07-ship/verdictID.md Cleared / Blocked\"/]\n A07b[\"07 Write up PR content + audit trail\"]\n PR{{\"⏸ HUMAN explicit PR request (Cleared only)\"}}\n PUB([\"Branch + PR after re-validation\"])\n\n SRC -- A01 -- D01\n A01 -- G\n REG -- A02\n D01 -- A02\n G -- A02\n A02 -- D02 -- A03\n D01 -- A03\n G -- A03\n A03 -- D03\n D02 -- S1\n D03 -- S1\n S1 -- P -- HUMAN -- R\n R -- B4 -- FIX\n R -- C4 -- FIX\n R -- D4 -- FIX\n FIX -- A05 -- D05\n FIX -- A06 -- D06\n D05 -- A07a\n D06 -- A07a\n A07a -- V -- A07b\n A07b -- PR -- PUB\n\n classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n class HUMAN,PR human\n mermaid\nstateDiagram-v2\n [] -- Registered: row added to issue-register.xlsx\n Registered -- Diagnosed: 02 root cause report\n Diagnosed -- Measured: 03 blast radius report\n Measured -- Proposed: 04 Stage 1 renders a plan\n Diagnosed -- Proposed: (03 is optional for 04)\n Proposed -- Approved: human edits Status\n Proposed -- Rejected: human edits Status\n Rejected -- []\n Approved -- Compiled: 04 Stage 2, verified diff\n Approved -- CompileFailed: diff drafted, build failed\n Approved -- Refused: no diff (for example a blocked migration)\n Refused -- []\n Compiled -- Verified: 05 + 06 reports\n CompileFailed -- Verified: 05 + 06 still run\n Verified -- Cleared: no hard gate, score ≥ threshold\n Verified -- Blocked: hard gate, or score below threshold\n Cleared -- Published: explicit PR request + re-validation\n Cleared -- []\n Blocked -- []: PR content + audit still written\n Published -- []\n mermaid\nsequenceDiagram\n autonumber\n actor H as Human\n participant AG as Agent (AI runtime)\n participant SC as Skill scripts\n participant FS as docs/agentoutput + .pipeline-context\n participant WT as Temporary worktree / sandbox\n\n H-FS: Add a row to issue-register.xlsx\n H-AG: run 01architect (one time for each codebase)\n AG-SC: scan · select · validate · graph · docs\n SC-FS: architecture.md, function-reference.md\n H-AG: run 02, then 03\n AG-SC: collect facts\n SC-FS: evidence / facts files\n AG-FS: analysis.json / narrative.json (schema)\n AG-SC: render\n SC-FS: rootcauseID.md, blastradiusID.md\n H-AG: run 04 (Stage 1)\n SC-FS: fixplanID.md (Status: Proposed, Fix Type)\n H-FS: Edit Status → Approved\n H-AG: run 04 again (Stage 2)\n AG-FS: patch.diff + rationale.json\n SC-WT: worktree add · git apply · compile\n SC-FS: fixID.md + fixID.diff\n H-AG: run 05, then 06\n SC-WT: apply patch (+ new test) · test · verify\n SC-FS: verify, QA and build reports (script-decided)\n H-AG: run 07\n SC-FS: score.json → verdictID.md\n SC-FS: prID.md + auditID.md\n H--AG: (optional) \"publish the PR\" — Cleared only\n mermaid\nflowchart LR\n X[/\"issue-register.xlsx\"/] -- RD[\"read sheet (row 1 = header)\"]\n RD -- SK{\"issueid blank?\"}\n SK -- · yes · SKIP[\"skip row\"]\n SK -- · no · N[\"normalise: scalars · multi-value lists\"]\n N -- MD[\"synthesise Markdown body ## Summary · ## Observed Behavior · ## Detection Notes …\"]\n MD -- ISS[\"issue object id · severity · services · symbols · files · entryPoints · body · raw\"]\n ISS -- C[\"consumers 02 · 03 · 04a · 05 · 07\"]\n mermaid\nflowchart LR\n S[\"01a Code Cartographer scan\"] -- AJ[/\"artifacts.json\"/]\n AJ -- W[\"01b Context Weaver select significant nodes\"]\n W -- BR[/\"context-workload.md (briefing)\"/]\n BR -- AG[\"Agent writes descriptions.json\"]\n AG -- VAL{\"01b validate\"}\n VAL -- · errors · AG\n VAL -- · ok · GF[\"01c Graph Forge load Neo4j\"]\n GF -- BS[\"01d Blueprint Scribe write reports\"]\n BS -- DOCS[/\"architecture.md function-reference.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class AG agent\n mermaid\nflowchart LR\n P[/\"pom.xml files\"/] -- M[\"discover modules + dependencies\"]\n J[/\".java files\"/] -- T[\"tree-sitter parse (syntax tree)\"]\n T -- X[\"extract types · fields · methods · annotations · REST mappings · call sites\"]\n M -- A[/\"artifacts.json\"/]\n X -- A\n mermaid\nflowchart TD\n AJ[/\"artifacts.json\"/] -- SC[\"score every node\"]\n SC -- TH{\"above threshold?\"}\n TH -- · no · OUT[\"not described (information only)\"]\n TH -- · yes · FP{\"described at the same fingerprint?\"}\n FP -- · yes · SKIP[\"skip (incremental)\"]\n FP -- · no: new or stale · BR[/\"context-workload.md signature · annotations · collaborators · call edges · exact source\"/]\n BR -- AG[\"Agent (or optional batch generator) writes descriptions.json\"]\n AG -- V{\"validate\"}\n V -- · errors · AG\n V -- · pass · GF[\"→ 01c Graph Forge\"]\n mermaid\nflowchart LR\n AJ[/\"artifacts.json\"/] -- C[\"create constraints\"]\n C -- N[\"MERGE nodes + relationships (structure, calls, endpoints, deps)\"]\n D[/\"descriptions.json (optional)\"/] -- FP[\"calculate fingerprints again\"]\n N -- CTX[\"MATCH known nodes, set ctx properties, flag ctxStale\"]\n FP -- CTX\n CTX -- NEO[(\"Neo4j\")]\n mermaid\nflowchart LR\n AJ[/\"artifacts.json\"/] -- G1[\"overview generator\"]\n NEO[(\"Neo4j if available\")] -.- G1\n AJ -- G2[\"function-reference generator (call graph from artifacts)\"]\n G1 -- A[/\"architecture.md\"/]\n G2 -- F[/\"function-reference.md\"/]\n mermaid\nflowchart LR\n L[\"list issues\"] -- C[\"collect facts issue register + reports + artifacts + Neo4j\"]\n C -- E[/\"rca/ID.evidence.md\"/]\n E -- RD[\"Agent reads briefing and the real source\"]\n RD -- A[\"Agent writes ID.analysis.json\"]\n A -- R[\"render + validate\"]\n R -- O[/\"02-root-cause/rootcauseID.md\"/]\n R -- · \"field not found\" · A\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class RD,A agent\n mermaid\nflowchart LR\n L[\"list root causes\"] -- M[\"measure reach call graph · endpoints · jobs · HTTP consumers · shared infra\"]\n M -- F[/\"blast-radius/ID.facts.md\"/]\n F -- Q{\"Does the service still run?\"}\n Q -- N[\"Agent writes ID.narrative.json\"]\n N -- R[\"render: use status rules, draw diagrams\"]\n R -- O[/\"03-blast-radius/blastradiusID.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class Q,N agent\n mermaid\nflowchart TD\n RC[/\"rootcauseID.md (+ blastradiusID.md)\"/] -- CC[\"04a collect remediation context CWE candidates, affected source\"]\n CC -- Q{\"Any detected CWE in the catalog?\"}\n Q -- · yes · ST[\"Agent writes strategy.json from the catalog entry\"]\n Q -- · \"every CWE is a gap\" · KB[\"04a1 knowledge base + rank fixes\"]\n KB -- · found · ST2[\"derived strategy (Low confidence)\"]\n KB -- · \"KB gap\" · RS[\"04a2 structured research\"]\n RS -- ST3[\"novel strategy (Low) or evidence-gap plan\"]\n ST -- REN[\"render fix plan + classify Fix Type from facts\"]\n ST2 -- REN\n ST3 -- REN\n REN -- PLAN[/\"fixplanID.md Status: Proposed\"/]\n PLAN -- H{{\"⏸ HUMAN Proposed → Approved / Rejected\"}}\n H -- · Approved · RT{\"Fix Type\"}\n RT -- · CODEFIX · B[\"04b Fixer\"]\n RT -- · DEPENDENCYUPGRADE · C[\"04c Dependency upgrader\"]\n RT -- · VERSIONMIGRATION · D[\"04d Version migration\"]\n B -- FX[/\"fixID.md + fixID.diff\"/]\n C -- FX\n D -- FX\n\n classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n class H human\n mermaid\nflowchart TD\n L[\"list workload\"] -- C[\"collect context diagnosis · reach · source · CWE scan\"]\n C -- B[/\"fix-strategy/ID.context.md\"/]\n B -- READ[\"Agent reads the briefing + the matched catalog entry in full (canonicalapproach + antipatterns)\"]\n READ -- G{\"catalog gap for every CWE?\"}\n G -- · no · W[\"Agent writes strategy.json one CWE · prose · cited · verification plan\"]\n G -- · yes · FB[\"fallback 04a1 → 04a2\"]\n FB -- W2[/\"strategy.json (from the fallback)\"/]\n W -- RN[\"render-fix-plan\"]\n W2 -- RN\n RN -- FT[\"classify Fix Type (checks the real pom.xml)\"]\n FT -- P[/\"fixplanID.md Status: Proposed\"/]\n mermaid\nflowchart TD\n D[\"detect-gap\"] -- Q{\"every detected CWE uncatalogued?\"}\n Q -- · no · STOP1[\"not for 04a1 (04a does it)\"]\n Q -- · yes · K{\"gap CWE in the KB?\"}\n K -- · no · KG[\"report KB gap → send to 04a2\"]\n K -- · yes · R[\"rank historical fixes keyword + TF-IDF (+ embedding)\"]\n R -- X[\"extract reusable pattern from the top match\"]\n X -- S[/\"strategy.json Low · cited · derivedpattern\"/]\n S -- RN[\"04a render-fix-plan → Status: Proposed\"]\n mermaid\nflowchart LR\n S1[\"1 Confirm the gap\"] -- S2[\"2 Collect context (Agents 1–3)\"] -- S3[\"3 Understand the vulnerability\"] -- S4[\"4 Validate root cause facts · conclusions · hypotheses\"]\n S4 -- S5[\"5 Threat model\"] -- S6[\"6 Security objective (the invariant)\"] -- S7[\"7 Research approaches\"] -- S8[\"8 Make ≥ 2 candidates\"]\n S8 -- S9[\"9 Evaluate them\"] -- S10[\"10 Select the smallest safe one\"] -- S11[\"11 Define validation tests\"] -- S12[\"12 Attach evidence + provenance\"] -- S13[\"13 Write strategy.json (Low, Proposed)\"]\n mermaid\nflowchart TD\n ST[/\"strategy.json\"/] -- VM{\"versionmigration recorded?\"}\n VM -- · yes · CK1{\"pom.xml declares sourceversion AND major or Java jump?\"}\n CK1 -- · yes · T3[\"VERSIONMIGRATION → 04d\"]\n CK1 -- · no · REF1[\"refuse fix plan\"]\n VM -- · no · DU{\"dependencyupgrade recorded?\"}\n DU -- · yes · CK2{\"platform parent/BOM across a major?\"}\n CK2 -- · yes · REF2[\"refuse: plan it as versionmigration\"]\n CK2 -- · no · T2[\"DEPENDENCYUPGRADE → 04c\"]\n DU -- · no · T1[\"CODEFIX → 04b\"]\n mermaid\nflowchart LR\n P[/\"Approved plan\"/] -- A[\"Agent writes smallest patch in the current style of the file\"]\n A -- R[\"Agent writes rationale.json (deviations if code ≠ plan)\"]\n R -- V[\"verify-patch\"]\n subgraph WT[\"Temporary worktree of HEAD\"]\n direction TB\n W1[\"git apply --check\"] -- W2[\"git apply\"] -- W3[\"detect affected module\"] -- W4[\"mvnw compile (+ named test)\"]\n end\n V -- WT\n WT -- RM[\"remove worktree\"]\n RM -- REN[\"render\"]\n REN -- O[/\"fixID.md + fixID.diff Compiled · Compile Failed · Refused\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A,R agent\n mermaid\nflowchart LR\n P[/\"Approved CWE-1104 plan\"/] -- A[\"Agent: raise one &lt;version&gt; to ≥ minimumfixedversion\"]\n A -- V[\"apply-version-bump\"]\n subgraph WT[\"Temporary worktree\"]\n direction TB\n C1[\"1 · declared version ≥ target?\"] -- C2[\"2 · compile the module\"] -- C3[\"3 · mvn dependency:tree\"] -- C4[\"4 · resolved version ≥ target?\"]\n end\n V -- WT -- O[/\"fixID.md + fixID.diff\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A agent\n mermaid\nflowchart TD\n A[\"detect-baseline (routed: checks Approved + Fix Type again, reads target from the fix plan)\"] -- P{\"path SUPPORTED?\"}\n P -- · no · BL([\"BLOCKED → hand-off Status Refused\"])\n P -- · yes · W[\"prepare-workspace sandbox copy + private git repo\"]\n W -- R0[\"IMMUTABLE ROUND 0 baseline build + baseline probe on the current JDK\"]\n R0 -- PL[\"Agent: migration-plan.json impact · constraints · probes · candidates\"]\n PL -- E{\"next ladder edge\"}\n E -- DR[\"OpenRewrite dry-run (no source change)\"]\n DR -- IN{\"Agent inspects preview against the plan\"}\n IN -- · \"out of scope\" · DR\n IN -- · accepted · AP[\"apply in sandbox checkpoint · scope check · auto-revert\"]\n AP -- B[\"build round on the JDK of the edge\"]\n B -- · fails · G[\"grouped errors → residual edit from evidence\"]\n G -- B\n B -- · \"passes on edge version\" · E\n E -- · landed · FP[\"final test round + final probe endpoint inventory compare\"]\n FP -- J[\"Agent: migration.json (judgement)\"]\n J -- REN[\"render report + diff + MIGRATIONSUMMARY + fixID hand-off\"]\n REN -- AG[\"apply-migration dry-run by default · eligibility gate · --to-project only on explicit request\"]\n mermaid\nflowchart LR\n FX[/\"fixID.md + fixID.diff\"/] -- V05[\"05 · three static checks\"]\n FX -- V06[\"06 · two deterministic gates\"]\n V05 -- R1[/\"rescan\"/] & R2[/\"redteam\"/] & R3[/\"behavior\"/]\n V06 -- R4[/\"qa\"/] & R5[/\"build\"/]\n R1 & R2 & R3 & R4 & R5 -- A07[\"07 · score + hard gates\"]\n A07 -- D{\"Decision\"}\n D -- CL[\"✅ Cleared\"]\n D -- BL[\"🚫 Blocked\"]\n CL & BL -- W[\"PR content + audit trail\"]\n mermaid\nflowchart LR\n FX[/\"fixID.md + .diff\"/] -- M[\"make the patched files worktree + git apply (no build)\"]\n M -- R1[\"collect-rescan\"]\n M -- R2[\"collect-redteam\"]\n M -- R3[\"collect-behavior\"]\n R1 -- V1[\"Agent: rescan verdict\"]\n R2 -- V2[\"Agent: redteam verdict\"]\n R3 -- V3[\"Agent: behaviour verdict\"]\n V1 -- O1[/\"rescanID.md\"/]\n V2 -- O2[/\"redteamID.md\"/]\n V3 -- O3[/\"behaviorID.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class V1,V2,V3 agent\n mermaid\nflowchart LR\n FX[/\"fix diff + source\"/] -- A[\"Agent drafts ONE test adversarial input + benign input, asserts what the patch constructs\"]\n A -- G[\"run-qa-gate\"]\n subgraph WT[\"Temporary worktree\"]\n direction TB\n W1[\"apply fix diff\"] -- W2[\"apply test diff\"] -- W3[\"mvnw test -Dtest=NewTest\"] -- W4{\"--existing-test named?\"}\n W4 -- · \"needs live infrastructure\" · SK[\"SKIPPED (with reason)\"]\n W4 -- · \"can run\" · W5[\"run it also\"]\n end\n G -- WT -- RJ[/\"result.json Passed / Failed (exit code)\"/]\n RJ -- R[\"render-qa-report\"] -- O[/\"qaID.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A agent\n mermaid\nflowchart LR\n FX[/\"fix diff\"/] -- G[\"run-build-gate\"]\n subgraph WT[\"Temporary worktree\"]\n direction TB\n B1[\"mvn dependency:tree (before)\"] -- B2[\"apply fix diff\"] -- B3[\"mvnw verify -DskipITs\"] -- B4[\"mvn dependency:tree (after)\"] -- B5[\"diff the two trees\"]\n end\n G -- WT -- RJ[/\"result.json\"/] -- R[\"render-build-report\"] -- O[/\"buildID.md Passed / Failed + dependency diff\"/]\n mermaid\nflowchart TD\n IN[\"5 upstream reports + severity + Fix Type / Migration Status\"] -- G{\"Hard gates\"}\n G -- · \"re-scan = STILLVULNERABLE\" · BL[\"🚫 BLOCKED\"]\n G -- · \"migration not PASS / PARTIAL PASS\" · BL\n G -- · \"build = Failed\" · BL\n G -- · \"no gate triggered\" · S[\"score = red-team + behaviour + QA (0 – 100)\"]\n S -- T{\"score ≥ severity threshold?\"}\n T -- · yes · CL[\"✅ CLEARED\"]\n T -- · no · BL\n CL -- OV{\"Agent override? (Cleared → Blocked only, with a cited reason)\"}\n OV -- · no · FIN[/\"verdictID.md\"/]\n OV -- · yes · BL\n BL -- FIN\n\n classDef gate fill:#F5C542,stroke:#b8901f,color:#3d2f00,font-weight:bold\n classDef bad fill:#C0392B,stroke:#8d2618,color:#fff,font-weight:bold\n classDef good fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class G,T,OV gate\n class BL bad\n class CL good\n mermaid\nflowchart LR\n CH[\"collect-chain links + full text from every stage\"] -- F[/\"chain.facts.md\"/]\n F -- A[\"Agent writes content.json auditnarrative (every claim linked) · prtitle · prsummary · prtestplan\"]\n A -- R[\"render-scribe\"]\n V[/\"verdictID.md (Decision read mechanically)\"/] -- R\n R -- AU[/\"auditID.md chronological chain of custody\"/]\n R -- PR[/\"prID.md + 'BLOCKED — do not open' banner when not Cleared\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A agent\n \n.github/ canonical harness\n├── agents/ 01architect … 07audit-and-pr (.agent.md)\n├── skills/ 00 … 07b — 18 self-contained skill folders\n│ ├── 00-issue-register/ shared, read-only register loader\n│ ├── 01a-code-cartographer/ ┐\n│ ├── 01b-context-weaver/ ├─ Agent 01, in this order\n│ ├── 01c-graph-forge/ │\n│ ├── 01d-blueprint-scribe/ ┘\n│ ├── 02-root-cause-analyst/\n│ ├── 03-blast-radius-analyst/\n│ ├── 04a-fix-strategist/ + catalog/cwe-patterns.json · routing ┐\n│ ├── 04a1-remediation-intelligence/ + knowledge/ · ranking-weights │ Agent 04, Stage 1\n│ ├── 04a2-remediation-research/ ┘\n│ ├── 04b-fixer/ ┐\n│ ├── 04c-dependency-upgrader/ ├─ Agent 04, Stage 2 (by Fix Type)\n│ ├── 04d-version-migration/ ┘ + references/ (packs, ladder, recipes)\n│ ├── 05-verify/ Agent 05\n│ ├── 06a-qa-runner/ ┐ Agent 06\n│ ├── 06b-build-gatekeeper/ ┘\n│ ├── 07a-merge-arbiter/ + scoring.json ┐ Agent 07\n│ └── 07b-scribe/ ┘\n├── pipeline-contract.md ownership · transitions · routing · decision policy\n├── scripts/pipeline-lint.js contract text checks\n└── HARNESS.md harness overview (not README.md, so GitHub shows…",
-      "mermaid": [
-        "flowchart LR\n    IN[\"📊 Issue register<br/>(Excel, read-only)\"] --> A\n    subgraph A[\"PHASE A · UNDERSTAND\"]\n      direction TB\n      A1[\"01 Architect\"] --> A2[\"02 Root Cause\"] --> A3[\"03 Blast Radius\"]\n    end\n    A --> B\n    subgraph B[\"PHASE B · FIX\"]\n      direction TB\n      B1[\"04 Strategize<br/>(plan, no code)\"] --> H{{\"⏸ Human approves\"}} --> B2[\"04 Implement<br/>(04b · 04c · 04d)\"]\n    end\n    B --> C\n    subgraph C[\"PHASE C · VERIFY & SHIP\"]\n      direction TB\n      C1[\"05 Re-scan · Red-team · Behaviour\"] --> C2[\"06 QA test · Build gate\"] --> C3[\"07 Score · Verdict · PR · Audit\"]\n    end\n    C --> OUT[\"✅ Cleared or 🚫 Blocked<br/>+ PR content + audit trail\"]\n\n    classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n    class H human",
-        "flowchart LR\n    RT[\"AI runtime<br/>(Copilot Chat / Claude Code)\"] -->|\"loads\"| AG[\"Agent<br/>NN_name.agent.md\"]\n    AG -->|\"reads SKILL.md,<br/>runs\"| SC[\"Skill scripts<br/>(deterministic)\"]\n    SC -->|\"facts\"| F[/\"facts.json / facts.md<br/>(briefing)\"/]\n    F --> AG\n    AG -->|\"judgement,<br/>schema-checked\"| J[/\"analysis / verdict /<br/>strategy .json\"/]\n    J --> SC\n    SC -->|\"render\"| R[/\"docs/agent_output/<br/>report.md\"/]",
-        "flowchart TB\n    subgraph REPO[\"Repository\"]\n      APP[\"Application under analysis<br/>(Spring Boot microservices)\"]\n      REG[\"docs/agent_output/00-issues/<br/>issue-register.xlsx\"]\n      OUT[\"docs/agent_output/01…07<br/>stage reports (committed)\"]\n      H[\"Harness<br/>.github/ (canonical) · .claude/ (mirror)<br/>agents · skills · pipeline contract · lint\"]\n      PC[\".pipeline-context/<br/>facts + agent JSON (gitignored)\"]\n      MC[\"mission-control/ + telemetry ledger<br/>(observability)\"]\n    end\n    LLM[\"AI runtime\"]\n    NEO[(\"Neo4j knowledge graph<br/>(optional)\")]\n    MVN[\"Maven + JDKs<br/>(builds, tests)\"]\n    OR[\"OpenRewrite<br/>(04d, open-source recipes by default)\"]\n\n    LLM -->|\"follows agents,<br/>runs scripts, writes JSON\"| H\n    APP --> H\n    REG --> H\n    H --> PC\n    H --> OUT\n    H <--> NEO\n    H --> MVN\n    H --> OR\n    OUT --> MC"
-      ]
-    },
-    {
       "name": "spring-modernization-remediation-harness",
       "fullName": "KrishnaAnnavaram/spring-modernization-remediation-harness",
       "url": "https://github.com/KrishnaAnnavaram/spring-modernization-remediation-harness",
@@ -3385,93 +3472,6 @@
         "flowchart TD\n    IN{\"Input path\"}\n    IN -->|\"contains .git\"| G[\"Git-backed intake\"]\n    IN -->|\"plain directory\"| P[\"Plain-directory intake\"]\n\n    G --> GP[\"Capture remote, branch,<br/>commit SHA, tree SHA\"]\n    P --> PP[\"Compute deterministic<br/>content-manifest hash\"]\n\n    GP --> SNAP[\"Immutable original snapshot\"]\n    PP --> SNAP\n    SNAP --> RO[\"original/ marked read-only<br/>held for the whole run\"]\n    SNAP --> MIG[\"migration/ mutable worktree\"]\n    MIG --> CKPT[\"internal checkpoint Git repository<br/><i>inside the external workspace</i>\"]\n\n    style RO fill:#e7f3ff,stroke:#0366d6\n    style CKPT fill:#fff3cd,stroke:#856404",
         "flowchart TD\n    subgraph USER[\"User input (read-only, never written)\"]\n        SRC[\"./src\"]\n    end\n\n    subgraph WS[\"External workspace root — BOOTSHIFT_WORKSPACE_ROOT/&lt;run_id&gt;/\"]\n        ORIG[\"original/<br/><i>immutable, read-only,<br/>held for the entire run</i>\"]\n        MIGR[\"migration/<br/><i>the mutable worktree</i>\"]\n        ROLD[\"runtime-old/<br/><i>writable OLD build and run</i>\"]\n        RNEW[\"runtime-new/<br/><i>NEW side runtime</i>\"]\n        CG[\"internal-checkpoint-git/\"]\n        EV[\"evidence/<br/><i>content-addressed</i>\"]\n        ST[\"state/\"]\n    end\n\n    subgraph OUT[\"Artifact plane — ./output/\"]\n        STAGES[\"&lt;stage&gt;/&lt;timestamp&gt;/<br/>&lt;stage&gt;/latest.json\"]\n    end\n\n    SRC -->|snapshot| ORIG\n    SRC -->|snapshot| MIGR\n    ORIG -->|seeded copy| ROLD\n    MIGR --> CG\n    MIGR -->|packaged| RNEW\n    ORIG -.->|differential OLD side| ROLD\n\n    style ORIG fill:#e7f3ff,stroke:#0366d6\n    style MIGR fill:#f8d7da,stroke:#721c24"
       ]
-    },
-    {
-      "name": "CredPilot",
-      "fullName": "KrishnaAnnavaram/CredPilot",
-      "url": "https://github.com/KrishnaAnnavaram/CredPilot",
-      "homepage": null,
-      "description": null,
-      "private": false,
-      "archived": false,
-      "fork": false,
-      "defaultBranch": "main",
-      "license": null,
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "openIssues": 0,
-      "sizeKb": 10713,
-      "createdAt": "2026-09-20T06:00:11Z",
-      "pushedAt": "2026-09-22T16:21:22Z",
-      "languages": [
-        {
-          "name": "Python",
-          "bytes": 2135047,
-          "share": 100
-        }
-      ],
-      "primaryLanguage": "Python",
-      "lastCommit": {
-        "sha": "8286a75",
-        "message": "Merge pull request #4 from KrishnaAnnavaram/chore/unify-synthetic-data",
-        "date": "2026-09-21T20:54:04Z",
-        "url": "https://github.com/KrishnaAnnavaram/CredPilot/commit/8286a75ee0eed89608c8538b2a71368f60f9534c"
-      },
-      "readmeLead": "",
-      "readmeText": "",
-      "mermaid": []
-    },
-    {
-      "name": "KrishnaAnnavaram.github.io",
-      "fullName": "KrishnaAnnavaram/KrishnaAnnavaram.github.io",
-      "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io",
-      "homepage": null,
-      "description": "Professional portfolio - Gen AI Engineer & AI Specialist",
-      "private": false,
-      "archived": false,
-      "fork": false,
-      "defaultBranch": "main",
-      "license": "MIT",
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "openIssues": 0,
-      "sizeKb": 196697,
-      "createdAt": "2026-02-23T02:27:00Z",
-      "pushedAt": "2026-09-13T21:29:24Z",
-      "languages": [
-        {
-          "name": "TypeScript",
-          "bytes": 374974,
-          "share": 86.5
-        },
-        {
-          "name": "JavaScript",
-          "bytes": 21655,
-          "share": 5
-        },
-        {
-          "name": "MDX",
-          "bytes": 21612,
-          "share": 5
-        },
-        {
-          "name": "CSS",
-          "bytes": 15194,
-          "share": 3.5
-        }
-      ],
-      "primaryLanguage": "TypeScript",
-      "lastCommit": {
-        "sha": "6528bf3",
-        "message": "Merge pull request #25 from KrishnaAnnavaram/redesign/ai-portfolio-2026",
-        "date": "2026-09-13T21:29:24Z",
-        "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io/commit/6528bf38cf4bb4f7d6fd29772b996dffcec99878"
-      },
-      "readmeLead": "",
-      "readmeText": "",
-      "mermaid": []
     },
     {
       "name": "statute",

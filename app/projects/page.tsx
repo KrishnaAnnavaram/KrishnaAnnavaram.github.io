@@ -60,7 +60,7 @@ export default function ProjectsPage() {
             label="Earlier work"
             id="archive-title"
             title={`${archive.length} applied ML and GenAI repositories`}
-            lede="Each is its own repository with a test suite and CI. Most validate on synthetic or demo data, so no entry here quotes a model metric — open the repository for its validation section and known problems."
+            lede="Earlier projects, recently published to GitHub. Each is its own repository with a test suite and CI — open one for its design, validation and known problems."
           />
           <div className="mt-10">
             <ArchiveExplorer rows={rows} categories={archiveCategories()} />

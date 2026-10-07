@@ -771,17 +771,17 @@ export const projects: Project[] = [
       {
         value: '7 / 18',
         label: 'agents and skills',
-        method: 'At 007b0a2: ls .github/agents/*.agent.md | wc -l and ls -d .github/skills/*/ | wc -l. Matches the README badges',
+        method: 'At 07c1644: ls .github/agents/*.agent.md | wc -l and ls -d .github/skills/*/ | wc -l. Matches the README badges',
       },
       {
         value: '24,137',
         label: 'lines of harness JavaScript across 86 files, plus 7,946 lines of TypeScript in Mission Control',
-        method: 'At 007b0a2: git ls-files on .github/**/*.js excluding tests, piped to wc -l. Excludes the .claude mirror and the vendored Spring Boot sample application',
+        method: 'At 07c1644: git ls-files on .github/**/*.js excluding tests, piped to wc -l. Excludes the .claude mirror and the vendored Spring Boot sample application',
       },
       {
         value: '56',
         label: 'harness test cases across 9 files, and 98 Vitest + 12 Playwright tests for Mission Control',
-        method: "At 007b0a2: git grep -cE '^\\s*(test|it)(\\.each\\(…\\))?\\s*\\(' on *.test.js / *.test.ts(x) / *.spec.ts. Static count, not run. All 56 harness tests cover two skills, 04a routing and 04d migration",
+        method: "At 07c1644: git grep -cE '^\\s*(test|it)(\\.each\\(…\\))?\\s*\\(' on *.test.js / *.test.ts(x) / *.spec.ts. Static count, not run. All 56 harness tests cover two skills, 04a routing and 04d migration",
       },
       {
         value: '3',
@@ -791,7 +791,7 @@ export const projects: Project[] = [
       {
         value: '0 of 4',
         label: 'committed sample issues cleared to ship',
-        method: 'Decision row of docs/agent_output/07-ship/verdict_ISSUE-00{1..4}.md at 007b0a2. All four are Blocked, with scores of 0, 30, 60 and 60',
+        method: 'Decision row of docs/agent_output/07-ship/verdict_ISSUE-00{1..4}.md at 07c1644. All four are Blocked, with scores of 0, 30, 60 and 60',
       },
     ],
     limitations: [
@@ -805,7 +805,7 @@ export const projects: Project[] = [
       'The .claude copy is a hand-maintained mirror of the .github harness, and 42 of its 80 JavaScript files are not byte-identical to a .github counterpart. The two drift by construction.',
     ],
     provenance:
-      'Computed against a shallow clone at 007b0a2 (merge of #13, 3 Oct 2026). Agent, skill, gate and verdict counts were read from the files themselves. Tests were counted statically, not run. The README’s own known-problems list was checked against the code and agrees with it. Its "any version to any version" claim is broader than the validation evidence, and this page follows the evidence.',
+      'Computed against a shallow clone at 007b0a2 (merge of #13, 3 Oct 2026), now 07c1644 after a history rewrite that redacted a credential and changed nothing else. Agent, skill, gate and verdict counts were read from the files themselves. Tests were counted statically, not run. The README’s own known-problems list was checked against the code and agrees with it. Its "any version to any version" claim is broader than the validation evidence, and this page follows the evidence.',
   },
   {
     slug: 'smcp-gateway',
