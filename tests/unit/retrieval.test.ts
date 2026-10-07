@@ -80,7 +80,6 @@ describe('grounding', () => {
       '/about/',
       '/projects/',
       '/experience/',
-      '/research/',
       '/writing/',
       '/contact/',
       '/work/',

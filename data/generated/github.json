@@ -1,12 +1,3346 @@
 {
   "$schema": "https://krishnaannavaram.github.io/schemas/github-snapshot.json",
   "user": "KrishnaAnnavaram",
-  "syncedAt": "2026-09-13T18:02:31.048Z",
-  "repoCount": 16,
+  "syncedAt": "2026-10-07T20:40:10.564Z",
+  "repoCount": 94,
   "skippedPrivate": [
     "decisionforge-ai"
   ],
   "repos": [
+    {
+      "name": "hotfood-forecast",
+      "fullName": "KrishnaAnnavaram/hotfood-forecast",
+      "url": "https://github.com/KrishnaAnnavaram/hotfood-forecast",
+      "homepage": null,
+      "description": "Forecast convenience-store hot-food demand to cut waste",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "demand-forecasting",
+        "food-waste",
+        "newsvendor",
+        "scikit-learn",
+        "time-series"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 47,
+      "createdAt": "2026-10-07T07:18:59Z",
+      "pushedAt": "2026-10-07T11:00:31Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 71512,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "ed4cbff",
+        "message": "Fix a flaky backtest test that compared model id() values",
+        "date": "2026-10-07T11:00:29Z",
+        "url": "https://github.com/KrishnaAnnavaram/hotfood-forecast/commit/ed4cbff3586bc7d7901d54bfea05e871fa83b8fb"
+      },
+      "readmeLead": "hotfood-forecast — Hot-Food Demand Forecast And Order Planner",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "signsight",
+      "fullName": "KrishnaAnnavaram/signsight",
+      "url": "https://github.com/KrishnaAnnavaram/signsight",
+      "homepage": null,
+      "description": "Weather-robust traffic-sign recognition",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "computer-vision",
+        "data-augmentation",
+        "gtsrb",
+        "pytorch",
+        "robustness",
+        "traffic-sign-recognition"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 39,
+      "createdAt": "2026-10-07T10:53:27Z",
+      "pushedAt": "2026-10-07T10:53:35Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 59995,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "be0c391",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:12Z",
+        "url": "https://github.com/KrishnaAnnavaram/signsight/commit/be0c391622eee255a4abae274173863b406ddb35"
+      },
+      "readmeLead": "signsight is a traffic-sign classifier with an honest robustness benchmark. It takes sign images through these steps to a class, a robustness report and a latency report:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "riverpulse",
+      "fullName": "KrishnaAnnavaram/riverpulse",
+      "url": "https://github.com/KrishnaAnnavaram/riverpulse",
+      "homepage": null,
+      "description": "River water-quality index, weather and the COVID effect",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "environmental-data",
+        "interrupted-time-series",
+        "open-data",
+        "python",
+        "water-quality",
+        "weather"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 44,
+      "createdAt": "2026-10-07T10:51:15Z",
+      "pushedAt": "2026-10-07T10:51:24Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 67933,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "037a411",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:10Z",
+        "url": "https://github.com/KrishnaAnnavaram/riverpulse/commit/037a4117b73c8630fc5524ce8535bd5170a33f94"
+      },
+      "readmeLead": "riverpulse — River Water Quality, Weather Effects and the COVID Effect",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "vid2thumb",
+      "fullName": "KrishnaAnnavaram/vid2thumb",
+      "url": "https://github.com/KrishnaAnnavaram/vid2thumb",
+      "homepage": null,
+      "description": "Video to transcript to summary to AI-generated thumbnail",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "clip",
+        "openai",
+        "speech-to-text",
+        "summarization",
+        "thumbnail-generation",
+        "video-processing"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 49,
+      "createdAt": "2026-10-07T10:49:03Z",
+      "pushedAt": "2026-10-07T10:49:12Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 80904,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "45d514e",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:09Z",
+        "url": "https://github.com/KrishnaAnnavaram/vid2thumb/commit/45d514e636f48263a9dad4729abf996937ee9667"
+      },
+      "readmeLead": "vid2thumb is a thumbnail pipeline for spoken videos. It takes a video through these steps to two thumbnails, a generated image and the best real frame:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "crash-whatif",
+      "fullName": "KrishnaAnnavaram/crash-whatif",
+      "url": "https://github.com/KrishnaAnnavaram/crash-whatif",
+      "homepage": null,
+      "description": "Explain crash severity with counterfactuals (DiCE)",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "counterfactual-explanations",
+        "dice",
+        "explainable-ai",
+        "imbalanced-learning",
+        "road-safety",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 47,
+      "createdAt": "2026-10-07T10:46:50Z",
+      "pushedAt": "2026-10-07T10:47:00Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 76727,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "6f6d05c",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:08Z",
+        "url": "https://github.com/KrishnaAnnavaram/crash-whatif/commit/6f6d05cd5426c432c431c8600eb75f3e0e62a6e8"
+      },
+      "readmeLead": "crash-whatif — Crash Severity Models with Counterfactual Explanations",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "autovalue",
+      "fullName": "KrishnaAnnavaram/autovalue",
+      "url": "https://github.com/KrishnaAnnavaram/autovalue",
+      "homepage": null,
+      "description": "Used-car price estimation and delivery-time prediction",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "conformal-prediction",
+        "delivery-time-prediction",
+        "machine-learning",
+        "price-prediction",
+        "quantile-regression",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 56,
+      "createdAt": "2026-10-07T10:14:36Z",
+      "pushedAt": "2026-10-07T10:14:44Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 97990,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "a567d90",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:06Z",
+        "url": "https://github.com/KrishnaAnnavaram/autovalue/commit/a567d90000b1a6687346b99a26d4d1024d093b2e"
+      },
+      "readmeLead": "autovalue — Used-Car Price Bands, Price Approval and Delivery-Time Bands",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "roadrisk-live",
+      "fullName": "KrishnaAnnavaram/roadrisk-live",
+      "url": "https://github.com/KrishnaAnnavaram/roadrisk-live",
+      "homepage": null,
+      "description": "US accident severity prediction with live weather and crash-count forecasting",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "fastapi",
+        "machine-learning",
+        "openweather",
+        "scikit-learn",
+        "time-series-forecasting",
+        "traffic-safety"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 46,
+      "createdAt": "2026-10-07T10:12:25Z",
+      "pushedAt": "2026-10-07T10:12:33Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 66301,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "85405a0",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:05Z",
+        "url": "https://github.com/KrishnaAnnavaram/roadrisk-live/commit/85405a07428ab701c19c057fcd146ac71b6571a6"
+      },
+      "readmeLead": "roadrisk-live — Accident Severity With Correct Live Weather And Honest Forecasts",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "colongrade",
+      "fullName": "KrishnaAnnavaram/colongrade",
+      "url": "https://github.com/KrishnaAnnavaram/colongrade",
+      "homepage": null,
+      "description": "Ulcerative colitis Mayo-score grading with GAN augmentation and CNNs",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "gan",
+        "medical-imaging",
+        "ordinal-classification",
+        "pytorch",
+        "scikit-learn",
+        "ulcerative-colitis"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 41,
+      "createdAt": "2026-10-07T10:10:14Z",
+      "pushedAt": "2026-10-07T10:10:22Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 64125,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "8a65d73",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:04Z",
+        "url": "https://github.com/KrishnaAnnavaram/colongrade/commit/8a65d73373c40f6780b798119c45702d62fc9903"
+      },
+      "readmeLead": "colongrade — Mayo Endoscopic Score Grading With Honest Ablations",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "twitter-to-x",
+      "fullName": "KrishnaAnnavaram/twitter-to-x",
+      "url": "https://github.com/KrishnaAnnavaram/twitter-to-x",
+      "homepage": null,
+      "description": "Sentiment and moderation talk before and after Twitter became X",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "content-moderation",
+        "nlp",
+        "sentiment-analysis",
+        "social-media-analysis",
+        "statistics",
+        "topic-modeling"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 48,
+      "createdAt": "2026-10-07T10:08:03Z",
+      "pushedAt": "2026-10-07T10:08:11Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 72940,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "9388a40",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:02Z",
+        "url": "https://github.com/KrishnaAnnavaram/twitter-to-x/commit/9388a4092831572573baa327e1c6770d9645292f"
+      },
+      "readmeLead": "twitter-to-x — A Sound Before-And-After Study Of Sentiment And Moderation Talk",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "tweetmood",
+      "fullName": "KrishnaAnnavaram/tweetmood",
+      "url": "https://github.com/KrishnaAnnavaram/tweetmood",
+      "homepage": null,
+      "description": "Hybrid BERT vs classic ML for tweet sentiment, with Gen-Z slang handling",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "nlp",
+        "pytorch",
+        "scikit-learn",
+        "sentiment-analysis",
+        "slang",
+        "twitter"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 49,
+      "createdAt": "2026-10-07T10:05:51Z",
+      "pushedAt": "2026-10-07T10:06:00Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 84281,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "e112568",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:01Z",
+        "url": "https://github.com/KrishnaAnnavaram/tweetmood/commit/e112568ebba8fcfd4117cbe90625c527b9727156"
+      },
+      "readmeLead": "tweetmood is a tweet sentiment toolkit that compares classic and hybrid neural models fairly. It takes raw tweets through these steps to a positive or negative label from the model that won on validation:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "sentiment-grid",
+      "fullName": "KrishnaAnnavaram/sentiment-grid",
+      "url": "https://github.com/KrishnaAnnavaram/sentiment-grid",
+      "homepage": null,
+      "description": "BERT/DistilBERT/RoBERTa x LSTM/RNN/CNN sentiment benchmark",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "benchmark",
+        "nlp",
+        "pytorch",
+        "scikit-learn",
+        "sentiment-analysis",
+        "transformers"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 56,
+      "createdAt": "2026-10-07T10:03:39Z",
+      "pushedAt": "2026-10-07T10:03:48Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 95572,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "18ea2f1",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:06:59Z",
+        "url": "https://github.com/KrishnaAnnavaram/sentiment-grid/commit/18ea2f1eb7dd86d741382ccd24beaab9e12bef33"
+      },
+      "readmeLead": "sentiment-grid is a benchmark harness for three-class sentiment classifiers. It takes public sentiment corpora through these steps to a ranked leaderboard with confidence intervals:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "kindify",
+      "fullName": "KrishnaAnnavaram/kindify",
+      "url": "https://github.com/KrishnaAnnavaram/kindify",
+      "homepage": null,
+      "description": "Detect toxic comments and rewrite them politely",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "content-moderation",
+        "fairness",
+        "nlp",
+        "scikit-learn",
+        "text-detoxification",
+        "toxic-comment-classification"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 46,
+      "createdAt": "2026-10-07T10:01:28Z",
+      "pushedAt": "2026-10-07T10:01:36Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 74748,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "703fe1d",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:06:58Z",
+        "url": "https://github.com/KrishnaAnnavaram/kindify/commit/703fe1d40285333f4d1a3de2efba7701430c787a"
+      },
+      "readmeLead": "kindify — Toxic Comment Detection with Guarded Polite Rewrites",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "shelf-to-screen",
+      "fullName": "KrishnaAnnavaram/shelf-to-screen",
+      "url": "https://github.com/KrishnaAnnavaram/shelf-to-screen",
+      "homepage": null,
+      "description": "How Texas public libraries are going digital (2018-2023)",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "data-cleaning",
+        "fixed-effects",
+        "open-data",
+        "panel-data",
+        "public-libraries",
+        "time-series-forecasting"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 42,
+      "createdAt": "2026-10-07T09:59:16Z",
+      "pushedAt": "2026-10-07T09:59:25Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 66229,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "9b7959b",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:46Z",
+        "url": "https://github.com/KrishnaAnnavaram/shelf-to-screen/commit/9b7959b5ffe0eb30b56e25f0bb2eba0c5fc6375f"
+      },
+      "readmeLead": "shelf-to-screen — A Validated Panel of Texas Public Library Statistics, 2018–2023",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "telehealth-insights",
+      "fullName": "KrishnaAnnavaram/telehealth-insights",
+      "url": "https://github.com/KrishnaAnnavaram/telehealth-insights",
+      "homepage": null,
+      "description": "Does telemedicine work? Evidence from the NEHRS physician survey",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "complex-survey-design",
+        "health-services-research",
+        "logistic-regression",
+        "public-health",
+        "survey-statistics",
+        "telemedicine"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 37,
+      "createdAt": "2026-10-07T09:57:04Z",
+      "pushedAt": "2026-10-07T09:57:13Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 54410,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "6c7db11",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:45Z",
+        "url": "https://github.com/KrishnaAnnavaram/telehealth-insights/commit/6c7db11f48762d81ecdbf438dbceb49f65cc2ee7"
+      },
+      "readmeLead": "telehealth-insights — Survey-Weighted Telemedicine Analysis of the NEHRS Physician Survey",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "driverisk",
+      "fullName": "KrishnaAnnavaram/driverisk",
+      "url": "https://github.com/KrishnaAnnavaram/driverisk",
+      "homepage": null,
+      "description": "Usage-based insurance risk from vehicle telematics and weather",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "driving-behavior",
+        "machine-learning",
+        "poisson-regression",
+        "scikit-learn",
+        "telematics",
+        "usage-based-insurance"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 50,
+      "createdAt": "2026-10-07T09:54:52Z",
+      "pushedAt": "2026-10-07T09:55:00Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 85908,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "6283e13",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:44Z",
+        "url": "https://github.com/KrishnaAnnavaram/driverisk/commit/6283e135ccfcffb2e6ae52a59e204009f138973d"
+      },
+      "readmeLead": "driverisk — Trip-Level Driving Risk from Telematics and Location-Matched Context",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "churn-colony",
+      "fullName": "KrishnaAnnavaram/churn-colony",
+      "url": "https://github.com/KrishnaAnnavaram/churn-colony",
+      "homepage": null,
+      "description": "Churn prediction with ant-colony feature selection, boosting and SHAP",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "ant-colony-optimization",
+        "churn-prediction",
+        "customer-retention",
+        "feature-selection",
+        "machine-learning",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 52,
+      "createdAt": "2026-10-07T09:22:38Z",
+      "pushedAt": "2026-10-07T09:22:46Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 89100,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "d490aca",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:43Z",
+        "url": "https://github.com/KrishnaAnnavaram/churn-colony/commit/d490aca7b93798ec87f5ab2e8fc4ce408dbba781"
+      },
+      "readmeLead": "churn-colony — Leak-Free Telecom Churn Models with Ant Colony Feature Selection",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "engagecam",
+      "fullName": "KrishnaAnnavaram/engagecam",
+      "url": "https://github.com/KrishnaAnnavaram/engagecam",
+      "homepage": null,
+      "description": "Measure online-class engagement from facial expressions",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "computer-vision",
+        "engagement-detection",
+        "facial-expression-recognition",
+        "responsible-ai",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 39,
+      "createdAt": "2026-10-07T09:20:28Z",
+      "pushedAt": "2026-10-07T09:20:35Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 53466,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "1514e67",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:43Z",
+        "url": "https://github.com/KrishnaAnnavaram/engagecam/commit/1514e676bb6af8ee1c75eb6276f91edf08bf21d1"
+      },
+      "readmeLead": "engagecam — A Subject-Disjoint Benchmark for Engagement States in Face Video",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "biasradar",
+      "fullName": "KrishnaAnnavaram/biasradar",
+      "url": "https://github.com/KrishnaAnnavaram/biasradar",
+      "homepage": null,
+      "description": "Detect social-bias categories in text with BERT",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "bias-detection",
+        "nlp",
+        "responsible-ai",
+        "text-classification",
+        "transformers"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 43,
+      "createdAt": "2026-10-07T09:18:15Z",
+      "pushedAt": "2026-10-07T09:18:25Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 64950,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "1d4c31c",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:42Z",
+        "url": "https://github.com/KrishnaAnnavaram/biasradar/commit/1d4c31c56d789ad349e5ce667979027d0a46932b"
+      },
+      "readmeLead": "biasradar — Social-Bias Detection with a Saved Label Map and Two Honest Heads",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "dermavit",
+      "fullName": "KrishnaAnnavaram/dermavit",
+      "url": "https://github.com/KrishnaAnnavaram/dermavit",
+      "homepage": null,
+      "description": "ViT vs Hiera for skin-lesion classification on HAM10000",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "ham10000",
+        "medical-imaging",
+        "pytorch",
+        "skin-lesion-classification",
+        "vision-transformer"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 47,
+      "createdAt": "2026-10-07T09:16:04Z",
+      "pushedAt": "2026-10-07T09:16:12Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 73732,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "d02070c",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:41Z",
+        "url": "https://github.com/KrishnaAnnavaram/dermavit/commit/d02070c1acef13a6d4cfaea6d424acc74715dcca"
+      },
+      "readmeLead": "dermavit — A Leakage-Free ViT vs Hiera Benchmark for Skin-Lesion Classification",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "sast-vs-llm",
+      "fullName": "KrishnaAnnavaram/sast-vs-llm",
+      "url": "https://github.com/KrishnaAnnavaram/sast-vs-llm",
+      "homepage": null,
+      "description": "Static analyzers vs LLMs: which reviews code better?",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "benchmark",
+        "code-review",
+        "llm",
+        "security",
+        "static-analysis"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 68,
+      "createdAt": "2026-10-07T09:13:53Z",
+      "pushedAt": "2026-10-07T09:14:01Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 117533,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "3e4b8e6",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:40Z",
+        "url": "https://github.com/KrishnaAnnavaram/sast-vs-llm/commit/3e4b8e6c7aec393cec2e3379d0b822b186fab95b"
+      },
+      "readmeLead": "sast-vs-llm — A Reproducible Benchmark of Static Analyzers and LLM Code Reviewers",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "salescope",
+      "fullName": "KrishnaAnnavaram/salescope",
+      "url": "https://github.com/KrishnaAnnavaram/salescope",
+      "homepage": null,
+      "description": "Retail sales prediction on BigMart with ML and hybrid stacks",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "cross-validation",
+        "machine-learning",
+        "retail-analytics",
+        "sales-forecasting",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 56,
+      "createdAt": "2026-10-07T09:11:42Z",
+      "pushedAt": "2026-10-07T09:11:50Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 99259,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "795853b",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:38Z",
+        "url": "https://github.com/KrishnaAnnavaram/salescope/commit/795853b747366e049970ef31874fdc54f53c4a7f"
+      },
+      "readmeLead": "salescope is a sales prediction toolkit for analysts who work with item-outlet retail data. It takes a BigMart-style CSV through these steps to a cross-validated sales model and a scored test file:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "culturefit",
+      "fullName": "KrishnaAnnavaram/culturefit",
+      "url": "https://github.com/KrishnaAnnavaram/culturefit",
+      "homepage": null,
+      "description": "Score candidate culture fit from resume, job description and interview answers",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "explainability",
+        "hiring-fairness",
+        "nlp",
+        "pii-redaction",
+        "responsible-ai"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 42,
+      "createdAt": "2026-10-07T09:09:30Z",
+      "pushedAt": "2026-10-07T09:09:38Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 62531,
+          "share": 99
+        },
+        {
+          "name": "Dockerfile",
+          "bytes": 601,
+          "share": 1
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "4628cb2",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:37Z",
+        "url": "https://github.com/KrishnaAnnavaram/culturefit/commit/4628cb2c9fe18566d58dbae037e8a623beb595f3"
+      },
+      "readmeLead": "culturefit — An Explainable Evidence Report on Stated Work Values",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "reddit-pulse",
+      "fullName": "KrishnaAnnavaram/reddit-pulse",
+      "url": "https://github.com/KrishnaAnnavaram/reddit-pulse",
+      "homepage": null,
+      "description": "Topic modeling and aspect-based sentiment on Reddit policy debates",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "aspect-based-sentiment",
+        "computational-social-science",
+        "reddit",
+        "sentiment-analysis",
+        "topic-modeling"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 45,
+      "createdAt": "2026-10-07T09:07:19Z",
+      "pushedAt": "2026-10-07T09:07:27Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 69407,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "2a86514",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:36Z",
+        "url": "https://github.com/KrishnaAnnavaram/reddit-pulse/commit/2a86514bcf92146e5f141be83a0b7798b3e17f5d"
+      },
+      "readmeLead": "reddit-pulse — Validated Sentiment, Aspect Sentiment and Topics for Reddit Policy Debates",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "speakright",
+      "fullName": "KrishnaAnnavaram/speakright",
+      "url": "https://github.com/KrishnaAnnavaram/speakright",
+      "homepage": null,
+      "description": "AI pronunciation coach for English and Mandarin",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "language-learning",
+        "mandarin-tones",
+        "phoneme-recognition",
+        "pronunciation",
+        "speech-processing"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 53,
+      "createdAt": "2026-10-07T09:05:08Z",
+      "pushedAt": "2026-10-07T09:05:16Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 93301,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "a0f2671",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:09Z",
+        "url": "https://github.com/KrishnaAnnavaram/speakright/commit/a0f2671567475936fd634c59811eb4ac3d4fc5ff"
+      },
+      "readmeLead": "speakright — Phone-Level Pronunciation Feedback for English and Mandarin",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "profmatch",
+      "fullName": "KrishnaAnnavaram/profmatch",
+      "url": "https://github.com/KrishnaAnnavaram/profmatch",
+      "homepage": null,
+      "description": "Find the right professor for your interests and preferred challenge level",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "bayesian-shrinkage",
+        "fastapi",
+        "information-retrieval",
+        "recommender-system",
+        "tf-idf"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 54,
+      "createdAt": "2026-10-07T09:02:57Z",
+      "pushedAt": "2026-10-07T09:03:05Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 96882,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "1e93da9",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:08Z",
+        "url": "https://github.com/KrishnaAnnavaram/profmatch/commit/1e93da9347cfae80ce9e751c4eba3815bcda2d69"
+      },
+      "readmeLead": "profmatch — Explainable Professor Recommendations from Research Profiles and Teaching Signals",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "leafdoctor",
+      "fullName": "KrishnaAnnavaram/leafdoctor",
+      "url": "https://github.com/KrishnaAnnavaram/leafdoctor",
+      "homepage": null,
+      "description": "Hybrid deep + handcrafted features for plant disease classification",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "computer-vision",
+        "data-leakage",
+        "image-classification",
+        "plant-disease",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 59,
+      "createdAt": "2026-10-07T08:30:43Z",
+      "pushedAt": "2026-10-07T08:30:51Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 108635,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "6ccd495",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:06Z",
+        "url": "https://github.com/KrishnaAnnavaram/leafdoctor/commit/6ccd49503d75ee6e32ddfee3f3ad00577fc4c2d3"
+      },
+      "readmeLead": "leafdoctor — Leakage-Safe Plant Disease Classification with Hybrid Features",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "paperdigest",
+      "fullName": "KrishnaAnnavaram/paperdigest",
+      "url": "https://github.com/KrishnaAnnavaram/paperdigest",
+      "homepage": null,
+      "description": "Benchmark 20 summarizers plus QA and RAG over research papers",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "benchmark",
+        "nlp",
+        "question-answering",
+        "rag",
+        "summarization"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 42,
+      "createdAt": "2026-10-07T08:28:31Z",
+      "pushedAt": "2026-10-07T08:28:40Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 66493,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "d80eb92",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:05Z",
+        "url": "https://github.com/KrishnaAnnavaram/paperdigest/commit/d80eb929ba93d497950159548cc30cb9d42df2c4"
+      },
+      "readmeLead": "paperdigest — Reproducible Benchmark for Paper Summarization, QA and RAG",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "paddyguard",
+      "fullName": "KrishnaAnnavaram/paddyguard",
+      "url": "https://github.com/KrishnaAnnavaram/paddyguard",
+      "homepage": null,
+      "description": "Weather-aware paddy (rice) leaf disease detection",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "computer-vision",
+        "plant-disease",
+        "pytorch",
+        "rice",
+        "weather-data"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 44,
+      "createdAt": "2026-10-07T08:26:18Z",
+      "pushedAt": "2026-10-07T08:26:27Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 69788,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "291a4db",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:03Z",
+        "url": "https://github.com/KrishnaAnnavaram/paddyguard/commit/291a4db9155f491677f6494fb6b401da01be1827"
+      },
+      "readmeLead": "paddyguard — Weather-Aware Paddy Leaf Disease Detection with an Honest Ablation",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "dementia-typer",
+      "fullName": "KrishnaAnnavaram/dementia-typer",
+      "url": "https://github.com/KrishnaAnnavaram/dementia-typer",
+      "homepage": null,
+      "description": "Dementia subtype classification from OASIS-3 clinical and MRI data",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "alzheimers-disease",
+        "dementia",
+        "medical-machine-learning",
+        "neuroimaging",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 42,
+      "createdAt": "2026-10-07T08:24:06Z",
+      "pushedAt": "2026-10-07T08:24:15Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 61354,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "b34b61d",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:01Z",
+        "url": "https://github.com/KrishnaAnnavaram/dementia-typer/commit/b34b61daa876cdba5c78cc2ee54144cd86ac27bd"
+      },
+      "readmeLead": "dementia-typer — Leakage-Aware Dementia Group Classification on OASIS-3",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "chestx-multitask",
+      "fullName": "KrishnaAnnavaram/chestx-multitask",
+      "url": "https://github.com/KrishnaAnnavaram/chestx-multitask",
+      "homepage": null,
+      "description": "ViT vs Swin multi-task learning on NIH ChestX-ray14",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "chest-xray",
+        "medical-imaging",
+        "multi-label-classification",
+        "pytorch",
+        "vision-transformer"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 53,
+      "createdAt": "2026-10-07T08:21:54Z",
+      "pushedAt": "2026-10-07T08:22:03Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 88067,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "5f75820",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:07:00Z",
+        "url": "https://github.com/KrishnaAnnavaram/chestx-multitask/commit/5f75820ef9908ec1d2bb9df3fa3c1c9df98559af"
+      },
+      "readmeLead": "chestx-multitask — Leakage-Free Multi-Task Benchmark on NIH ChestX-ray14",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "crashinsight",
+      "fullName": "KrishnaAnnavaram/crashinsight",
+      "url": "https://github.com/KrishnaAnnavaram/crashinsight",
+      "homepage": null,
+      "description": "Injury-severity analysis on NHTSA GES crash data",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "crash-analysis",
+        "injury-severity",
+        "nhtsa",
+        "scikit-learn",
+        "survey-statistics"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 56,
+      "createdAt": "2026-10-07T08:19:42Z",
+      "pushedAt": "2026-10-07T08:19:51Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 88080,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "127641f",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:03:40Z",
+        "url": "https://github.com/KrishnaAnnavaram/crashinsight/commit/127641fb68ccb4561727dec77d480f7eeb0cbca3"
+      },
+      "readmeLead": "crashinsight — Survey-Aware Injury Severity Analysis on NHTSA GES Crash Data",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "gridiron-oracle",
+      "fullName": "KrishnaAnnavaram/gridiron-oracle",
+      "url": "https://github.com/KrishnaAnnavaram/gridiron-oracle",
+      "homepage": null,
+      "description": "NFL game predictions with ML and graph-based Elo ratings",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "elo-rating",
+        "machine-learning",
+        "neo4j",
+        "nfl",
+        "sports-analytics"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 36,
+      "createdAt": "2026-10-07T08:17:31Z",
+      "pushedAt": "2026-10-07T08:17:39Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 52314,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "f43132c",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:03:16Z",
+        "url": "https://github.com/KrishnaAnnavaram/gridiron-oracle/commit/f43132c3216412444fbce0b724c8ff84d5e02774"
+      },
+      "readmeLead": "gridiron-oracle — NFL Game Predictions with Leak-Free Features and Elo",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "skyfusion",
+      "fullName": "KrishnaAnnavaram/skyfusion",
+      "url": "https://github.com/KrishnaAnnavaram/skyfusion",
+      "homepage": null,
+      "description": "Fuse ground stations and NASA POWER data for next-hour LSTM weather forecasts",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "data-fusion",
+        "lstm",
+        "nasa-power",
+        "time-series",
+        "weather-forecasting"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 39,
+      "createdAt": "2026-10-07T08:15:19Z",
+      "pushedAt": "2026-10-07T08:15:27Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 57444,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "d85d853",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:06:58Z",
+        "url": "https://github.com/KrishnaAnnavaram/skyfusion/commit/d85d8532e3b3bc030b37b9c4d0df6975f410cdcb"
+      },
+      "readmeLead": "skyfusion — Station and NASA POWER Fusion for Hourly Temperature Forecasts",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "sensehome",
+      "fullName": "KrishnaAnnavaram/sensehome",
+      "url": "https://github.com/KrishnaAnnavaram/sensehome",
+      "homepage": null,
+      "description": "Multi-sensory furniture recommender (image + sound + texture)",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "attention",
+        "bpr",
+        "multimodal-learning",
+        "python",
+        "recommender-systems"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 42,
+      "createdAt": "2026-10-07T08:13:06Z",
+      "pushedAt": "2026-10-07T08:13:16Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 68547,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "fc3260f",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:00:45Z",
+        "url": "https://github.com/KrishnaAnnavaram/sensehome/commit/fc3260f88a7196f186ad68ed4f9d47f7d9c53f65"
+      },
+      "readmeLead": "sensehome is a recommender for furniture shops that want to use how an item looks, feels, reads and sounds. It takes a catalogue and an interaction log through these steps to a ranked, explained list for each user:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "snaptranslate",
+      "fullName": "KrishnaAnnavaram/snaptranslate",
+      "url": "https://github.com/KrishnaAnnavaram/snaptranslate",
+      "homepage": null,
+      "description": "Point, snap, translate: an OCR travel translator",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "machine-translation",
+        "nlp",
+        "ocr",
+        "streamlit",
+        "tesseract"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 58,
+      "createdAt": "2026-10-07T08:10:54Z",
+      "pushedAt": "2026-10-07T08:11:03Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 89620,
+          "share": 99.2
+        },
+        {
+          "name": "Dockerfile",
+          "bytes": 744,
+          "share": 0.8
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "a288a2a",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:08:11Z",
+        "url": "https://github.com/KrishnaAnnavaram/snaptranslate/commit/a288a2a9cce13766d900fc5111ded378b39a7026"
+      },
+      "readmeLead": "snaptranslate — Point, Snap, Translate: An OCR Travel Translator",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "calmvoice",
+      "fullName": "KrishnaAnnavaram/calmvoice",
+      "url": "https://github.com/KrishnaAnnavaram/calmvoice",
+      "homepage": null,
+      "description": "Voice-enabled mental-health support companion (local Llama + RAG)",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "ai-safety",
+        "mental-health",
+        "ollama",
+        "retrieval-augmented-generation",
+        "speech"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 66,
+      "createdAt": "2026-10-07T07:38:41Z",
+      "pushedAt": "2026-10-07T07:38:49Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 105816,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "98b9160",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:08:10Z",
+        "url": "https://github.com/KrishnaAnnavaram/calmvoice/commit/98b91602b707474ddcc546cb4050d51e3f3e4e18"
+      },
+      "readmeLead": "calmvoice — Safety-First Voice Wellbeing Companion With Local RAG",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "mindclassify",
+      "fullName": "KrishnaAnnavaram/mindclassify",
+      "url": "https://github.com/KrishnaAnnavaram/mindclassify",
+      "homepage": null,
+      "description": "QLoRA-tuned Llama 3.1 for mental-health text classification",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "llama",
+        "mental-health",
+        "qlora",
+        "responsible-ai",
+        "text-classification"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 45,
+      "createdAt": "2026-10-07T07:36:29Z",
+      "pushedAt": "2026-10-07T07:36:38Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 66913,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "82d8112",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:08:10Z",
+        "url": "https://github.com/KrishnaAnnavaram/mindclassify/commit/82d81124ac5ccf9ebdcb354a8b730f96cc4741f6"
+      },
+      "readmeLead": "mindclassify — Responsible Mental-Health Text Classification With Llama 3.1 QLoRA",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "reportwise",
+      "fullName": "KrishnaAnnavaram/reportwise",
+      "url": "https://github.com/KrishnaAnnavaram/reportwise",
+      "homepage": null,
+      "description": "Upload a medical report PDF, get key findings and a follow-up chat",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "lab-results",
+        "medical-reports",
+        "pdf-parsing",
+        "rag",
+        "safety"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 55,
+      "createdAt": "2026-10-07T07:34:19Z",
+      "pushedAt": "2026-10-07T07:34:26Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 80023,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "17b0944",
+        "message": "Build reportwise: rules-first lab report explanations with a safe follow-up chat",
+        "date": "2026-10-07T00:18:36Z",
+        "url": "https://github.com/KrishnaAnnavaram/reportwise/commit/17b0944e8fa0ab4d6d9f455cf0fe56def3f2dc5c"
+      },
+      "readmeLead": "reportwise is a lab report assistant for patients and clinicians. It takes a lab report PDF through these steps to a validated, cited explanation and a follow-up chat:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "symptom-sage",
+      "fullName": "KrishnaAnnavaram/symptom-sage",
+      "url": "https://github.com/KrishnaAnnavaram/symptom-sage",
+      "homepage": null,
+      "description": "Symptom-checker RAG built from transcribed doctor-patient interviews",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "healthcare",
+        "rag",
+        "retrieval",
+        "safety",
+        "speech-recognition"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 48,
+      "createdAt": "2026-10-07T07:32:08Z",
+      "pushedAt": "2026-10-07T07:32:16Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 82506,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "f65cb7c",
+        "message": "Build symptom-sage: evaluated, safety-first symptom RAG over simulated interviews",
+        "date": "2026-10-07T00:06:43Z",
+        "url": "https://github.com/KrishnaAnnavaram/symptom-sage/commit/f65cb7c7e50b28810e855a7418e85ceacc676eb0"
+      },
+      "readmeLead": "symptom-sage — A Safety-First Symptom RAG Over Simulated Interviews",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "lunglens",
+      "fullName": "KrishnaAnnavaram/lunglens",
+      "url": "https://github.com/KrishnaAnnavaram/lunglens",
+      "homepage": null,
+      "description": "Lung CT nodule malignancy scoring with patient reports in 80+ languages",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "calibration",
+        "lidc-idri",
+        "lung-cancer",
+        "medical-imaging",
+        "nllb"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 53,
+      "createdAt": "2026-10-07T07:29:57Z",
+      "pushedAt": "2026-10-07T07:30:04Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 88695,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "cb2ce2d",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:08:09Z",
+        "url": "https://github.com/KrishnaAnnavaram/lunglens/commit/cb2ce2d18f2500ae9e693bf7c7c32561a9987873"
+      },
+      "readmeLead": "lunglens — Lung Nodule Malignancy Estimates With Multilingual Reports",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "resume-arena",
+      "fullName": "KrishnaAnnavaram/resume-arena",
+      "url": "https://github.com/KrishnaAnnavaram/resume-arena",
+      "homepage": null,
+      "description": "GPT vs DeepSeek-R1: which writes the most ATS-friendly resume?",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "ats",
+        "benchmark",
+        "bootstrap",
+        "llm-evaluation",
+        "resume"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 53,
+      "createdAt": "2026-10-07T07:27:47Z",
+      "pushedAt": "2026-10-07T07:27:54Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 87774,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "a1fd652",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:08:09Z",
+        "url": "https://github.com/KrishnaAnnavaram/resume-arena/commit/a1fd65286a738917e017603c2cfbd61f5144ca38"
+      },
+      "readmeLead": "resume-arena is a benchmark harness for LLM-written resumes. It takes job postings and candidate profiles through these steps to a statistical report that compares models and prompt styles:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "holisticare-rag",
+      "fullName": "KrishnaAnnavaram/holisticare-rag",
+      "url": "https://github.com/KrishnaAnnavaram/holisticare-rag",
+      "homepage": null,
+      "description": "Local RAG health assistant over conventional and integrative medicine texts",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "health-information",
+        "ollama",
+        "rag",
+        "retrieval",
+        "safety"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 48,
+      "createdAt": "2026-10-07T07:25:34Z",
+      "pushedAt": "2026-10-07T07:25:42Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 76155,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "05a75f7",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:08:08Z",
+        "url": "https://github.com/KrishnaAnnavaram/holisticare-rag/commit/05a75f7f6f77a174502c3a30ee9c9b936f8f95bc"
+      },
+      "readmeLead": "holisticare-rag — Local Health Information Assistant With Cited Sources",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "fridge2fork",
+      "fullName": "KrishnaAnnavaram/fridge2fork",
+      "url": "https://github.com/KrishnaAnnavaram/fridge2fork",
+      "homepage": null,
+      "description": "What can I cook? Ingredient-based recipe search with Word2Vec, FAISS and GPT",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "faiss",
+        "information-retrieval",
+        "rag",
+        "recipe-recommendation",
+        "word2vec"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 45,
+      "createdAt": "2026-10-07T07:23:22Z",
+      "pushedAt": "2026-10-07T07:23:31Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 69353,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "cf0d5d3",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:08:07Z",
+        "url": "https://github.com/KrishnaAnnavaram/fridge2fork/commit/cf0d5d37336d5cdd48a32e34c60682a5caf14666"
+      },
+      "readmeLead": "fridge2fork — Ingredient-Based Recipe Search With Grounded Explanations",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "firecast-id",
+      "fullName": "KrishnaAnnavaram/firecast-id",
+      "url": "https://github.com/KrishnaAnnavaram/firecast-id",
+      "homepage": null,
+      "description": "Forecast Indonesian wildfire hotspots with LSTM, attention and Transformers",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "backtesting",
+        "indonesia",
+        "nasa-firms",
+        "time-series-forecasting",
+        "wildfire"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 44,
+      "createdAt": "2026-10-07T07:21:11Z",
+      "pushedAt": "2026-10-07T07:21:19Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 69152,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "0fea4dd",
+        "message": "Polish the README before publishing",
+        "date": "2026-10-07T07:08:07Z",
+        "url": "https://github.com/KrishnaAnnavaram/firecast-id/commit/0fea4dd37065d592f3ef716f739325af95a07516"
+      },
+      "readmeLead": "firecast-id is a forecast benchmark for daily active-fire hotspot counts in Indonesia. It takes NASA FIRMS detections through these steps to give tested forecasts for 1 to 30 days ahead:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "neurorisk",
+      "fullName": "KrishnaAnnavaram/neurorisk",
+      "url": "https://github.com/KrishnaAnnavaram/neurorisk",
+      "homepage": null,
+      "description": "Ensemble models and interpretable risk scores for Alzheimer's prediction",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "alzheimers-disease",
+        "machine-learning",
+        "model-calibration",
+        "risk-prediction",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 53,
+      "createdAt": "2026-10-07T06:32:52Z",
+      "pushedAt": "2026-10-07T06:53:46Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 88049,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "76c16d9",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:53:45Z",
+        "url": "https://github.com/KrishnaAnnavaram/neurorisk/commit/76c16d983a06830186a02fc151eb282627e37b33"
+      },
+      "readmeLead": "neurorisk is a research toolkit for tabular Alzheimer's risk models with honest feature sets. It takes a patient table through these steps to calibrated risk and a report:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "hepatoscan",
+      "fullName": "KrishnaAnnavaram/hepatoscan",
+      "url": "https://github.com/KrishnaAnnavaram/hepatoscan",
+      "homepage": null,
+      "description": "Attention U-Net liver tumor segmentation with a patient-care chatbot",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "attention-unet",
+        "ct-scan",
+        "liver-segmentation",
+        "medical-imaging",
+        "pytorch",
+        "rag"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 67,
+      "createdAt": "2026-10-06T23:46:05Z",
+      "pushedAt": "2026-10-07T06:51:50Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 109701,
+          "share": 97.2
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 2039,
+          "share": 1.8
+        },
+        {
+          "name": "HTML",
+          "bytes": 1080,
+          "share": 1
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "f7bb282",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:51:48Z",
+        "url": "https://github.com/KrishnaAnnavaram/hepatoscan/commit/f7bb282fbad631c0710b563f6a64d332d6126fe4"
+      },
+      "readmeLead": "hepatoscan — Liver And Tumor Segmentation With A Safe Patient Assistant",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "gradguide",
+      "fullName": "KrishnaAnnavaram/gradguide",
+      "url": "https://github.com/KrishnaAnnavaram/gradguide",
+      "homepage": null,
+      "description": "RAG advising assistant for graduate students",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "education",
+        "fastapi",
+        "hybrid-search",
+        "python",
+        "rag",
+        "retrieval-augmented-generation"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 89,
+      "createdAt": "2026-10-06T20:50:46Z",
+      "pushedAt": "2026-10-07T06:51:03Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 110093,
+          "share": 98.5
+        },
+        {
+          "name": "HTML",
+          "bytes": 1653,
+          "share": 1.5
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "be2fc45",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:51:02Z",
+        "url": "https://github.com/KrishnaAnnavaram/gradguide/commit/be2fc458f5da379b47da3f3f1e67ecc6409487a3"
+      },
+      "readmeLead": "gradguide is an institution-neutral advising assistant for graduate students. It takes the policy documents and FAQs of an institution through these steps to a cited answer or an abstention:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "ev-diffusion",
+      "fullName": "KrishnaAnnavaram/ev-diffusion",
+      "url": "https://github.com/KrishnaAnnavaram/ev-diffusion",
+      "homepage": null,
+      "description": "Forecast EV adoption with Bass diffusion plus owner-review sentiment",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "bass-diffusion",
+        "electric-vehicles",
+        "forecasting",
+        "sentiment-analysis",
+        "time-series"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 66,
+      "createdAt": "2026-10-07T06:43:30Z",
+      "pushedAt": "2026-10-07T06:50:43Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 123541,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "6052533",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:50:41Z",
+        "url": "https://github.com/KrishnaAnnavaram/ev-diffusion/commit/60525331e386105349f6d5ce58ebe01f26fd91d7"
+      },
+      "readmeLead": "ev-diffusion is a forecasting and text-analysis toolkit for electric-vehicle (EV) adoption studies. It takes registration counts and owner reviews through these steps to a tested forecast and evidence-backed review findings:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "onboardiq",
+      "fullName": "KrishnaAnnavaram/onboardiq",
+      "url": "https://github.com/KrishnaAnnavaram/onboardiq",
+      "homepage": null,
+      "description": "Role- and seniority-aware onboarding RAG assistant",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "hybrid-search",
+        "llm",
+        "onboarding",
+        "python",
+        "rag",
+        "retrieval-augmented-generation"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 78,
+      "createdAt": "2026-10-06T20:50:19Z",
+      "pushedAt": "2026-10-07T06:50:41Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 94619,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "820bb9b",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:50:40Z",
+        "url": "https://github.com/KrishnaAnnavaram/onboardiq/commit/820bb9b0867af7ee1ef03de2b5e7848291e85d31"
+      },
+      "readmeLead": "onboardiq — Role-Aware Onboarding Assistant With Cited Answers",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "ipm-lstm-attn",
+      "fullName": "KrishnaAnnavaram/ipm-lstm-attn",
+      "url": "https://github.com/KrishnaAnnavaram/ipm-lstm-attn",
+      "homepage": null,
+      "description": "Self-attention extension of the IPM-LSTM learned interior-point solver",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "interior-point-method",
+        "learning-to-optimize",
+        "lstm",
+        "nonlinear-programming",
+        "pytorch",
+        "self-attention"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 58,
+      "createdAt": "2026-10-06T21:57:36Z",
+      "pushedAt": "2026-10-07T06:50:34Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 102647,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "eac573b",
+        "message": "Make the README test badge show the CI count",
+        "date": "2026-10-07T06:50:33Z",
+        "url": "https://github.com/KrishnaAnnavaram/ipm-lstm-attn/commit/eac573b6e12e9a27fb3ca75c893bc7256ac232ad"
+      },
+      "readmeLead": "ipm-lstm-attn — Learned Interior-Point Solver With A Seeded Attention Ablation",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "nutribuddy",
+      "fullName": "KrishnaAnnavaram/nutribuddy",
+      "url": "https://github.com/KrishnaAnnavaram/nutribuddy",
+      "homepage": null,
+      "description": "RAG diet planner for diabetes, heart and thyroid conditions",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "health-informatics",
+        "nutrition",
+        "python",
+        "rag",
+        "retrieval-augmented-generation"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 69,
+      "createdAt": "2026-10-07T06:34:03Z",
+      "pushedAt": "2026-10-07T06:50:17Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 134755,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "098384c",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:50:15Z",
+        "url": "https://github.com/KrishnaAnnavaram/nutribuddy/commit/098384c1148f78efd522f236209fbd3a891d4728"
+      },
+      "readmeLead": "nutribuddy is a retrieval-grounded diet planner for people with diabetes, heart disease or a thyroid disorder. It takes symptoms or a selected condition through these steps to a cited diet plan with real food examples:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "ballots-to-markets",
+      "fullName": "KrishnaAnnavaram/ballots-to-markets",
+      "url": "https://github.com/KrishnaAnnavaram/ballots-to-markets",
+      "homepage": null,
+      "description": "Election sentiment, Fed policy and their link to market moves",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "elections",
+        "event-study",
+        "granger-causality",
+        "sentiment-analysis",
+        "time-series-forecasting"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 47,
+      "createdAt": "2026-10-07T06:42:18Z",
+      "pushedAt": "2026-10-07T06:50:07Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 69579,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "4b9f911",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:50:05Z",
+        "url": "https://github.com/KrishnaAnnavaram/ballots-to-markets/commit/4b9f911e8da776fcfb92c2a66374f6db16ca8f11"
+      },
+      "readmeLead": "ballots-to-markets — Election Sentiment, Fed Policy and Market Moves",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "policypilot",
+      "fullName": "KrishnaAnnavaram/policypilot",
+      "url": "https://github.com/KrishnaAnnavaram/policypilot",
+      "homepage": null,
+      "description": "Multi-agent insurance QA across SQL, MongoDB and policy PDFs",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "insurance",
+        "llm",
+        "mongodb",
+        "multi-agent",
+        "rag",
+        "text-to-sql"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 120,
+      "createdAt": "2026-10-06T20:48:54Z",
+      "pushedAt": "2026-10-07T06:50:00Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 212494,
+          "share": 99.8
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 322,
+          "share": 0.2
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "bfca1ac",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:49:58Z",
+        "url": "https://github.com/KrishnaAnnavaram/policypilot/commit/bfca1acf6abf152e46dcad968e2b1fb53dc8bd1e"
+      },
+      "readmeLead": "policypilot — Safe Multi-Source Insurance Questions and Answers",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "pneumovit-explain",
+      "fullName": "KrishnaAnnavaram/pneumovit-explain",
+      "url": "https://github.com/KrishnaAnnavaram/pneumovit-explain",
+      "homepage": null,
+      "description": "From-scratch ViT pneumonia detector with attention maps, similar cases and LLM explanations",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "chest-xray",
+        "explainable-ai",
+        "medical-imaging",
+        "pneumonia-detection",
+        "pytorch",
+        "vision-transformer"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 51,
+      "createdAt": "2026-10-07T00:16:03Z",
+      "pushedAt": "2026-10-07T06:49:56Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 86797,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "0133181",
+        "message": "Remove build-run wording from the README known problems",
+        "date": "2026-10-07T06:49:54Z",
+        "url": "https://github.com/KrishnaAnnavaram/pneumovit-explain/commit/0133181157506e4aa3ba90510397bda0ef972ae8"
+      },
+      "readmeLead": "pneumovit-explain — Pneumonia Detection With Honest Explanations",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "eeg-rx",
+      "fullName": "KrishnaAnnavaram/eeg-rx",
+      "url": "https://github.com/KrishnaAnnavaram/eeg-rx",
+      "homepage": null,
+      "description": "Predict antidepressant (SSRI) response from resting-state EEG",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "depression",
+        "eeg",
+        "machine-learning",
+        "nested-cross-validation",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 40,
+      "createdAt": "2026-10-07T06:41:07Z",
+      "pushedAt": "2026-10-07T06:49:23Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 57896,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "63f1d9c",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:49:22Z",
+        "url": "https://github.com/KrishnaAnnavaram/eeg-rx/commit/63f1d9c2040d8685158cae2279a41a46f2190983"
+      },
+      "readmeLead": "eeg-rx is a leakage-safe research pipeline for resting-state EEG studies of SSRI treatment response. It takes 19-channel recordings through these steps to subject-level results with intervals and a permutation test:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "cellsight",
+      "fullName": "KrishnaAnnavaram/cellsight",
+      "url": "https://github.com/KrishnaAnnavaram/cellsight",
+      "homepage": null,
+      "description": "Blood-cell image classification with a 7-backbone deep ensemble",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "ensemble-learning",
+        "hematology",
+        "image-classification",
+        "medical-imaging",
+        "pytorch",
+        "timm"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 49,
+      "createdAt": "2026-10-06T23:53:34Z",
+      "pushedAt": "2026-10-07T06:49:16Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 84375,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "9378784",
+        "message": "Label the prototype scores in the README",
+        "date": "2026-10-07T06:49:14Z",
+        "url": "https://github.com/KrishnaAnnavaram/cellsight/commit/937878432cc5bbde17abbdb36f7b56354dfbe1ca"
+      },
+      "readmeLead": "cellsight is a blood-cell image classifier with an honest evaluation for five cell types. It takes an image folder through these steps to a stacked ensemble and a report:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "callscribe",
+      "fullName": "KrishnaAnnavaram/callscribe",
+      "url": "https://github.com/KrishnaAnnavaram/callscribe",
+      "homepage": null,
+      "description": "Speaker-attributed transcripts for earnings calls (pyannote + Whisper)",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "pyannote",
+        "speaker-diarization",
+        "speech-recognition",
+        "whisper",
+        "word-error-rate"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 52,
+      "createdAt": "2026-10-07T06:39:57Z",
+      "pushedAt": "2026-10-07T06:48:57Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 86866,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "eff0916",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:48:55Z",
+        "url": "https://github.com/KrishnaAnnavaram/callscribe/commit/eff0916905496e8793bf1e8f8a13b61171149c48"
+      },
+      "readmeLead": "callscribe — Speaker-Attributed Transcripts for Earnings Calls",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "clinicdesk-agent",
+      "fullName": "KrishnaAnnavaram/clinicdesk-agent",
+      "url": "https://github.com/KrishnaAnnavaram/clinicdesk-agent",
+      "homepage": null,
+      "description": "Agentic clinic front desk: symptom triage, doctor lookup and appointment booking",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "appointment-scheduling",
+        "healthcare",
+        "llm-agents",
+        "sqlite",
+        "streamlit",
+        "tool-calling"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 82,
+      "createdAt": "2026-10-06T20:48:20Z",
+      "pushedAt": "2026-10-07T06:48:41Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 138253,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "8ecc581",
+        "message": "Add a responsible-use warning to the README",
+        "date": "2026-10-07T06:48:39Z",
+        "url": "https://github.com/KrishnaAnnavaram/clinicdesk-agent/commit/8ecc581337a463e259964e3c8daf6ba57912eb8e"
+      },
+      "readmeLead": "clinicdesk-agent is an assistant with typed tools for the front desk of a small outpatient clinic. It takes a patient message through these steps to a confirmed booking change:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "crossrec",
+      "fullName": "KrishnaAnnavaram/crossrec",
+      "url": "https://github.com/KrishnaAnnavaram/crossrec",
+      "homepage": null,
+      "description": "Cross-domain recommendations: from food tastes to books and back",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "cold-start",
+        "cross-domain-recommendation",
+        "matrix-factorization",
+        "python",
+        "recommender-systems"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 47,
+      "createdAt": "2026-10-07T06:38:46Z",
+      "pushedAt": "2026-10-07T06:48:30Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 76991,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "c06a4ea",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:48:28Z",
+        "url": "https://github.com/KrishnaAnnavaram/crossrec/commit/c06a4ea5d0387846db08bc0c91c0c2e814050312"
+      },
+      "readmeLead": "crossrec — Cross-Domain Recommendations from Food Tastes to Books and Back",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "dietverse",
+      "fullName": "KrishnaAnnavaram/dietverse",
+      "url": "https://github.com/KrishnaAnnavaram/dietverse",
+      "homepage": null,
+      "description": "COVID diet analytics dashboard plus a talking VR nutrition assistant",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "data-analysis",
+        "fastapi",
+        "nutrition",
+        "streamlit",
+        "unity"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 48,
+      "createdAt": "2026-10-07T06:37:36Z",
+      "pushedAt": "2026-10-07T06:48:00Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 70559,
+          "share": 94.8
+        },
+        {
+          "name": "C#",
+          "bytes": 3877,
+          "share": 5.2
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "cae896b",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:47:58Z",
+        "url": "https://github.com/KrishnaAnnavaram/dietverse/commit/cae896b2fdd45b91eb71c1a943a5b82ad2555567"
+      },
+      "readmeLead": "dietverse — Diet Analytics And A Backend For A Talking VR Assistant",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "gadgetgenie",
+      "fullName": "KrishnaAnnavaram/gadgetgenie",
+      "url": "https://github.com/KrishnaAnnavaram/gadgetgenie",
+      "homepage": null,
+      "description": "Ask in plain English, get phone and laptop picks via LLM text-to-SQL",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "fastapi",
+        "llm",
+        "recommender-system",
+        "sqlglot",
+        "text-to-sql"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 88,
+      "createdAt": "2026-10-06T20:53:42Z",
+      "pushedAt": "2026-10-07T06:47:52Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 133512,
+          "share": 96.7
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 2382,
+          "share": 1.7
+        },
+        {
+          "name": "CSS",
+          "bytes": 1462,
+          "share": 1.1
+        },
+        {
+          "name": "HTML",
+          "bytes": 660,
+          "share": 0.5
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "d5e38af",
+        "message": "Use the repository name in the README title line",
+        "date": "2026-10-07T06:47:50Z",
+        "url": "https://github.com/KrishnaAnnavaram/gadgetgenie/commit/d5e38af340d08026d8d7bd839e57916209058640"
+      },
+      "readmeLead": "GadgetGenie is a device recommender for laptops, phones, tablets and smartwatches. It takes a plain-English question about devices through these steps to a short recommendation that the code checks against the result rows:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "stylematch",
+      "fullName": "KrishnaAnnavaram/stylematch",
+      "url": "https://github.com/KrishnaAnnavaram/stylematch",
+      "homepage": null,
+      "description": "GPT RAG vs TF-IDF fashion recommender, head to head",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "bm25",
+        "evaluation",
+        "fashion",
+        "information-retrieval",
+        "rag",
+        "recommender-system"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 55,
+      "createdAt": "2026-10-06T23:48:54Z",
+      "pushedAt": "2026-10-07T06:47:41Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 99963,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "8c0cc06",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:47:39Z",
+        "url": "https://github.com/KrishnaAnnavaram/stylematch/commit/8c0cc06f73a43a27c17523f69e9a66af529cc487"
+      },
+      "readmeLead": "stylematch — Hybrid Fashion Recommender With Honest Evaluation",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "dischargebench",
+      "fullName": "KrishnaAnnavaram/dischargebench",
+      "url": "https://github.com/KrishnaAnnavaram/dischargebench",
+      "homepage": null,
+      "description": "Leakage-safe benchmark for summarizing discharge notes: seq2seq models vs local LLMs",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "benchmark",
+        "clinical-nlp",
+        "llm",
+        "mimic-iv",
+        "python",
+        "summarization"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 31,
+      "createdAt": "2026-10-06T21:45:29Z",
+      "pushedAt": "2026-10-07T06:47:16Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 22056,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "9ee9737",
+        "message": "Add a responsible-use note to the README",
+        "date": "2026-10-07T06:47:14Z",
+        "url": "https://github.com/KrishnaAnnavaram/dischargebench/commit/9ee97374e9a8c5dc6532c8b73901942903fe9df0"
+      },
+      "readmeLead": "dischargebench — Brief Hospital Course Summarization Benchmark",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "emotune",
+      "fullName": "KrishnaAnnavaram/emotune",
+      "url": "https://github.com/KrishnaAnnavaram/emotune",
+      "homepage": null,
+      "description": "Zero-shot vs few-shot vs QLoRA LLMs for emotion classification",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "benchmark",
+        "emotion-classification",
+        "few-shot-learning",
+        "llm",
+        "lora",
+        "nlp"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 44,
+      "createdAt": "2026-10-07T00:18:01Z",
+      "pushedAt": "2026-10-07T06:47:05Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 69318,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "991fdfb",
+        "message": "Polish the README after the first CI run",
+        "date": "2026-10-07T06:47:03Z",
+        "url": "https://github.com/KrishnaAnnavaram/emotune/commit/991fdfb98d7acb9fc981cefa9885bcebd69d4317"
+      },
+      "readmeLead": "emotune — Zero-Shot, Few-Shot And LoRA Language Models For Emotion Labels",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "heartstack",
+      "fullName": "KrishnaAnnavaram/heartstack",
+      "url": "https://github.com/KrishnaAnnavaram/heartstack",
+      "homepage": null,
+      "description": "Multi-cohort coronary artery disease prediction with stacked ensembles",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "cardiology",
+        "external-validation",
+        "machine-learning",
+        "model-card",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 37,
+      "createdAt": "2026-10-07T06:36:25Z",
+      "pushedAt": "2026-10-07T06:36:33Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 54404,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "e013b50",
+        "message": "Build heartstack: leakage-safe multi-cohort CAD risk models",
+        "date": "2026-10-07T00:15:07Z",
+        "url": "https://github.com/KrishnaAnnavaram/heartstack/commit/e013b50cbe70b455abe3890c7b5588e458d89568"
+      },
+      "readmeLead": "heartstack — Multi-Cohort Coronary Artery Disease Risk Models",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "ehr2summary",
+      "fullName": "KrishnaAnnavaram/ehr2summary",
+      "url": "https://github.com/KrishnaAnnavaram/ehr2summary",
+      "homepage": null,
+      "description": "Generate discharge summaries from EHR codes and grade them with LLM-as-a-judge",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "clinical-nlp",
+        "evaluation",
+        "llm-as-a-judge",
+        "mimic-iii",
+        "summarization"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 50,
+      "createdAt": "2026-10-07T06:35:14Z",
+      "pushedAt": "2026-10-07T06:35:22Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 89760,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "652e473",
+        "message": "Build ehr2summary: grounded discharge summaries with checked evaluation",
+        "date": "2026-10-06T23:51:20Z",
+        "url": "https://github.com/KrishnaAnnavaram/ehr2summary/commit/652e4730908a2a57c377353e8073351190d2cbce"
+      },
+      "readmeLead": "ehr2summary — Grounded Discharge Summaries With Checked Evaluation",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "eta-eats",
+      "fullName": "KrishnaAnnavaram/eta-eats",
+      "url": "https://github.com/KrishnaAnnavaram/eta-eats",
+      "homepage": null,
+      "description": "Predict food delivery ETA from courier, traffic and weather",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "eta-prediction",
+        "food-delivery",
+        "machine-learning",
+        "regression",
+        "scikit-learn"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 35,
+      "createdAt": "2026-10-07T00:16:53Z",
+      "pushedAt": "2026-10-07T00:34:35Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 48593,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "eb29cee",
+        "message": "Build eta-eats: leak-free, tested food delivery time pipeline",
+        "date": "2026-10-07T00:34:32Z",
+        "url": "https://github.com/KrishnaAnnavaram/eta-eats/commit/eb29cee91eca1d998f3181b0f38771d2ed455ef7"
+      },
+      "readmeLead": "eta-eats is a regression pipeline for food delivery teams that need a delivery time estimate. It takes a raw delivery file through these steps to a tested model, a model card and a submission file:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "citecheck",
+      "fullName": "KrishnaAnnavaram/citecheck",
+      "url": "https://github.com/KrishnaAnnavaram/citecheck",
+      "homepage": null,
+      "description": "How accurate are LLM citations? GPT vs Google Scholar across 5 styles",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "bibliometrics",
+        "citations",
+        "crossref",
+        "hallucination",
+        "llm-evaluation",
+        "openalex"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 45,
+      "createdAt": "2026-10-07T00:07:35Z",
+      "pushedAt": "2026-10-07T00:16:39Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 80331,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "227256b",
+        "message": "Build citecheck: field-level benchmark of LLM-written references",
+        "date": "2026-10-07T00:16:36Z",
+        "url": "https://github.com/KrishnaAnnavaram/citecheck/commit/227256b176f6cb4f9e6bd4d0b6d4898a27b2328b"
+      },
+      "readmeLead": "citecheck — Field-Level Accuracy Of LLM References In Five Styles",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "fedsugar",
+      "fullName": "KrishnaAnnavaram/fedsugar",
+      "url": "https://github.com/KrishnaAnnavaram/fedsugar",
+      "homepage": null,
+      "description": "Federated vs centralized learning for diabetes risk prediction",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "brfss",
+        "diabetes",
+        "fedavg",
+        "federated-learning",
+        "healthcare-ai",
+        "machine-learning"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 40,
+      "createdAt": "2026-10-07T00:01:41Z",
+      "pushedAt": "2026-10-07T00:12:27Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 62935,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "beef04e",
+        "message": "Build fedsugar: like-for-like federated vs centralized diabetes benchmark",
+        "date": "2026-10-07T00:12:24Z",
+        "url": "https://github.com/KrishnaAnnavaram/fedsugar/commit/beef04ed30ee70030182a87cd512e8f736a7bdb4"
+      },
+      "readmeLead": "fedsugar is a like-for-like benchmark of federated and centralized training for researchers who study privacy-preserving health models. It takes the 21 BRFSS 2015 indicators through these steps to macro-F1 results with confidence intervals:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "btc-gini-signal",
+      "fullName": "KrishnaAnnavaram/btc-gini-signal",
+      "url": "https://github.com/KrishnaAnnavaram/btc-gini-signal",
+      "homepage": null,
+      "description": "Do inequality indices (Gini, Kolkata) improve Bitcoin price prediction?",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "bitcoin",
+        "gini-coefficient",
+        "python",
+        "quantitative-finance",
+        "time-series-forecasting",
+        "walk-forward-validation"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 41,
+      "createdAt": "2026-10-06T23:42:17Z",
+      "pushedAt": "2026-10-06T23:52:37Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 65789,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "c3bd099",
+        "message": "Build btc-gini-signal: walk-forward test of Gini/Kolkata features",
+        "date": "2026-10-06T23:52:35Z",
+        "url": "https://github.com/KrishnaAnnavaram/btc-gini-signal/commit/c3bd0990b42f30b6993d1dbeafcc06906c556404"
+      },
+      "readmeLead": "btc-gini-signal — Inequality Features for Bitcoin Return Forecasts",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "truthtrace",
+      "fullName": "KrishnaAnnavaram/truthtrace",
+      "url": "https://github.com/KrishnaAnnavaram/truthtrace",
+      "homepage": null,
+      "description": "RAG fact-checker grounded in FactCheck.org and PolitiFact",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "fact-checking",
+        "hybrid-search",
+        "llm",
+        "misinformation",
+        "python",
+        "rag"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 87,
+      "createdAt": "2026-10-06T20:52:01Z",
+      "pushedAt": "2026-10-06T23:43:39Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 137321,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "6f6b0c5",
+        "message": "Rewrite the README as a complete STE document",
+        "date": "2026-10-06T23:43:37Z",
+        "url": "https://github.com/KrishnaAnnavaram/truthtrace/commit/6f6b0c5bc941fdea9d8c9a64f7bb26d834916fec"
+      },
+      "readmeLead": "truthtrace is a retrieval-augmented fact-checker for political claims. It takes a claim through these steps to a cited verdict or an honest Can't verify:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "retailia",
+      "fullName": "KrishnaAnnavaram/retailia",
+      "url": "https://github.com/KrishnaAnnavaram/retailia",
+      "homepage": null,
+      "description": "Agentic customer-service bot: SQL agent plus FAQ RAG",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "customer-service",
+        "llm-agents",
+        "rag",
+        "sqlite",
+        "streamlit",
+        "tool-calling"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 87,
+      "createdAt": "2026-10-06T20:49:36Z",
+      "pushedAt": "2026-10-06T23:40:44Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 130273,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "8a4aa72",
+        "message": "Rewrite the README as a complete STE document",
+        "date": "2026-10-06T23:40:41Z",
+        "url": "https://github.com/KrishnaAnnavaram/retailia/commit/8a4aa7203565b4d677d182033660bc1dc2007972"
+      },
+      "readmeLead": "retailia is an assistant for the customer service of an online store. It takes a question from a signed-in customer through these steps to a scoped, cited answer:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "cloudquote",
+      "fullName": "KrishnaAnnavaram/cloudquote",
+      "url": "https://github.com/KrishnaAnnavaram/cloudquote",
+      "homepage": null,
+      "description": "Plain-English requirements to AWS/GCP instance picks and pricing",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "aws",
+        "cloud-cost",
+        "gcp",
+        "llm",
+        "pricing",
+        "pydantic"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 57,
+      "createdAt": "2026-10-06T20:54:23Z",
+      "pushedAt": "2026-10-06T23:35:18Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 78104,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "c1a1423",
+        "message": "Rewrite the README as a complete STE document",
+        "date": "2026-10-06T23:35:16Z",
+        "url": "https://github.com/KrishnaAnnavaram/cloudquote/commit/c1a14233fbb421b3cec06697d1fb5d85ec9e54ab"
+      },
+      "readmeLead": "cloudquote — Plain-English Requirements to Priced AWS and GCP Quotes",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "paper2pod",
+      "fullName": "KrishnaAnnavaram/paper2pod",
+      "url": "https://github.com/KrishnaAnnavaram/paper2pod",
+      "homepage": null,
+      "description": "Turn arXiv papers into multi-voice podcasts with AI agents",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "ai-agents",
+        "arxiv",
+        "llm",
+        "podcast",
+        "python",
+        "text-to-speech"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 98,
+      "createdAt": "2026-10-06T20:47:38Z",
+      "pushedAt": "2026-10-06T22:01:29Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 159890,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "c55b0b7",
+        "message": "Rewrite the README as a complete STE document",
+        "date": "2026-10-06T22:01:28Z",
+        "url": "https://github.com/KrishnaAnnavaram/paper2pod/commit/c55b0b7bc59a0773689ef9269044527179057bf9"
+      },
+      "readmeLead": "paper2pod is a Python pipeline that changes an arXiv paper into a multi-voice podcast. It takes a paper reference through these steps to a WAV file and a quality report:",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "studybuddy-rag",
+      "fullName": "KrishnaAnnavaram/studybuddy-rag",
+      "url": "https://github.com/KrishnaAnnavaram/studybuddy-rag",
+      "homepage": null,
+      "description": "Voice-enabled RAG tutor with subject routing and a learning dashboard",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [
+        "education",
+        "llm",
+        "python",
+        "rag",
+        "retrieval-augmented-generation",
+        "streamlit"
+      ],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 74,
+      "createdAt": "2026-10-06T20:51:18Z",
+      "pushedAt": "2026-10-06T21:59:50Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 113853,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "8719e24",
+        "message": "Rewrite the README as a complete STE document",
+        "date": "2026-10-06T21:59:50Z",
+        "url": "https://github.com/KrishnaAnnavaram/studybuddy-rag/commit/8719e24034fc9b5396c1b8934dd31c69183aaf81"
+      },
+      "readmeLead": "studybuddy-rag — Subject-Routed Study Tutor With Cited Answers",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
+      "name": "MARS",
+      "fullName": "KrishnaAnnavaram/MARS",
+      "url": "https://github.com/KrishnaAnnavaram/MARS",
+      "homepage": null,
+      "description": "Modernization, Assessment, Remediation & Security",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": null,
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 5206,
+      "createdAt": "2026-09-24T18:50:33Z",
+      "pushedAt": "2026-10-03T20:29:23Z",
+      "languages": [
+        {
+          "name": "JavaScript",
+          "bytes": 769882,
+          "share": 54.5
+        },
+        {
+          "name": "TypeScript",
+          "bytes": 573979,
+          "share": 40.6
+        },
+        {
+          "name": "Java",
+          "bytes": 59192,
+          "share": 4.2
+        },
+        {
+          "name": "CSS",
+          "bytes": 6366,
+          "share": 0.5
+        },
+        {
+          "name": "Python",
+          "bytes": 1704,
+          "share": 0.1
+        },
+        {
+          "name": "Gherkin",
+          "bytes": 1041,
+          "share": 0.1
+        },
+        {
+          "name": "HTML",
+          "bytes": 687,
+          "share": 0
+        }
+      ],
+      "primaryLanguage": "JavaScript",
+      "lastCommit": {
+        "sha": "007b0a2",
+        "message": "Merge pull request #13 from KrishnaAnnavaram/docs/readme-ste",
+        "date": "2026-10-03T20:29:23Z",
+        "url": "https://github.com/KrishnaAnnavaram/MARS/commit/007b0a24b912026c55fedbbaa1115613b6453003"
+      },
+      "readmeLead": "MARS is an agentic remediation harness for Java and Spring Boot systems. It takes a reported defect or vulnerability through all of these steps to a scored ship decision that you can audit:",
+      "readmeText": "MARS — Modernization, Assessment, Remediation & Security\n\nMARS is an agentic remediation harness for Java and Spring Boot systems. It takes a reported\ndefect or vulnerability through all of these steps to a scored ship decision that you can audit:\n\nunderstand the code → diagnose the issue → measure its reach → plan a fix → get human approval → implement it → verify it → test it → build it → decide → document it.\n\nSummary ·\nAgents ·\nSkills ·\nWorkflow ·\nShip decision ·\nRun MARS ·\nGlossary\n\n \n\n [!NOTE]\n This README uses ASD-STE100 Simplified Technical English. The writing rules and the project\n vocabulary are in docs/ste-style-guide.md. Each term in the\n Glossary has only one meaning.\n\nMARS uses the same pipeline for framework and Java version migrations. It can migrate Spring Boot\nfrom any published line to any later line.\n\nThis README is the one location that explains all of MARS. It gives these topics:\n\n- the general design\n- each of the 7 agents\n- each of the 18 skills: its purpose, its contents and its procedure, step by step\n- the decision rules\n- the data map\n- observability\n- the runbook\n- the known problems\n\nThis README describes the harness. It does not describe the Java application that MARS analyses.\n If you are… · Read · \n --- · --- · \n A manager or reviewer · 1, 3, 4, 12, 17, 19 · \n A developer who joins the project · All sections, in sequence. Keep 15, 16 and 18 open while you work · \n An operator who runs a remediation · 15, then the section for the agent that you will run (sections 6 to 11) · \n A person who needs one skill · The skill index, then the detailed section for that skill · \n\nTable of contents\n\n1. 🧭 Summary\n2. 🏗️ How MARS is built\n - 2.1 Agents, skills, scripts and the AI runtime\n - 2.2 System context\n - 2.3 .github and .claude\n - 2.4 The 7 agents\n - 2.5 The 18 skills\n - 2.6 Which agent uses which skill\n3. 🛡️ Design rules\n4. 🔄 The end-to-end workflow\n5. 📊 The input — skill 00-issue-register\n6. 🔵 Phase A · Understand\n - 6.1 Agent 01 — Architect · skills 01a, 01b, 01c, 01d\n - 6.2 Agent 02 — Root Cause Analyst · skill 02\n - 6.3 Agent 03 — Blast Radius Analyst · skill 03\n7. 🟢 Phase B · Fix — Agent 04 Fix Generator\n8. 🧠 Agent 04, Stage 1 — Strategize · skills 04a, 04a1, 04a2\n9. ⏸️ Human approval and Fix Type\n10. 🛠️ Agent 04, Stage 2 — Implement · skills 04b, 04c, 04d\n11. 🟣 Phase C · Verify & Ship\n - 11.1 Agent 05 — Existing App Test Agent · skill 05\n - 11.2 Agent 06 — Additional Test Execution · skills 06a, 06b\n - 11.3 Agent 07 — Audit & PR · skills 07a, 07b\n12. ⚖️ The ship decision and status vocabulary\n13. 🗂️ Data and file map\n14. 📡 Observability — telemetry and Mission Control\n15. ▶️ How to run MARS\n16. 🧩 How to extend MARS\n17. ✅ Validation results\n18. ⚠️ Known problems\n19. 📌 Key points\n20. 📖 Glossary\n\n1. Summary\n\nThe problem. It is easy to make a patch. The difficult questions come after the patch:\n\n- Does the patch close the issue?\n- Can a different path still reach the issue?\n- Did the patch also change something that nobody expected?\n- Does the patch build? Do the tests pass?\n- Is it safe to ship the patch? Who decided that?\n\nMARS gives each of these questions its own stage. Each stage writes a record that the next stage\nreads.\n Item · Value · \n --- · --- · \n Agents · 7, run in order 01 → 07 · \n Skills (the folders that the agents use) · 18, with the number of the agent that runs them · \n Phases · A · Understand (01–03) → B · Fix (04) → C · Verify & Ship (05–07) · \n Human checkpoints · 2: approve the fix plan · make an explicit request for a pull request · \n Release authority · 1: only a Cleared verdict from Agent 07 lets a patch ship · \n Hard gates (a score cannot cancel them) · 3: still vulnerable · build failed · migration not passed · \n Input · One Excel issue register, issue-register.xlsx. MARS only reads it. · \n Output · One Markdown report for each issue and each stage in docs/agentoutput/, and diff files · \n Kinds of fix · Code fix (04b), dependency upgrade (04c), framework or Java version migration (04d) · \n Safety · A script tries each patch in a temporary git worktree or in a private sandbox. Analysis never changes the real code. · \n\nmermaid\nflowchart LR\n IN[\"📊 Issue register (Excel, read-only)\"] -- A\n subgraph A[\"PHASE A · UNDERSTAND\"]\n direction TB\n A1[\"01 Architect\"] -- A2[\"02 Root Cause\"] -- A3[\"03 Blast Radius\"]\n end\n A -- B\n subgraph B[\"PHASE B · FIX\"]\n direction TB\n B1[\"04 Strategize (plan, no code)\"] -- H{{\"⏸ Human approves\"}} -- B2[\"04 Implement (04b · 04c · 04d)\"]\n end\n B -- C\n subgraph C[\"PHASE C · VERIFY & SHIP\"]\n direction TB\n C1[\"05 Re-scan · Red-team · Behaviour\"] -- C2[\"06 QA test · Build gate\"] -- C3[\"07 Score · Verdict · PR · Audit\"]\n end\n C -- OUT[\"✅ Cleared or 🚫 Blocked + PR content + audit trail\"]\n\n classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n class H human\n mermaid\nflowchart LR\n RT[\"AI runtime (Copilot Chat / Claude Code)\"] -- · \"loads\" · AG[\"Agent NNname.agent.md\"]\n AG -- · \"reads SKILL.md, runs\" · SC[\"Skill scripts (deterministic)\"]\n SC -- · \"facts\" · F[/\"facts.json / facts.md (briefing)\"/]\n F -- AG\n AG -- · \"judgement, schema-checked\" · J[/\"analysis / verdict / strategy .json\"/]\n J -- SC\n SC -- · \"render\" · R[/\"docs/agentoutput/ report.md\"/]\n mermaid\nflowchart TB\n subgraph REPO[\"Repository\"]\n APP[\"Application under analysis (Spring Boot microservices)\"]\n REG[\"docs/agentoutput/00-issues/ issue-register.xlsx\"]\n OUT[\"docs/agentoutput/01…07 stage reports (committed)\"]\n H[\"Harness .github/ (canonical) · .claude/ (mirror) agents · skills · pipeline contract · lint\"]\n PC[\".pipeline-context/ facts + agent JSON (gitignored)\"]\n MC[\"mission-control/ + telemetry ledger (observability)\"]\n end\n LLM[\"AI runtime\"]\n NEO[(\"Neo4j knowledge graph (optional)\")]\n MVN[\"Maven + JDKs (builds, tests)\"]\n OR[\"OpenRewrite (04d, open-source recipes by default)\"]\n\n LLM -- · \"follows agents, runs scripts, writes JSON\" · H\n APP -- H\n REG -- H\n H -- PC\n H -- OUT\n H NEO\n H -- MVN\n H -- OR\n OUT -- MC\n mermaid\nflowchart LR\n subgraph AG[\"Agents\"]\n direction TB\n G01[\"01 Architect\"]\n G02[\"02 Root Cause\"]\n G03[\"03 Blast Radius\"]\n G04[\"04 Fix Generator\"]\n G05[\"05 Existing App Test\"]\n G06[\"06 Additional Test Exec\"]\n G07[\"07 Audit & PR\"]\n end\n subgraph SK[\"Skills\"]\n direction TB\n S00[\"00 issue-register\"]\n S01a[\"01a code-cartographer\"]\n S01b[\"01b context-weaver\"]\n S01c[\"01c graph-forge\"]\n S01d[\"01d blueprint-scribe\"]\n S02[\"02 root-cause-analyst\"]\n S03[\"03 blast-radius-analyst\"]\n S04a[\"04a fix-strategist\"]\n S04a1[\"04a1 remediation-intelligence\"]\n S04a2[\"04a2 remediation-research\"]\n S04b[\"04b fixer\"]\n S04c[\"04c dependency-upgrader\"]\n S04d[\"04d version-migration\"]\n S05[\"05 verify\"]\n S06a[\"06a qa-runner\"]\n S06b[\"06b build-gatekeeper\"]\n S07a[\"07a merge-arbiter\"]\n S07b[\"07b scribe\"]\n end\n G01 -- S01a & S01b & S01c & S01d\n G02 -- S02\n G03 -- S03\n G04 -- S04a & S04a1 & S04a2 & S04b & S04c & S04d\n G05 -- S05\n G06 -- S06a & S06b\n G07 -- S07a & S07b\n S02 & S03 & S04a & S05 & S07a & S07b -.- · \"read issues through\" · S00\n mermaid\nflowchart LR\n UP[/\"Upstream reports\"/] -- COL[\"1 · COLLECT deterministic script\"]\n COL -- F[/\"ID.facts.json + facts.md (the agent's briefing)\"/]\n F -- AG[\"2 · AUTHOR agent, inside a JSON schema\"]\n AG -- J[/\"ID.analysis / narrative / verdict / strategy .json\"/]\n J -- REN[\"3 · RENDER deterministic script: validate, merge, index\"]\n F -- REN\n REN -- R[/\"docs/agentoutput/NN-stage/ reportID.md + README.md index\"/]\n\n classDef script fill:#16213E,stroke:#0a1020,color:#fff,font-weight:bold\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class COL,REN script\n class AG agent\n mermaid\nflowchart TD\n REG[/\"00 · issue-register.xlsx human input · read-only\"/]\n SRC[/\"Application source\"/]\n\n A01[\"01 Architect scan → describe → graph → docs\"]\n D01[/\"01-architecture/ architecture.md · function-reference.md\"/]\n G[(\"Neo4j graph\")]\n\n A02[\"02 Root Cause Analyst\"]\n D02[/\"02-root-cause/rootcauseID.md\"/]\n A03[\"03 Blast Radius Analyst\"]\n D03[/\"03-blast-radius/blastradiusID.md\"/]\n\n S1[\"04 Stage 1 · Strategize 04a catalog → 04a1 KB → 04a2 research\"]\n P[/\"04-remediation/fixplanID.md Status: Proposed · Fix Type\"/]\n HUMAN{{\"⏸ HUMAN Status → Approved / Rejected\"}}\n R{\"Fix Type\"}\n B4[\"04b Fixer CODEFIX\"]\n C4[\"04c Dependency upgrader DEPENDENCYUPGRADE\"]\n D4[\"04d Version migration VERSIONMIGRATION\"]\n FIX[/\"04-remediation/fixID.md + fixID.diff Compiled · Compile Failed · Refused\"/]\n\n A05[\"05 Existing App Test Agent re-scan · red-team · behaviour\"]\n D05[/\"05-verify/\"/]\n A06[\"06 Additional Test Execution QA gate · build gate\"]\n D06[/\"06-test-gate/\"/]\n A07a[\"07 Arbitrate deterministic score + hard gates\"]\n V[/\"07-ship/verdictID.md Cleared / Blocked\"/]\n A07b[\"07 Write up PR content + audit trail\"]\n PR{{\"⏸ HUMAN explicit PR request (Cleared only)\"}}\n PUB([\"Branch + PR after re-validation\"])\n\n SRC -- A01 -- D01\n A01 -- G\n REG -- A02\n D01 -- A02\n G -- A02\n A02 -- D02 -- A03\n D01 -- A03\n G -- A03\n A03 -- D03\n D02 -- S1\n D03 -- S1\n S1 -- P -- HUMAN -- R\n R -- B4 -- FIX\n R -- C4 -- FIX\n R -- D4 -- FIX\n FIX -- A05 -- D05\n FIX -- A06 -- D06\n D05 -- A07a\n D06 -- A07a\n A07a -- V -- A07b\n A07b -- PR -- PUB\n\n classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n class HUMAN,PR human\n mermaid\nstateDiagram-v2\n [] -- Registered: row added to issue-register.xlsx\n Registered -- Diagnosed: 02 root cause report\n Diagnosed -- Measured: 03 blast radius report\n Measured -- Proposed: 04 Stage 1 renders a plan\n Diagnosed -- Proposed: (03 is optional for 04)\n Proposed -- Approved: human edits Status\n Proposed -- Rejected: human edits Status\n Rejected -- []\n Approved -- Compiled: 04 Stage 2, verified diff\n Approved -- CompileFailed: diff drafted, build failed\n Approved -- Refused: no diff (for example a blocked migration)\n Refused -- []\n Compiled -- Verified: 05 + 06 reports\n CompileFailed -- Verified: 05 + 06 still run\n Verified -- Cleared: no hard gate, score ≥ threshold\n Verified -- Blocked: hard gate, or score below threshold\n Cleared -- Published: explicit PR request + re-validation\n Cleared -- []\n Blocked -- []: PR content + audit still written\n Published -- []\n mermaid\nsequenceDiagram\n autonumber\n actor H as Human\n participant AG as Agent (AI runtime)\n participant SC as Skill scripts\n participant FS as docs/agentoutput + .pipeline-context\n participant WT as Temporary worktree / sandbox\n\n H-FS: Add a row to issue-register.xlsx\n H-AG: run 01architect (one time for each codebase)\n AG-SC: scan · select · validate · graph · docs\n SC-FS: architecture.md, function-reference.md\n H-AG: run 02, then 03\n AG-SC: collect facts\n SC-FS: evidence / facts files\n AG-FS: analysis.json / narrative.json (schema)\n AG-SC: render\n SC-FS: rootcauseID.md, blastradiusID.md\n H-AG: run 04 (Stage 1)\n SC-FS: fixplanID.md (Status: Proposed, Fix Type)\n H-FS: Edit Status → Approved\n H-AG: run 04 again (Stage 2)\n AG-FS: patch.diff + rationale.json\n SC-WT: worktree add · git apply · compile\n SC-FS: fixID.md + fixID.diff\n H-AG: run 05, then 06\n SC-WT: apply patch (+ new test) · test · verify\n SC-FS: verify, QA and build reports (script-decided)\n H-AG: run 07\n SC-FS: score.json → verdictID.md\n SC-FS: prID.md + auditID.md\n H--AG: (optional) \"publish the PR\" — Cleared only\n mermaid\nflowchart LR\n X[/\"issue-register.xlsx\"/] -- RD[\"read sheet (row 1 = header)\"]\n RD -- SK{\"issueid blank?\"}\n SK -- · yes · SKIP[\"skip row\"]\n SK -- · no · N[\"normalise: scalars · multi-value lists\"]\n N -- MD[\"synthesise Markdown body ## Summary · ## Observed Behavior · ## Detection Notes …\"]\n MD -- ISS[\"issue object id · severity · services · symbols · files · entryPoints · body · raw\"]\n ISS -- C[\"consumers 02 · 03 · 04a · 05 · 07\"]\n mermaid\nflowchart LR\n S[\"01a Code Cartographer scan\"] -- AJ[/\"artifacts.json\"/]\n AJ -- W[\"01b Context Weaver select significant nodes\"]\n W -- BR[/\"context-workload.md (briefing)\"/]\n BR -- AG[\"Agent writes descriptions.json\"]\n AG -- VAL{\"01b validate\"}\n VAL -- · errors · AG\n VAL -- · ok · GF[\"01c Graph Forge load Neo4j\"]\n GF -- BS[\"01d Blueprint Scribe write reports\"]\n BS -- DOCS[/\"architecture.md function-reference.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class AG agent\n mermaid\nflowchart LR\n P[/\"pom.xml files\"/] -- M[\"discover modules + dependencies\"]\n J[/\".java files\"/] -- T[\"tree-sitter parse (syntax tree)\"]\n T -- X[\"extract types · fields · methods · annotations · REST mappings · call sites\"]\n M -- A[/\"artifacts.json\"/]\n X -- A\n mermaid\nflowchart TD\n AJ[/\"artifacts.json\"/] -- SC[\"score every node\"]\n SC -- TH{\"above threshold?\"}\n TH -- · no · OUT[\"not described (information only)\"]\n TH -- · yes · FP{\"described at the same fingerprint?\"}\n FP -- · yes · SKIP[\"skip (incremental)\"]\n FP -- · no: new or stale · BR[/\"context-workload.md signature · annotations · collaborators · call edges · exact source\"/]\n BR -- AG[\"Agent (or optional batch generator) writes descriptions.json\"]\n AG -- V{\"validate\"}\n V -- · errors · AG\n V -- · pass · GF[\"→ 01c Graph Forge\"]\n mermaid\nflowchart LR\n AJ[/\"artifacts.json\"/] -- C[\"create constraints\"]\n C -- N[\"MERGE nodes + relationships (structure, calls, endpoints, deps)\"]\n D[/\"descriptions.json (optional)\"/] -- FP[\"calculate fingerprints again\"]\n N -- CTX[\"MATCH known nodes, set ctx properties, flag ctxStale\"]\n FP -- CTX\n CTX -- NEO[(\"Neo4j\")]\n mermaid\nflowchart LR\n AJ[/\"artifacts.json\"/] -- G1[\"overview generator\"]\n NEO[(\"Neo4j if available\")] -.- G1\n AJ -- G2[\"function-reference generator (call graph from artifacts)\"]\n G1 -- A[/\"architecture.md\"/]\n G2 -- F[/\"function-reference.md\"/]\n mermaid\nflowchart LR\n L[\"list issues\"] -- C[\"collect facts issue register + reports + artifacts + Neo4j\"]\n C -- E[/\"rca/ID.evidence.md\"/]\n E -- RD[\"Agent reads briefing and the real source\"]\n RD -- A[\"Agent writes ID.analysis.json\"]\n A -- R[\"render + validate\"]\n R -- O[/\"02-root-cause/rootcauseID.md\"/]\n R -- · \"field not found\" · A\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class RD,A agent\n mermaid\nflowchart LR\n L[\"list root causes\"] -- M[\"measure reach call graph · endpoints · jobs · HTTP consumers · shared infra\"]\n M -- F[/\"blast-radius/ID.facts.md\"/]\n F -- Q{\"Does the service still run?\"}\n Q -- N[\"Agent writes ID.narrative.json\"]\n N -- R[\"render: use status rules, draw diagrams\"]\n R -- O[/\"03-blast-radius/blastradiusID.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class Q,N agent\n mermaid\nflowchart TD\n RC[/\"rootcauseID.md (+ blastradiusID.md)\"/] -- CC[\"04a collect remediation context CWE candidates, affected source\"]\n CC -- Q{\"Any detected CWE in the catalog?\"}\n Q -- · yes · ST[\"Agent writes strategy.json from the catalog entry\"]\n Q -- · \"every CWE is a gap\" · KB[\"04a1 knowledge base + rank fixes\"]\n KB -- · found · ST2[\"derived strategy (Low confidence)\"]\n KB -- · \"KB gap\" · RS[\"04a2 structured research\"]\n RS -- ST3[\"novel strategy (Low) or evidence-gap plan\"]\n ST -- REN[\"render fix plan + classify Fix Type from facts\"]\n ST2 -- REN\n ST3 -- REN\n REN -- PLAN[/\"fixplanID.md Status: Proposed\"/]\n PLAN -- H{{\"⏸ HUMAN Proposed → Approved / Rejected\"}}\n H -- · Approved · RT{\"Fix Type\"}\n RT -- · CODEFIX · B[\"04b Fixer\"]\n RT -- · DEPENDENCYUPGRADE · C[\"04c Dependency upgrader\"]\n RT -- · VERSIONMIGRATION · D[\"04d Version migration\"]\n B -- FX[/\"fixID.md + fixID.diff\"/]\n C -- FX\n D -- FX\n\n classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n class H human\n mermaid\nflowchart TD\n L[\"list workload\"] -- C[\"collect context diagnosis · reach · source · CWE scan\"]\n C -- B[/\"fix-strategy/ID.context.md\"/]\n B -- READ[\"Agent reads the briefing + the matched catalog entry in full (canonicalapproach + antipatterns)\"]\n READ -- G{\"catalog gap for every CWE?\"}\n G -- · no · W[\"Agent writes strategy.json one CWE · prose · cited · verification plan\"]\n G -- · yes · FB[\"fallback 04a1 → 04a2\"]\n FB -- W2[/\"strategy.json (from the fallback)\"/]\n W -- RN[\"render-fix-plan\"]\n W2 -- RN\n RN -- FT[\"classify Fix Type (checks the real pom.xml)\"]\n FT -- P[/\"fixplanID.md Status: Proposed\"/]\n mermaid\nflowchart TD\n D[\"detect-gap\"] -- Q{\"every detected CWE uncatalogued?\"}\n Q -- · no · STOP1[\"not for 04a1 (04a does it)\"]\n Q -- · yes · K{\"gap CWE in the KB?\"}\n K -- · no · KG[\"report KB gap → send to 04a2\"]\n K -- · yes · R[\"rank historical fixes keyword + TF-IDF (+ embedding)\"]\n R -- X[\"extract reusable pattern from the top match\"]\n X -- S[/\"strategy.json Low · cited · derivedpattern\"/]\n S -- RN[\"04a render-fix-plan → Status: Proposed\"]\n mermaid\nflowchart LR\n S1[\"1 Confirm the gap\"] -- S2[\"2 Collect context (Agents 1–3)\"] -- S3[\"3 Understand the vulnerability\"] -- S4[\"4 Validate root cause facts · conclusions · hypotheses\"]\n S4 -- S5[\"5 Threat model\"] -- S6[\"6 Security objective (the invariant)\"] -- S7[\"7 Research approaches\"] -- S8[\"8 Make ≥ 2 candidates\"]\n S8 -- S9[\"9 Evaluate them\"] -- S10[\"10 Select the smallest safe one\"] -- S11[\"11 Define validation tests\"] -- S12[\"12 Attach evidence + provenance\"] -- S13[\"13 Write strategy.json (Low, Proposed)\"]\n mermaid\nflowchart TD\n ST[/\"strategy.json\"/] -- VM{\"versionmigration recorded?\"}\n VM -- · yes · CK1{\"pom.xml declares sourceversion AND major or Java jump?\"}\n CK1 -- · yes · T3[\"VERSIONMIGRATION → 04d\"]\n CK1 -- · no · REF1[\"refuse fix plan\"]\n VM -- · no · DU{\"dependencyupgrade recorded?\"}\n DU -- · yes · CK2{\"platform parent/BOM across a major?\"}\n CK2 -- · yes · REF2[\"refuse: plan it as versionmigration\"]\n CK2 -- · no · T2[\"DEPENDENCYUPGRADE → 04c\"]\n DU -- · no · T1[\"CODEFIX → 04b\"]\n mermaid\nflowchart LR\n P[/\"Approved plan\"/] -- A[\"Agent writes smallest patch in the current style of the file\"]\n A -- R[\"Agent writes rationale.json (deviations if code ≠ plan)\"]\n R -- V[\"verify-patch\"]\n subgraph WT[\"Temporary worktree of HEAD\"]\n direction TB\n W1[\"git apply --check\"] -- W2[\"git apply\"] -- W3[\"detect affected module\"] -- W4[\"mvnw compile (+ named test)\"]\n end\n V -- WT\n WT -- RM[\"remove worktree\"]\n RM -- REN[\"render\"]\n REN -- O[/\"fixID.md + fixID.diff Compiled · Compile Failed · Refused\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A,R agent\n mermaid\nflowchart LR\n P[/\"Approved CWE-1104 plan\"/] -- A[\"Agent: raise one &lt;version&gt; to ≥ minimumfixedversion\"]\n A -- V[\"apply-version-bump\"]\n subgraph WT[\"Temporary worktree\"]\n direction TB\n C1[\"1 · declared version ≥ target?\"] -- C2[\"2 · compile the module\"] -- C3[\"3 · mvn dependency:tree\"] -- C4[\"4 · resolved version ≥ target?\"]\n end\n V -- WT -- O[/\"fixID.md + fixID.diff\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A agent\n mermaid\nflowchart TD\n A[\"detect-baseline (routed: checks Approved + Fix Type again, reads target from the fix plan)\"] -- P{\"path SUPPORTED?\"}\n P -- · no · BL([\"BLOCKED → hand-off Status Refused\"])\n P -- · yes · W[\"prepare-workspace sandbox copy + private git repo\"]\n W -- R0[\"IMMUTABLE ROUND 0 baseline build + baseline probe on the current JDK\"]\n R0 -- PL[\"Agent: migration-plan.json impact · constraints · probes · candidates\"]\n PL -- E{\"next ladder edge\"}\n E -- DR[\"OpenRewrite dry-run (no source change)\"]\n DR -- IN{\"Agent inspects preview against the plan\"}\n IN -- · \"out of scope\" · DR\n IN -- · accepted · AP[\"apply in sandbox checkpoint · scope check · auto-revert\"]\n AP -- B[\"build round on the JDK of the edge\"]\n B -- · fails · G[\"grouped errors → residual edit from evidence\"]\n G -- B\n B -- · \"passes on edge version\" · E\n E -- · landed · FP[\"final test round + final probe endpoint inventory compare\"]\n FP -- J[\"Agent: migration.json (judgement)\"]\n J -- REN[\"render report + diff + MIGRATIONSUMMARY + fixID hand-off\"]\n REN -- AG[\"apply-migration dry-run by default · eligibility gate · --to-project only on explicit request\"]\n mermaid\nflowchart LR\n FX[/\"fixID.md + fixID.diff\"/] -- V05[\"05 · three static checks\"]\n FX -- V06[\"06 · two deterministic gates\"]\n V05 -- R1[/\"rescan\"/] & R2[/\"redteam\"/] & R3[/\"behavior\"/]\n V06 -- R4[/\"qa\"/] & R5[/\"build\"/]\n R1 & R2 & R3 & R4 & R5 -- A07[\"07 · score + hard gates\"]\n A07 -- D{\"Decision\"}\n D -- CL[\"✅ Cleared\"]\n D -- BL[\"🚫 Blocked\"]\n CL & BL -- W[\"PR content + audit trail\"]\n mermaid\nflowchart LR\n FX[/\"fixID.md + .diff\"/] -- M[\"make the patched files worktree + git apply (no build)\"]\n M -- R1[\"collect-rescan\"]\n M -- R2[\"collect-redteam\"]\n M -- R3[\"collect-behavior\"]\n R1 -- V1[\"Agent: rescan verdict\"]\n R2 -- V2[\"Agent: redteam verdict\"]\n R3 -- V3[\"Agent: behaviour verdict\"]\n V1 -- O1[/\"rescanID.md\"/]\n V2 -- O2[/\"redteamID.md\"/]\n V3 -- O3[/\"behaviorID.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class V1,V2,V3 agent\n mermaid\nflowchart LR\n FX[/\"fix diff + source\"/] -- A[\"Agent drafts ONE test adversarial input + benign input, asserts what the patch constructs\"]\n A -- G[\"run-qa-gate\"]\n subgraph WT[\"Temporary worktree\"]\n direction TB\n W1[\"apply fix diff\"] -- W2[\"apply test diff\"] -- W3[\"mvnw test -Dtest=NewTest\"] -- W4{\"--existing-test named?\"}\n W4 -- · \"needs live infrastructure\" · SK[\"SKIPPED (with reason)\"]\n W4 -- · \"can run\" · W5[\"run it also\"]\n end\n G -- WT -- RJ[/\"result.json Passed / Failed (exit code)\"/]\n RJ -- R[\"render-qa-report\"] -- O[/\"qaID.md\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A agent\n mermaid\nflowchart LR\n FX[/\"fix diff\"/] -- G[\"run-build-gate\"]\n subgraph WT[\"Temporary worktree\"]\n direction TB\n B1[\"mvn dependency:tree (before)\"] -- B2[\"apply fix diff\"] -- B3[\"mvnw verify -DskipITs\"] -- B4[\"mvn dependency:tree (after)\"] -- B5[\"diff the two trees\"]\n end\n G -- WT -- RJ[/\"result.json\"/] -- R[\"render-build-report\"] -- O[/\"buildID.md Passed / Failed + dependency diff\"/]\n mermaid\nflowchart TD\n IN[\"5 upstream reports + severity + Fix Type / Migration Status\"] -- G{\"Hard gates\"}\n G -- · \"re-scan = STILLVULNERABLE\" · BL[\"🚫 BLOCKED\"]\n G -- · \"migration not PASS / PARTIAL PASS\" · BL\n G -- · \"build = Failed\" · BL\n G -- · \"no gate triggered\" · S[\"score = red-team + behaviour + QA (0 – 100)\"]\n S -- T{\"score ≥ severity threshold?\"}\n T -- · yes · CL[\"✅ CLEARED\"]\n T -- · no · BL\n CL -- OV{\"Agent override? (Cleared → Blocked only, with a cited reason)\"}\n OV -- · no · FIN[/\"verdictID.md\"/]\n OV -- · yes · BL\n BL -- FIN\n\n classDef gate fill:#F5C542,stroke:#b8901f,color:#3d2f00,font-weight:bold\n classDef bad fill:#C0392B,stroke:#8d2618,color:#fff,font-weight:bold\n classDef good fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class G,T,OV gate\n class BL bad\n class CL good\n mermaid\nflowchart LR\n CH[\"collect-chain links + full text from every stage\"] -- F[/\"chain.facts.md\"/]\n F -- A[\"Agent writes content.json auditnarrative (every claim linked) · prtitle · prsummary · prtestplan\"]\n A -- R[\"render-scribe\"]\n V[/\"verdictID.md (Decision read mechanically)\"/] -- R\n R -- AU[/\"auditID.md chronological chain of custody\"/]\n R -- PR[/\"prID.md + 'BLOCKED — do not open' banner when not Cleared\"/]\n\n classDef agent fill:#3DA35B,stroke:#26773f,color:#fff,font-weight:bold\n class A agent\n \n.github/ canonical harness\n├── agents/ 01architect … 07audit-and-pr (.agent.md)\n├── skills/ 00 … 07b — 18 self-contained skill folders\n│ ├── 00-issue-register/ shared, read-only register loader\n│ ├── 01a-code-cartographer/ ┐\n│ ├── 01b-context-weaver/ ├─ Agent 01, in this order\n│ ├── 01c-graph-forge/ │\n│ ├── 01d-blueprint-scribe/ ┘\n│ ├── 02-root-cause-analyst/\n│ ├── 03-blast-radius-analyst/\n│ ├── 04a-fix-strategist/ + catalog/cwe-patterns.json · routing ┐\n│ ├── 04a1-remediation-intelligence/ + knowledge/ · ranking-weights │ Agent 04, Stage 1\n│ ├── 04a2-remediation-research/ ┘\n│ ├── 04b-fixer/ ┐\n│ ├── 04c-dependency-upgrader/ ├─ Agent 04, Stage 2 (by Fix Type)\n│ ├── 04d-version-migration/ ┘ + references/ (packs, ladder, recipes)\n│ ├── 05-verify/ Agent 05\n│ ├── 06a-qa-runner/ ┐ Agent 06\n│ ├── 06b-build-gatekeeper/ ┘\n│ ├── 07a-merge-arbiter/ + scoring.json ┐ Agent 07\n│ └── 07b-scribe/ ┘\n├── pipeline-contract.md ownership · transitions · routing · decision policy\n├── scripts/pipeline-lint.js contract text checks\n└── HARNESS.md harness overview (not README.md, so GitHub shows…",
+      "mermaid": [
+        "flowchart LR\n    IN[\"📊 Issue register<br/>(Excel, read-only)\"] --> A\n    subgraph A[\"PHASE A · UNDERSTAND\"]\n      direction TB\n      A1[\"01 Architect\"] --> A2[\"02 Root Cause\"] --> A3[\"03 Blast Radius\"]\n    end\n    A --> B\n    subgraph B[\"PHASE B · FIX\"]\n      direction TB\n      B1[\"04 Strategize<br/>(plan, no code)\"] --> H{{\"⏸ Human approves\"}} --> B2[\"04 Implement<br/>(04b · 04c · 04d)\"]\n    end\n    B --> C\n    subgraph C[\"PHASE C · VERIFY & SHIP\"]\n      direction TB\n      C1[\"05 Re-scan · Red-team · Behaviour\"] --> C2[\"06 QA test · Build gate\"] --> C3[\"07 Score · Verdict · PR · Audit\"]\n    end\n    C --> OUT[\"✅ Cleared or 🚫 Blocked<br/>+ PR content + audit trail\"]\n\n    classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold\n    class H human",
+        "flowchart LR\n    RT[\"AI runtime<br/>(Copilot Chat / Claude Code)\"] -->|\"loads\"| AG[\"Agent<br/>NN_name.agent.md\"]\n    AG -->|\"reads SKILL.md,<br/>runs\"| SC[\"Skill scripts<br/>(deterministic)\"]\n    SC -->|\"facts\"| F[/\"facts.json / facts.md<br/>(briefing)\"/]\n    F --> AG\n    AG -->|\"judgement,<br/>schema-checked\"| J[/\"analysis / verdict /<br/>strategy .json\"/]\n    J --> SC\n    SC -->|\"render\"| R[/\"docs/agent_output/<br/>report.md\"/]",
+        "flowchart TB\n    subgraph REPO[\"Repository\"]\n      APP[\"Application under analysis<br/>(Spring Boot microservices)\"]\n      REG[\"docs/agent_output/00-issues/<br/>issue-register.xlsx\"]\n      OUT[\"docs/agent_output/01…07<br/>stage reports (committed)\"]\n      H[\"Harness<br/>.github/ (canonical) · .claude/ (mirror)<br/>agents · skills · pipeline contract · lint\"]\n      PC[\".pipeline-context/<br/>facts + agent JSON (gitignored)\"]\n      MC[\"mission-control/ + telemetry ledger<br/>(observability)\"]\n    end\n    LLM[\"AI runtime\"]\n    NEO[(\"Neo4j knowledge graph<br/>(optional)\")]\n    MVN[\"Maven + JDKs<br/>(builds, tests)\"]\n    OR[\"OpenRewrite<br/>(04d, open-source recipes by default)\"]\n\n    LLM -->|\"follows agents,<br/>runs scripts, writes JSON\"| H\n    APP --> H\n    REG --> H\n    H --> PC\n    H --> OUT\n    H <--> NEO\n    H --> MVN\n    H --> OR\n    OUT --> MC"
+      ]
+    },
+    {
+      "name": "spring-modernization-remediation-harness",
+      "fullName": "KrishnaAnnavaram/spring-modernization-remediation-harness",
+      "url": "https://github.com/KrishnaAnnavaram/spring-modernization-remediation-harness",
+      "homepage": null,
+      "description": "Production-grade Spring modernization and remediation harness that analyzes applications, resolves vulnerabilities, orchestrates framework and Java upgrades, validates behavioral equivalence, and generates auditable evidence for every change.",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 1,
+      "createdAt": "2026-09-29T20:10:31Z",
+      "pushedAt": "2026-09-29T20:10:33Z",
+      "languages": [],
+      "primaryLanguage": null,
+      "lastCommit": {
+        "sha": "380395e",
+        "message": "Initial commit",
+        "date": "2026-09-29T20:10:32Z",
+        "url": "https://github.com/KrishnaAnnavaram/spring-modernization-remediation-harness/commit/380395e61a5b3e112d74c93057c45e86f4b2de4a"
+      },
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    },
     {
       "name": "bootshift",
       "fullName": "KrishnaAnnavaram/bootshift",
@@ -22,9 +3356,9 @@
       "stars": 0,
       "forks": 0,
       "openIssues": 0,
-      "sizeKb": 931,
+      "sizeKb": 2440,
       "createdAt": "2026-09-10T01:58:29Z",
-      "pushedAt": "2026-09-10T21:06:28Z",
+      "pushedAt": "2026-09-24T17:05:34Z",
       "languages": [
         {
           "name": "Java",
@@ -53,6 +3387,42 @@
       ]
     },
     {
+      "name": "CredPilot",
+      "fullName": "KrishnaAnnavaram/CredPilot",
+      "url": "https://github.com/KrishnaAnnavaram/CredPilot",
+      "homepage": null,
+      "description": null,
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": null,
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 10713,
+      "createdAt": "2026-09-20T06:00:11Z",
+      "pushedAt": "2026-09-22T16:21:22Z",
+      "languages": [
+        {
+          "name": "Python",
+          "bytes": 2135047,
+          "share": 100
+        }
+      ],
+      "primaryLanguage": "Python",
+      "lastCommit": {
+        "sha": "8286a75",
+        "message": "Merge pull request #4 from KrishnaAnnavaram/chore/unify-synthetic-data",
+        "date": "2026-09-21T20:54:04Z",
+        "url": "https://github.com/KrishnaAnnavaram/CredPilot/commit/8286a75ee0eed89608c8538b2a71368f60f9534c"
+      },
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    },
+    {
       "name": "KrishnaAnnavaram.github.io",
       "fullName": "KrishnaAnnavaram/KrishnaAnnavaram.github.io",
       "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io",
@@ -67,40 +3437,40 @@
       "stars": 0,
       "forks": 0,
       "openIssues": 0,
-      "sizeKb": 196316,
+      "sizeKb": 196697,
       "createdAt": "2026-02-23T02:27:00Z",
-      "pushedAt": "2026-09-04T14:16:10Z",
+      "pushedAt": "2026-09-13T21:29:24Z",
       "languages": [
         {
           "name": "TypeScript",
-          "bytes": 152072,
-          "share": 82.5
-        },
-        {
-          "name": "MDX",
-          "bytes": 21324,
-          "share": 11.6
-        },
-        {
-          "name": "CSS",
-          "bytes": 10473,
-          "share": 5.7
+          "bytes": 374974,
+          "share": 86.5
         },
         {
           "name": "JavaScript",
-          "bytes": 549,
-          "share": 0.3
+          "bytes": 21655,
+          "share": 5
+        },
+        {
+          "name": "MDX",
+          "bytes": 21612,
+          "share": 5
+        },
+        {
+          "name": "CSS",
+          "bytes": 15194,
+          "share": 3.5
         }
       ],
       "primaryLanguage": "TypeScript",
       "lastCommit": {
-        "sha": "157c853",
-        "message": "Merge pull request #24 from KrishnaAnnavaram/claude/new-session-azjppj",
-        "date": "2026-09-04T14:16:10Z",
-        "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io/commit/157c853138af31cfe7e15e21f7854a59ab3eabe9"
+        "sha": "6528bf3",
+        "message": "Merge pull request #25 from KrishnaAnnavaram/redesign/ai-portfolio-2026",
+        "date": "2026-09-13T21:29:24Z",
+        "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io/commit/6528bf38cf4bb4f7d6fd29772b996dffcec99878"
       },
-      "readmeLead": "Personal site for Krishna Annavaram — Generative AI Engineer. Static Next.js export, deployed to GitHub Pages.",
-      "readmeText": "krishnaannavaram.github.io\n\nPersonal site for Krishna Annavaram — Generative AI Engineer. Static Next.js export, deployed to\nGitHub Pages.\n\nRead CONTENTTODO.md first — it lists the content that still needs real\ndetail and the claims that were removed from the previous version.\n\nStack\n · · \n --- · --- · \n Framework · Next.js 15 (App Router, output: 'export') · \n UI · React 19 · \n Styling · Tailwind CSS v4 — CSS-first @theme, no config file · \n Content · TypeScript data modules + MDX for essays · \n Icons · lucide-react · \n Hosting · GitHub Pages via Actions · \n\nNo animation library, no 3D, no charting library, no client-side AI. First Load JS is ~103 kB\nshared, 106–120 kB per route.\n\nCommands\n\n \n\nWhere the content lives\n\nEverything the site renders comes from data/ and content/. No copy is hardcoded in components.\n\n \n\nAdding a case study to data/work.ts with featured: true puts it on the home page, in /work,\nin the sitemap, and in the ⌘K palette — no other edits needed. Same for an MDX file dropped into\ncontent/writing/.\n\nDesign system\n\nDefined entirely in app/globals.css. Light and dark are both first-class: colours are authored\nas oklch tokens on :root, redefined under prefers-color-scheme: dark (guarded so an explicit\nlight choice wins) and again under [data-theme='dark'] so the toggle overrides in both\ndirections.\n\nType is Instrument Serif for display, Inter for text, JetBrains Mono for labels and data, all\nself-hosted at build time through next/font.\n\nScroll reveals are CSS transitions armed by a .js class that the boot script adds before first\npaint. Without JavaScript nothing is hidden, and a three-second fallback timer reveals anything\nstill hidden if hydration never lands — content never depends on script.\n\nDeployment\n\nPushing to main runs .github/workflows/deploy.yml: install → typecheck → lint → build →\npublish out/ to Pages. A type error or lint warning fails the build before anything deploys.\n\nTo host under a subpath, set NEXTPUBLICBASEPATH in the workflow environment.",
+      "readmeLead": "",
+      "readmeText": "",
       "mermaid": []
     },
     {
@@ -381,8 +3751,8 @@
         "date": "2026-02-08T20:13:41Z",
         "url": "https://github.com/KrishnaAnnavaram/springboard/commit/8dcc9eeec76e2207bc67ac02c734197fb7c8964c"
       },
-      "readmeLead": "Springboard is an AI-powered multi-agent system that automates your LinkedIn job search, from discovery to application. Built with LangGraph for orchestration, Claude API for intelligence, and Streamlit for visualization.",
-      "readmeText": "🚀 Springboard - LinkedIn Job Application Automation\n\nSpringboard is an AI-powered multi-agent system that automates your LinkedIn job search, from discovery to application. Built with LangGraph for orchestration, Claude API for intelligence, and Streamlit for visualization.\n\nFeatures\n\n- Automated Job Discovery — Scrapes LinkedIn jobs based on your criteria using Selenium\n- AI-Powered Matching — Scores jobs against your profile using Claude API with weighted criteria\n- Resume Customization — Generates tailored resumes and cover letters for each position\n- One-Click Applications — Submits LinkedIn Easy Apply applications automatically\n- Real-Time Dashboard — 8-page Streamlit dashboard for monitoring and analytics\n- Smart Rate Limiting — Configurable delays and daily limits to avoid detection\n- Checkpoint Recovery — Resumable workflows via LangGraph state management\n\nArchitecture\n\n \n\nQuick Start\n\nPrerequisites\n- Python 3.10+\n- Chrome browser (for Selenium)\n- LinkedIn account\n- Anthropic API key\n\nInstallation\n\n \n\nConfiguration\n\n1. Copy .env.example to .env and fill in your credentials\n2. Edit config/config.yaml to customize job search parameters\n3. Set up your profile in the dashboard's Profile page\n\nDashboard Pages\n Page · Description · \n ------ · ------------- · \n 🏠 Home · Overview metrics, activity feed, quick actions · \n 🔍 Job Search · Configure and launch job searches · \n 📋 Jobs · Browse, filter, and manage job listings · \n 📄 Applications · Track application status and history · \n 👤 Profile · Manage skills, experience, and preferences · \n 🤖 Agent Monitor · Control workflow and monitor agents · \n 📈 Analytics · Charts, funnels, and success metrics · \n ⚙️ Settings · Credentials, automation, and system config · \n\nTech Stack\n\n- Python 3.10+ — Core language\n- Streamlit — Dashboard UI\n- LangGraph + LangChain — Multi-agent orchestration\n- SQLAlchemy — ORM (SQLite/PostgreSQL)\n- Selenium — Browser automation\n- Anthropic Claude API — AI matching and generation\n- Plotly — Interactive charts\n\nProject Structure\n\n \n\nSafety & Ethics\n\n- Configurable daily application limits (default: 20/day)\n- Random delays between actions to mimic human behavior\n- Never stores passwords in code (uses .env)\n- Screenshot proof of every application\n- Full audit trail in database\n\nLicense\n\nMIT License",
+      "readmeLead": "",
+      "readmeText": "",
       "mermaid": []
     },
     {
@@ -417,8 +3787,8 @@
         "date": "2025-06-18T22:15:27Z",
         "url": "https://github.com/KrishnaAnnavaram/medxpert/commit/c627e1e672d189f4c610cba175667164d3409d94"
       },
-      "readmeLead": "MedXpert is a multi-agent, LLM-powered medical chatbot that transforms natural language symptom queries into structured insights, multilingual medicine summaries, and interactive dashboards using real-time SQL + vector search.",
-      "readmeText": "💊 MedXpert – Multilingual GenAI-Powered Medical Assistant\n\nMedXpert is a multi-agent, LLM-powered medical chatbot that transforms natural language symptom queries into structured insights, multilingual medicine summaries, and interactive dashboards using real-time SQL + vector search.\n\nBuilt with a modular, secure, and production-scalable architecture, MedXpert blends cutting-edge GenAI (GPT-4), RAG systems, and multilingual NLP to assist patients, researchers, and clinicians in navigating medicine information.\n\n🚀 Key Features\n\n- 🧠 Symptom Understanding via Module Context Protocol (MCP)\n- 📂 SQL Agent: GPT-4 powered dynamic query generator for structured databases\n- 🔎 Vector Agent: ChromaDB + MiniLM for semantic similarity over medical content\n- 📄 LLM Summarizer: Generates patient-level, multilingual medicine descriptions\n- 🌐 Manual Generator: 100+ language support using MarianMT + Prompt Engineering\n- 🧾 OCR-Based Input: Read prescriptions using Tesseract OCR + NER\n- 📊 Rating Visualization: Auto-generated medicine performance charts\n- 🔒 Clean Architecture: Modular components and optional HIPAA-safe deployment\n\n🛠️ Tech Stack\n Layer · Stack · \n ------------------- · ----------------------------------------------------------------------- · \n LLM · GPT-4 (OpenAI), LangChain-style Agents, SentenceTransformers (MiniLM) · \n NLP + Search · TF-IDF, Cosine Similarity, ChromaDB, Vector Indexing · \n Multilingual NLP · MarianMT, HuggingFace Transformers, spaCy · \n Data & BI · PostgreSQL, Power BI, Matplotlib · \n Frontend · Streamlit · \n Deployment · Docker (Optional), Azure, GCP App Engine · \n Other Tools · GitHub Actions, FastAPI, Tesseract OCR, MLflow, Jira, SharePoint · \n\n🧠 Architecture Highlights\n\n \n\n🔗 Dataset Sources\n\n- DailyMed Structured Product Labels\n- Kaggle 11K+ medicine info\n- Custom labeled translations (MarianMT + Post-processing)\n\n📂 Project Structure\n\n \n\n🧪 How to Run\n\n \n\nRequires .env file with:\n\n \n\n📖 Example Use Cases\n\n- 🤒 “What to take for sore throat?” → GPT-4 → SQL → PostgreSQL\n- 🌍 “Tell me about this medicine in Telugu” → MarianMT → User Manual\n- 📷 Upload prescription → Tesseract OCR → NLP pipeline\n- 📊 Get best-rated alternatives → Chart output by Streamlit\n\n🧑‍💻 Contributors\n\n- Krishna Annavaram \n LinkedIn · annavaramkrishna02@gmail.com\n\n- Vighnasree Vara \n NLP & GenAI Research Collaborator\n\n📜 License\n\nMIT License\n\n🙌 Acknowledgments\n\nThanks to the University of North Texas – College of Information for academic and technical mentorship in LLM-based AI systems. \nSpecial appreciation to the GenAI & NLP teams at Creative Sense Pvt Ltd for enabling healthcare RAG system deployment.",
+      "readmeLead": "",
+      "readmeText": "",
       "mermaid": []
     },
     {
@@ -463,8 +3833,8 @@
         "date": "2025-12-20T18:04:25Z",
         "url": "https://github.com/KrishnaAnnavaram/profalign-ai/commit/877926e650ef89d19516a0d1d71c4e8c9787e825"
       },
-      "readmeLead": "ProfAlign AI An NLP-Driven Professor Recommendation System for Academic Alignment",
-      "readmeText": "ProfAlign AI \nAn NLP-Driven Professor Recommendation System for Academic Alignment\n\nProfAlign AI is an intelligent professor recommendation system designed to help students identify professors whose research interests, teaching style, and academic metrics align with their learning goals. \nThe system applies Natural Language Processing (NLP) and machine learning–based similarity modeling to generate ranked, data-driven faculty recommendations.\n\n📌 Problem Statement\n\nStudents often struggle to choose the right professor due to:\n- Unstructured and scattered faculty research information \n- Lack of transparency around teaching difficulty and engagement \n- Reliance on word-of-mouth rather than data \n\nProfAlign AI addresses this gap by combining textual similarity with quantitative academic metrics to support informed decision-making.\n\n🧠 System Overview\n\nThe system analyzes:\n- Faculty research descriptions and publications \n- Student input describing research interests and preferences \n- Academic feedback and engagement indicators \n\nUsing NLP and similarity modeling, ProfAlign AI produces a ranked list of professors with interpretable relevance indicators.\n\n🏗 Architecture & Pipeline\n\n1. Data Collection\n- Faculty profiles and research data scraped from public university sources \n- Implemented using Selenium and BeautifulSoup\n\n2. Data Preprocessing\n- Handling missing values \n- Text normalization and cleaning \n- Removal of noise and irrelevant attributes \n\n3. Feature Engineering\nCustom academic quality metrics were introduced:\n- Course Difficulty Index (CDI) \n- Student Feedback Index (SFI) \n- Professor Engagement Index (PEI) \n\nThese metrics enhance recommendation reliability beyond text similarity alone.\n\n4. Text Representation\n- Faculty research text vectorized using TF-IDF\n- Student input transformed into the same vector space \n\n5. Similarity & Ranking\n- Cosine Similarity measures research alignment \n- K-Nearest Neighbors (KNN) integrates similarity with CDI, SFI, and PEI \n- Produces Top-N ranked professor recommendations \n\n6. User Interface\n- Web application built using Flask\n- Simple UI for student input and recommendation display \n\n🔁 Workflow\n\n1. Student enters research interests and preferences \n2. Input is preprocessed and vectorized \n3. Faculty profiles are compared using similarity metrics \n4. Academic quality indices refine the ranking \n5. Final recommendations are displayed to the user \n\n📊 Evaluation\n\nThe system was evaluated using:\n- Exploratory Data Analysis (EDA) on faculty datasets \n- Distribution analysis of CDI, SFI, and PEI \n- Qualitative validation of recommendation relevance \n\nResults showed improved alignment when text similarity is combined with academic metrics.\n\n🧪 Technology Stack\n\n- Python\n- Flask\n- scikit-learn\n- TF-IDF Vectorization\n- Cosine Similarity\n- K-Nearest Neighbors (KNN)\n- Selenium & BeautifulSoup\n- Pandas / NumPy\n- NLTK\n\n👤 My Role\n\nThis project was developed as part of a research-focused academic team.\n\nMy contributions included:\n- NLP preprocessing pipeline design \n- Feature engineering (CDI, SFI, PEI metrics) \n- Similarity modeling and ranking logic \n- Evaluation, analysis, and documentation \n\n📄 Publication\n\nThis project was accepted and published at MIRS (University of North Texas).\n\nPaper Title: \nProfessor Recommendation System\n\n🚀 Future Enhancements\n\n- Deep-learning embeddings (BERT / SBERT) \n- User feedback–driven adaptive recommendations \n- Improved metric normalization \n- Cross-department and cross-university support \n\n⚠️ Notes\n\n- All data used is publicly available academic information \n- No private or sensitive data is included \n- This repository reflects a research implementation, not a production system \n\n📜 License\n\nThis project is licensed under the MIT License.\nprofalign-ai\nAn NLP-driven professor recommendation system for academic alignment",
+      "readmeLead": "",
+      "readmeText": "",
       "mermaid": []
     },
     {
@@ -499,8 +3869,8 @@
         "date": "2025-12-20T16:25:07Z",
         "url": "https://github.com/KrishnaAnnavaram/virtual-professor-ai/commit/14c24d57e111e9d5f257cb1c6adc5ce30bebcf1e"
       },
-      "readmeLead": "Virtual Professor AI is a LangGraph-orchestrated, multi-agent GenAI system designed to provide continuous, context-aware research mentoring for graduate students. It combines multi-agent reasoning, hybrid retrieval (RAG), and long-term conversational memory to deliver academically grounded guidance across the full research lifecycle.",
-      "readmeText": "Virtual Professor AI\n\nVirtual Professor AI is a LangGraph-orchestrated, multi-agent GenAI system designed to provide continuous, context-aware research mentoring for graduate students.\nIt combines multi-agent reasoning, hybrid retrieval (RAG), and long-term conversational memory to deliver academically grounded guidance across the full research lifecycle.\n\n📌 Motivation\n\nGraduate programs face a growing mentorship gap due to rising enrollment and limited faculty availability. Traditional chatbots and single-agent LLM systems fail to provide:\n\nRole-specialized academic reasoning\n\nIntegration of structured and unstructured academic data\n\nLong-term research context across sessions\n\nVirtual Professor AI addresses these limitations by simulating a faculty-style mentoring workflow using coordinated AI agents.\n\n🧠 System Overview\n\nThe system is built as a multi-agent architecture coordinated through LangGraph, where each agent is responsible for a specific academic role.\n\nCore Capabilities\n\nMulti-agent task routing and supervision\n\nHybrid retrieval over academic knowledge sources\n\nEvidence-grounded response generation\n\nLong-term conversational continuity\n\n🏗 Architecture\n\nVirtual Professor AI is organized into five logical layers:\n\nUser Interaction Layer\n\nStreamlit-based interface for research queries and iterative refinement\n\nAgent Orchestration Layer (LangGraph)\n\nSupervisor Agent routes queries to specialized agents\n\nDeterministic state transitions for structured reasoning\n\nHybrid Retrieval Layer\n\nFAISS for semantic retrieval over unstructured documents\n\nPostgreSQL for structured academic data via SQL generation\n\nJSON knowledge base for templates and definitions\n\nUNT Library API for real-time scholarly access\n\nMemory & Session Layer\n\nRedis-backed long-term memory for multi-turn research continuity\n\nResponse Generation & Validation\n\nLLM-based synthesis with supervisory validation for academic rigor\n\n🤖 Agents\nSupervisor Agent\n\nInterprets user intent\n\nRoutes tasks to appropriate agents\n\nMaintains coherence across multi-turn interactions\n\nProfessor Agent\n\nConceptual reasoning\n\nMethodological guidance\n\nResearch framing and scholarly refinement\n\nTeaching Assistant (TA) Agent\n\nProcedural guidance\n\nCode and SQL assistance\n\nAssignment and rubric clarification\n\nSQL Agent\n\nConverts natural language queries into schema-consistent SQL\n\nRetrieves structured academic data from PostgreSQL\n\n📚 Knowledge Sources\nUnstructured\n\nCapstone reports\n\nResearch papers\n\nTextbooks\n\nUploaded PDFs\n(Indexed using FAISS vector embeddings)\n\nStructured\n\nCourse policies\n\nAssignment deadlines\n\nRubrics\n\nStudent and course metadata\n(Stored in PostgreSQL)\n\nExternal\n\nUNT Library API for peer-reviewed literature\n\n🔁 Workflow\n\nUser submits a research query\n\nSupervisor Agent identifies intent\n\nAppropriate agent is activated\n\nHybrid retrieval is triggered (FAISS / SQL / external APIs)\n\nLLM synthesizes an evidence-grounded response\n\nResponse is validated and returned\n\nContext is stored for future interactions\n\nThis enables continuous research mentoring, not isolated Q&A.\n\n📊 Evaluation Highlights\n\nThe system was empirically evaluated using both quantitative and qualitative metrics:\n\nSemantic Retrieval Precision (Top-5): 94%\n\nFAISS Retrieval Latency: < 20 ms\n\nSQL Query Accuracy: High schema consistency and correctness\n\nHallucination Rate: < 5%\n\nMulti-turn Context Retention: Strong session coherence\n\nPilot user studies showed improvements in:\n\nResearch problem articulation\n\nMethodological alignment\n\nMilestone adherence\n\n🧪 Technology Stack\n\nPython\n\nLangGraph (multi-agent orchestration)\n\nLarge Language Models (LLMs)\n\nFAISS (vector search)\n\nPostgreSQL (structured retrieval)\n\nRedis (session memory)\n\nStreamlit (UI)\n\n👤 My Role\n\nLed system architecture and design\n\nImplemented LangGraph-based multi-agent orchestration\n\nDesigned hybrid retrieval pipeline (FAISS + PostgreSQL)\n\nBuilt SQL agent for structured academic querying\n\nIntegrated long-term conversational memory\n\nConducted evaluation and performance analysis\n\n⚠️ Notes\n\nSensitive credentials and datasets are excluded\n\n.env.example is provided for configuration reference\n\nThis repository reflects the research and system implementation described in the accepted paper\n\n📄 Publication\n\nThis project is based on the accepted research paper:\n\n“Bridging the Mentorship Gap: An AI-Driven Multi-Agent Framework for Continuous Research Guidance”\nUniversity of North Texas\n\n🚀 Future Work\n\nAdaptive model selection per agent\n\nAutomated academic data refresh pipelines\n\nReinforcement learning from user feedback\n\nExpanded long-term personalization",
+      "readmeLead": "",
+      "readmeText": "",
       "mermaid": []
     },
     {
@@ -600,8 +3970,8 @@
         "date": "2025-12-01T16:22:07Z",
         "url": "https://github.com/KrishnaAnnavaram/pick-n-play/commit/b9eae8c83e6384100d3d4058d0d6f3568a27fe0f"
       },
-      "readmeLead": "Pick-n-Play is a Streamlit-powered smart group selector app designed to randomly pick student project groups from an uploaded Excel file — without repetition.",
-      "readmeText": "🎲 Pick-n-Play\n\nPick-n-Play is a Streamlit-powered smart group selector app designed to randomly pick student project groups from an uploaded Excel file — without repetition.\n\n✨ Features\n\n- ✅ Upload an Excel file with group information\n- ✅ Randomly pick one group at a time\n- ✅ Prevent duplicate selections (non-repeating logic)\n- ✅ Exclude any groups before starting\n- ✅ Track completed and excluded groups\n- ✅ Simple reset functionality\n\n📁 Excel Format\n\nThe uploaded .xlsx file should have the following columns:\n Group · Student Name · Project Idea · \n --------- · -------------------------- · ------------------------------------------ · \n Group 1 · Krishna Annavaram · Smart Healthcare Assistant · \n · Charmika Sadhula · · \n · Vighnasree Vara · · \n Group 2 · John Smith · AI Weather Forecaster · \n · Jane Doe · · \n\n- Only the first row of each group should contain the project title and group number.\n- Group members follow below without repeating the group number.\n\n🚀 How to Run the App Locally\n\nbash\nClone the repo\ngit clone https://github.com/KrishnaAnnavaram/pick-n-play.git\ncd pick-n-play\n\n(Optional) Create a virtual environment\npython -m venv venv\nsource venv/bin/activate # On Windows: venv\\Scripts\\activate\n\nInstall dependencies\npip install -r requirements.txt\n\nRun the Streamlit app\nstreamlit run app.py",
+      "readmeLead": "",
+      "readmeText": "",
       "mermaid": []
     },
     {
@@ -702,8 +4072,8 @@
         "date": "2025-06-23T16:55:06Z",
         "url": "https://github.com/KrishnaAnnavaram/eda-strategies/commit/5aa49fd65d8933f9fb29fb71fe959a198dff15ef"
       },
-      "readmeLead": "This repository presents a comprehensive walkthrough of Exploratory Data Analysis (EDA) created as part of my personal exploration and practice in data science.",
-      "readmeText": "🧪 Exploratory Data Analysis (EDA) – Strategies & Techniques\n\nThis repository presents a comprehensive walkthrough of Exploratory Data Analysis (EDA) created as part of my personal exploration and practice in data science.\n\nThe presentation covers the most essential concepts, tools, and techniques used by professionals to understand and prepare data before modeling.\n\n📊 What's Inside?\n\nThe presentation includes:\n\n- ✅ EDA in the Data Science Workflow \n- ✅ Metadata and Data Type Identification \n- ✅ Data Cleaning Techniques (Missing Values, Duplicates, Type Corrections) \n- ✅ Univariate, Bivariate, and Multivariate Analysis \n- ✅ Statistical Insights & Hypothesis Testing \n- ✅ Encoding Categorical Variables \n- ✅ Dimensionality Reduction (PCA & t-SNE) \n- ✅ Tools & Libraries Used for EDA \n- ✅ Real-World Applications Across Industries \n- ✅ Future Scope of EDA \n- ✅ Industry-Standard Summary & Takeaways\n\n📁 File Included\n\n- ExploratoryDataAnalysisStrategiesKrishnaAnnavaram.pptx – Full presentation\n\n👨‍💻 Author\n\nKrishna Annavaram \nAspiring Data Scientist · M.S. in Data Science \n📍 Based in Texas, USA \n🔗 LinkedIn Profile \n✉️ annavaramkrishna@gmail.com\n\n💬 Feedback or Collaboration?\n\nFeel free to connect or open an issue if you have suggestions or would like to collaborate on data-centric projects.\n\n \"Every dataset tells a story – EDA helps us learn its language.\"",
+      "readmeLead": "",
+      "readmeText": "",
       "mermaid": []
     },
     {

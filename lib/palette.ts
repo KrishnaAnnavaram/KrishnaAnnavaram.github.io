@@ -3,12 +3,12 @@ import { navItems } from '@/data/nav'
 import { caseStudies } from '@/data/work'
 import { visibleProjects } from '@/data/projects'
 import { experience } from '@/data/experience'
-import { publications } from '@/data/publications'
+import { archive } from '@/data/archive'
 import { getPostMeta } from '@/lib/writing'
 
 /**
  * Built on the server so the client bundle carries labels and hrefs only —
- * not the publication abstracts, which are the bulk of the content data.
+ * not case-study prose or README text.
  */
 export function buildPaletteIndex(): PaletteItem[] {
   return [
@@ -34,10 +34,11 @@ export function buildPaletteIndex(): PaletteItem[] {
       label: p.title,
       group: 'Writing',
     })),
-    ...publications.map((p) => ({
-      href: `/research/#${p.id}`,
-      label: p.title,
-      group: 'Research',
+    ...archive.map((e) => ({
+      href: `/projects/?q=${encodeURIComponent(e.repo)}#archive`,
+      label: e.repo,
+      group: 'Earlier work',
+      hint: e.tagline,
     })),
   ]
 }

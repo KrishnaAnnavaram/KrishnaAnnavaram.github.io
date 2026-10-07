@@ -1,14 +1,16 @@
 import { Hero } from '@/components/home/Hero'
-import { CurrentFocus } from '@/components/home/CurrentFocus'
-import { SelectedSystems } from '@/components/home/SelectedSystems'
+import { TrustStrip } from '@/components/home/TrustStrip'
+import { SystemsBento } from '@/components/home/SystemsBento'
+import { PipelineReplay } from '@/components/home/PipelineReplay'
+import { SectionHead } from '@/components/home/SectionHead'
+import { RunHistory } from '@/components/home/RunHistory'
+import { EarlierWork } from '@/components/home/EarlierWork'
 import { Approach } from '@/components/home/Approach'
-import { ResearchWriting } from '@/components/home/ResearchWriting'
 import { ContactCTA } from '@/components/home/ContactCTA'
-import { GitHubActivity } from '@/components/projects/GitHubActivity'
-import { activitySummary } from '@/lib/projects'
 import { profile } from '@/data/profile'
 import { experience } from '@/data/experience'
 import { featuredProjects } from '@/data/projects'
+import { marsRuns } from '@/data/mars-runs'
 
 /**
  * Person + ItemList structured data, built from the same source the pages
@@ -23,6 +25,7 @@ function JsonLd() {
         '@id': `${profile.siteUrl}/#person`,
         name: profile.name,
         jobTitle: profile.role,
+        image: `${profile.siteUrl}${profile.photos[0].src}.jpg`,
         url: profile.siteUrl,
         email: `mailto:${profile.socials.email}`,
         address: {
@@ -81,11 +84,31 @@ export default function HomePage() {
     <>
       <JsonLd />
       <Hero />
-      <SelectedSystems />
-      <CurrentFocus />
-      <GitHubActivity activity={activitySummary(5)} sectionNumber="03" />
+      <TrustStrip />
+      <SystemsBento />
+
+      <section className="border-y border-rule bg-sunken/60" aria-labelledby="replay-title">
+        <div className="page-x mx-auto max-w-page py-20 sm:py-24">
+          <SectionHead
+            index="02"
+            label="Recorded evidence"
+            id="replay-title"
+            title={
+              <>
+                Watch MARS <span className="font-accent italic text-accent">refuse</span> to ship a fix.
+              </>
+            }
+            lede="Four real issues, replayed from the evidence MARS committed for each run. Agents judge, scripts decide, a person approves the plan — and all four drafted fixes were blocked by the gates. That is the harness working."
+          />
+          <div className="mt-10">
+            <PipelineReplay runs={marsRuns} />
+          </div>
+        </div>
+      </section>
+
+      <RunHistory />
+      <EarlierWork />
       <Approach />
-      <ResearchWriting />
       <ContactCTA />
     </>
   )

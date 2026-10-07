@@ -84,6 +84,121 @@ export interface Project {
    DIAGRAMS
    ═══════════════════════════════════════════════════════════════════════════ */
 
+const marsDiagram: SystemDiagram = {
+  id: 'mars-pipeline',
+  title: 'MARS — seven agents, and scripts that measure what the agents may only judge',
+  caption:
+    'Seven agent personas run in order inside a coding-assistant session (Claude Code or GitHub Copilot Chat). Each one calls deterministic Node.js scripts for facts and writes its judgement into schema-checked JSON. Then a renderer merges the two into a report. Two lines are enforced: no patch before a person approves the plan, and no agent can clear a patch that a script-computed gate blocked.',
+  groups: [
+    {
+      label: 'Understand and plan — reads only (agents 01–04, stage 1)',
+      nodes: [
+        {
+          id: 'mars-architect',
+          label: '01 Architect',
+          summary: 'Turns the codebase into an AST model, a Neo4j graph and architecture documents.',
+          kind: 'agent',
+          detail: {
+            inputs: ['Java sources', 'pom.xml for each Maven module'],
+            outputs: ['artifacts.json', 'Neo4j code graph (optional)', 'architecture.md'],
+            tech: ['web-tree-sitter', 'fast-xml-parser', 'neo4j-driver'],
+            note: 'Skill 01b is the only place in the pipeline with an LLM SDK. It is an optional fallback that drafts descriptions through the Anthropic, OpenAI or Gemini API when the workload is too large for one session.',
+          },
+        },
+        {
+          id: 'mars-rca',
+          label: '02 Root cause · 03 Blast radius',
+          summary: 'Scripts collect evidence from the graph and the code. The agent names one root cause and sizes its reach.',
+          kind: 'agent',
+          detail: {
+            inputs: ['Issue register (Excel, read-only)', 'Code graph'],
+            outputs: ['root_cause_<id>.md', 'blast_radius_<id>.md'],
+            note: 'Agent 02 has no "not a defect" outcome. It accepts every issue in the register as real, and the README says so.',
+          },
+        },
+        {
+          id: 'mars-strategize',
+          label: '04 Strategize',
+          summary: 'Writes a fix plan, never code, and classifies it as a code fix, a dependency upgrade or a version migration.',
+          kind: 'agent',
+          detail: {
+            outputs: ['fix_plan_<id>.md with Status: Proposed'],
+            note: 'Knowledge comes in three tiers: a CWE catalog, then a local knowledge base with TF-IDF ranking, then structured research. The two lower tiers are always marked Low confidence. The Fix Type is checked against the real pom.xml by routing.js, not taken from the agent.',
+          },
+        },
+      ],
+    },
+    {
+      label: 'Implement — only in an isolated worktree or sandbox (agent 04, stage 2)',
+      boundary: 'Human approval — no patch is drafted until a plan reads Status: Approved',
+      nodes: [
+        {
+          id: 'mars-approval',
+          label: 'Plan approval',
+          summary: 'A person moves the plan from Proposed to Approved. The implementing scripts read only that cell.',
+          kind: 'human',
+          detail: {
+            tech: ['record-decision.js'],
+            note: 'record-decision.js refuses when the plan’s hash has changed since it was viewed, when the terminal is not interactive, and when the caller is a Claude Code process. Each decision goes into a hash-chained log. The script itself states that attribution is locally asserted, so these checks deter and do not prove.',
+          },
+        },
+        {
+          id: 'mars-implement',
+          label: '04b Fixer · 04c Upgrader · 04d Migration',
+          summary: 'The agent drafts the smallest patch. Scripts apply it in a temporary git worktree and verify that it compiles.',
+          kind: 'agent',
+          detail: {
+            outputs: ['fix_<id>.md', 'fix_<id>.diff'],
+            tech: ['git worktree', 'Maven', 'OpenRewrite'],
+            note: '04d plans Spring Boot migrations edge by edge over a 17-rung ladder (1.5 → 4.1). By default it runs only Apache-2.0 recipes. Spring’s upgrade recipes after Boot 3.3 are source-available, and the policy refuses them unless an opt-in is recorded.',
+          },
+        },
+      ],
+    },
+    {
+      label: 'Verify and ship (agents 05–07)',
+      boundary: 'Exit codes and hard gates — an agent may make a verdict stricter, never more lenient',
+      nodes: [
+        {
+          id: 'mars-verify',
+          label: '05 Re-scan · red-team · behaviour guard',
+          summary: 'Three static checks on each patch: does the finding still trigger, can it be bypassed, did behaviour change?',
+          kind: 'agent',
+        },
+        {
+          id: 'mars-gates',
+          label: '06 Test gate · build gate',
+          summary: 'Runs one new regression test and the full build in a worktree. The exit codes decide the result.',
+          kind: 'deterministic',
+          detail: {
+            tech: ['mvn verify', 'dependency-tree diff'],
+            note: 'The agent writes the test. A script runs it, and no agent-authored text appears in the build gate’s output.',
+          },
+        },
+        {
+          id: 'mars-score',
+          label: '07a Merge arbiter',
+          summary: 'Scores the evidence against severity thresholds and applies three hard gates that no score can override.',
+          kind: 'deterministic',
+          detail: {
+            inputs: ['scoring.json'],
+            outputs: ['Cleared or Blocked'],
+            note: 'Hard gates: still vulnerable, build failed, migration not passed. The renderer refuses an override unless the computed decision was Cleared and the override sets it to Blocked.',
+          },
+        },
+        {
+          id: 'mars-audit',
+          label: '07b Verdict, PR text and audit trail',
+          summary: 'Writes the PR content and the audit record. Opens a PR only for a Cleared patch, and only when a person asks.',
+          kind: 'output',
+        },
+      ],
+    },
+  ],
+  footnote:
+    'The "agent" nodes are not API calls made by the pipeline. They are Markdown personas that a coding assistant follows, so the model is the assistant itself. The scripts contain no AI SDK, apart from the optional 01b fallback.',
+}
+
 const bootshiftDiagram: SystemDiagram = {
   id: 'bootshift-pipeline',
   title: 'Bootshift — twenty stages, one writer',
@@ -594,6 +709,105 @@ const statuteDiagram: SystemDiagram = {
 
 export const projects: Project[] = [
   {
+    slug: 'mars',
+    name: 'MARS',
+    tagline:
+      'An agent harness that takes a reported Java vulnerability from diagnosis to a scored ship decision. Agents judge; scripts decide.',
+    kind: 'system',
+    year: '2026',
+    status: 'featured',
+    order: 0,
+    domains: ['agentic-ai', 'multi-agent', 'legacy-modernisation', 'migration', 'evaluation'],
+    stack: [
+      'Node.js',
+      'JavaScript',
+      'TypeScript',
+      'Claude Code',
+      'GitHub Copilot Chat',
+      'OpenRewrite',
+      'Maven',
+      'Neo4j (optional)',
+      'tree-sitter',
+      'React',
+    ],
+    repo: 'MARS',
+    problem:
+      'Writing a security patch is the easy part. What takes time is everything after it: does the patch close the finding, can a different path still reach it, did it change behaviour nobody asked to change, does it build, and who decided it was safe to ship? A coding assistant asked to "fix this CVE" answers all of those in one confident paragraph. The paragraph cannot be audited, and nothing in it separates what was measured from what was guessed.',
+    constraints: [
+      'The runtime had to be the coding assistant teams already have, so the pipeline could not depend on its own model API.',
+      'Analysis must never modify the real repository. Every patch had to be tried somewhere disposable.',
+      'A judgement written by a model had to stay visibly separate from a fact measured by code, in every report.',
+      'Spring’s OpenRewrite upgrade recipes after Boot 3.3 are source-available, not open source, so migrations could not silently depend on them.',
+    ],
+    approach: [
+      'Split the work across seven agents in three phases, Understand, Fix and Verify & Ship, with eighteen skills between them. Each skill is a self-contained folder of scripts, JSON schemas and policy data.',
+      'Gave every agent the same division of labour. Deterministic scripts collect facts into a briefing, the agent writes its judgement into a schema-checked JSON file, and a renderer merges the two into the Markdown report the next stage reads.',
+      'Required a human-approved fix plan before any code is written. Stage 1 of the fix agent writes a plan and is not allowed to write a patch. The implementing scripts read only plans whose Status cell is Approved.',
+      'Ran every patch in a temporary git worktree or a sandbox copy, and let exit codes, not the agent, decide whether tests and builds passed.',
+      'Moved the ship decision into a config-driven scorer. scoring.json defines three hard gates (still vulnerable, build failed, migration not passed) and per-severity thresholds. An agent may override a computed Cleared to Blocked. It cannot go the other way.',
+      'Built the migration skill to plan Spring Boot upgrades edge by edge over a 17-rung ladder. Its licence policy refuses source-available recipes unless an opt-in is recorded.',
+      'Added Mission Control, a React operations console fed by a telemetry ledger. A run can be watched there, and the plan decision can be recorded through the same guarded command the terminal uses.',
+    ],
+    diagram: marsDiagram,
+    decisions: [
+      {
+        title: 'Scripts measure, agents judge, renderers merge',
+        body: 'The model is good at explaining why a defect is real and bad at reporting whether a build passed. So no agent ever writes a test result or a build verdict: a script runs the command and records its exit code, and the report renders that number. Agent judgement goes only into JSON that has to validate against a schema, which is what lets every report show the measured facts and the judgement side by side.',
+      },
+      {
+        title: 'An override can only make the verdict stricter',
+        body: 'Agent 07 may disagree with the score, but in one direction only. The verdict renderer refuses an override unless the computed decision was Cleared and the override sets it to Blocked. A persuasive narrative can stop a patch. It cannot ship one.',
+      },
+      {
+        title: 'The approval is recorded, and the record admits its limits',
+        body: 'Approval began as a hand edit of a Markdown cell, which records nothing about who approved, when, or which version of the plan they saw. record-decision.js now writes a hash-chained decision log and refuses a stale plan, a non-interactive terminal, and a Claude Code process. Its own header says attribution is locally asserted: a process running as the same OS user could defeat it. The checks deter, and the dashboard’s integrity rule detects. Neither proves.',
+      },
+      {
+        title: 'Licence is a policy input, not a footnote',
+        body: 'rewrite-spring 5.24.1 is the last Apache-2.0 release of Spring’s upgrade recipes. Beyond Boot 3.3, the default open-source-only policy uses MARS’s own composites built from core OpenRewrite recipes, plus compiler-driven repair. A recipe the session’s policy does not allow is rejected with a recorded status. It is never quietly skipped or quietly used.',
+      },
+    ],
+    evidence: [
+      {
+        value: '7 / 18',
+        label: 'agents and skills',
+        method: 'At 007b0a2: ls .github/agents/*.agent.md | wc -l and ls -d .github/skills/*/ | wc -l. Matches the README badges',
+      },
+      {
+        value: '24,137',
+        label: 'lines of harness JavaScript across 86 files, plus 7,946 lines of TypeScript in Mission Control',
+        method: 'At 007b0a2: git ls-files on .github/**/*.js excluding tests, piped to wc -l. Excludes the .claude mirror and the vendored Spring Boot sample application',
+      },
+      {
+        value: '56',
+        label: 'harness test cases across 9 files, and 98 Vitest + 12 Playwright tests for Mission Control',
+        method: "At 007b0a2: git grep -cE '^\\s*(test|it)(\\.each\\(…\\))?\\s*\\(' on *.test.js / *.test.ts(x) / *.spec.ts. Static count, not run. All 56 harness tests cover two skills, 04a routing and 04d migration",
+      },
+      {
+        value: '3',
+        label: 'hard gates that no score can override',
+        method: 'hard_gates in .github/skills/07a-merge-arbiter/scoring.json, enforced in compute-score.js before the threshold is applied',
+      },
+      {
+        value: '0 of 4',
+        label: 'committed sample issues cleared to ship',
+        method: 'Decision row of docs/agent_output/07-ship/verdict_ISSUE-00{1..4}.md at 007b0a2. All four are Blocked, with scores of 0, 30, 60 and 60',
+      },
+    ],
+    limitations: [
+      'Sixteen of the eighteen skills have no automated tests. The harness tests cover fix-plan routing and the migration skill only.',
+      'There is no CI. The repository’s only Jenkinsfile belongs to the sample application under analysis and checks out a different repository.',
+      'The README says MARS can migrate Spring Boot from any published line to any later line. The ladder does describe 17 lines from 1.5 to 4.1, but the committed validation exercises two paths: 2.7.12 → 3.5.16 (partial pass) and 3.5.0 → 4.1.1.',
+      'A bypass does not block on its own. BYPASS_FOUND caps the score at 70, which is above the Low-severity threshold of 65, so a Low-severity patch with a known bypass can still be Cleared. The README lists this as an open problem.',
+      'Agent 02 has no "not a defect" outcome. Every issue in the register is treated as real.',
+      'In the validation runs, plan approvals were given programmatically. The human checkpoint exists in the design and was not exercised by a person in those runs.',
+      'Some committed sample reports were edited by hand after rendering. The README warns that re-scoring them would wrongly clear two issues.',
+      'The .claude copy is a hand-maintained mirror of the .github harness, and 42 of its 80 JavaScript files are not byte-identical to a .github counterpart. The two drift by construction.',
+    ],
+    provenance:
+      'Computed against a shallow clone at 007b0a2 (merge of #13, 3 Oct 2026). Agent, skill, gate and verdict counts were read from the files themselves. Tests were counted statically, not run. The README’s own known-problems list was checked against the code and agrees with it. Its "any version to any version" claim is broader than the validation evidence, and this page follows the evidence.',
+  },
+  {
     slug: 'smcp-gateway',
     name: 'Semantic MCP Data Access Gateway',
     // Delivered at Virtusa as "Smart Quant"; the repository keeps the
@@ -603,7 +817,7 @@ export const projects: Project[] = [
     kind: 'system',
     year: '2026',
     status: 'featured',
-    order: 0,
+    order: 3,
     domains: ['agentic-ai', 'multi-agent', 'mcp', 'rag', 'evaluation'],
     stack: [
       'Python',
@@ -861,7 +1075,7 @@ export const projects: Project[] = [
     kind: 'system',
     year: '2026',
     status: 'featured',
-    order: 3,
+    order: 4,
     domains: ['agentic-ai', 'legacy-modernisation', 'migration', 'evaluation'],
     stack: ['Python 3.11', 'Standard library only', 'unittest'],
     repo: 'adaptive-legacy-code-complexity-harness',
@@ -936,7 +1150,7 @@ export const projects: Project[] = [
     kind: 'system',
     year: '2026',
     status: 'featured',
-    order: 4,
+    order: 5,
     domains: ['agentic-ai', 'multi-agent', 'evaluation', 'data-engineering'],
     stack: [
       'Python',
@@ -1044,6 +1258,11 @@ export const projects: Project[] = [
    pick-n-play            A 109-line app inside a committed virtualenv.
    eda-strategies         A PowerPoint and a licence file.
    web-Scraping           Empty — zero commits.
+   CredPilot              Team hackathon build; a teammate's commit and the
+                          employer's internal brief are in the repository.
+                          The site presents sole work only.
+   spring-modernization-  Two-line README and a licence — no code yet.
+   remediation-harness
 
    Several of these become publishable with modest work. CONTENT_TODO.md lists
    what each one needs.

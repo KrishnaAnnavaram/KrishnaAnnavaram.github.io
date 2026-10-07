@@ -14,10 +14,15 @@ import {
    ───────────────────────────────────────────────────────────────────────── */
 
 const TONE: Record<string, { chip: string; bar: string; ring: string }> = {
-  accent: {
-    chip: 'text-accent',
-    bar: 'bg-accent',
-    ring: 'border-accent/45',
+  model: {
+    chip: 'text-model',
+    bar: 'bg-model',
+    ring: 'border-model/45',
+  },
+  human: {
+    chip: 'text-human',
+    bar: 'bg-human',
+    ring: 'border-human/45',
   },
   verify: {
     chip: 'text-verify',
@@ -164,8 +169,8 @@ export function SystemDiagram({ diagram }: { diagram: Diagram }) {
           <div key={group.label ?? gi} className={gi > 0 ? 'mt-7' : undefined}>
             {/* A boundary the system enforces, drawn rather than described. */}
             {group.boundary && (
-              <p className="mb-4 flex items-center gap-3 border-t-2 border-dashed border-accent/50 pt-3">
-                <span className="font-mono text-3xs uppercase tracking-[0.12em] text-accent">
+              <p className="mb-4 flex items-center gap-3 border-t-2 border-dashed border-human/50 pt-3">
+                <span className="font-mono text-3xs uppercase tracking-[0.12em] text-human">
                   {group.boundary}
                 </span>
               </p>

@@ -1,0 +1,1344 @@
+[
+ {
+  "repo": "calmvoice",
+  "title": "Safety-First Voice Wellbeing Companion With Local RAG",
+  "tagline": "Text-or-voice wellbeing companion answering from a licensed corpus with citations, behind a crisis gate.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "Ollama",
+   "sentence-transformers",
+   "FAISS",
+   "faster-whisper"
+  ],
+  "pipeline": "assess risk → check scope → retrieve (hybrid + RRF) → generate with citations → guard output → speak in the browser",
+  "note": "Safety gate runs before retrieval; a crisis message never reaches the LLM",
+  "tests": 80,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "citecheck",
+  "title": "Field-Level Accuracy Of LLM References In Five Styles",
+  "tagline": "Benchmark of per-field hallucination and omission when an LLM writes academic references.",
+  "category": "llm-eval",
+  "stack": [
+   "Python",
+   "OpenAI-compatible API",
+   "Crossref / OpenAlex",
+   "SciPy",
+   "Pydantic"
+  ],
+  "pipeline": "sample DOIs → build truth → generate → evaluate → report",
+  "note": "Separates hallucination (false value) from omission (missing value) for each bibliographic field",
+  "tests": 29,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "clinicdesk-agent",
+  "title": "Clinic Front Desk Assistant",
+  "tagline": "Tool-calling clinic assistant that books, cancels and reschedules only after patient confirmation.",
+  "category": "agents",
+  "stack": [
+   "Python",
+   "SQLite",
+   "OpenAI-compatible API",
+   "Streamlit",
+   "pytest"
+  ],
+  "pipeline": "sign-in → safety screen → model and tool calls → proposal → confirmation → atomic write",
+  "note": "No tool takes a patient_id; identity comes from sign-in, and a red-flag screen runs before the model",
+  "tests": 102,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "cloudquote",
+  "title": "Plain-English Requirements to Priced AWS and GCP Quotes",
+  "tagline": "Turns a plain-English infrastructure requirement into side-by-side AWS and GCP cost quotes.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "Pydantic v2",
+   "Decimal",
+   "Streamlit",
+   "OpenAI-compatible API"
+  ],
+  "pipeline": "extract → validate → match SKUs → price with units → verify → explain",
+  "note": "The optional LLM only fills a validated schema; a deterministic matcher picks SKUs and a calculator prices them",
+  "tests": 54,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "ehr2summary",
+  "title": "Grounded Discharge Summaries With Checked Evaluation",
+  "tagline": "Generates cited discharge summaries from coded EHR tables and scores them with rules and a separate judge.",
+  "category": "llm-eval",
+  "stack": [
+   "Python",
+   "pandas",
+   "Pydantic v2",
+   "Ollama / OpenAI-compatible API",
+   "Hugging Face"
+  ],
+  "pipeline": "load tables → build de-identified records → generate summaries → check faithfulness → score with an independent judge → aggregate with intervals",
+  "note": "Each summary statement cites record items; a rule check flags invented diagnoses, procedures and drugs",
+  "tests": 45,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "gadgetgenie",
+  "title": "Guarded Text-to-SQL Device Recommendations",
+  "tagline": "Text-to-SQL device recommender where code guards each generated query and checks every number in the summary.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "sqlglot",
+   "SQLite / PostgreSQL / MySQL",
+   "FastAPI",
+   "OpenAI-compatible API (Groq)"
+  ],
+  "pipeline": "input check → slots and budget → generate SQL → SQL guard → run read-only → summary and faithfulness check",
+  "note": "The LLM sees only two views, not base tables",
+  "tests": 112,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "gradguide",
+  "title": "Document-Grounded Graduate Advising Assistant",
+  "tagline": "Graduate advising assistant that answers from an institution's own documents with citations, or abstains.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "NumPy",
+   "FastAPI",
+   "Streamlit",
+   "Ollama"
+  ],
+  "pipeline": "load documents → split into token-sized chunks → sync the index → BM25 + vector search → fuse (RRF) → optional rerank → evidence check → prompt the chat model → validate citations",
+  "note": "No evidence means no chat-model call; the abstention names a real advising contact",
+  "tests": 53,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "ipm-lstm-attn",
+  "title": "Learned Interior-Point Solver With A Seeded Attention Ablation",
+  "tagline": "Learned Newton solvers for interior-point methods, compared in a seeded one-change-at-a-time ablation.",
+  "category": "tabular-ml",
+  "stack": [
+   "Python",
+   "PyTorch",
+   "NumPy",
+   "SciPy",
+   "Pydantic"
+  ],
+  "pipeline": "generate → KKT system → learned Newton step → warm start → paired ablation",
+  "note": "Five learned variants, each with one change against its parent, trained on several seeds with paired bootstrap intervals",
+  "tests": 50,
+  "llm": false,
+  "tier": "A"
+ },
+ {
+  "repo": "onboardiq",
+  "title": "Role-Aware Onboarding Assistant With Cited Answers",
+  "tagline": "RAG assistant that answers a new data-team member's questions from team docs, filtered by role and level.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "BM25 + NumPy vector search",
+   "SQLite",
+   "Streamlit",
+   "Ollama / OpenAI-compatible (optional)"
+  ],
+  "pipeline": "load and split documents → build the index → filter by role and level → BM25 + vector search → fuse (RRF) → evidence check → prompt the chat model → validate citations",
+  "note": "Refuses without calling the chat model when retrieval finds no evidence; citations validated against seen passages",
+  "tests": 55,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "paper2pod",
+  "title": "Paper To Podcast Pipeline",
+  "tagline": "Turns an arXiv paper into a multi-voice podcast WAV with a grounding and length quality report.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "arXiv Atom API",
+   "OpenAI chat + TTS (optional)",
+   "FastAPI",
+   "Streamlit"
+  ],
+  "pipeline": "fetch → parse → outline → script → validate → tts → mix",
+  "note": "Lexical grounding check flags numbers and acronyms not found in the paper",
+  "tests": 92,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "policypilot",
+  "title": "Safe Multi-Source Insurance Questions and Answers",
+  "tagline": "Routes insurance questions to SQL, MongoDB or policy-document RAG agents behind query validators.",
+  "category": "agents",
+  "stack": [
+   "Python",
+   "sqlglot",
+   "SQLite / PostgreSQL",
+   "MongoDB",
+   "FastAPI"
+  ],
+  "pipeline": "input check → route → generate query → validate → run read-only → answer with query or citations",
+  "note": "Generated SQL checked by a sqlglot parser and Mongo pipelines by an allow-list; read-only executors",
+  "tests": 197,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "retailia",
+  "title": "Retail Customer Service Assistant",
+  "tagline": "Tool-using store assistant that scopes every data read to the signed-in customer and cites FAQ answers.",
+  "category": "agents",
+  "stack": [
+   "Python",
+   "SQLite (read-only + authorizer)",
+   "OpenAI-compatible (optional)",
+   "BM25 + embeddings",
+   "Streamlit"
+  ],
+  "pipeline": "sign-in → guardrails → model and tool requests → scoped read or FAQ retrieval → output checks",
+  "note": "Staff SQL analytics checked by a SQLite authorizer over read-only views",
+  "tests": 85,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "sast-vs-llm",
+  "title": "A Reproducible Benchmark of Static Analyzers and LLM Code Reviewers",
+  "tagline": "Benchmark comparing static analyzers and LLM code reviewers on a labelled Python corpus.",
+  "category": "security",
+  "stack": [
+   "Python",
+   "Bandit",
+   "Pylint",
+   "Ruff",
+   "Semgrep (optional)"
+  ],
+  "pipeline": "validate corpus → run analyzers → store raw results → match to labels → score → triage and blind rating",
+  "note": "One-to-one matching of findings to anchored labels; Wilson intervals on precision and recall",
+  "tests": 87,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "speakright",
+  "title": "Phone-Level Pronunciation Feedback for English and Mandarin",
+  "tagline": "Pronunciation coach that aligns recognised phones and Mandarin tones to the target and gives tips.",
+  "category": "speech-audio",
+  "stack": [
+   "Python",
+   "NumPy + SciPy",
+   "wav2vec2 phoneme CTC (optional)",
+   "Streamlit",
+   "OpenAI-compatible (optional)"
+  ],
+  "pipeline": "canonical units → phone recogniser → alignment → error types → score → tips",
+  "note": "Mandarin tone detection from pitch with tone-sandhi rules",
+  "tests": 44,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "truthtrace",
+  "title": "Grounded Fact-Check Retrieval",
+  "tagline": "Fact-checker that matches a political claim to PolitiFact and FactCheck.org articles or abstains.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "SQLite (WAL)",
+   "BM25 + sentence-transformers",
+   "cross-encoder reranker",
+   "Gemini / OpenAI (optional)"
+  ],
+  "pipeline": "ingest → index → retrieve → rerank → match → judge → cite or abstain",
+  "note": "Polite ingestion of PolitiFact and FactCheck.org feeds (robots.txt, per-host delay)",
+  "tests": 68,
+  "llm": true,
+  "tier": "A"
+ },
+ {
+  "repo": "autovalue",
+  "title": "Used-Car Price Bands, Price Approval and Delivery-Time Bands",
+  "tagline": "Calibrated price and delivery-time bands for a used-car marketplace, with an approve-or-review price rule.",
+  "category": "tabular-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "LightGBM",
+   "pandas",
+   "FastAPI"
+  ],
+  "pipeline": "validate → split by time → fit quantile models → calibrate → evaluate against baselines → approve or review",
+  "note": "Approval rule auto-approves only prices inside the band; all others go to a human reviewer",
+  "tests": 60,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "ballots-to-markets",
+  "title": "Election Sentiment, Fed Policy and Market Moves",
+  "tagline": "Event-study and Granger-test pipeline asking whether 2024 election news and Fed decisions moved U.S. markets.",
+  "category": "analytics",
+  "stack": [
+   "Python",
+   "pandas",
+   "SciPy",
+   "scikit-learn",
+   "PyTorch"
+  ],
+  "pipeline": "load → align to trading days → score sentiment → event study → causality tests → walk-forward forecasts → report",
+  "note": "Trading-day alignment with no interpolation of weekends, holidays or text-free days",
+  "tests": 26,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "biasradar",
+  "title": "Social-Bias Detection with a Saved Label Map and Two Honest Heads",
+  "tagline": "Text classifier that flags social-bias generalisations and scores 10 bias categories independently.",
+  "category": "nlp",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "PyTorch",
+   "Transformers (DeBERTa-v3)",
+   "Streamlit"
+  ],
+  "pipeline": "load sources → normalise categories → split by group → train two heads → tune thresholds → evaluate by source → predict",
+  "note": "One taxonomy across CrowS-Pairs, IndiBias and SBIC, with the label map saved inside each model",
+  "tests": 26,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "btc-gini-signal",
+  "title": "Inequality Features for Bitcoin Return Forecasts",
+  "tagline": "Walk-forward ablation testing whether Gini and Kolkata inequality features improve Bitcoin return forecasts.",
+  "category": "forecasting",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "SciPy",
+   "Coinbase API"
+  ],
+  "pipeline": "fetch → validate → compute features → walk-forward → compare with the random walk → report",
+  "note": "Truncation test proves every feature at day t uses only data up to day t",
+  "tests": 48,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "callscribe",
+  "title": "Speaker-Attributed Transcripts for Earnings Calls",
+  "tagline": "Diarization plus ASR pipeline that labels each word of a long earnings call with its speaker and scores it.",
+  "category": "speech-audio",
+  "stack": [
+   "Python",
+   "faster-whisper",
+   "pyannote.audio 3",
+   "NumPy",
+   "SciPy"
+  ],
+  "pipeline": "decode → diarize → transcribe → align → export → score",
+  "note": "CLI, evaluation and tuning all call the same CallPipeline.run, so scores describe the configured system",
+  "tests": 49,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "cellsight",
+  "title": "Leakage-Safe Blood-Cell Image Ensemble",
+  "tagline": "Five-class blood-cell image classifier with duplicate-aware splits and out-of-fold stacking.",
+  "category": "vision-medical",
+  "stack": [
+   "Python",
+   "PyTorch",
+   "timm",
+   "scikit-learn",
+   "Pillow"
+  ],
+  "pipeline": "index → dedupe → group split → out-of-fold stacking → single test pass → explain",
+  "note": "Rotation- and flip-invariant perceptual hash finds augmented copies before the split",
+  "tests": 28,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "chestx-multitask",
+  "title": "Leakage-Free Multi-Task Benchmark on NIH ChestX-ray14",
+  "tagline": "Patient-split benchmark kit for comparing image backbones on the 14 NIH ChestX-ray14 finding labels.",
+  "category": "vision-medical",
+  "stack": [
+   "Python",
+   "PyTorch",
+   "torchvision",
+   "scikit-learn",
+   "SciPy"
+  ],
+  "pipeline": "validate → split by patient → train → tune thresholds → evaluate → compare",
+  "note": "Patient-wise split with the official NIH test list, checked in code",
+  "tests": 48,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "churn-colony",
+  "title": "Leak-Free Telecom Churn Models with Ant Colony Feature Selection",
+  "tagline": "Telecom churn models with ant-colony feature selection and a profit-based contact threshold.",
+  "category": "tabular-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "LightGBM/XGBoost/CatBoost",
+   "SHAP"
+  ],
+  "pipeline": "validate → split → engineer features → select (ACO) → fit and compare → pick threshold by profit → explain",
+  "note": "All fitted steps, including the ACO selector and SMOTE, live in one scikit-learn pipeline",
+  "tests": 51,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "colongrade",
+  "title": "Mayo Endoscopic Score Grading With Honest Ablations",
+  "tagline": "Grades ulcerative colitis colonoscopy images on the Mayo endoscopic subscore with patient-grouped folds.",
+  "category": "vision-medical",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "PyTorch",
+   "Pillow"
+  ],
+  "pipeline": "list all images → group folds by patient → RGB + optional contrast → grade (features or CNN) → QWK on held-out folds → test once → model card",
+  "note": "Quadratic weighted kappa as the main metric, so far grade errors cost more than near ones",
+  "tests": 16,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "crash-whatif",
+  "title": "Crash Severity Models with Counterfactual Explanations",
+  "tagline": "Crash-severity classifiers explained with permutation importance and actionable what-if counterfactuals.",
+  "category": "tabular-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "imbalanced-learn",
+   "DiCE"
+  ],
+  "pipeline": "validate → split first → fit pipelines → evaluate on real rows → audit the signal → rank columns → generate counterfactuals",
+  "note": "Synthetic generator with a known cause structure lets tests check that explanations find the true causes",
+  "tests": 41,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "crashinsight",
+  "title": "Survey-Aware Injury Severity Analysis on NHTSA GES Crash Data",
+  "tagline": "Survey-weighted injury-severity study of NHTSA GES crash data with crash-grouped model evaluation.",
+  "category": "analytics",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "SciPy",
+   "SHAP"
+  ],
+  "pipeline": "validate → decode → build → weight → train → evaluate → report",
+  "note": "GES codes decoded from a codebook file; sentinel codes never become numbers",
+  "tests": 53,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "crossrec",
+  "title": "Cross-Domain Recommendations from Food Tastes to Books and Back",
+  "tagline": "Cold-start cross-domain recommender that suggests books from Amazon food ratings and food from book ratings.",
+  "category": "recsys",
+  "stack": [
+   "Python",
+   "NumPy",
+   "pandas",
+   "scikit-learn"
+  ],
+  "pipeline": "load → validate → filter shared users → split → fit → evaluate → recommend",
+  "note": "CMF shares one user vector across domains; EMCDR learns a map between latent spaces",
+  "tests": 40,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "culturefit",
+  "title": "An Explainable Evidence Report on Stated Work Values",
+  "tagline": "Recruiter review aid that matches a job's stated work values to a candidate's own words as quoted evidence.",
+  "category": "nlp",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "Streamlit",
+   "Docker",
+   "Gemini / OpenAI-compatible API"
+  ],
+  "pipeline": "redact → extract value statements → align by category → evidence report → audit log → human decision",
+  "note": "Personal data and protected-attribute cues are redacted before any step; an LLM needs explicit consent",
+  "tests": 15,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "dementia-typer",
+  "title": "Leakage-Aware Dementia Group Classification on OASIS-3",
+  "tagline": "Classifies OASIS-3 visits into five dementia groups from MRI volumes with participant-level splits.",
+  "category": "clinical-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "Pydantic v2",
+   "SHAP"
+  ],
+  "pipeline": "validate → join visits to MRI → map dx text → select by grouped CV → evaluate once → predict",
+  "note": "CDR scores, which define the diagnosis, appear only in a labelled leakage-ceiling feature set",
+  "tests": 55,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "dermavit",
+  "title": "A Leakage-Free ViT vs Hiera Benchmark for Skin-Lesion Classification",
+  "tagline": "Lesion-grouped, multi-seed benchmark comparing ViT-B/16 and Hiera-Base on HAM10000 skin-lesion classes.",
+  "category": "vision-medical",
+  "stack": [
+   "Python",
+   "PyTorch",
+   "Hugging Face Transformers (ViT, Hiera)",
+   "torchvision",
+   "scikit-learn"
+  ],
+  "pipeline": "validate metadata → split by lesion → train with class weights → reload best checkpoint → evaluate with balanced metrics → compare over seeds",
+  "note": "Each backbone uses its own pretraining normalisation; only training images get augmentation",
+  "tests": 34,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "driverisk",
+  "title": "Trip-Level Driving Risk from Telematics and Location-Matched Context",
+  "tagline": "Turns a raw telematics stream into trip rows and a per-driver risk index from harsh-event rates.",
+  "category": "tabular-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "OpenStreetMap",
+   "Open-Meteo"
+  ],
+  "pipeline": "ingest → segment trips → attach weather and roads → count harsh events → fit a rate model → score drivers",
+  "note": "Target is harsh events from acceleration, and no feature reads the acceleration signals",
+  "tests": 31,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "eeg-rx",
+  "title": "EEG Biomarkers of Antidepressant (SSRI) Response",
+  "tagline": "Subject-wise nested evaluation of whether resting-state EEG features predict SSRI treatment response.",
+  "category": "clinical-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "SciPy",
+   "MNE"
+  ],
+  "pipeline": "load → filter → epoch → extract features → nested subject-wise evaluation → report",
+  "note": "Subject-grouped nested CV with scaling and selection fit inside each fold",
+  "tests": 26,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "emotune",
+  "title": "Zero-Shot, Few-Shot And LoRA Language Models For Emotion Labels",
+  "tagline": "Benchmark comparing baselines, zero-shot, few-shot and LoRA language models on 6-label emotion classification.",
+  "category": "llm-eval",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "Hugging Face Transformers",
+   "PEFT (LoRA)",
+   "PyTorch"
+  ],
+  "pipeline": "load and check → prompt or fine-tune → score or decode → parse strictly → evaluate and compare",
+  "note": "Strict parser with invalid answers counted as wrong, never dropped from the denominator",
+  "tests": 41,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "engagecam",
+  "title": "A Subject-Disjoint Benchmark for Engagement States in Face Video",
+  "tagline": "Subject-disjoint benchmark that classifies face frames into 7 engagement states with a source-confound probe.",
+  "category": "vision-other",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "PyTorch",
+   "MediaPipe"
+  ],
+  "pipeline": "build manifest → split by subject → preprocess (one function) → fit on train only → score the untouched test → aggregate clips → probe the source",
+  "note": "One preprocessing function shared by training and inference",
+  "tests": 26,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "ev-diffusion",
+  "title": "EV Adoption Diffusion And Review Sentiment",
+  "tagline": "Forecasts yearly EV adoption with Bass and Generalized Bass models and measures owner-review sentiment.",
+  "category": "forecasting",
+  "stack": [
+   "Python",
+   "NumPy",
+   "SciPy",
+   "pandas",
+   "scikit-learn"
+  ],
+  "pipeline": "audit coverage → build the series → fit Bass and GBM → backtest against baselines → bootstrap the forecast → cross-validate sentiment → tag aspects",
+  "note": "Rolling-origin backtest against naive, drift and other baselines; plain Bass loses to drift on the synthetic series",
+  "tests": 86,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "fedsugar",
+  "title": "Federated Versus Centralized Diabetes Risk Models",
+  "tagline": "Like-for-like benchmark of federated vs centralized training on BRFSS diabetes indicators.",
+  "category": "clinical-ml",
+  "stack": [
+   "Python",
+   "NumPy",
+   "scikit-learn",
+   "Flower"
+  ],
+  "pipeline": "load and check → split → partition to clients → train centralized and federated → select on validation → compare over seeds",
+  "note": "One configuration drives both settings, so only the location of the records differs",
+  "tests": 41,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "firecast-id",
+  "title": "Indonesia Fire Hotspot Forecast Benchmark",
+  "tagline": "Benchmark for 1- to 30-day forecasts of daily NASA FIRMS fire-hotspot counts in Indonesia.",
+  "category": "forecasting",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "PyTorch",
+   "NASA FIRMS API"
+  ],
+  "pipeline": "clean detections → build daily series → build windows → tune on a validation year → backtest and test",
+  "note": "Detections filtered to vegetation fires; volcanoes, static sources and offshore points removed",
+  "tests": 50,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "fridge2fork",
+  "title": "Ingredient-Based Recipe Search With Grounded Explanations",
+  "tagline": "Recipe recommender that ranks recipes for the ingredients you have and shows the real steps from the data.",
+  "category": "recsys",
+  "stack": [
+   "Python",
+   "scikit-learn (TruncatedSVD)",
+   "FAISS",
+   "OpenAI SDK",
+   "Streamlit"
+  ],
+  "pipeline": "normalise → retrieve (overlap + dense) → score → filter → explain (grounded)",
+  "note": "Hybrid retrieval: inverted ingredient index plus a dense PPMI+SVD embedding index",
+  "tests": 44,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "gridiron-oracle",
+  "title": "NFL Game Predictions with Leak-Free Features and Elo",
+  "tagline": "Walk-forward NFL home-win probabilities from point-in-time features and pre-game Elo ratings.",
+  "category": "forecasting",
+  "stack": [
+   "Python",
+   "pandas",
+   "scikit-learn",
+   "PyTorch",
+   "Neo4j"
+  ],
+  "pipeline": "aggregate by game_id → point-in-time form → pre-game Elo → walk-forward by season → log-loss, Brier, calibration",
+  "note": "Leakage test changes all results after a date and checks every earlier feature stays the same",
+  "tests": 20,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "heartstack",
+  "title": "Multi-Cohort Coronary Artery Disease Risk Models",
+  "tagline": "Coronary artery disease risk models from three public cohorts with nested CV and leave-one-source-out.",
+  "category": "clinical-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "NumPy",
+   "XGBoost"
+  ],
+  "pipeline": "validate each source → harmonise and de-duplicate → split once → select with nested CV → test once → leave one source out → write the model card",
+  "note": "Harmonises three cohorts with code books; zero cholesterol and blood pressure become missing",
+  "tests": 25,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "hepatoscan",
+  "title": "Liver And Tumor Segmentation With A Safe Patient Assistant",
+  "tagline": "Liver and tumor CT segmentation scored per volume, plus a cited, non-diagnostic patient assistant.",
+  "category": "vision-medical",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "PyTorch",
+   "FastAPI",
+   "nibabel"
+  ],
+  "pipeline": "validate → preprocess → segment → measure → explain with citations",
+  "note": "Strict checkpoint loading so the service never runs random weights; CT-only uploads that are not stored",
+  "tests": 59,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "holisticare-rag",
+  "title": "Local Health Information Assistant With Cited Sources",
+  "tagline": "Local health Q&A assistant that answers from your own labelled documents with a checked citation per sentence.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "Ollama",
+   "Streamlit",
+   "sentence-transformers"
+  ],
+  "pipeline": "safety triage → history-aware query → hybrid retrieval + relevance gate → generate (temperature ≤ 0.3) → check citations and doses",
+  "note": "Emergency, self-harm, dosing and stop-medication questions get fixed replies before any retrieval",
+  "tests": 44,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "hotfood-forecast",
+  "title": "Hot-Food Demand Forecast And Order Planner",
+  "tagline": "Forecasts daily hot-food demand by category and turns quantile forecasts into newsvendor orders.",
+  "category": "forecasting",
+  "stack": [
+   "Python",
+   "pandas",
+   "scikit-learn",
+   "LightGBM",
+   "pytest"
+  ],
+  "pipeline": "validate → build past-only features → backtest models → forecast quantiles → order (newsvendor)",
+  "note": "A test changes all days after the origin and checks that no feature changes",
+  "tests": 58,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "kindify",
+  "title": "Toxic Comment Detection with Guarded Polite Rewrites",
+  "tagline": "Toxic-comment classifier for the 6 Jigsaw labels that offers guarded polite rewrites of flagged comments.",
+  "category": "nlp",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "Transformers",
+   "PyTorch",
+   "FastAPI"
+  ],
+  "pipeline": "classify → compare with the threshold → rewrite → guard → fall back → collect opt-in feedback",
+  "note": "Evaluation at the natural toxic share with subgroup, BPSN and BNSP bias AUCs",
+  "tests": 28,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "leafdoctor",
+  "title": "Leakage-Safe Plant Disease Classification with Hybrid Features",
+  "tagline": "Plant-disease leaf classifier with CNN plus handcrafted features, leaf-grouped splits and a field test.",
+  "category": "vision-other",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "NumPy",
+   "PyTorch",
+   "MLflow"
+  ],
+  "pipeline": "manifest → group split → cached features → select on val → score test once → score field set",
+  "note": "Leaf ids and dihedral-invariant hashes keep copies of one leaf in one split; check_leakage stops a leaky split",
+  "tests": 53,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "lunglens",
+  "title": "Lung Nodule Malignancy Estimates With Multilingual Reports",
+  "tagline": "Calibrated malignancy estimate for one marked lung nodule on CT, with a fixed-template report in 94 languages.",
+  "category": "vision-medical",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "PyTorch",
+   "NLLB-200 (Transformers)",
+   "Streamlit"
+  ],
+  "pipeline": "validate → extract patch → estimate → calibrate → band → report → localize",
+  "note": "Nodule labels from that nodule's readers; a guard stops the run if a patient crosses the split",
+  "tests": 42,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "mindclassify",
+  "title": "Responsible Mental-Health Text Classification With Llama 3.1 QLoRA",
+  "tagline": "Benchmarks classifiers of mental-health posts across 7 labels, with calibration and a crisis-routing rule.",
+  "category": "nlp",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "Transformers + PEFT",
+   "Llama 3.1 8B QLoRA",
+   "MinHash"
+  ],
+  "pipeline": "load → clean → remove duplicates → split → fit → calibrate → evaluate → route",
+  "note": "MinHash near-duplicate groups kept on one side of the split to prevent leakage",
+  "tests": 25,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "neurorisk",
+  "title": "Leakage-Safe Alzheimer's Risk Models",
+  "tagline": "Tabular Alzheimer's risk models that separate risk-factor features from symptom features, with nested CV.",
+  "category": "clinical-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "XGBoost (optional)",
+   "Optuna (optional)"
+  ],
+  "pipeline": "validate → select → tune → calibrate → evaluate → report",
+  "note": "Feature-set whitelists A/B/C separate cardiometabolic risk factors from symptom features",
+  "tests": 71,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "nutribuddy",
+  "title": "Cited Diet Plans For Chronic Conditions",
+  "tagline": "Retrieval-grounded diet planner for diabetes, heart disease and thyroid disorders, with cited plans.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "Pydantic v2",
+   "BM25 + dense + rerank",
+   "SQLite",
+   "USDA FoodData Central"
+  ],
+  "pipeline": "register sources → chunk and index → screen symptoms → retrieve diet passages → validate the JSON plan → add foods from the food store → answer follow-up questions",
+  "note": "JSON plan validated with pydantic schemas and retries with error feedback",
+  "tests": 72,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "paddyguard",
+  "title": "Weather-Aware Paddy Leaf Disease Detection with an Honest Ablation",
+  "tagline": "Rice leaf disease classifier that tests whether lagged local weather adds value to image models.",
+  "category": "vision-other",
+  "stack": [
+   "Python",
+   "PyTorch (optional)",
+   "scikit-learn",
+   "Open-Meteo",
+   "Pillow"
+  ],
+  "pipeline": "validate → group fields and duplicates → lagged weather → train → evaluate once → compare variants",
+  "note": "Image vs weather vs image+weather ablation over seeds with paired bootstrap CIs",
+  "tests": 36,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "paperdigest",
+  "title": "Reproducible Benchmark for Paper Summarization, QA and RAG",
+  "tagline": "Evaluation harness comparing paper summarizers and QA/RAG systems with confidence-interval leaderboards.",
+  "category": "llm-eval",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "Hugging Face (optional)",
+   "OpenRouter / OpenAI (optional)",
+   "NumPy"
+  ],
+  "pipeline": "load and sample → chunk → summarize or retrieve → answer → score → leaderboard",
+  "note": "Number-consistency check keeps LLM-invented numbers visible",
+  "tests": 34,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "pneumovit-explain",
+  "title": "Pneumonia Detection With Honest Explanations",
+  "tagline": "Chest X-ray pneumonia classifier with patient-aware splits and explanations independent of its prediction.",
+  "category": "vision-medical",
+  "stack": [
+   "Python",
+   "PyTorch (optional)",
+   "timm",
+   "scikit-learn",
+   "Streamlit"
+  ],
+  "pipeline": "patient split → train → select and calibrate on val → one test pass → neighbours + saliency → checked summary",
+  "note": "Explanations from nearest neighbours and occlusion saliency with a randomisation sanity check",
+  "tests": 33,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "profmatch",
+  "title": "Explainable Professor Recommendations from Research Profiles and Teaching Signals",
+  "tagline": "Recommends professors from research profiles and smoothed teaching ratings, with reasons for each result.",
+  "category": "recsys",
+  "stack": [
+   "Python",
+   "scikit-learn TF-IDF",
+   "BM25",
+   "SQLite",
+   "FastAPI (optional)"
+  ],
+  "pipeline": "validate query → candidates → text match → smoothed teaching signals → weighted score → reasons",
+  "note": "Portal scraper with a terms check; raw scores hidden by default",
+  "tests": 49,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "reddit-pulse",
+  "title": "Validated Sentiment, Aspect Sentiment and Topics for Reddit Policy Debates",
+  "tagline": "Sentiment, aspect sentiment and topic pipeline for Reddit policy debates, validated against gold labels.",
+  "category": "nlp",
+  "stack": [
+   "Python",
+   "PRAW",
+   "SQLite",
+   "scikit-learn NMF",
+   "Transformers (optional)"
+  ],
+  "pipeline": "collect → filter → two text views → sentiment → aspect sentiment → topics → validate → report",
+  "note": "Separate model and topic text views so cleaning does not remove negations",
+  "tests": 23,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "reportwise",
+  "title": "Lab Report Explanations With Rules First",
+  "tagline": "Explains lab report PDFs: rules flag abnormal values, then one LLM call writes a validated, cited explanation.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "Pydantic v2",
+   "pypdf",
+   "OpenAI / Gemini (optional)",
+   "Streamlit"
+  ],
+  "pipeline": "extract → parse → flag → scrub → retrieve → explain → validate → chat",
+  "note": "De-identification scrubber before any text leaves the machine; medicine-name filter on output",
+  "tests": 34,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "resume-arena",
+  "title": "A Reproducible LLM Resume Benchmark",
+  "tagline": "Benchmark harness that compares LLMs and prompt styles on resume writing with faithfulness-aware metrics.",
+  "category": "llm-eval",
+  "stack": [
+   "Python",
+   "Pydantic v2",
+   "NumPy bootstrap",
+   "Ollama (DeepSeek-R1)",
+   "OpenAI chat API"
+  ],
+  "pipeline": "pair → render → generate → strip → score → resample → report",
+  "note": "Grounded coverage gives no credit for skills the candidate profile does not have",
+  "tests": 43,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "riverpulse",
+  "title": "River Water Quality, Weather Effects and the COVID Effect",
+  "tagline": "Study toolkit for England river water quality: CCME index, weather effects and a COVID effect with intervals.",
+  "category": "analytics",
+  "stack": [
+   "Python",
+   "pandas",
+   "NumPy OLS + cluster SE",
+   "scikit-learn",
+   "Open-Meteo"
+  ],
+  "pipeline": "ingest → convert units → link weather → index → model determinands → test COVID on a balanced panel",
+  "note": null,
+  "tests": 25,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "roadrisk-live",
+  "title": "Accident Severity With Correct Live Weather And Honest Forecasts",
+  "tagline": "Scores US accident severity with live OpenWeather data and backtests daily accident-count forecasts.",
+  "category": "tabular-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "FastAPI (optional)",
+   "OpenWeather"
+  ],
+  "pipeline": "validate → features → split by date → train + select on valid → test once → live score → rolling-origin forecast",
+  "note": "Date-based split with preprocessing fit on train only; model selected on validation, test scored once",
+  "tests": 35,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "salescope",
+  "title": "Honest Retail Sales Prediction for BigMart",
+  "tagline": "Sales prediction for BigMart item-outlet data with CV that tests unseen outlets and unseen items.",
+  "category": "tabular-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "LightGBM + CatBoost (optional)",
+   "statsmodels (optional)"
+  ],
+  "pipeline": "validate → engineer features → cross-validate by outlet and item → stack out-of-fold → explain → predict",
+  "note": "Three CV schemes: random, new-outlet and new-item grouped folds",
+  "tests": 70,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "sensehome",
+  "title": "Multi-Sensory Furniture Recommender",
+  "tagline": "Furniture recommender that fuses look, feel, text and sound features with modality attention.",
+  "category": "recsys",
+  "stack": [
+   "Python",
+   "NumPy",
+   "Pydantic v2",
+   "PyTorch (optional)",
+   "CLIP (optional)"
+  ],
+  "pipeline": "validate catalogue → temporal split → encode each sense → fuse with attention → rank and evaluate",
+  "note": "Per-modality encoders with ablations that remove one sense at a time",
+  "tests": 30,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "sentiment-grid",
+  "title": "A Fair Encoder By Head Sentiment Benchmark",
+  "tagline": "Benchmark harness for three-class sentiment encoders and heads under one shared training protocol.",
+  "category": "nlp",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "PyTorch (optional)",
+   "Transformers (optional)",
+   "MinHash LSH"
+  ],
+  "pipeline": "load → clean → de-duplicate → split → train under one protocol → evaluate once → rank with paired tests",
+  "note": "Protocol fingerprint ensures all leaderboard rows share split, length, optimizer and selection rule",
+  "tests": 31,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "shelf-to-screen",
+  "title": "A Validated Panel of Texas Public Library Statistics, 2018–2023",
+  "tagline": "Builds a validated library-by-year panel from Texas library statistics to study the print-to-digital shift.",
+  "category": "analytics",
+  "stack": [
+   "Python",
+   "pandas",
+   "NumPy fixed effects",
+   "SciPy",
+   "scikit-learn"
+  ],
+  "pipeline": "ingest → link libraries → build the panel → total and check → backtest forecasts → fixed-effects regression → report",
+  "note": "Links libraries across years without a stable ID using name, city and phone",
+  "tests": 37,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "signsight",
+  "title": "Weather-Robust Traffic-Sign Recognition",
+  "tagline": "Traffic-sign classifier with a weather-corruption robustness benchmark and a latency report.",
+  "category": "vision-other",
+  "stack": [
+   "Python",
+   "scikit-learn HOG + logistic",
+   "PyTorch CNN (optional)",
+   "Pillow",
+   "GTSRB reader"
+  ],
+  "pipeline": "split by track → augment with weather → train → evaluate on corruption suites → detect and classify photos",
+  "note": "Track-level split; leakage check shows random image split inflates accuracy",
+  "tests": 25,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "skyfusion",
+  "title": "Station and NASA POWER Fusion for Hourly Temperature Forecasts",
+  "tagline": "Fuses ground-station and NASA POWER data to forecast hourly temperature 1 to 24 hours ahead.",
+  "category": "forecasting",
+  "stack": [
+   "Python",
+   "pandas",
+   "scikit-learn ridge + boosting",
+   "PyTorch LSTM (optional)",
+   "NASA POWER API"
+  ],
+  "pipeline": "load in UTC → check and fuse like-for-like → direct multi-horizon samples → baselines and models → skill and ablation",
+  "note": "Aligns UTC station data with POWER local-standard-time data; target never averaged or filled",
+  "tests": 25,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "snaptranslate",
+  "title": "Point, Snap, Translate: An OCR Travel Translator",
+  "tagline": "OCR translator for signs and menus that picks the OCR pack, detects language and routes to a backend.",
+  "category": "nlp",
+  "stack": [
+   "Python",
+   "Tesseract",
+   "MarianMT + NLLB-200 (optional)",
+   "Pydantic v2",
+   "Streamlit"
+  ],
+  "pipeline": "prepare image → OCR with the right pack → detect language → route to a backend → label the result",
+  "note": "Script-range plus n-gram naive Bayes language detector",
+  "tests": 75,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "studybuddy-rag",
+  "title": "Subject-Routed Study Tutor With Cited Answers",
+  "tagline": "Study tutor that routes text or voice questions by subject and answers from course material with citations.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "SQLite",
+   "Streamlit",
+   "Gemini / OpenAI-compatible (optional)",
+   "sentence-transformers"
+  ],
+  "pipeline": "authenticate → route → retrieve → answer → check citations → record",
+  "note": "LLM subject router with JSON schema and a centroid-router fallback",
+  "tests": 55,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "stylematch",
+  "title": "Hybrid Fashion Recommender With Honest Evaluation",
+  "tagline": "Fashion recommender combining TF-IDF, BM25, dense and hybrid retrieval with an optional LLM re-ranker.",
+  "category": "recsys",
+  "stack": [
+   "Python",
+   "scikit-learn TF-IDF + LSA",
+   "SciPy",
+   "OpenAI-compatible (optional)",
+   "Streamlit"
+  ],
+  "pipeline": "parse the intent → filter the pool → retrieve (TF-IDF, BM25, dense, hybrid) → re-rank and validate IDs → give reasons → evaluate on labelled queries",
+  "note": "Same candidate pool and filters for every system; LLM re-ranker can only return retrieved IDs",
+  "tests": 54,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "symptom-sage",
+  "title": "A Safety-First Symptom RAG Over Simulated Interviews",
+  "tagline": "Symptom RAG over simulated doctor-patient interviews with red-flag triage and a medicine filter.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "Pydantic v2",
+   "BM25 + dense (RRF)",
+   "OpenAI (optional)",
+   "Pinecone (optional)"
+  ],
+  "pipeline": "transcribe → extract → index → triage → retrieve → answer → strip → evaluate",
+  "note": "Case-record extraction (rule or LLM) from transcripts, with ASR WER/CER evaluation",
+  "tests": 31,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "tweetmood",
+  "title": "Negation-Safe, Slang-Aware Tweet Sentiment",
+  "tagline": "Tweet sentiment toolkit comparing lexicon, TF-IDF, hybrid neural and fine-tuned models on one shared split.",
+  "category": "nlp",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "PyTorch (optional)",
+   "Transformers (optional)"
+  ],
+  "pipeline": "normalize → de-duplicate → shared split → train → select on validation → evaluate once → predict",
+  "note": "Held-out Gen-Z source tests generalisation; McNemar test between models",
+  "tests": 29,
+  "llm": false,
+  "tier": "B"
+ },
+ {
+  "repo": "vid2thumb",
+  "title": "Video to Transcript, Summary and Thumbnail",
+  "tagline": "Turns a spoken video into a transcript, summary, generated thumbnail and the best real frame.",
+  "category": "genai-rag",
+  "stack": [
+   "Python",
+   "FFmpeg",
+   "faster-whisper (optional)",
+   "OpenAI SDK / DALL-E 3 (optional)",
+   "BART + CLIP (optional)"
+  ],
+  "pipeline": "transcribe → summarize in chunks → write a visual prompt → generate · detect scenes → rank frames → evaluate",
+  "note": "Map-reduce chunked summarization with extractive, BART or LLM summarizers",
+  "tests": 41,
+  "llm": true,
+  "tier": "B"
+ },
+ {
+  "repo": "dietverse",
+  "title": "Diet Analytics And A Backend For A Talking VR Assistant",
+  "tagline": "Country-level diet analytics, a personal diet guide and a key-safe backend for a VR nutrition assistant.",
+  "category": "analytics",
+  "stack": [
+   "Python",
+   "pandas",
+   "Pydantic v2",
+   "FastAPI",
+   "Streamlit"
+  ],
+  "pipeline": "load with unit checks → explore supply shares → analyze with controls → make a diet guide → answer in the VR client",
+  "note": "Loader checks units so values read as shares of national supply, with sum checks",
+  "tests": 36,
+  "llm": true,
+  "tier": "C"
+ },
+ {
+  "repo": "dischargebench",
+  "title": "Brief Hospital Course Summarization Benchmark",
+  "tagline": "Early-stage benchmark that prepares leakage-free MIMIC-IV note pairs for Brief Hospital Course summarization.",
+  "category": "llm-eval",
+  "stack": [
+   "Python",
+   "pandas",
+   "Hugging Face",
+   "Ollama",
+   "pytest"
+  ],
+  "pipeline": "load notes → remove BHC → join on note_id → split by patient → summarize (planned) → score (planned)",
+  "note": "Removes the reference BHC section from the model input before any model sees the note",
+  "tests": 12,
+  "llm": true,
+  "tier": "C"
+ },
+ {
+  "repo": "eta-eats",
+  "title": "Food Delivery Time Prediction",
+  "tagline": "Food delivery time regression with checked category maps, time and courier splits, and a model card.",
+  "category": "tabular-ml",
+  "stack": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "LightGBM"
+  ],
+  "pipeline": "clean with checked category maps → add row-wise features → split by time or courier → fit one pipeline → tune with grouped folds → score by slice → predict the test file",
+  "note": "Category maps reject unknown values so every traffic level, including Jam, reaches the model",
+  "tests": 32,
+  "llm": false,
+  "tier": "C"
+ },
+ {
+  "repo": "telehealth-insights",
+  "title": "Survey-Weighted Telemedicine Analysis of the NEHRS Physician Survey",
+  "tagline": "Survey-weighted analysis kit for the NEHRS physician telemedicine survey with adjusted odds ratios.",
+  "category": "analytics",
+  "stack": [
+   "Python",
+   "SciPy",
+   "pandas",
+   "NumPy",
+   "SVG charts"
+  ],
+  "pipeline": "decode codes → apply the survey design → describe → compare tools → compare users with non-users → correct → report",
+  "note": "Codebook decoder turns skip and missing codes into NaN and applies question universes",
+  "tests": 36,
+  "llm": false,
+  "tier": "C"
+ },
+ {
+  "repo": "twitter-to-x",
+  "title": "A Sound Before-And-After Study Of Sentiment And Moderation Talk",
+  "tagline": "Before/after study pipeline for sentiment and moderation talk in posts around the Twitter-to-X change.",
+  "category": "analytics",
+  "stack": [
+   "Python",
+   "pandas",
+   "SciPy",
+   "scikit-learn NMF",
+   "Transformers (optional)"
+  ],
+  "pipeline": "load + anonymize → filter by rules → random equal samples → score sentiment → flag moderation talk → shared topics → statistics on counts",
+  "note": "Chi-square on counts, Cramér's V and topic-standardised comparisons",
+  "tests": 30,
+  "llm": false,
+  "tier": "C"
+ }
+]

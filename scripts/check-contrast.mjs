@@ -51,27 +51,31 @@ function contrast(fg, bg) {
 /* ── Tokens, mirroring app/globals.css ──────────────────────────────────── */
 
 const light = {
-  paper: [0.988, 0.0015, 265],
+  paper: [0.985, 0.003, 255],
   surface: [1, 0, 0],
-  sunken: [0.967, 0.003, 265],
-  ink: [0.17, 0.008, 265],
-  'ink-soft': [0.4, 0.009, 265],
-  'ink-muted': [0.48, 0.009, 265],
-  'ink-faint': [0.545, 0.009, 265],
-  accent: [0.545, 0.185, 32],
-  verify: [0.5, 0.085, 185],
+  sunken: [0.962, 0.005, 255],
+  ink: [0.19, 0.015, 255],
+  'ink-soft': [0.37, 0.016, 255],
+  'ink-muted': [0.45, 0.015, 255],
+  'ink-faint': [0.51, 0.014, 255],
+  accent: [0.5, 0.1, 185],
+  verify: [0.5, 0.14, 255],
+  model: [0.52, 0.12, 60],
+  human: [0.52, 0.17, 340],
 }
 
 const dark = {
-  paper: [0.158, 0.006, 265],
-  surface: [0.192, 0.007, 265],
-  sunken: [0.132, 0.005, 265],
-  ink: [0.955, 0.002, 265],
-  'ink-soft': [0.755, 0.007, 265],
-  'ink-muted': [0.68, 0.008, 265],
-  'ink-faint': [0.6, 0.008, 265],
-  accent: [0.735, 0.155, 40],
-  verify: [0.755, 0.095, 185],
+  paper: [0.145, 0.008, 255],
+  surface: [0.182, 0.011, 255],
+  sunken: [0.118, 0.007, 255],
+  ink: [0.965, 0.004, 255],
+  'ink-soft': [0.83, 0.01, 255],
+  'ink-muted': [0.73, 0.012, 255],
+  'ink-faint': [0.665, 0.012, 255],
+  accent: [0.83, 0.13, 182],
+  verify: [0.77, 0.11, 250],
+  model: [0.83, 0.13, 75],
+  human: [0.78, 0.13, 345],
 }
 
 /**
@@ -80,7 +84,7 @@ const dark = {
  * text threshold rather than the 3:1 large-text one.
  */
 const REQUIRED = 4.5
-const FOREGROUNDS = ['ink', 'ink-soft', 'ink-muted', 'ink-faint', 'accent', 'verify']
+const FOREGROUNDS = ['ink', 'ink-soft', 'ink-muted', 'ink-faint', 'accent', 'verify', 'model', 'human']
 const BACKGROUNDS = ['paper', 'surface', 'sunken']
 
 let failures = 0

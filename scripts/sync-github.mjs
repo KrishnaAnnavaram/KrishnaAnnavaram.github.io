@@ -46,6 +46,29 @@ const INCLUDE_PRIVATE = (process.env.SYNC_INCLUDE_PRIVATE || '')
 /** README bytes kept per repo. Enough for the assistant to retrieve against. */
 const README_BUDGET = 24_000
 
+/**
+ * Archive repositories (data/archive.json) keep only their lead paragraph and
+ * no README body or diagrams. There are seventy-odd of them; at full budget
+ * they would push this committed snapshot past two megabytes for text nothing
+ * renders — the archive's own copy lives in data/archive.json.
+ */
+const ARCHIVE = new Set(
+  JSON.parse(await readFile(resolve(ROOT, 'data/archive.json'), 'utf8')).map((e) => e.repo.toLowerCase())
+)
+
+/**
+ * Repositories the registry presents (`repo: '…'` in data/projects.ts). Only
+ * these keep their README body. Anything the site does not show keeps
+ * metadata only — no README text at all — because this snapshot is committed
+ * to a public repository and an unshown README can carry content the owner
+ * never chose to publish here (one named other contributors).
+ */
+const REGISTERED = new Set(
+  [...(await readFile(resolve(ROOT, 'data/projects.ts'), 'utf8')).matchAll(/^\s+repo: '([^']+)'/gm)].map((m) =>
+    m[1].toLowerCase()
+  )
+)
+
 const API = 'https://api.github.com'
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -191,9 +214,12 @@ async function fetchRepoDetail(repo) {
           url: commits[0].html_url,
         }
       : null,
-    readmeLead: leadParagraph(readmeText),
-    readmeText,
-    mermaid: extractMermaid(readmeRaw),
+    readmeLead:
+      REGISTERED.has(repo.name.toLowerCase()) || ARCHIVE.has(repo.name.toLowerCase())
+        ? leadParagraph(readmeText)
+        : '',
+    readmeText: REGISTERED.has(repo.name.toLowerCase()) ? readmeText : '',
+    mermaid: REGISTERED.has(repo.name.toLowerCase()) ? extractMermaid(readmeRaw) : [],
   }
 }
 
@@ -210,7 +236,13 @@ async function main() {
     ? `/user/repos?per_page=100&affiliation=owner&sort=pushed`
     : `/users/${USER}/repos?per_page=100&sort=pushed`
 
-  let repos = await gh(listPath)
+  // Paginated: the account is past one page of 100.
+  let repos = []
+  for (let page = 1; page <= 10; page++) {
+    const batch = await gh(`${listPath}&page=${page}`)
+    repos.push(...batch)
+    if (batch.length < 100) break
+  }
   repos = repos.filter((r) => r.owner?.login?.toLowerCase() === USER.toLowerCase())
 
   const skippedPrivate = []

@@ -1,39 +1,36 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Newsreader, JetBrains_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { AssistantProvider } from '@/components/assistant/AssistantProvider'
+import { Spotlight } from '@/components/ui/Spotlight'
 import { buildPaletteIndex } from '@/lib/palette'
-import { profile } from '@/data/profile'
+import { profile, PHOTO_ROTATION_MS } from '@/data/profile'
 
-const inter = Inter({
+const geist = Geist({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-geist',
   display: 'swap',
 })
 
-/**
- * Newsreader over a display serif: it is an optical-size text face, so the same
- * family carries a 60px headline and a 20px lead paragraph without either one
- * looking wrong. Display serifs break down at body size; this one does not.
- */
-const newsreader = Newsreader({
+const geistMono = Geist_Mono({
   subsets: ['latin'],
-  weight: ['400', '500'],
-  style: ['normal', 'italic'],
-  variable: '--font-newsreader',
+  variable: '--font-geist-mono',
   display: 'swap',
 })
 
-const jetbrains = JetBrains_Mono({
+/** Display serif, italic only, for two or three accent words. Never body copy. */
+const instrument = Instrument_Serif({
   subsets: ['latin'],
-  variable: '--font-mono-jb',
+  weight: '400',
+  style: ['italic'],
+  variable: '--font-instrument',
   display: 'swap',
 })
 
 const description =
-  'Generative AI Engineer with five years building retrieval, agent, and NLP systems that run in production. Currently at Virtusa. Case studies, research, and writing.'
+  'Generative AI Engineer building evidence-first agentic harnesses for legacy modernisation and security remediation — MARS, BootShift, Statute. Currently at Virtusa.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
@@ -88,8 +85,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fbfbfa' },
-    { media: '(prefers-color-scheme: dark)', color: '#0f1013' },
+    { media: '(prefers-color-scheme: light)', color: '#f9fafc' },
+    { media: '(prefers-color-scheme: dark)', color: '#0b0d12' },
   ],
 }
 
@@ -97,13 +94,16 @@ export const viewport: Viewport = {
  * Runs before first paint, so a stored theme choice never flashes the wrong
  * palette. No stored value means system preference, which the CSS handles.
  *
- * The `js` class is what arms the scroll-reveal transition — without it every
- * [data-reveal] element renders visible, so a reader with JavaScript disabled
- * gets the whole page. The timer is the matching safety net for the case where
- * JavaScript is on but hydration never lands: after three seconds anything
- * still hidden is shown unconditionally. Content must never depend on script.
+ * It also chooses the hero portrait. The photo is a function of wall-clock
+ * time — one slot every few minutes — so every visitor in the same window sees
+ * the same frame, and choosing it here means the right image is the first one
+ * painted rather than a swap after hydration.
+ *
+ * The `js` class arms the scroll-reveal transition — without it every
+ * [data-reveal] element renders visible. The timer is the safety net for
+ * JavaScript that runs but never hydrates. Content never depends on script.
  */
-const bootScript = `document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}setTimeout(function(){document.querySelectorAll('[data-reveal=""]').forEach(function(el){el.setAttribute('data-reveal','shown')})},3000)`
+const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')d.setAttribute('data-theme',t)}catch(e){}d.setAttribute('data-photo',String(Math.floor(Date.now()/${PHOTO_ROTATION_MS})%${profile.photos.length}));setTimeout(function(){document.querySelectorAll('[data-reveal=""]').forEach(function(el){el.setAttribute('data-reveal','shown')})},3000)})()`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const paletteItems = buildPaletteIndex()
@@ -112,7 +112,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable}`}
+      className={`${geist.variable} ${geistMono.variable} ${instrument.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
@@ -128,6 +128,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header paletteItems={paletteItems} />
           <main id="main">{children}</main>
           <Footer />
+          <Spotlight />
         </AssistantProvider>
       </body>
     </html>

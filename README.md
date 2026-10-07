@@ -12,7 +12,8 @@ this site.
 ## Overview
 
 The site's argument is that the strongest evidence a systems engineer has is the
-systems themselves, so the spine of it is five repository-backed case studies —
+systems themselves, so the spine of it is six repository-backed case studies — led
+by MARS and BootShift —
 each with real architecture, figures computed against a clone, and a section
 stating what the system cannot do.
 
@@ -30,11 +31,15 @@ Three things make it more than a brochure:
 
 | | |
 |---|---|
+| Flagship bento | The six flagship systems, each tile carrying a "boundary fingerprint" computed from its architecture diagram: one segment per stage, coloured script / model / human gate |
+| MARS replay | Four real MARS runs replayed stage by stage from the evidence the repo commits; stops at the human gate until the reader approves; every run ends Blocked, as recorded |
+| Rotating portrait | Three photos, one per 7-minute wall-clock slot, chosen before first paint; crossfade, Next and Pause controls |
 | Project explorer | Search, domain and language facets over every project and case study |
+| Earlier-work archive | 75 applied ML / GenAI repositories, searchable and filterable by category, with URL-synced filters and no model metrics |
 | Architecture diagrams | Typed `SystemDiagram` data → accessible DOM, with an explicit model boundary |
 | GitHub activity | Language mix and recent commits, from a committed snapshot |
-| Grounded assistant | BM25 over 97 passages, with citations and a relevance floor that lets it decline |
-| Command palette | ⌘K over pages, projects, roles, writing and research |
+| Grounded assistant | BM25 over 119 passages, with citations and a relevance floor that lets it decline |
+| Command palette | ⌘K over pages, projects, roles, writing and the archive |
 | Themes | Light and dark, both first-class, resolved before first paint |
 | Résumé | One PDF, one path, referenced from a single constant |
 
@@ -64,7 +69,7 @@ No server. No database. No runtime API call.
 | Framework | Next.js 15 (App Router, `output: 'export'`) |
 | UI | React 19 |
 | Styling | Tailwind CSS v4 — CSS-first `@theme`, no config file |
-| Type | Newsreader · Inter · JetBrains Mono, self-hosted via `next/font` |
+| Type | Geist · Geist Mono · Instrument Serif (accent italics only), self-hosted via `next/font` |
 | Content | TypeScript data modules + MDX for essays |
 | Icons | lucide-react |
 | Tests | Vitest + Playwright + axe-core |
@@ -80,7 +85,7 @@ app/            routes — every page statically generated
 components/     architecture · assistant · projects · home · layout · ui
 content/        writing/*.mdx
 data/           all copy; generated/github.json is synced, never hand-edited
-docs/           research, audit, architecture, design system, test report, reviews
+docs/           research, audit, architecture, design system, test report, reviews, redesign plan
 lib/            architecture types, assistant retrieval, project join
 public/         resume, reports, images, ai/knowledge.json
 scripts/        sync, index build, contrast check, static server
@@ -140,7 +145,7 @@ snapshot untouched, so a GitHub outage cannot produce an empty projects page.
 Opened with the button, ⌘K, or `/`. Never opens itself.
 
 `scripts/build-knowledge-index.mts` reads the same data modules the pages render
-and writes `public/ai/knowledge.json` — currently 97 passages, 91 kB, fetched on
+and writes `public/ai/knowledge.json` — currently 119 passages, 120 kB, fetched on
 first open only. `lib/assistant/retrieval.ts` scores with BM25 plus heading and
 keyword boosts, a domain synonym map, and a coverage penalty, then returns
 passages **verbatim** with citations. Below the relevance floor it says it does
@@ -180,14 +185,22 @@ replacing it, reconcile `data/experience.ts`, `data/work.ts` and
 
 ### Updating photos
 
-`public/images/profile/portrait.jpg` is the only image. Replace in place, keeping
-the portrait aspect ratio.
+The hero rotates through `profile.photos` in `data/profile.ts`, one per
+`PHOTO_ROTATION_MS` (seven minutes) of wall-clock time. Each entry points at a
+pair of files in `public/images/profile/` — `<name>.webp` and `<name>.jpg`, both
+800×1000 (4:5). To add or replace one, export both formats at that size, add an
+entry with real alt text, and rebuild. The first entry is the default for the
+social card (`npm run og`), structured data and the no-JavaScript render.
+
+Source photos live in `profile pictures/`, which is git-ignored on purpose: the
+originals include an unblurred licence plate. Only the processed, cropped copies
+are published.
 
 ## Testing
 
 ```bash
-npm test                              # 58 unit tests
-npm run build && npm run test:e2e     # 210 E2E across 5 browser/device profiles
+npm test                              # 89 unit tests
+npm run build && npm run test:e2e     # 345 E2E across 5 browser/device profiles
 node scripts/check-contrast.mjs       # WCAG AA over the design tokens
 ```
 
@@ -251,3 +264,4 @@ known gaps in `docs/DESIGN_SYSTEM.md` §7 and `docs/TEST_REPORT.md`.
 | [`docs/TEST_REPORT.md`](./docs/TEST_REPORT.md) | What was tested, what was found, what is not covered |
 | [`docs/PORTFOLIO_CRITIQUE.md`](./docs/PORTFOLIO_CRITIQUE.md) | Independent review findings |
 | [`docs/FINAL_PORTFOLIO_REVIEW.md`](./docs/FINAL_PORTFOLIO_REVIEW.md) | Before/after scoring |
+| [`docs/REDESIGN_2026-10.md`](./docs/REDESIGN_2026-10.md) | The October 2026 redesign: research, plan, critique, and what shipped |

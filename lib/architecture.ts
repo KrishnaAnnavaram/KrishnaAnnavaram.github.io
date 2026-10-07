@@ -27,6 +27,8 @@ export type NodeKind =
   | 'model'
   /** An autonomous agent: decides *when* and *how* to act. */
   | 'agent'
+  /** A person: an approval or review the system cannot complete on its own. */
+  | 'human'
   /** Persistent state — a database, index, cache or ledger. */
   | 'store'
   /** What the system hands back. */
@@ -75,7 +77,7 @@ export interface SystemDiagram {
 
 export const NODE_KIND_META: Record<
   NodeKind,
-  { label: string; description: string; tone: 'neutral' | 'accent' | 'verify' | 'faint' }
+  { label: string; description: string; tone: 'neutral' | 'model' | 'verify' | 'human' | 'faint' }
 > = {
   source: {
     label: 'Source',
@@ -90,12 +92,17 @@ export const NODE_KIND_META: Record<
   model: {
     label: 'Model',
     description: 'A language-model call — the non-deterministic part',
-    tone: 'accent',
+    tone: 'model',
   },
   agent: {
     label: 'Agent',
     description: 'Decides when and how to act, then reports what it did',
-    tone: 'accent',
+    tone: 'model',
+  },
+  human: {
+    label: 'Human gate',
+    description: 'A person must approve before the system may continue',
+    tone: 'human',
   },
   store: {
     label: 'Store',

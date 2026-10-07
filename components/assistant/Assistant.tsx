@@ -33,7 +33,6 @@ const KIND_LABEL: Record<string, string> = {
   experience: 'Experience',
   profile: 'Profile',
   writing: 'Writing',
-  research: 'Research',
   skills: 'Skills',
   education: 'Education',
   contact: 'Contact',

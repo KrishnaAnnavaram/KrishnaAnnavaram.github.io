@@ -9,7 +9,7 @@ import {
 } from '@/lib/projects'
 import { DOMAINS, projects, visibleProjects, featuredProjects } from '@/data/projects'
 import { caseStudies } from '@/data/work'
-import { publications } from '@/data/publications'
+import { archive } from '@/data/archive'
 import { diagramNodes, diagramToProse, NODE_KIND_META } from '@/lib/architecture'
 
 /**
@@ -76,10 +76,19 @@ describe('provenance discipline', () => {
     }
   })
 
-  it('publications are not described as peer-reviewed', () => {
-    for (const pub of publications) {
-      expect(pub.type).not.toBe('Conference')
-      expect(pub.url, `${pub.id} has no linked report`).toBeTruthy()
+  it('archive entries carry no model metric', () => {
+    // Most archive repositories validate on synthetic data; a number in the
+    // one free-text field would read as a measured result.
+    for (const e of archive) {
+      if (e.note) expect(e.note, `${e.repo} note carries a number`).not.toMatch(/\d/)
+    }
+  })
+
+  it('the site names no one but its owner', () => {
+    // The research page once listed co-authors and linked other students'
+    // coursework. Nothing that renders may carry an authors list again.
+    for (const e of archive) {
+      expect(Object.keys(e)).not.toContain('authors')
     }
   })
 
