@@ -92,7 +92,15 @@ export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
           className="group flex min-w-0 items-baseline gap-2.5 text-ink"
           aria-label={`${profile.name} — home`}
         >
-          <span className="truncate font-serif text-lg leading-none tracking-tight">
+          {/* eslint-disable-next-line @next/next/no-img-element -- 28px avatar; next/image adds nothing under static export */}
+          <img
+            src="/images/profile/avatar.webp"
+            alt=""
+            width={28}
+            height={28}
+            className="size-7 shrink-0 self-center rounded-full border border-rule object-cover"
+          />
+          <span className="truncate text-base font-semibold leading-none tracking-tight">
             {profile.name}
           </span>
           {/* The role is the first thing to go when space runs out — it is

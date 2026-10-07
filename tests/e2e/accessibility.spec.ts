@@ -17,7 +17,6 @@ const ROUTES = [
   '/projects/bootshift/',
   '/work/',
   '/experience/',
-  '/research/',
   '/writing/',
   '/about/',
   '/contact/',
@@ -78,6 +77,9 @@ for (const [label, apply] of [
   ],
 ] as const) {
   test(`dark theme via ${label} keeps sufficient contrast`, async ({ page }) => {
+    // Three full axe passes, one over the ~75-row project archive. Under a
+    // parallel run that exceeded the 30s default without anything failing.
+    test.setTimeout(90_000)
     await apply(page)
 
     for (const route of ['/', '/projects/', '/projects/smcp-gateway/']) {

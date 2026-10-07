@@ -20,7 +20,6 @@ export type SourceKind =
   | 'experience'
   | 'profile'
   | 'writing'
-  | 'research'
   | 'skills'
   | 'education'
   | 'contact'

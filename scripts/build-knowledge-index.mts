@@ -304,21 +304,33 @@ for (const file of await readdir(writingDir)) {
   })
 }
 
-/* ── Research ────────────────────────────────────────────────────────────── */
+/* ── Earlier work (archive) ──────────────────────────────────────────────── */
 
-const { publications } = await import('../data/publications')
-/* Counted, not asserted — an earlier version hardcoded the claim that every
-   entry was backed by a report, which nothing validated. */
-const withReports = publications.filter((p) => Boolean(p.url)).length
-const coAuthored = publications.length
+/* One passage per category rather than one per repository: seventy-odd
+   near-identical passages would crowd the flagship systems out of every
+   ranking. Descriptions only — the archive carries no model metrics, and
+   neither does its index. */
+const { archive, ARCHIVE_CATEGORIES } = await import('../data/archive')
 
 add({
-  heading: 'Research',
-  text: `${coAuthored} co-authored graduate research reports from the MS at UNT, ${withReports} of them linked to the full PDF on this site. They are coursework typeset in an IEEE template, not peer-reviewed conference papers. Topics span NLP, retrieval, computer vision and applied machine learning.`,
-  source: { title: 'Research', href: '/research/', kind: 'research' },
-  keywords: ['research', 'papers', 'publication', 'academic', 'supervised', 'capstone', 'student', 'teaching'],
-  boost: 1.3,
+  heading: 'Earlier work',
+  text: `${archive.length} earlier applied ML and GenAI projects, each a public repository with its own test suite and CI. They sit below the flagship systems on the site and span RAG applications, tool-using agents, LLM evaluation, NLP, medical imaging, clinical ML, forecasting and recommenders. Most validate on synthetic or demo data, and the site reports no model metrics for them.`,
+  source: { title: 'Earlier work', href: '/projects/#archive', kind: 'project' },
+  keywords: ['archive', 'earlier', 'projects', 'repositories', 'portfolio', 'experiments', 'applied'],
+  boost: 0.9,
 })
+
+for (const [id, label] of Object.entries(ARCHIVE_CATEGORIES)) {
+  const entries = archive.filter((e) => e.category === id)
+  if (entries.length === 0) continue
+  add({
+    heading: `Earlier work — ${label}`,
+    text: entries.map((e) => `${e.repo}: ${e.tagline}`).join(' '),
+    source: { title: `Earlier work — ${label}`, href: '/projects/#archive', kind: 'project' },
+    keywords: [label.toLowerCase(), ...entries.flatMap((e) => [e.repo, ...e.stack.map((t) => t.toLowerCase())])],
+    boost: 0.85,
+  })
+}
 
 /* ── Write ───────────────────────────────────────────────────────────────── */
 

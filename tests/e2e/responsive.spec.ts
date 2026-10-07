@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
+import { navItems } from '../../data/nav'
 
 /**
  * The responsive matrix, tested properly.
@@ -23,7 +24,6 @@ const ROUTES = [
   '/projects/adaptive-legacy-complexity-harness/',
   '/work/clinical-decision-support-graph-rag/',
   '/experience/',
-  '/research/',
   '/writing/',
   '/about/',
   '/contact/',
@@ -61,6 +61,7 @@ test.describe('no horizontal overflow', () => {
 
   for (const width of WIDTHS) {
     test(`at ${width}px`, async ({ page }) => {
+      test.setTimeout(90_000) // every route at this width, in one test
       await page.setViewportSize({ width, height: 900 })
       const failures: string[] = []
 
@@ -109,7 +110,7 @@ test.describe('navigation is reachable at every width', () => {
       } else {
         // Every primary link must be inside the viewport, not merely rendered.
         const links = await desktopNav.getByRole('link').all()
-        expect(links.length).toBe(6)
+        expect(links.length).toBe(navItems.length)
         for (const link of links) {
           const box = (await link.boundingBox())!
           const label = await link.textContent()
@@ -150,7 +151,7 @@ test.describe('focus management', () => {
 })
 
   test('every interactive control shows a focus ring', async ({ page }) => {
-  const routes = ['/projects/', '/research/', '/contact/']
+  const routes = ['/projects/', '/contact/']
   const bare: string[] = []
 
   for (const route of routes) {

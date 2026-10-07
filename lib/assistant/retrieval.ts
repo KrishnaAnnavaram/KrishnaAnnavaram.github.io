@@ -267,7 +267,7 @@ export class Retriever {
         query,
         confidence: 'none',
         lead:
-          "I don't have anything in the portfolio that answers that. I only answer from what's published here — projects, experience, research, writing and contact details.",
+          "I don't have anything in the portfolio that answers that. I only answer from what's published here — projects, experience, writing and contact details.",
         passages: [],
         sources: [],
         didYouMean: this.index.suggestions.slice(0, 4),

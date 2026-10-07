@@ -15,7 +15,7 @@
  */
 
 import { ImageResponse } from 'next/og'
-import { writeFile, mkdir } from 'node:fs/promises'
+import { writeFile, mkdir, readFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { profile } from '../data/profile'
@@ -23,18 +23,24 @@ import { profile } from '../data/profile'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const OUT = resolve(__dirname, '../public/og.png')
 
-/* Tokens duplicated from globals.css as resolved sRGB, because satori does not
-   evaluate CSS custom properties or oklch(). Keep in step with the palette. */
-const INK = '#0e0f13'
-const INK_SOFT = '#45484d'
-const INK_MUTED = '#5b5e63'
-const PAPER = '#fbfbfa'
-const RULE = '#e3e4e7'
-const ACCENT = '#c5341c'
+/* Tokens duplicated from globals.css (dark theme) as resolved sRGB, because
+   satori does not evaluate CSS custom properties or oklch(). Keep in step. */
+const PAPER = '#0b0d12'
+const INK = '#f2f4f7'
+const INK_SOFT = '#c4cad3'
+const INK_MUTED = '#a2aab6'
+const RULE = '#262d38'
+const ACCENT = '#43d8c8'
+
+/* The studio portrait, inlined: satori cannot fetch a relative path. JPEG
+   rather than WebP because satori does not decode WebP. */
+const portrait = `data:image/jpeg;base64,${(
+  await readFile(resolve(__dirname, `../public${profile.photos[0].src}.jpg`))
+).toString('base64')}`
 
 /**
- * Deliberately typographic. An OG card is read at thumbnail size in a Slack
- * sidebar or a LinkedIn feed, where anything intricate becomes noise.
+ * A face and a name. An OG card is read at thumbnail size in a Slack sidebar
+ * or a LinkedIn feed, where a recognisable photo does more than any sentence.
  */
 const card = {
   type: 'div',
@@ -43,73 +49,105 @@ const card = {
       width: '100%',
       height: '100%',
       display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 64,
       background: PAPER,
-      padding: '72px 80px',
+      padding: '64px 72px',
       fontFamily: 'sans-serif',
     },
     children: [
       {
         type: 'div',
         props: {
-          style: { display: 'flex', alignItems: 'center', gap: 18 },
+          style: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100%',
+            flex: 1,
+          },
           children: [
-            { type: 'div', props: { style: { width: 44, height: 3, background: ACCENT } } },
+            {
+              type: 'div',
+              props: {
+                style: { display: 'flex', alignItems: 'center', gap: 16 },
+                children: [
+                  {
+                    type: 'div',
+                    props: { style: { width: 14, height: 14, borderRadius: 7, background: ACCENT } },
+                  },
+                  {
+                    type: 'div',
+                    props: {
+                      style: {
+                        fontSize: 22,
+                        letterSpacing: 4,
+                        textTransform: 'uppercase',
+                        color: INK_MUTED,
+                      },
+                      children: profile.role,
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              type: 'div',
+              props: {
+                style: { display: 'flex', flexDirection: 'column', gap: 22 },
+                children: [
+                  {
+                    type: 'div',
+                    props: {
+                      style: {
+                        fontSize: 80,
+                        lineHeight: 1.02,
+                        letterSpacing: -2.5,
+                        color: INK,
+                        fontWeight: 700,
+                      },
+                      children: profile.name,
+                    },
+                  },
+                  {
+                    type: 'div',
+                    props: {
+                      style: { fontSize: 32, lineHeight: 1.3, color: INK_SOFT, maxWidth: 640 },
+                      children: 'Agentic systems that show their work — MARS, BootShift, Statute.',
+                    },
+                  },
+                ],
+              },
+            },
             {
               type: 'div',
               props: {
                 style: {
-                  fontSize: 24,
-                  letterSpacing: 5,
-                  textTransform: 'uppercase',
+                  display: 'flex',
+                  gap: 30,
+                  fontSize: 21,
                   color: INK_MUTED,
+                  borderTop: `1px solid ${RULE}`,
+                  paddingTop: 26,
                 },
-                children: profile.role,
+                children: [
+                  { type: 'div', props: { style: { color: ACCENT }, children: 'krishnaannavaram.github.io' } },
+                  { type: 'div', props: { children: 'Agentic AI' } },
+                  { type: 'div', props: { children: 'RAG' } },
+                  { type: 'div', props: { children: 'Modernisation' } },
+                ],
               },
             },
           ],
         },
       },
       {
-        type: 'div',
+        type: 'img',
         props: {
-          style: { display: 'flex', flexDirection: 'column', gap: 26 },
-          children: [
-            {
-              type: 'div',
-              props: {
-                style: { fontSize: 92, lineHeight: 1.02, letterSpacing: -2, color: INK },
-                children: profile.name,
-              },
-            },
-            {
-              type: 'div',
-              props: {
-                style: { fontSize: 36, lineHeight: 1.3, color: INK_SOFT, maxWidth: 920 },
-                children: profile.tagline,
-              },
-            },
-          ],
-        },
-      },
-      {
-        type: 'div',
-        props: {
-          style: {
-            display: 'flex',
-            gap: 38,
-            fontSize: 23,
-            color: INK_MUTED,
-            borderTop: `1px solid ${RULE}`,
-            paddingTop: 30,
-          },
-          children: [
-            { type: 'div', props: { children: 'krishnaannavaram.github.io' } },
-            { type: 'div', props: { children: 'Agentic AI' } },
-            { type: 'div', props: { children: 'RAG' } },
-            { type: 'div', props: { children: 'Legacy modernisation' } },
-          ],
+          src: portrait,
+          width: 360,
+          height: 450,
+          style: { borderRadius: 28, border: `2px solid ${RULE}`, objectFit: 'cover' },
         },
       },
     ],

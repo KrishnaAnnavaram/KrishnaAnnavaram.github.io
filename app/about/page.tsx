@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { ExternalLink } from 'lucide-react'
 import { profile } from '@/data/profile'
 import { skillGroups } from '@/data/skills'
@@ -34,8 +33,8 @@ export default function AboutPage() {
               ))}
               <p>
                 Before the US, I worked in India — first at Lemoius building the NLP and ranking
-                layer of a hiring marketplace, then at Cognizant on enterprise ML for US healthcare
-                clients. I came to the University of North Texas for a master’s in Data Science,
+                layer of a hiring marketplace, then at Cognizant on production ML pipelines for a US
+                medical-device sales organisation. I came to the University of North Texas for a master’s in Data Science,
                 and spent a year there as a teaching assistant: supporting graduate coursework,
                 mentoring project teams, and building a retrieval system that answered students’
                 research questions without inventing citations.
@@ -50,14 +49,30 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={100} className="lg:pt-2">
-            <Image
-              src="/images/profile/portrait.jpg"
-              alt={`${profile.name}, ${profile.role}`}
-              width={720}
-              height={960}
-              sizes="16rem"
-              className="w-40 rounded-sm object-cover grayscale-[0.15] lg:w-full"
-            />
+            {/* The three portraits as a stack that fans out on hover. Decorative
+                motion only; every image has its own alt text. */}
+            <div className="photo-stack relative mx-auto aspect-[4/5] w-48 lg:w-full">
+              {[profile.photos[1], profile.photos[0], profile.photos[2]].map((photo, i) => (
+                <picture
+                  key={photo.src}
+                  className={`absolute inset-0 overflow-hidden rounded-2xl border border-rule bg-sunken shadow-lg ${
+                    i === 1 ? 'z-10' : i === 0 ? '-rotate-3' : 'rotate-3'
+                  }`}
+                >
+                  <source srcSet={`${photo.src}.webp`} type="image/webp" />
+                  {/* eslint-disable-next-line @next/next/no-img-element -- static export; <picture> needs a plain img */}
+                  <img
+                    src={`${photo.src}.jpg`}
+                    alt={photo.alt}
+                    width={800}
+                    height={1000}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover"
+                  />
+                </picture>
+              ))}
+            </div>
             <dl className="rule-t mt-6 space-y-3 pt-5 text-sm">
               <div>
                 <dt className="eyebrow">Based in</dt>

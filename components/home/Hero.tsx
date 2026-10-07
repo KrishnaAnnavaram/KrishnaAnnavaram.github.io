@@ -1,142 +1,95 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
-import { profile } from '@/data/profile'
+import { ArrowRight, ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react'
+import { profile, PHOTO_ROTATION_MS } from '@/data/profile'
 import { currentRole, formatRoleDate } from '@/data/experience'
-import { Reveal } from '@/components/ui/Reveal'
 import { AskButton } from '@/components/assistant/AskButton'
+import { RotatingPortrait } from './RotatingPortrait'
 
 /**
- * The first screen has one job: let a recruiter answer "what does he do, is he
- * relevant, and where do I go next" without scrolling.
+ * The first screen is the human one: a face, a name, one sentence, and the
+ * three places a recruiter goes next. The console material starts below it.
  *
- * So everything above the fold is identity and routing. The claim is a single
- * sentence; the evidence for it starts immediately below. There is no ambient
- * motion here — the only animation is the reveal, which runs once.
+ * Nothing here is behind a reveal — the hero is the LCP, and hiding it until
+ * hydration once cost this site 900ms of LCP for no visual gain.
  */
 export function Hero() {
   return (
-    <section className="page-x mx-auto max-w-page pb-16 pt-14 sm:pt-20">
-      <div className="grid items-start gap-10 lg:grid-cols-[1.7fr_1fr] lg:gap-16">
-        <div>
-          <Reveal eager>
-            <p className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span className="text-accent">{profile.role}</span>
-              <span aria-hidden className="text-ink-faint">
-                /
-              </span>
-              <span>{profile.locationShort}</span>
-            </p>
-          </Reveal>
+    <section className="relative isolate overflow-hidden">
+      <div aria-hidden className="hero-glow -z-10" />
+      <div aria-hidden className="bg-dots absolute inset-0 -z-10" />
 
-          <Reveal eager>
-            <h1 className="mt-6 text-5xl">
-              I build systems that
-              <br />
-              can <span className="italic text-accent">show their work</span>.
-            </h1>
-          </Reveal>
+      <div className="page-x mx-auto grid max-w-page items-center gap-12 pb-16 pt-12 sm:pt-16 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-16 lg:pb-24 lg:pt-20">
+        <div className="min-w-0">
+          <p className="inline-flex max-w-full items-center gap-2.5 rounded-full border border-rule bg-surface/70 px-3 py-1.5 font-mono text-2xs uppercase tracking-[0.12em] text-ink-soft backdrop-blur">
+            <span className="live-dot" aria-hidden />
+            <span className="truncate">Open to Generative &amp; Agentic AI roles</span>
+          </p>
 
-          <Reveal eager>
-            <p className="mt-7 max-w-text text-lg text-ink-soft">{profile.intro}</p>
-          </Reveal>
+          <h1 className="mt-7 text-5xl text-ink">{profile.name}</h1>
 
-          <Reveal eager>
-            <p className="mt-5 max-w-text text-ink-muted">
-              Most of what I ship is infrastructure for other engineers: migration harnesses,
-              reverse-engineering pipelines, retrieval systems. The through-line is that each one
-              has to be able to justify its output — which stages were deterministic, what was
-              measured, and what it could not establish.
-            </p>
-          </Reveal>
+          <p className="mt-5 max-w-[34ch] text-2xl text-ink-soft sm:text-3xl">
+            Generative AI engineer building agentic systems that{' '}
+            <span className="font-accent italic text-accent">show their work</span>.
+          </p>
 
-          <Reveal eager>
-            <div className="mt-9 flex flex-wrap items-center gap-2.5">
-              <Link
-                href="/projects/"
-                className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm text-paper transition-colors duration-[var(--duration-base)] hover:bg-accent"
-              >
-                See the systems
-                <ArrowRight
-                  size={15}
-                  className="transition-transform duration-200 group-hover:translate-x-0.5"
-                  aria-hidden
-                />
-              </Link>
+          <p className="mt-6 max-w-text text-ink-muted">{profile.intro}</p>
 
-              <AskButton />
+          <div className="mt-8 flex flex-wrap items-center gap-2.5">
+            <Link
+              href="/#systems"
+              className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-colors duration-[var(--duration-base)] hover:bg-accent"
+            >
+              See the systems
+              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
+            </Link>
+            <a
+              href={profile.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-full border border-rule-strong bg-surface/60 px-5 py-2.5 text-sm text-ink backdrop-blur transition-colors duration-[var(--duration-base)] hover:border-ink"
+            >
+              Résumé
+              <ArrowUpRight size={15} className="text-ink-faint transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px" aria-hidden />
+            </a>
+            <AskButton />
+          </div>
 
-              <a
-                href={profile.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 rounded-full border border-rule-strong px-5 py-2.5 text-sm text-ink transition-colors duration-[var(--duration-base)] hover:border-ink hover:bg-sunken"
-              >
-                Résumé
-                <ArrowUpRight
-                  size={15}
-                  className="text-ink-faint transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px"
-                  aria-hidden
-                />
-              </a>
-            </div>
-          </Reveal>
-
-          <Reveal eager>
-            <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-2xs uppercase tracking-[0.14em]">
-              <a
-                href={profile.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ink-muted transition-colors hover:text-ink"
-              >
-                GitHub
-              </a>
-              <a
-                href={profile.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ink-muted transition-colors hover:text-ink"
-              >
-                LinkedIn
-              </a>
-              <a
-                href={`mailto:${profile.socials.email}`}
-                className="text-ink-muted transition-colors hover:text-ink"
-              >
-                Email
-              </a>
-            </p>
-          </Reveal>
+          <ul className="mt-7 flex flex-wrap items-center gap-2">
+            {[
+              { href: profile.socials.github, label: 'GitHub', icon: Github },
+              { href: profile.socials.linkedin, label: 'LinkedIn', icon: Linkedin },
+              { href: `mailto:${profile.socials.email}`, label: 'Email', icon: Mail },
+            ].map(({ href, label, icon: Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+                  className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 font-mono text-2xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:bg-surface hover:text-ink"
+                >
+                  <Icon size={13} aria-hidden />
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* ── Identity plate: portrait plus the facts a recruiter checks ──── */}
-        <Reveal eager className="order-first lg:order-none">
-          <div className="mx-auto w-40 sm:w-48 lg:mx-0 lg:ml-auto lg:w-full lg:max-w-[16rem]">
-            <Image
-              src="/images/profile/portrait.jpg"
-              alt={`${profile.name}, ${profile.role}`}
-              width={720}
-              height={960}
-              priority
-              sizes="(max-width: 1024px) 12rem, 16rem"
-              className="w-full rounded-[3px] object-cover grayscale-[0.2]"
-            />
+        {/* ── Identity panel ───────────────────────────────────────────────── */}
+        <div className="order-first mx-auto w-full max-w-[15rem] sm:max-w-[18rem] lg:order-none lg:mx-0 lg:ml-auto lg:max-w-[22rem]">
+          <RotatingPortrait photos={profile.photos} intervalMs={PHOTO_ROTATION_MS} />
 
-            <dl className="mt-5 space-y-0">
-              <Row label="Now">
-                {currentRole.company}
-                <span className="block font-mono text-2xs text-ink-muted">
-                  {currentRole.title} · since {formatRoleDate(currentRole.start)}
-                </span>
-              </Row>
-              <Row label="Based">{profile.location}</Row>
-              <Row label="Open to">
-                <span className="text-ink-soft">Generative AI · Applied AI · ML Engineering</span>
-              </Row>
-            </dl>
-          </div>
-        </Reveal>
+          <dl className="plate mt-4 hidden divide-y divide-rule text-sm lg:block">
+            <Row label="Now">
+              <span className="text-ink">{currentRole.company}</span>
+              <span className="block font-mono text-3xs uppercase tracking-[0.1em] text-ink-muted">
+                {currentRole.title} · since {formatRoleDate(currentRole.start)}
+              </span>
+            </Row>
+            <Row label="Based">{profile.location}</Row>
+            <Row label="Focus">Agentic AI · RAG · Modernisation</Row>
+          </dl>
+        </div>
       </div>
     </section>
   )
@@ -144,9 +97,9 @@ export function Hero() {
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-baseline justify-between gap-4 border-t border-rule py-2.5">
+    <div className="flex items-baseline justify-between gap-4 px-4 py-2.5">
       <dt className="eyebrow shrink-0">{label}</dt>
-      <dd className="text-right text-sm text-ink">{children}</dd>
+      <dd className="text-right text-ink-soft">{children}</dd>
     </div>
   )
 }

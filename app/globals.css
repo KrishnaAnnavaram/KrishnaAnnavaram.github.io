@@ -1,28 +1,34 @@
 @import 'tailwindcss';
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   DESIGN SYSTEM — "Specification"
+   DESIGN SYSTEM — "Console"
 
-   The site reads as a typeset engineering specification: numbered sections, a
-   metadata rail, hairline rules that delineate structure, monospace for every
-   identifier and measurement, and a serif reserved for argument.
+   The site reads as the operations console of one engineer: a dark-first
+   instrument panel, monospace for every identifier and measurement, and a
+   status channel borrowed from the harnesses it describes.
 
-   Two colours carry meaning and nothing else does:
-     accent  — the author's own voice: links, current state, emphasis
-     verify  — "this was measured / this is deterministic". Used in diagrams
-               and evidence blocks only, never decoratively.
+   Colour carries meaning, never decoration:
+     accent  — the author's voice: links, current state, the one emphasis
+     verify  — deterministic code / something measured
+     model   — a model call: the non-deterministic part of a system
+     human   — an approval gate a person must clear
 
-   There is no ambient motion anywhere in this file. Motion is attached to
-   state changes only. See docs/DESIGN_SYSTEM.md for the full rationale.
+   Status colour is always paired with a glyph (● ◆ ▲ ■) and a text label, so
+   no meaning depends on colour alone. Ambient motion is limited to the hero
+   glow and the live dot, and both stop under prefers-reduced-motion.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
   /* ── Families (bound in app/layout.tsx via next/font) ─────────────────── */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: var(--font-newsreader), 'Iowan Old Style', Charter, Georgia, serif;
-  --font-mono: var(--font-mono-jb), ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* `font-serif` is kept as an alias so existing components inherit the new
+     display face without each being edited. The serif proper is `font-accent`,
+     reserved for a handful of italic words. */
+  --font-serif: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-accent: var(--font-instrument), 'Iowan Old Style', Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
-  /* ── Type scale — 1.2 minor third, viewport-interpolated ──────────────── */
+  /* ── Type scale — viewport-interpolated ───────────────────────────────── */
   --text-3xs: 0.625rem;
   --text-3xs--line-height: 1.4;
   --text-3xs--letter-spacing: 0.1em;
@@ -31,7 +37,7 @@
   --text-2xs--letter-spacing: 0.08em;
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.5;
-  --text-sm: 0.8125rem;
+  --text-sm: 0.84375rem;
   --text-sm--line-height: 1.6;
   --text-base: clamp(0.9375rem, 0.9rem + 0.19vw, 1.0625rem);
   --text-base--line-height: 1.7;
@@ -39,52 +45,47 @@
   --text-lg--line-height: 1.6;
   --text-xl: clamp(1.1875rem, 1.1rem + 0.44vw, 1.4375rem);
   --text-xl--line-height: 1.4;
-  --text-2xl: clamp(1.4375rem, 1.25rem + 0.94vw, 1.9375rem);
-  --text-2xl--line-height: 1.24;
+  --text-2xl: clamp(1.375rem, 1.2rem + 0.9vw, 1.875rem);
+  --text-2xl--line-height: 1.22;
   --text-3xl: clamp(1.75rem, 1.4rem + 1.75vw, 2.625rem);
-  --text-3xl--line-height: 1.14;
+  --text-3xl--line-height: 1.12;
   --text-4xl: clamp(2.125rem, 1.5rem + 3vw, 3.75rem);
-  --text-4xl--line-height: 1.05;
-  --text-5xl: clamp(2.5rem, 1.5rem + 5vw, 5.5rem);
-  --text-5xl--line-height: 0.97;
+  --text-4xl--line-height: 1.04;
+  --text-5xl: clamp(2.5rem, 1.4rem + 4.6vw, 5.25rem);
+  --text-5xl--line-height: 0.98;
 
-  /* ── Colour — light is the authored default ───────────────────────────── */
-  /* Neutrals carry a slight cool cast so the warm accent stays distinct.
-     Every foreground below clears 4.5:1 against paper, surface and sunken in
-     both themes — verified by `node scripts/check-contrast.mjs`, which
-     converts these oklch values to sRGB and computes the real ratios. The
-     muted and faint steps were darkened from their original values because
-     they failed; oklch lightness gives no indication of WCAG compliance. */
-  --color-paper: oklch(0.988 0.0015 265);
+  /* ── Colour — light values; dark below ─────────────────────────────────
+     Every foreground clears 4.5:1 against paper, surface and sunken in both
+     themes — `node scripts/check-contrast.mjs` computes the real ratios from
+     these oklch values and fails CI otherwise. Keep the two in step. */
+  --color-paper: oklch(0.985 0.003 255);
   --color-surface: oklch(1 0 0);
-  --color-sunken: oklch(0.967 0.003 265);
-  --color-ink: oklch(0.17 0.008 265);
-  --color-ink-soft: oklch(0.40 0.009 265);
-  --color-ink-muted: oklch(0.48 0.009 265);
-  --color-ink-faint: oklch(0.545 0.009 265);
-  /* Raised from 0.905/0.83. Hairlines are this design's main structuring
-     device and were rendering at 1.28:1 — visible only on a bright, calibrated
-     display. WCAG 1.4.11 asks 3:1 of anything that conveys structure; these
-     are the compromise that keeps the line quiet without making it notional. */
-  --color-rule: oklch(0.86 0.005 265);
-  --color-rule-strong: oklch(0.76 0.007 265);
+  --color-sunken: oklch(0.962 0.005 255);
+  --color-ink: oklch(0.19 0.015 255);
+  --color-ink-soft: oklch(0.37 0.016 255);
+  --color-ink-muted: oklch(0.45 0.015 255);
+  --color-ink-faint: oklch(0.51 0.014 255);
+  --color-rule: oklch(0.885 0.008 255);
+  --color-rule-strong: oklch(0.77 0.012 255);
 
-  /* Signal — vermilion. Deliberately warm: the AI-portfolio field is
-     saturated with blue and violet, and warmth reads as human, not machine. */
-  --color-accent: oklch(0.545 0.185 32);
-  --color-accent-hover: oklch(0.47 0.175 30);
-  --color-accent-wash: oklch(0.955 0.022 38);
+  /* Signal — teal. Distinct from the blue/violet the AI field defaults to,
+     and from the deterministic blue below it. */
+  --color-accent: oklch(0.5 0.1 185);
+  --color-accent-hover: oklch(0.43 0.09 185);
+  --color-accent-wash: oklch(0.955 0.025 185);
 
-  /* Verified — used ONLY where something was measured or is deterministic. */
-  --color-verify: oklch(0.50 0.085 185);
-  --color-verify-wash: oklch(0.955 0.018 185);
+  --color-verify: oklch(0.5 0.14 255);
+  --color-verify-wash: oklch(0.955 0.02 255);
+  --color-model: oklch(0.52 0.12 60);
+  --color-model-wash: oklch(0.96 0.03 75);
+  --color-human: oklch(0.52 0.17 340);
+  --color-human-wash: oklch(0.96 0.025 340);
 
   /* ── Layout ───────────────────────────────────────────────────────────── */
-  --spacing-gutter: clamp(1.125rem, 4.5vw, 2.75rem);
-  --container-prose: 66ch;
-  --container-text: 44rem;
-  --container-page: 80rem;
-  /* Width of the metadata rail on desktop — the spec-document signature. */
+  --spacing-gutter: clamp(1rem, 4.5vw, 2.75rem);
+  --container-prose: 68ch;
+  --container-text: 46rem;
+  --container-page: 84rem;
   --spacing-rail: 11rem;
 
   /* ── Motion ───────────────────────────────────────────────────────────── */
@@ -96,43 +97,51 @@
 }
 
 /* ── Dark theme ─────────────────────────────────────────────────────────────
-   Three-way: authored light on :root, system preference guarded so an explicit
-   light choice wins, then [data-theme='dark'] so the toggle overrides both. */
+   Three-way: light on :root, system preference guarded so an explicit light
+   choice wins, then [data-theme='dark'] so the toggle overrides both. */
 @layer base {
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme='light']) {
-      --color-paper: oklch(0.158 0.006 265);
-      --color-surface: oklch(0.192 0.007 265);
-      --color-sunken: oklch(0.132 0.005 265);
-      --color-ink: oklch(0.955 0.002 265);
-      --color-ink-soft: oklch(0.755 0.007 265);
-      --color-ink-muted: oklch(0.68 0.008 265);
-      --color-ink-faint: oklch(0.60 0.008 265);
-      --color-rule: oklch(0.34 0.009 265);
-      --color-rule-strong: oklch(0.45 0.011 265);
-      --color-accent: oklch(0.735 0.155 40);
-      --color-accent-hover: oklch(0.80 0.135 44);
-      --color-accent-wash: oklch(0.255 0.04 36);
-      --color-verify: oklch(0.755 0.095 185);
-      --color-verify-wash: oklch(0.24 0.03 185);
+      --color-paper: oklch(0.145 0.008 255);
+      --color-surface: oklch(0.182 0.011 255);
+      --color-sunken: oklch(0.118 0.007 255);
+      --color-ink: oklch(0.965 0.004 255);
+      --color-ink-soft: oklch(0.83 0.01 255);
+      --color-ink-muted: oklch(0.73 0.012 255);
+      --color-ink-faint: oklch(0.665 0.012 255);
+      --color-rule: oklch(0.285 0.013 255);
+      --color-rule-strong: oklch(0.39 0.016 255);
+      --color-accent: oklch(0.83 0.13 182);
+      --color-accent-hover: oklch(0.89 0.11 182);
+      --color-accent-wash: oklch(0.25 0.04 185);
+      --color-verify: oklch(0.77 0.11 250);
+      --color-verify-wash: oklch(0.24 0.04 255);
+      --color-model: oklch(0.83 0.13 75);
+      --color-model-wash: oklch(0.25 0.04 70);
+      --color-human: oklch(0.78 0.13 345);
+      --color-human-wash: oklch(0.25 0.045 345);
     }
   }
 
   :root[data-theme='dark'] {
-    --color-paper: oklch(0.158 0.006 265);
-    --color-surface: oklch(0.192 0.007 265);
-    --color-sunken: oklch(0.132 0.005 265);
-    --color-ink: oklch(0.955 0.002 265);
-    --color-ink-soft: oklch(0.755 0.007 265);
-    --color-ink-muted: oklch(0.68 0.008 265);
-    --color-ink-faint: oklch(0.60 0.008 265);
-    --color-rule: oklch(0.34 0.009 265);
-    --color-rule-strong: oklch(0.45 0.011 265);
-    --color-accent: oklch(0.735 0.155 40);
-    --color-accent-hover: oklch(0.80 0.135 44);
-    --color-accent-wash: oklch(0.255 0.04 36);
-    --color-verify: oklch(0.755 0.095 185);
-    --color-verify-wash: oklch(0.24 0.03 185);
+    --color-paper: oklch(0.145 0.008 255);
+    --color-surface: oklch(0.182 0.011 255);
+    --color-sunken: oklch(0.118 0.007 255);
+    --color-ink: oklch(0.965 0.004 255);
+    --color-ink-soft: oklch(0.83 0.01 255);
+    --color-ink-muted: oklch(0.73 0.012 255);
+    --color-ink-faint: oklch(0.665 0.012 255);
+    --color-rule: oklch(0.285 0.013 255);
+    --color-rule-strong: oklch(0.39 0.016 255);
+    --color-accent: oklch(0.83 0.13 182);
+    --color-accent-hover: oklch(0.89 0.11 182);
+    --color-accent-wash: oklch(0.25 0.04 185);
+    --color-verify: oklch(0.77 0.11 250);
+    --color-verify-wash: oklch(0.24 0.04 255);
+    --color-model: oklch(0.83 0.13 75);
+    --color-model-wash: oklch(0.25 0.04 70);
+    --color-human: oklch(0.78 0.13 345);
+    --color-human-wash: oklch(0.25 0.045 345);
   }
 }
 
@@ -142,7 +151,6 @@
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
     color-scheme: light;
-    /* Sticky header height, so in-page anchors don't land under it. */
     scroll-padding-top: 5rem;
   }
   :root[data-theme='dark'] { color-scheme: dark; }
@@ -164,35 +172,31 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: -0.012em;
+    font-family: var(--font-sans);
+    font-weight: 560;
+    letter-spacing: -0.022em;
     text-wrap: balance;
   }
+  h1 { font-weight: 620; letter-spacing: -0.035em; }
 
   p, li { text-wrap: pretty; }
 
-  /* Paths, identifiers and repository names appear throughout the prose and
-     have no break opportunities. Without this they set the min-content width
-     of whatever contains them and push the layout past the viewport. */
+  /* Paths, identifiers and repository names have no break opportunities. */
   code, .font-mono { overflow-wrap: anywhere; }
 
-  /* Tabular figures everywhere a number is compared against another number. */
   table, dl, time, .tabular { font-variant-numeric: tabular-nums; }
 
   ::selection {
     background: var(--color-accent);
-    color: oklch(0.99 0 0);
+    color: var(--color-paper);
   }
 
-  /* The one focus indicator on the site. Nothing should set `outline-none`
-     without replacing it — three inputs did, leaving a ~1.2:1 border change as
-     the only focus cue, well under the 3:1 WCAG 1.4.11 requires. An E2E test
-     now focuses every input on every route and fails if the ring is absent. */
+  /* The one focus indicator. Nothing may set `outline-none` without
+     replacing it; an E2E test focuses every input and checks for the ring. */
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 4px;
   }
 
   hr { border: 0; border-top: 1px solid var(--color-rule); }
@@ -226,8 +230,7 @@
   border-top: 1px solid var(--color-rule);
 }
 
-/* Spec-document section grid: numbered metadata rail, then content.
-   Collapses to a single column below `lg` — the rail becomes a header. */
+/* Section grid: label rail, then content. One column below `lg`. */
 @utility spec-grid {
   display: grid;
   gap: 1.75rem;
@@ -237,7 +240,6 @@
   }
 }
 
-/* Underline that grows from the left. The only link flourish on the site. */
 @utility link-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;
@@ -247,11 +249,122 @@
   &:hover { background-size: 100% 1px; }
 }
 
-/* Hairline plate used for figures, diagrams and evidence blocks. */
+/* The panel: figures, diagrams, evidence, console cards. */
 @utility plate {
   border: 1px solid var(--color-rule);
-  border-radius: 3px;
+  border-radius: 10px;
   background: var(--color-surface);
+}
+
+/* Dot grid that fades out toward the edges. Static; costs one paint. */
+@utility bg-dots {
+  background-image: radial-gradient(
+    color-mix(in oklch, var(--color-ink) 16%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+}
+
+/* ── Console components ─────────────────────────────────────────────────── */
+@layer components {
+  /* Cursor spotlight. `--mx/--my` are written by components/ui/Spotlight.tsx
+     on pointer-move, outside React state. Fine pointers only. */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out-quint);
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in oklch, var(--color-accent) 13%, transparent),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .spotlight:hover::before { opacity: 1; }
+  }
+  .spotlight:hover,
+  .spotlight:focus-within {
+    border-color: color-mix(in oklch, var(--color-accent) 45%, var(--color-rule));
+  }
+
+  /* The live dot: a status light that breathes. Static under reduced motion. */
+  .live-dot {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--color-accent);
+  }
+  .live-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: live-ping 2.4s var(--ease-out-quint) infinite;
+  }
+  @keyframes live-ping {
+    0% { transform: scale(1); opacity: 0.65; }
+    80%, 100% { transform: scale(2.8); opacity: 0; }
+  }
+
+  /* Hero aurora — one slow drift, compositor-only (transform). */
+  .hero-glow {
+    position: absolute;
+    pointer-events: none;
+    inset: -12rem -10% auto -10%;
+    height: 42rem;
+    background:
+      radial-gradient(40% 50% at 22% 40%, color-mix(in oklch, var(--color-accent) 18%, transparent), transparent 70%),
+      radial-gradient(35% 45% at 80% 25%, color-mix(in oklch, var(--color-verify) 15%, transparent), transparent 70%);
+    animation: glow-drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes glow-drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(2%, 3%, 0) scale(1.05); }
+  }
+
+  /* Rotating portrait. The boot script sets data-photo on <html> before first
+     paint, so the right frame shows with no flash; once hydrated the client
+     component takes over through data-active. */
+  .portrait-frame {
+    opacity: 0;
+    transition: opacity 1.4s var(--ease-out-quint);
+  }
+  .portrait-frame[data-active='true'] { opacity: 1; }
+  html:not([data-photo]) .portrait-frame[data-slot='0'],
+  html[data-photo='0'] .portrait-frame[data-slot='0']:not([data-active]),
+  html[data-photo='1'] .portrait-frame[data-slot='1']:not([data-active]),
+  html[data-photo='2'] .portrait-frame[data-slot='2']:not([data-active]) { opacity: 1; }
+
+  /* Pipeline replay rows. */
+  .trace-row {
+    transition:
+      opacity var(--duration-base),
+      background-color var(--duration-base);
+  }
+  .trace-row[data-state='pending'] { opacity: 0.4; }
+
+  /* Fan-out photo stack on /about. */
+  .photo-stack > * {
+    transition: transform var(--duration-slow) var(--ease-out-quint);
+  }
+  @media (hover: hover) {
+    .photo-stack:hover > :nth-child(1) { transform: rotate(-7deg) translateX(-16%); }
+    .photo-stack:hover > :nth-child(3) { transform: rotate(7deg) translateX(16%); }
+  }
 }
 
 /* ── Scroll reveal ──────────────────────────────────────────────────────────
@@ -323,8 +436,9 @@
   .prose-spec blockquote {
     border-left: 2px solid var(--color-accent);
     padding-left: 1.2rem;
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-size: var(--text-xl);
     color: var(--color-ink);
   }
   .prose-spec code {
@@ -375,6 +489,7 @@
     transition-duration: 0.01ms !important;
   }
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .hero-glow, .live-dot::after { animation: none !important; }
 }
 
 /* ── Print — a recruiter who prints the page should get something usable ── */

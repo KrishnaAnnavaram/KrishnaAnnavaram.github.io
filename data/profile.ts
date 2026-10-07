@@ -1,15 +1,54 @@
+/**
+ * How long each hero portrait stays up before the next one takes over.
+ * Seven minutes sits inside the five-to-ten-minute window asked for: long
+ * enough that nobody sees it change mid-read, short enough that a returning
+ * visitor usually gets a different frame.
+ */
+export const PHOTO_ROTATION_MS = 7 * 60 * 1000
+
+export interface Photo {
+  /** Path without extension; .webp and .jpg both exist at 800×1000. */
+  src: string
+  alt: string
+  /** Shown under the frame, so the rotation reads as intentional. */
+  caption: string
+}
+
 export const profile = {
   name: 'Krishna Annavaram',
   firstName: 'Krishna',
   role: 'Generative AI Engineer',
   headline: 'Generative AI Engineer — Agentic AI, RAG & Enterprise Modernisation',
   tagline: 'I build systems that can show their work.',
+
+  /**
+   * The hero rotates through these by wall-clock slot. The first is the
+   * default everywhere a single image is needed — social cards, structured
+   * data, and the no-JavaScript render.
+   */
+  photos: [
+    {
+      src: '/images/profile/portrait-studio',
+      alt: 'Krishna Annavaram in a navy suit and red tie, studio portrait on a grey background',
+      caption: 'Studio',
+    },
+    {
+      src: '/images/profile/portrait-skyline',
+      alt: 'Krishna Annavaram in a navy suit at night, a lit city skyline and waterfront behind him',
+      caption: 'Skyline',
+    },
+    {
+      src: '/images/profile/portrait-evening',
+      alt: 'Krishna Annavaram smiling, leaning on a car in a rain-wet car park at night',
+      caption: 'Evening',
+    },
+  ] as Photo[],
   location: 'Denton, Texas',
   locationShort: 'Denton, TX',
   availability: 'Open to Generative AI, Agentic AI, and Applied AI Engineering roles',
 
   /** One paragraph. The thing a hiring manager reads before deciding to scroll. */
-  intro: `I'm a Generative AI Engineer. Five years in machine learning and NLP, the last two of them on production LLM systems — RAG and Graph-RAG pipelines, multi-agent orchestration, and the evaluation scaffolding around them — across enterprise modernisation, financial risk and healthcare. Currently at Virtusa, building reusable AI-assisted engineering harnesses on Google Cloud; previously at Ideate Technologies, Cognizant and Lemoius, with a graduate teaching assistantship at the University of North Texas in between.`,
+  intro: `I'm a Generative AI Engineer at Virtusa. I build agentic harnesses for work that cannot afford to be wrong quietly — legacy reverse engineering, Spring Boot migration, and vulnerability remediation — on one pattern: deterministic analysis first, governed model reasoning second, full traceability, and a human approval gate before anything ships. Five years in machine learning and NLP; the last two on production LLM systems across enterprise modernisation, financial risk and healthcare.`,
 
   /** The argument for hiring him, in his own frame. */
   positioning: `Most AI work fails at the engineering layer, not the model layer. A capable model behind a weak pipeline is still a demo — it drifts, it can't be evaluated, and nobody can tell you why it answered the way it did.
@@ -28,9 +67,9 @@ It is less exciting than a leaderboard score, and it is the difference between s
     {
       title: 'Agent systems with real boundaries',
       detail:
-        'Multi-agent architectures where the interesting design work is deciding what each agent is not allowed to do — which process holds a credential, which stage may write, and where a refusal is the correct output.',
-      evidence: '/projects/smcp-gateway/',
-      evidenceLabel: 'SMCP Gateway',
+        'Multi-agent pipelines where the interesting design work is deciding what each agent is not allowed to do — which stage may write, which verdict only a script may issue, and where a human has to sign before anything moves.',
+      evidence: '/projects/mars/',
+      evidenceLabel: 'MARS',
     },
     {
       title: 'Legacy modernisation that can prove what it changed',

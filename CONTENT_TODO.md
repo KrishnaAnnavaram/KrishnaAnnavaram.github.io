@@ -7,6 +7,57 @@ Nothing here blocks the site — it builds and deploys as-is.
 
 ---
 
+## 00. From the October 2026 redesign — read these first
+
+**MARS has someone else's database password in it.** A MongoDB Atlas
+connection string with credentials sits in four `application.properties` files
+of the sample Spring application MARS analyses, and again in a committed fix
+diff. The repository is public and is now the lead project on this site. It is
+not your credential to rotate, so the fix is removing it from the working tree
+**and from history** (`git filter-repo`), then force-pushing. The repository's
+own known-problems list already mentions it.
+
+**MARS also analyses a third party's application without credit or licence.**
+The sample app is `springboot-assignment` from another GitHub user and carries
+no LICENSE. Either credit it in the README or replace it with a sample you
+wrote. Nineteen of MARS's 47 commits (all documentation) are by another
+account; the site names no one, but the commit history does.
+
+**Student reports are still in this repository's history.** This redesign
+deleted `/research/`, its 15 PDFs, and the ~70 group reports in
+`portfolio_data/documents/Reports/` from the working tree. Every earlier commit
+still contains them, with names and university email addresses. Removing them
+for good needs `git filter-repo --path portfolio_data/documents/Reports
+--path public/reports --invert-paths` and a force-push — irreversible, so it
+was not done without you.
+
+**CredPilot is not on the site.** It is a team hackathon build, it has a
+teammate's commit, and the employer's internal brief (BC-AAIE-HACK-02, a .docx
+plus page images) is committed publicly. The brief should come out of the
+repository regardless. If you want CredPilot shown, say which part was yours
+and it can go up framed as team work.
+
+**spring-modernization-remediation-harness is empty** — a two-line README and a
+licence, with a description calling it production-grade. It is not shown.
+Either push the code or make it private until there is some.
+
+**The 76 repositories pushed on 6–7 Oct are shown as "Earlier work".** They
+appear without dates or model metrics. A reviewer who opens GitHub will see they
+were all created within two days; having one sentence ready about where they
+came from will help. Several READMEs also name models (Llama, GPT-4o,
+DeepSeek-R1, RoBERTa) whose results the README itself declines to report — the
+site does not repeat those names as results.
+
+**Photos.** The three new portraits are in `public/images/profile/`, cropped to
+4:5. The car photo's licence plate was pixelated. `profile pictures/` (the
+originals) is git-ignored and should stay that way.
+
+**The replay would be stronger with one run that clears.** All four committed
+MARS runs end Blocked because the QA/build gate failed. That reads well — the
+gates work — but one Cleared run would show the whole path.
+
+---
+
 ## Resolved by the new résumé
 
 These were open and no longer are:

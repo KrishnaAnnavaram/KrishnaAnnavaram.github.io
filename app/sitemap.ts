@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = profile.siteUrl
   const now = new Date()
 
-  const routes = ['', '/projects', '/work', '/experience', '/research', '/writing', '/about', '/contact']
+  const routes = ['', '/projects', '/work', '/experience', '/writing', '/about', '/contact']
 
   return [
     ...routes.map((route) => ({
