@@ -271,7 +271,7 @@ export function Assistant({
         </div>
 
         {/* ── Footer: state the mechanism, plainly ───────────────────── */}
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-rule px-4 py-2.5 font-mono text-3xs uppercase tracking-[0.12em] text-ink-faint">
+        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-rule px-4 py-2.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
           <span>BM25 over {retriever?.index.chunkCount ?? '—'} passages</span>
           <span aria-hidden>·</span>
           <span>Passages quoted verbatim — no model in the answer path</span>
@@ -327,7 +327,7 @@ function AnswerView({
                 href={chunk.source.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center gap-1 font-mono text-3xs uppercase tracking-[0.12em] text-accent"
+                className="mt-2 inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.05em] text-accent"
               >
                 {KIND_LABEL[chunk.source.kind] ?? 'Source'} · {chunk.source.title}
                 <ArrowUpRight size={11} aria-hidden />
@@ -336,7 +336,7 @@ function AnswerView({
               <Link
                 href={chunk.source.href}
                 onClick={onClose}
-                className="mt-2 inline-flex items-center gap-1 font-mono text-3xs uppercase tracking-[0.12em] text-accent"
+                className="mt-2 inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.05em] text-accent"
               >
                 {KIND_LABEL[chunk.source.kind] ?? 'Source'} · {chunk.source.title}
               </Link>

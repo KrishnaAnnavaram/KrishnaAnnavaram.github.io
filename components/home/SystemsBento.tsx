@@ -81,7 +81,7 @@ function SystemTile({ project: p, lead, wide }: { project: ProjectWithRepo; lead
       )}
     >
       <div className={cn('min-w-0', wide && 'lg:flex-1')}>
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-3xs uppercase tracking-[0.12em] text-ink-muted">
+        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
           <span className="text-accent">{p.github?.primaryLanguage ?? p.stack[0]}</span>
           <span>{p.year}</span>
           {p.domains.slice(0, lead ? 3 : 2).map((d) => (
@@ -108,7 +108,7 @@ function SystemTile({ project: p, lead, wide }: { project: ProjectWithRepo; lead
               <span key={n.id} className={cn('h-full flex-1', KIND_BAR[n.kind])} />
             ))}
           </div>
-          <p className="mt-2 flex flex-wrap gap-x-3 font-mono text-3xs uppercase tracking-[0.1em] text-ink-muted">
+          <p className="mt-2 flex flex-wrap gap-x-3 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
             <span className="sr-only">Architecture: </span>
             {counts.deterministic ? (
               <span><span className="text-verify" aria-hidden>■</span> {counts.deterministic} script</span>
@@ -128,7 +128,7 @@ function SystemTile({ project: p, lead, wide }: { project: ProjectWithRepo; lead
           {evidence.map((e) => (
             <div key={e.label} className="flex min-w-0 flex-col-reverse justify-end">
               <dt className="mt-1 text-xs leading-snug text-ink-muted">{e.label}</dt>
-              <dd className={cn('font-mono font-medium tracking-tight text-ink tabular', lead ? 'text-2xl' : 'text-lg')}>
+              <dd className={cn('font-semibold tracking-tight text-ink tabular-nums', lead ? 'text-3xl' : 'text-xl')}>
                 {e.value}
               </dd>
             </div>
@@ -156,7 +156,7 @@ function SystemTile({ project: p, lead, wide }: { project: ProjectWithRepo; lead
             <Github size={14} aria-hidden />
           </a>
         ) : (
-          <span className="font-mono text-3xs uppercase tracking-[0.1em] text-ink-faint">Private repository</span>
+          <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">Private repository</span>
         )}
       </div>
     </article>

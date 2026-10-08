@@ -56,7 +56,7 @@ export function GitHubActivity({
               href={profile.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-mono text-2xs uppercase tracking-[0.14em] text-accent"
+              className="inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.05em] text-accent"
             >
               All repositories
               <ArrowUpRight size={12} aria-hidden />

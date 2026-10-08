@@ -290,8 +290,17 @@ test('tap targets are large enough to hit', async ({ page }) => {
 test('the theme toggle switches and survives a reload', async ({ page }) => {
   await page.goto('/')
 
+  // Below `sm` the toggle lives in the menu, so a phone has to open it first.
+  if (isMobile(page)) {
+    await ready(page)
+    await page.getByRole('button', { name: /open menu/i }).click()
+  }
+
   // The toggle is a radiogroup of three options: system, light, dark.
-  const options = page.getByRole('radiogroup', { name: /colour theme/i }).getByRole('radio')
+  const options = page
+    .getByRole('radiogroup', { name: /colour theme/i })
+    .filter({ visible: true })
+    .getByRole('radio')
   const toggle = options.last()
   await toggle.click()
 

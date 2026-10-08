@@ -29,7 +29,7 @@ export function TrustStrip() {
           // column-reverse puts the figure on top visually.
           <div key={item.label} className="flex flex-col-reverse justify-end py-5 pr-4">
             <dt className="mt-1 text-xs leading-snug text-ink-muted">{item.label}</dt>
-            <dd className="font-mono text-2xl font-medium tracking-tight text-ink tabular">
+            <dd className="text-3xl font-semibold tracking-tight text-ink tabular-nums">
               {item.value}
             </dd>
           </div>

@@ -29,17 +29,20 @@
   --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* ── Type scale — viewport-interpolated ───────────────────────────────── */
-  --text-3xs: 0.625rem;
-  --text-3xs--line-height: 1.4;
-  --text-3xs--letter-spacing: 0.1em;
-  --text-2xs: 0.6875rem;
-  --text-2xs--line-height: 1.45;
-  --text-2xs--letter-spacing: 0.08em;
+  /* Nothing on the site is set below 11px. The two smallest steps are used
+     for metadata and file paths only; running text starts at `sm`. */
+  --text-3xs: 0.6875rem;
+  --text-3xs--line-height: 1.45;
+  --text-3xs--letter-spacing: 0.02em;
+  --text-2xs: 0.75rem;
+  --text-2xs--line-height: 1.5;
+  --text-2xs--letter-spacing: 0.02em;
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.5;
   --text-sm: 0.84375rem;
   --text-sm--line-height: 1.6;
-  --text-base: clamp(0.9375rem, 0.9rem + 0.19vw, 1.0625rem);
+  /* 16px minimum: the browser default, and the size a phone user expects. */
+  --text-base: clamp(1rem, 0.96rem + 0.19vw, 1.0625rem);
   --text-base--line-height: 1.7;
   --text-lg: clamp(1.0625rem, 1rem + 0.31vw, 1.25rem);
   --text-lg--line-height: 1.6;
@@ -213,11 +216,15 @@
 
 /* ── Utilities ──────────────────────────────────────────────────────────── */
 
-/* The small uppercase monospace label that structures the whole site. */
+/* The small uppercase label that structures the whole site. Set in the text
+   face, not the monospace: tracked monospace capitals at 11px were the hardest
+   text on the site to read. 12px, medium weight, light tracking. */
 @utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
-  letter-spacing: 0.14em;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 550;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-ink-muted);
 }
@@ -471,9 +478,10 @@
     vertical-align: top;
   }
   .prose-spec th {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    letter-spacing: 0.1em;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 550;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-ink-muted);
     font-weight: 400;

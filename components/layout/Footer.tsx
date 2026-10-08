@@ -66,10 +66,10 @@ export function Footer() {
         </div>
 
         <div className="rule-t mt-16 flex flex-col gap-2 pt-6 text-2xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono uppercase tracking-[0.14em]">
+          <p className="text-xs font-medium uppercase tracking-[0.05em]">
             © {new Date().getFullYear()} {profile.name}
           </p>
-          <p className="font-mono uppercase tracking-[0.14em]">
+          <p className="text-xs font-medium uppercase tracking-[0.05em]">
             {profile.locationShort} · Built with Next.js
           </p>
         </div>

@@ -118,12 +118,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <ArrowUpRight size={13} aria-hidden />
               </a>
               {repo.primaryLanguage && (
-                <span className="font-mono text-2xs uppercase tracking-[0.12em] text-ink-muted">
+                <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
                   {repo.primaryLanguage}
                 </span>
               )}
               {repo.license && (
-                <span className="inline-flex items-center gap-1.5 font-mono text-2xs uppercase tracking-[0.12em] text-ink-muted">
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
                   <Scale size={11} aria-hidden />
                   {repo.license}
                 </span>

@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import { ThemeToggle } from './ThemeToggle'
 import { CommandPalette, type PaletteItem } from './CommandPalette'
 import { AskButton } from '@/components/assistant/AskButton'
+import { Logo } from '@/components/ui/Logo'
 
 export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
   const pathname = usePathname()
@@ -89,24 +90,18 @@ export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
       <div className="page-x mx-auto flex h-16 max-w-page items-center justify-between gap-3">
         <Link
           href="/"
-          className="group flex min-w-0 items-baseline gap-2.5 text-ink"
+          className="group flex min-w-0 items-center gap-3 text-ink"
           aria-label={`${profile.name} — home`}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element -- 28px avatar; next/image adds nothing under static export */}
-          <img
-            src="/images/profile/avatar.webp"
-            alt=""
-            width={28}
-            height={28}
-            className="size-7 shrink-0 self-center rounded-full border border-rule object-cover"
-          />
-          <span className="truncate text-base font-semibold leading-none tracking-tight">
-            {profile.name}
-          </span>
-          {/* The role is the first thing to go when space runs out — it is
-              repeated in the hero immediately below. */}
-          <span className="hidden shrink-0 font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint xl:inline">
-            {profile.role}
+          <Logo size={32} className="transition-transform duration-300 group-hover:-rotate-6" />
+          <span className="flex min-w-0 items-center gap-3">
+            <span className="truncate text-[1.0625rem] font-semibold tracking-tight">
+              {profile.name}
+            </span>
+            {/* The role is the first thing to go when space runs out — it is
+                repeated in the hero immediately below. */}
+            <span aria-hidden className="hidden h-4 w-px shrink-0 bg-rule-strong xl:block" />
+            <span className="hidden shrink-0 text-sm text-ink-muted xl:inline">{profile.role}</span>
           </span>
         </Link>
 
@@ -147,7 +142,11 @@ export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
           <div className="sm:hidden">
             <AskButton variant="icon" />
           </div>
-          <ThemeToggle />
+          {/* Below `sm` the three-way toggle moves into the menu: in the bar it
+              squeezed the name down to "Krishna Anna…" at 390px. */}
+          <div className="hidden sm:block">
+            <ThemeToggle />
+          </div>
 
           <button
             ref={toggleRef}
@@ -177,8 +176,11 @@ export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
               <span className="max-w-[55%] text-right text-xs text-ink-muted">{item.hint}</span>
             </Link>
           ))}
-          <div className="pt-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-4">
             <AskButton />
+            <div className="sm:hidden">
+              <ThemeToggle />
+            </div>
           </div>
         </nav>
       )}

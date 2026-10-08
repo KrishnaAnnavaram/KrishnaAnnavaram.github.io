@@ -20,7 +20,7 @@ export function Hero() {
 
       <div className="page-x mx-auto grid max-w-page items-center gap-12 pb-16 pt-12 sm:pt-16 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-16 lg:pb-24 lg:pt-20">
         <div className="min-w-0">
-          <p className="inline-flex max-w-full items-center gap-2.5 rounded-full border border-rule bg-surface/70 px-3 py-1.5 font-mono text-2xs uppercase tracking-[0.12em] text-ink-soft backdrop-blur">
+          <p className="inline-flex max-w-full items-center gap-2.5 rounded-full border border-rule bg-surface/70 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-soft backdrop-blur">
             <span className="live-dot" aria-hidden />
             <span className="truncate">Open to Generative &amp; Agentic AI roles</span>
           </p>
@@ -65,7 +65,7 @@ export function Hero() {
                   href={href}
                   target={href.startsWith('mailto') ? undefined : '_blank'}
                   rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                  className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 font-mono text-2xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:bg-surface hover:text-ink"
+                  className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted transition-colors hover:bg-surface hover:text-ink"
                 >
                   <Icon size={13} aria-hidden />
                   {label}
@@ -82,7 +82,7 @@ export function Hero() {
           <dl className="plate mt-4 hidden divide-y divide-rule text-sm lg:block">
             <Row label="Now">
               <span className="text-ink">{currentRole.company}</span>
-              <span className="block font-mono text-3xs uppercase tracking-[0.1em] text-ink-muted">
+              <span className="block text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
                 {currentRole.title} · since {formatRoleDate(currentRole.start)}
               </span>
             </Row>

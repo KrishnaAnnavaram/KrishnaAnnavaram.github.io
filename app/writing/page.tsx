@@ -32,7 +32,7 @@ export default function WritingPage() {
                 href={`/writing/${post.slug}/`}
                 className="group block border-b border-rule py-9"
               >
-                <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+                <p className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
                   {formatMonthYear(post.date)} · {post.readTime} min read
                 </p>
 

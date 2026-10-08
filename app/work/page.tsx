@@ -31,10 +31,10 @@ export default function WorkPage() {
               >
                 <div className="max-w-2xl">
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="font-mono text-2xs uppercase tracking-[0.14em] text-accent">
+                    <span className="text-xs font-medium uppercase tracking-[0.05em] text-accent">
                       {study.context}
                     </span>
-                    <span className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+                    <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
                       {study.year} · {study.discipline}
                     </span>
                   </div>

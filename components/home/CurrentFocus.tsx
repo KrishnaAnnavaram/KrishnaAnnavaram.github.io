@@ -23,7 +23,7 @@ export function CurrentFocus() {
           <ol className="grid gap-px overflow-hidden rounded-[3px] border border-rule bg-rule sm:grid-cols-3">
             {profile.currentFocus.map((focus, i) => (
               <Reveal as="li" key={focus.title} delay={i * 70} className="bg-surface p-5">
-                <p className="font-mono text-3xs uppercase tracking-[0.12em] text-accent tabular">
+                <p className="text-xs font-medium uppercase tracking-[0.05em] text-accent tabular">
                   {String(i + 1).padStart(2, '0')}
                 </p>
                 <h3 className="mt-3 font-sans text-base font-semibold leading-snug text-ink">
@@ -32,7 +32,7 @@ export function CurrentFocus() {
                 <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">{focus.detail}</p>
                 <Link
                   href={focus.evidence}
-                  className="group mt-4 inline-flex items-center gap-1.5 font-mono text-3xs uppercase tracking-[0.12em] text-ink-soft transition-colors hover:text-accent"
+                  className="group mt-4 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-soft transition-colors hover:text-accent"
                 >
                   {focus.evidenceLabel}
                   <ArrowRight

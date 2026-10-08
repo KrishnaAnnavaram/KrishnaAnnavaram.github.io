@@ -1,6 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="12" fill="#1a1a1f"/>
-  <text x="32" y="45" text-anchor="middle"
-        font-family="Iowan Old Style, Georgia, 'Times New Roman', serif"
-        font-size="42" fill="#e8674c">K</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="64" height="64">
+  <!-- The KA monogram. Keep in step with components/ui/Logo.tsx. -->
+  <defs>
+    <linearGradient id="ka" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#14b8a6"/>
+      <stop offset="1" stop-color="#0e5f73"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="9" fill="url(#ka)"/>
+  <g fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 9v14M15 9l-6.2 7L15 23"/>
+    <path d="M17 23l4-14 4 14M18.4 18.2h5.2"/>
+  </g>
 </svg>

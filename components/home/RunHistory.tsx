@@ -44,7 +44,7 @@ export function RunHistory() {
               <details className="plate group/role" open={i === 0}>
                 <summary className="flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-x-6 gap-y-1 p-4 sm:p-5 [&::-webkit-details-marker]:hidden">
                   <div className="min-w-0">
-                    <p className="font-mono text-3xs uppercase tracking-[0.12em] text-ink-muted">
+                    <p className="text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
                       <time dateTime={role.start}>{formatRoleDate(role.start)}</time> —{' '}
                       {role.end ? <time dateTime={role.end}>{formatRoleDate(role.end)}</time> : <span className="text-accent">Present</span>}
                       <span className="text-ink-faint"> · {roleDuration(role.start, role.end)}</span>
@@ -77,7 +77,7 @@ export function RunHistory() {
                   </ul>
                   <ul className="mt-4 flex flex-wrap gap-1.5">
                     {role.stack.slice(0, 8).map((t) => (
-                      <li key={t} className="rounded-full border border-rule px-2 py-0.5 font-mono text-3xs uppercase tracking-[0.08em] text-ink-muted">
+                      <li key={t} className="rounded-full border border-rule px-2 py-0.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
                         {t}
                       </li>
                     ))}

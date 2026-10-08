@@ -26,7 +26,7 @@ export const mdxComponents: MDXComponents = {
   ),
   thead: ({ children }) => <thead className="border-b border-rule-strong">{children}</thead>,
   th: ({ children }) => (
-    <th className="px-3 py-2.5 text-left font-mono text-2xs uppercase tracking-[0.1em] text-ink-muted">
+    <th className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
       {children}
     </th>
   ),

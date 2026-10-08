@@ -143,7 +143,7 @@ export default function AboutPage() {
                     <p className="mt-0.5 text-sm text-ink-muted">{cert.issuer}</p>
                   </div>
                   <div className="flex items-baseline gap-4">
-                    <span className="font-mono text-2xs uppercase tracking-[0.1em] text-ink-faint">
+                    <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
                       {formatMonthYear(cert.issued)}
                     </span>
                     {cert.verifyUrl && (
@@ -151,7 +151,7 @@ export default function AboutPage() {
                         href={cert.verifyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-mono text-2xs uppercase tracking-[0.1em] text-ink-muted transition-colors hover:text-accent"
+                        className="inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-accent"
                       >
                         Verify
                         <ExternalLink size={11} aria-hidden />

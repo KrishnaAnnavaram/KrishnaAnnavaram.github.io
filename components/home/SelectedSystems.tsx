@@ -39,16 +39,16 @@ export function SelectedSystems() {
                   className="group block border-t border-rule py-8"
                 >
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="font-mono text-2xs uppercase tracking-[0.14em] text-accent">
+                    <span className="text-xs font-medium uppercase tracking-[0.05em] text-accent">
                       {project.github?.primaryLanguage ?? project.stack[0]}
                     </span>
-                    <span className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint tabular">
+                    <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint tabular">
                       {project.year}
                     </span>
                     {project.domains.slice(0, 2).map((d) => (
                       <span
                         key={d}
-                        className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint"
+                        className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint"
                       >
                         {DOMAINS[d]}
                       </span>

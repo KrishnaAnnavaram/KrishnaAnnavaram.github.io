@@ -32,14 +32,14 @@ export default function ExperiencePage() {
               <Reveal as="li" key={role.id} delay={i * 60} eager={i === 0} className="scroll-mt-24">
                 <div id={role.id} className="grid gap-6 border-b border-rule py-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
                   <div className="lg:sticky lg:top-24 lg:self-start">
-                    <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+                    <p className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
                       {formatRoleDate(role.start)} — {formatRoleDate(role.end)}
                     </p>
-                    <p className="mt-1.5 font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+                    <p className="mt-1.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
                       {roleDuration(role.start, role.end)} · {role.location}
                     </p>
                     {!role.end && (
-                      <span className="mt-3 inline-flex items-center gap-1.5 font-mono text-2xs uppercase tracking-[0.14em] text-accent">
+                      <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.05em] text-accent">
                         <span className="size-1.5 rounded-full bg-accent" aria-hidden />
                         Current
                       </span>
@@ -64,7 +64,7 @@ export default function ExperiencePage() {
                           <div>
                             <p className="text-sm text-ink-soft">{h.text}</p>
                             {h.metric && (
-                              <p className="mt-1 font-mono text-2xs uppercase tracking-[0.1em] text-ink">
+                              <p className="mt-1 text-xs font-medium uppercase tracking-[0.05em] text-ink">
                                 {h.metric}
                               </p>
                             )}

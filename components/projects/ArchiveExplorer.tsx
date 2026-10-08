@@ -95,7 +95,7 @@ export function ArchiveExplorer({
             <button
               type="button"
               onClick={clear}
-              className="flex shrink-0 items-center gap-1 rounded-full px-2 py-1 font-mono text-3xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-ink"
+              className="flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-ink"
             >
               <X size={11} aria-hidden />
               Clear
@@ -130,7 +130,7 @@ export function ArchiveExplorer({
               onClick={() => setLlmOnly((v) => !v)}
               aria-pressed={llmOnly}
               className={cn(
-                'min-h-7 rounded-full border px-2.5 py-1 font-mono text-3xs uppercase tracking-[0.1em] transition-colors',
+                'min-h-7 rounded-full border px-2.5 py-1 text-xs font-medium uppercase tracking-[0.05em] transition-colors',
                 llmOnly ? 'border-model bg-model-wash text-model' : 'border-rule text-ink-muted hover:text-ink'
               )}
             >
@@ -148,7 +148,7 @@ export function ArchiveExplorer({
       {results.length === 0 ? (
         <div className="plate mt-4 px-4 py-10 text-center">
           <p className="text-sm text-ink">Nothing matches that combination.</p>
-          <button type="button" onClick={clear} className="mt-2 font-mono text-3xs uppercase tracking-[0.12em] text-accent">
+          <button type="button" onClick={clear} className="mt-2 text-xs font-medium uppercase tracking-[0.05em] text-accent">
             Clear filters
           </button>
         </div>
@@ -174,7 +174,7 @@ export function ArchiveExplorer({
                     onClick={() => setOpen(expanded ? null : r.repo)}
                     aria-expanded={expanded}
                     aria-controls={`row-${r.repo}`}
-                    className="col-start-2 row-start-1 justify-self-end rounded-full border border-rule px-2 py-0.5 font-mono text-3xs uppercase tracking-[0.1em] text-ink-muted transition-colors hover:text-ink md:col-start-4"
+                    className="col-start-2 row-start-1 justify-self-end rounded-full border border-rule px-2 py-0.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-ink md:col-start-4"
                   >
                     {expanded ? 'Less' : 'More'}
                   </button>
@@ -182,7 +182,7 @@ export function ArchiveExplorer({
                     {r.llm && <span className="mr-1.5 text-model" title="Uses an LLM" aria-label="Uses an LLM">◆</span>}
                     {r.tagline}
                   </p>
-                  <p className="col-span-2 font-mono text-3xs uppercase tracking-[0.1em] text-ink-faint md:col-span-1 md:col-start-3 md:row-start-1 md:pt-0.5">
+                  <p className="col-span-2 text-xs font-medium uppercase tracking-[0.05em] text-ink-faint md:col-span-1 md:col-start-3 md:row-start-1 md:pt-0.5">
                     {r.categoryLabel}
                     {r.tests ? <span className="text-ink-muted"> · {r.tests} tests</span> : null}
                   </p>
@@ -193,7 +193,7 @@ export function ArchiveExplorer({
                     {r.note && <p className="mt-2 text-sm text-ink-muted">{r.note}</p>}
                     <ul className="mt-2.5 flex flex-wrap gap-1.5">
                       {r.stack.map((t) => (
-                        <li key={t} className="rounded-full border border-rule px-2 py-0.5 font-mono text-3xs uppercase tracking-[0.08em] text-ink-muted">
+                        <li key={t} className="rounded-full border border-rule px-2 py-0.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
                           {t}
                         </li>
                       ))}

@@ -136,7 +136,7 @@ export function RotatingPortrait({
             <button
               type="button"
               onClick={showNext}
-              className="rounded-full bg-black/45 px-2.5 py-1 font-mono text-3xs uppercase tracking-[0.12em] text-white backdrop-blur-sm transition-colors hover:bg-black/65"
+              className="rounded-full bg-black/45 px-2.5 py-1 text-xs font-medium uppercase tracking-[0.05em] text-white backdrop-blur-sm transition-colors hover:bg-black/65"
             >
               Next
             </button>
@@ -153,7 +153,7 @@ export function RotatingPortrait({
         </div>
       </div>
 
-      <figcaption className="mt-2.5 flex items-center justify-between font-mono text-3xs uppercase tracking-[0.12em] text-ink-faint">
+      <figcaption className="mt-2.5 flex items-center justify-between text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
         <span>
           Frame {current + 1}/{photos.length}
           <span className="sr-only"> — {photos[current].caption}</span>

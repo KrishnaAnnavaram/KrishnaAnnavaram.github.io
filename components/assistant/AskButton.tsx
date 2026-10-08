@@ -20,7 +20,7 @@ const STYLES = {
      single-line 64px header at every width above 640px — the most visible
      unpolished detail on the site. */
   quiet:
-    'inline-flex items-center gap-1.5 whitespace-nowrap font-mono text-2xs uppercase tracking-[0.14em] text-ink-muted transition-colors hover:text-ink',
+    'inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-medium uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-ink',
   /* Narrow widths get the icon alone, so the control cluster still fits. */
   icon: 'grid size-9 shrink-0 place-items-center rounded-full text-ink-muted transition-colors hover:bg-sunken hover:text-ink',
 } as const

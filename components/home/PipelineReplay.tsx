@@ -126,7 +126,7 @@ export function PipelineReplay({ runs }: { runs: MarsRun[] }) {
     <div ref={rootRef} className="plate overflow-hidden">
       {/* ── Title bar ─────────────────────────────────────────────────────── */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-rule bg-sunken px-4 py-2.5">
-        <p className="flex items-center gap-2 font-mono text-2xs uppercase tracking-[0.12em] text-ink-muted">
+        <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
           <span className={cn('live-dot', done && 'bg-human after:hidden')} aria-hidden />
           mars · remediation pipeline · recorded run
         </p>
@@ -177,7 +177,7 @@ export function PipelineReplay({ runs }: { runs: MarsRun[] }) {
                     {r.severity}
                   </span>
                 </span>
-                <span className="mt-0.5 block font-mono text-3xs uppercase tracking-[0.1em] text-ink-muted">
+                <span className="mt-0.5 block text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
                   {r.cwe}
                 </span>
               </button>
@@ -230,7 +230,7 @@ export function PipelineReplay({ runs }: { runs: MarsRun[] }) {
                   </div>
                   <span
                     className={cn(
-                      'col-start-2 mt-1.5 justify-self-start rounded-full border px-2 py-0.5 font-mono text-3xs uppercase tracking-[0.08em] sm:col-start-3 sm:mt-0 sm:self-start sm:justify-self-end',
+                      'col-start-2 mt-1.5 justify-self-start rounded-full border px-2 py-0.5 text-xs font-medium uppercase tracking-[0.05em] sm:col-start-3 sm:mt-0 sm:self-start sm:justify-self-end',
                       state === 'done' ? TONE[step.tone] : 'border-rule text-ink-faint'
                     )}
                   >
@@ -244,7 +244,7 @@ export function PipelineReplay({ runs }: { runs: MarsRun[] }) {
           {/* ── Verdict ───────────────────────────────────────────────────── */}
           <div className="border-t border-rule bg-sunken px-4 py-3.5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <p className="font-mono text-2xs uppercase tracking-[0.12em] text-ink-muted">
+              <p className="text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
                 Ship decision
               </p>
               <p className={cn('font-mono text-sm', done ? 'text-human' : 'text-ink-faint')}>
@@ -272,7 +272,7 @@ export function PipelineReplay({ runs }: { runs: MarsRun[] }) {
 
       {/* ── Footer: legend + provenance ───────────────────────────────────── */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-t border-rule px-4 py-2.5">
-        <ul className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-3xs uppercase tracking-[0.1em] text-ink-muted">
+        <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
           {(Object.keys(KIND) as StepKind[]).map((k) => (
             <li key={k} className="flex items-center gap-1.5">
               <span className={KIND[k].cls} aria-hidden>{KIND[k].glyph}</span>
@@ -284,7 +284,7 @@ export function PipelineReplay({ runs }: { runs: MarsRun[] }) {
           href={`${MARS_REPO}/tree/${MARS_EVIDENCE_COMMIT}/docs/agent_output`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 font-mono text-3xs uppercase tracking-[0.1em] text-ink-muted transition-colors hover:text-accent"
+          className="inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-accent"
         >
           Evidence at {MARS_EVIDENCE_COMMIT}
           <ArrowUpRight size={11} aria-hidden />

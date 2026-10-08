@@ -124,7 +124,7 @@ export function ProjectExplorer({
             <button
               type="button"
               onClick={clear}
-              className="flex shrink-0 items-center gap-1 font-mono text-3xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-ink"
+              className="flex shrink-0 items-center gap-1 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-ink"
             >
               <X size={11} aria-hidden />
               Clear
@@ -172,7 +172,7 @@ export function ProjectExplorer({
               onClick={() => setSort(s)}
               aria-pressed={sort === s}
               className={cn(
-                'rounded-full px-2.5 py-1 font-mono text-3xs uppercase tracking-[0.12em] transition-colors',
+                'rounded-full px-2.5 py-1 text-xs font-medium uppercase tracking-[0.05em] transition-colors',
                 sort === s ? 'bg-ink text-paper' : 'text-ink-muted hover:text-ink'
               )}
             >
@@ -189,7 +189,7 @@ export function ProjectExplorer({
           <button
             type="button"
             onClick={clear}
-            className="mt-2 font-mono text-3xs uppercase tracking-[0.12em] text-accent"
+            className="mt-2 text-xs font-medium uppercase tracking-[0.05em] text-accent"
           >
             Clear filters
           </button>
@@ -227,7 +227,7 @@ function FilterChip({
       aria-pressed={active}
       className={cn(
         'rounded-full border px-2.5 py-1 text-xs transition-colors duration-[var(--duration-fast)]',
-        mono && 'font-mono text-3xs uppercase tracking-[0.1em]',
+        mono && 'text-xs font-medium uppercase tracking-[0.05em]',
         active
           ? 'border-ink bg-ink text-paper'
           : 'border-rule text-ink-muted hover:border-rule-strong hover:text-ink'
@@ -250,19 +250,19 @@ function ProjectRow({ item }: { item: ExplorerItem }) {
   const inner = (
     <>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="font-mono text-2xs uppercase tracking-[0.14em] text-accent">
+        <span className="text-xs font-medium uppercase tracking-[0.05em] text-accent">
           {item.context}
         </span>
-        <span className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint tabular">
+        <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint tabular">
           {item.year}
         </span>
         {item.language && (
-          <span className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+          <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
             {item.language}
           </span>
         )}
         {item.pushedLabel && (
-          <span className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+          <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
             pushed {item.pushedLabel}
           </span>
         )}

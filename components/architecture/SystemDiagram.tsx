@@ -82,7 +82,7 @@ function Node({
 
         <div className="p-3.5">
           <p className="flex items-center gap-2">
-            <span className={cn('font-mono text-3xs uppercase tracking-[0.12em]', tone.chip)}>
+            <span className={cn('text-xs font-medium uppercase tracking-[0.05em]', tone.chip)}>
               {meta.label}
             </span>
           </p>
@@ -99,7 +99,7 @@ function Node({
                 onClick={onToggle}
                 aria-expanded={open}
                 aria-controls={panelId}
-                className="mt-2.5 font-mono text-3xs uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink"
+                className="mt-2.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-faint transition-colors hover:text-ink"
               >
                 {open ? '− Hide detail' : '+ Detail'}
               </button>
@@ -116,7 +116,7 @@ function Node({
                 {node.detail?.tech && <DetailRow label="Uses" items={node.detail.tech} />}
                 {node.detail?.note && (
                   <p className="text-xs leading-relaxed text-ink-soft">
-                    <span className="font-mono text-3xs uppercase tracking-[0.12em] text-ink-faint">
+                    <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
                       Why
                     </span>{' '}
                     {node.detail.note}
@@ -134,7 +134,7 @@ function Node({
 function DetailRow({ label, items }: { label: string; items: string[] }) {
   return (
     <p className="flex gap-2 text-xs leading-relaxed">
-      <span className="shrink-0 font-mono text-3xs uppercase tracking-[0.12em] text-ink-faint">
+      <span className="shrink-0 text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
         {label}
       </span>
       <span className="text-ink-soft">{items.join(' · ')}</span>
@@ -170,7 +170,7 @@ export function SystemDiagram({ diagram }: { diagram: Diagram }) {
             {/* A boundary the system enforces, drawn rather than described. */}
             {group.boundary && (
               <p className="mb-4 flex items-center gap-3 border-t-2 border-dashed border-human/50 pt-3">
-                <span className="font-mono text-3xs uppercase tracking-[0.12em] text-human">
+                <span className="text-xs font-medium uppercase tracking-[0.05em] text-human">
                   {group.boundary}
                 </span>
               </p>
@@ -217,7 +217,7 @@ export function SystemDiagram({ diagram }: { diagram: Diagram }) {
                     aria-hidden
                     className={cn('h-0.5 w-4 shrink-0 rounded-full', TONE[meta.tone].bar)}
                   />
-                  <span className="font-mono text-3xs uppercase tracking-[0.12em] text-ink-muted">
+                  <span className="text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
                     {meta.label}
                   </span>
                 </span>
