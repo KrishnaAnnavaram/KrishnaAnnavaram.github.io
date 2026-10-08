@@ -15,7 +15,7 @@ interface RevealProps {
    * Anything above the fold must set this. The reveal hides content until an
    * IntersectionObserver runs after hydration, which made the hero paragraph
    * the Largest Contentful Paint element at ~1,050ms on a loopback connection
-   * — a static page hiding its own first screen behind its JavaScript. First
+   *a static page hiding its own first screen behind its JavaScript. First
    * Contentful Paint was ~180ms; everything between the two was self-inflicted.
    */
   eager?: boolean

@@ -13,7 +13,7 @@ export interface Role {
   start: string
   end: string | null
   location: string
-  /** Two sentences max — what the role was actually for. */
+  /** Two sentences max, what the role was actually for. */
   summary: string
   highlights: Highlight[]
   stack: string[]
@@ -43,7 +43,7 @@ export const experience: Role[] = [
     end: null,
     location: 'United States',
     summary:
-      'Building reusable AI-assisted engineering harnesses on Google Cloud — legacy reverse engineering, quantitative risk, code-complexity assessment, Spring Boot migration and vulnerability remediation — each on the same pattern: deterministic analysis, governed AI reasoning, full traceability, human approval gates.',
+      'Building reusable AI-assisted engineering harnesses on Google Cloud for legacy reverse engineering, quantitative risk, code-complexity assessment, Spring Boot migration and vulnerability remediation. Each follows the same pattern: deterministic analysis, governed AI reasoning, full traceability and human approval gates.',
     highlights: [
       {
         text: 'Engineered Statute, an 8-stage PL/SQL reverse-engineering harness turning legacy Oracle code into traceable business requirements, BRDs, ERDs and gap registers',
@@ -54,7 +54,7 @@ export const experience: Role[] = [
         metric: '267K+ market observations across 56 governed capabilities',
       },
       {
-        text: 'Cut the path for an incomplete request — one that cannot be answered as asked — by putting deterministic preflight completeness checks ahead of retrieval and computation',
+        text: 'Cut the path for an incomplete request, one that cannot be answered as asked, by putting deterministic preflight completeness checks ahead of retrieval and computation',
         metric: 'That path went from 5 agent handoffs, 4 vector searches and 4 model calls down to 2 handoffs, 0 searches and 1 model call. A fully negotiated request still costs 6–13 model calls',
       },
       {
@@ -70,7 +70,7 @@ export const experience: Role[] = [
         metric: 'Derives fixes from five analogous security cases where no vetted patch exists',
       },
       {
-        text: 'Led POC delivery end to end — architecture, cross-project CI/CD, automated quality gates, technical review, Google Cloud releases and stakeholder demos',
+        text: 'Led POC delivery end to end: architecture, cross-project CI/CD, automated quality gates, technical review, Google Cloud releases and stakeholder demos',
       },
     ],
     stack: ['Python', 'Java', 'Claude', 'LangGraph', 'MCP', 'A2A', 'ANTLR4', 'sqlglot', 'OpenRewrite', 'Neo4j', 'Qdrant', 'Google Cloud'],
@@ -139,7 +139,7 @@ export const experience: Role[] = [
   {
     id: 'cognizant',
     company: 'Cognizant',
-    title: 'Programmer Analyst — Machine Learning',
+    title: 'Programmer Analyst: Machine Learning',
     employment: 'Full-time',
     start: '2021-08',
     end: '2022-11',
@@ -175,14 +175,14 @@ export const experience: Role[] = [
     end: '2021-08',
     location: 'India',
     summary:
-      'First engineering role — built the content-based recommendation and NLP pipelines behind a job marketplace serving 20,000+ candidate profiles.',
+      'First engineering role: built the content-based recommendation and NLP pipelines behind a job marketplace serving 20,000+ candidate profiles.',
     highlights: [
       {
         text: 'Built a real-time content-based job recommendation engine using TF-IDF vectorisation and cosine-similarity ranking over candidate profiles and job descriptions, replacing manual recruiter shortlisting',
         metric: '35% better candidate-to-role match relevance across 20,000+ profiles',
       },
       {
-        text: 'Engineered an end-to-end NLTK preprocessing pipeline — tokenisation, stopword removal, lemmatisation, n-gram extraction — turning raw candidate data into model-ready feature vectors at scale',
+        text: 'Engineered an end-to-end NLTK preprocessing pipeline (tokenisation, stopword removal, lemmatisation, n-gram extraction), turning raw candidate data into model-ready feature vectors at scale',
         metric: '30% faster candidate profile processing',
       },
       {
@@ -191,7 +191,7 @@ export const experience: Role[] = [
       },
       {
         text: 'Standardised reproducible experiments with scikit-learn pipelines and Git version control',
-        metric: '40% shorter model iteration cycles — evaluate, validate and ship inside one sprint',
+        metric: '40% shorter model iteration cycles: evaluate, validate and ship inside one sprint',
       },
     ],
     stack: ['Python', 'TF-IDF', 'Cosine Similarity', 'NLTK', 'scikit-learn', 'Git'],

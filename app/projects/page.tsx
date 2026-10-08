@@ -10,7 +10,7 @@ import { archive, archiveCategories, ARCHIVE_CATEGORIES, repoUrl } from '@/data/
 export const metadata: Metadata = {
   title: 'Projects',
   description:
-    'Flagship agentic harnesses — MARS, BootShift, Statute and more — with architecture, evidence and limitations, plus an index of earlier applied ML and GenAI work.',
+    'Flagship agentic harnesses such as MARS, BootShift and Statute, with architecture, evidence and limitations, plus an index of earlier applied ML and GenAI work.',
   alternates: { canonical: '/projects/' },
 }
 
@@ -43,7 +43,7 @@ export default function ProjectsPage() {
       <PageHeader
         eyebrow="Projects"
         title="Systems, and the evidence for them"
-        lede="The flagship harnesses and the employment case studies first — each states the problem, the architecture, what was measured and how, and what it still cannot do. Earlier work follows as an index."
+        lede="The flagship harnesses and the employment case studies first: each states the problem, the architecture, what was measured and how, and what it still cannot do. Earlier work follows as an index."
       />
 
       <section className="page-x mx-auto max-w-page pb-20" aria-labelledby="all-projects">
@@ -56,11 +56,11 @@ export default function ProjectsPage() {
       <section id="archive" className="scroll-mt-20 border-y border-rule bg-sunken/60" aria-labelledby="archive-title">
         <div className="page-x mx-auto max-w-page py-20">
           <SectionHead
-            index="—"
+            index="02"
             label="Earlier work"
             id="archive-title"
             title={`${archive.length} applied ML and GenAI repositories`}
-            lede="Earlier projects, recently published to GitHub. Each is its own repository with a test suite and CI — open one for its design, validation and known problems."
+            lede="Earlier projects, recently published to GitHub. Each is its own repository with a test suite and CI. Open one for its design, validation and known problems."
           />
           <div className="mt-10">
             <ArchiveExplorer rows={rows} categories={archiveCategories()} />

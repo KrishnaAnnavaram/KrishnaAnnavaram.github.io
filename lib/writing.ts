@@ -39,7 +39,7 @@ function parse(fileName: string): Post {
   }
 }
 
-/** Newest first. Read at build time only — this module is server-side. */
+/** Newest first. Read at build time only, this module is server-side. */
 export function getAllPosts(): Post[] {
   if (!fs.existsSync(WRITING_DIR)) return []
   return fs

@@ -44,7 +44,7 @@ export function GitHubActivity({
           </p>
           {activity.stale && (
             <p className="mt-1.5 max-w-[16rem] text-xs text-ink-muted">
-              The nightly sync hasn&rsquo;t run recently — these figures may lag the repositories.
+              The nightly sync hasn&rsquo;t run recently, so these figures may lag the repositories.
             </p>
           )}
         </div>
@@ -63,40 +63,32 @@ export function GitHubActivity({
             </a>
           </div>
 
-          {/* Language mix — a single honest bar rather than a wall of logos. */}
+          {/* Language mix as a sorted bar chart. One series, so one hue and no
+              legend; each bar is labelled directly, and the list itself is the
+              table view a screen reader reads. */}
           {topLanguages.length > 0 && (
-            <div className="mt-6">
-              <div
-                className="flex h-1.5 w-full overflow-hidden rounded-full bg-sunken"
-                role="img"
-                aria-label={`Language mix across featured repositories: ${topLanguages
-                  .map((l) => `${l.name} ${l.share}%`)
-                  .join(', ')}`}
-              >
-                {topLanguages.map((lang, i) => (
-                  <span
-                    key={lang.name}
-                    style={{ width: `${lang.share}%` }}
-                    className={
-                      i === 0
-                        ? 'bg-accent'
-                        : i === 1
-                          ? 'bg-verify'
-                          : i === 2
-                            ? 'bg-ink-soft'
-                            : 'bg-rule-strong'
-                    }
-                  />
-                ))}
-              </div>
-              <ul className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1">
+            <figure className="mt-6">
+              <figcaption className="text-sm text-ink-muted">
+                Language mix across the repositories this site presents, by bytes of code
+              </figcaption>
+              <ul className="mt-4 space-y-2.5">
                 {topLanguages.map((lang) => (
-                  <li key={lang.name} className="font-mono text-2xs text-ink-muted tabular">
-                    {lang.name} {lang.share}%
+                  <li
+                    key={lang.name}
+                    className="group/lang grid grid-cols-[7rem_minmax(0,1fr)_3.5rem] items-center gap-3 text-sm"
+                  >
+                    <span className="truncate text-ink-soft">{lang.name}</span>
+                    <span className="relative h-2.5 rounded-r-[4px] bg-sunken" aria-hidden>
+                      <span
+                        className="absolute inset-y-0 left-0 rounded-r-[4px] bg-chart-script transition-opacity group-hover/lang:opacity-80"
+                        style={{ width: `${Math.max((lang.share / topLanguages[0].share) * 100, 1.5)}%` }}
+                      />
+                    </span>
+                    <span className="text-right font-semibold text-ink tabular-nums">{lang.share}%</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </figure>
           )}
 
           <ul className="mt-7">
@@ -125,7 +117,7 @@ export function GitHubActivity({
                     />
                     <span>
                       <span className="font-mono text-ink-faint">{repo.lastCommit.sha}</span>{' '}
-                      {repo.lastCommit.message}
+                      {repo.lastCommit.message.replace(/\s*—\s*/g, ', ')}
                     </span>
                   </p>
                 )}

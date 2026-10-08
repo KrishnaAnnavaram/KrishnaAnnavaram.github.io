@@ -5,12 +5,12 @@
  * real DOM, which buys four things an image or a client-side diagram library
  * cannot:
  *
- *   1. They are theme-aware — the same diagram is legible in light and dark.
- *   2. They are accessible — every node is real text in a real list, so a
+ *   1. They are theme-aware, the same diagram is legible in light and dark.
+ *   2. They are accessible, every node is real text in a real list, so a
  *      screen reader gets the pipeline in order rather than "image".
- *   3. They reflow — a horizontal pipeline on a desktop becomes a vertical one
+ *   3. They reflow, a horizontal pipeline on a desktop becomes a vertical one
  *      on a phone without becoming a pinch-to-zoom picture.
- *   4. They cost nothing — no Mermaid, no React Flow, no runtime rendering.
+ *   4. They cost nothing: no Mermaid, no React Flow, no runtime rendering.
  *
  * The `kind` on each node is the important part. It marks where the model
  * boundary falls: which stages are deterministic code and which are model
@@ -23,13 +23,13 @@ export type NodeKind =
   | 'source'
   /** Deterministic code. Same input, same output, no model involved. */
   | 'deterministic'
-  /** A model call — the non-deterministic part of the system. */
+  /** A model call, the non-deterministic part of the system. */
   | 'model'
   /** An autonomous agent: decides *when* and *how* to act. */
   | 'agent'
   /** A person: an approval or review the system cannot complete on its own. */
   | 'human'
-  /** Persistent state — a database, index, cache or ledger. */
+  /** Persistent state: a database, index, cache or ledger. */
   | 'store'
   /** What the system hands back. */
   | 'output'
@@ -54,7 +54,7 @@ export interface DiagramGroup {
   /** Optional band label, e.g. "Analysis plane". */
   label?: string
   /**
-   * A line drawn before this band, marking a boundary the system enforces —
+   * A line drawn before this band, marking a boundary the system enforces, 
    * a privilege change, a seal, a point of no return.
    *
    * Added because the diagrams described boundaries in prose while drawing
@@ -86,12 +86,12 @@ export const NODE_KIND_META: Record<
   },
   deterministic: {
     label: 'Deterministic',
-    description: 'Plain code — same input produces the same output, every run',
+    description: 'Plain code: same input produces the same output, every run',
     tone: 'verify',
   },
   model: {
     label: 'Model',
-    description: 'A language-model call — the non-deterministic part',
+    description: 'A language-model call, the non-deterministic part',
     tone: 'model',
   },
   agent: {
@@ -116,7 +116,7 @@ export const NODE_KIND_META: Record<
   },
 }
 
-/** Flattens a diagram to ordered nodes — used by the assistant's index. */
+/** Flattens a diagram to ordered nodes, used by the assistant's index. */
 export function diagramNodes(diagram: SystemDiagram): DiagramNode[] {
   return diagram.groups.flatMap((g) => g.nodes)
 }
@@ -132,4 +132,38 @@ export function diagramToProse(diagram: SystemDiagram): string {
       return g.label ? `${g.label}: ${chain}` : chain
     })
     .join('. ')
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Composition, for charts
+   ───────────────────────────────────────────────────────────────────────── */
+
+/**
+ * The four chart categories, in the fixed order every chart uses. Colour is
+ * assigned by this order and never cycled (see the chart tokens in
+ * app/globals.css).
+ */
+export const STAGE_CATEGORIES = [
+  { id: 'script', label: 'Script', description: 'Deterministic code', kinds: ['deterministic'] },
+  { id: 'model', label: 'Model or agent', description: 'A language model decides', kinds: ['model', 'agent'] },
+  { id: 'human', label: 'Human gate', description: 'A person must approve', kinds: ['human'] },
+  { id: 'data', label: 'Data and I/O', description: 'Inputs, stores and outputs', kinds: ['source', 'store', 'output'] },
+] as const satisfies readonly { id: string; label: string; description: string; kinds: readonly NodeKind[] }[]
+
+export type StageCategoryId = (typeof STAGE_CATEGORIES)[number]['id']
+
+export interface StageComposition {
+  total: number
+  parts: { id: StageCategoryId; label: string; count: number }[]
+}
+
+/** How many stages of a system fall in each category, in the fixed order. */
+export function stageComposition(diagram: SystemDiagram): StageComposition {
+  const nodes = diagramNodes(diagram)
+  const parts = STAGE_CATEGORIES.map((c) => ({
+    id: c.id,
+    label: c.label,
+    count: nodes.filter((n) => (c.kinds as readonly NodeKind[]).includes(n.kind)).length,
+  }))
+  return { total: nodes.length, parts }
 }

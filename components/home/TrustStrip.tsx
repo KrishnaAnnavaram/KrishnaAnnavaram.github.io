@@ -18,7 +18,7 @@ export function TrustStrip() {
     { value: `${repos}`, label: 'public repositories, synced nightly' },
     { value: archiveTestTotal.toLocaleString('en-US'), label: `tests in CI across ${archive.length} earlier projects` },
     { value: `${years}+`, label: 'years in machine learning and NLP' },
-    { value: String(certifications.length), label: 'cloud AI certifications — Azure AI-102, AWS AI' },
+    { value: String(certifications.length), label: 'cloud AI certifications: Azure AI-102, AWS AI' },
   ]
 
   return (

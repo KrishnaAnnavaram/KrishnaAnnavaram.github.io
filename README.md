@@ -31,8 +31,9 @@ Three things make it more than a brochure:
 
 | | |
 |---|---|
-| Flagship bento | The six flagship systems, each tile carrying a "boundary fingerprint" computed from its architecture diagram: one segment per stage, coloured script / model / human gate |
-| MARS replay | Four real MARS runs replayed stage by stage from the evidence the repo commits; stops at the human gate until the reader approves; every run ends Blocked, as recorded |
+| Flagship bento | The six flagship systems, each tile carrying a composition bar computed from its architecture diagram: its stages split by script, model or agent, human gate, and data |
+| Impact at work | Production work at each employer with the outcomes from the résumé, as stat tiles |
+| Where the model sits | A chart comparing every flagship's stages by who decides: script, model or agent, human gate, data and I/O; hover tooltips and a table view |
 | Rotating portrait | Three photos, one per 7-minute wall-clock slot, chosen before first paint; crossfade, Next and Pause controls |
 | Project explorer | Search, domain and language facets over every project and case study |
 | Earlier-work archive | 75 applied ML / GenAI repositories, searchable and filterable by category, with URL-synced filters and no model metrics |
@@ -69,7 +70,7 @@ No server. No database. No runtime API call.
 | Framework | Next.js 15 (App Router, `output: 'export'`) |
 | UI | React 19 |
 | Styling | Tailwind CSS v4 — CSS-first `@theme`, no config file |
-| Type | Geist · Geist Mono · Instrument Serif (accent italics only), self-hosted via `next/font` |
+| Type | Inter for all text, JetBrains Mono for identifiers only, self-hosted via `next/font` |
 | Content | TypeScript data modules + MDX for essays |
 | Icons | lucide-react |
 | Tests | Vitest + Playwright + axe-core |

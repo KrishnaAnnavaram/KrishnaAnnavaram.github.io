@@ -10,7 +10,7 @@ export interface SkillGroup {
  * Grouped by the problem each set solves, not by vendor.
  *
  * Source of truth is the technical inventory in `public/resume/resume.pdf`.
- * There are no proficiency bars here on purpose — a self-assigned percentage
+ * There are no proficiency bars here on purpose, a self-assigned percentage
  * is not information, and the case studies show the depth instead.
  */
 export const skillGroups: SkillGroup[] = [
@@ -81,7 +81,7 @@ export const skillGroups: SkillGroup[] = [
   {
     id: 'retrieval',
     title: 'Retrieval & Data',
-    note: 'Where grounding actually comes from — chosen per access pattern, not per fashion.',
+    note: 'Where grounding actually comes from: chosen per access pattern, not per fashion.',
     items: [
       'Neo4j knowledge graphs',
       'Qdrant',
@@ -107,9 +107,9 @@ export const skillGroups: SkillGroup[] = [
     title: 'Cloud & MLOps',
     note: 'Deployment, orchestration, monitoring, and keeping the bill predictable.',
     items: [
-      'GCP — Vertex AI, BigQuery, Cloud Run, Dataflow',
-      'Azure — Azure OpenAI, Azure ML, AKS, Speech, Functions, DevOps, Databricks',
-      'AWS — SageMaker, Bedrock, Lambda, S3, Glue, CodePipeline',
+      'GCP: Vertex AI, BigQuery, Cloud Run, Dataflow',
+      'Azure: Azure OpenAI, Azure ML, AKS, Speech, Functions, DevOps, Databricks',
+      'AWS: SageMaker, Bedrock, Lambda, S3, Glue, CodePipeline',
       'Docker',
       'Kubernetes',
       'Terraform',
@@ -124,7 +124,7 @@ export const skillGroups: SkillGroup[] = [
   {
     id: 'ml',
     title: 'ML & Programming',
-    note: 'The classical toolkit — still what a large share of production problems need.',
+    note: 'The classical toolkit, still what a large share of production problems need.',
     items: [
       'Python',
       'SQL',

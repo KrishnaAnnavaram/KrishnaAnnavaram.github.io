@@ -8,7 +8,7 @@ const INTENTS = ['A role', 'A project', 'Research', 'Something else'] as const
 
 /**
  * Composes a mailto: link rather than posting to a form service. On a static
- * site a POST endpoint is one more thing that can silently fail — this opens
+ * site a POST endpoint is one more thing that can silently fail, this opens
  * the sender's own mail client, so they can see the message actually leave.
  */
 export function ContactForm() {
@@ -16,8 +16,8 @@ export function ContactForm() {
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
 
-  const subject = `${intent} — via krishnaannavaram.github.io`
-  const body = `${message}\n\n— ${name || 'Sent from your portfolio'}`
+  const subject = `${intent}, via krishnaannavaram.github.io`
+  const body = `${message}\n\n, ${name || 'Sent from your portfolio'}`
   const href = `mailto:${profile.socials.email}?subject=${encodeURIComponent(
     subject
   )}&body=${encodeURIComponent(body)}`
@@ -92,7 +92,7 @@ export function ContactForm() {
           />
         </a>
         <p className="text-xs text-ink-muted">
-          Nothing is sent from this page — it drafts the email for you.
+          Nothing is sent from this page. It drafts the email for you.
         </p>
       </div>
     </form>

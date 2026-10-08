@@ -1,7 +1,7 @@
 import raw from './archive.json'
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   ARCHIVE — earlier work.
+   ARCHIVE, earlier work.
 
    Applied ML and GenAI projects, each its own public repository with a test
    suite and CI. They are deliberately below the flagship systems: the
@@ -11,7 +11,7 @@ import raw from './archive.json'
    these repositories validate on synthetic or demo data, and several READMEs
    name models whose numbers the README itself declines to report. So an
    archive entry carries a description, a pipeline, a stack and a CI test
-   count — all checkable from the repository — and NO model metric. If a
+   count, all checkable from the repository, and NO model metric. If a
    number appears in `note`, it was filtered out when the data was built.
 
    `tests` is the passing count from the repository's own CI badge.

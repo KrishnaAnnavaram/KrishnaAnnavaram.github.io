@@ -24,7 +24,7 @@ export default function AboutPage() {
 
       <section className="page-x mx-auto max-w-page pb-16">
         <div className="grid gap-12 lg:grid-cols-[1fr_16rem] lg:gap-16">
-          {/* Above the fold — see Reveal's `eager` note. */}
+          {/* Above the fold, see Reveal's `eager` note. */}
           <Reveal eager>
             <div className="prose-spec text-lg">
               <p>{profile.intro}</p>
@@ -32,7 +32,7 @@ export default function AboutPage() {
                 <p key={para.slice(0, 32)}>{para}</p>
               ))}
               <p>
-                Before the US, I worked in India — first at Lemoius building the NLP and ranking
+                Before the US I worked in India: first at Lemoius building the NLP and ranking
                 layer of a hiring marketplace, then at Cognizant on production ML pipelines for a US
                 medical-device sales organisation. I came to the University of North Texas for a master’s in Data Science,
                 and spent a year there as a teaching assistant: supporting graduate coursework,
@@ -40,7 +40,7 @@ export default function AboutPage() {
                 research questions without inventing citations.
               </p>
               <p>
-                That mix — startup, enterprise, academic — is why I default to engineering
+                That mix of startup, enterprise and academic work is why I default to engineering
                 discipline over novelty. Enterprise work taught me what auditability costs.
                 Teaching taught me that if you can’t explain why a system answered the way it did,
                 you don’t understand it yet.

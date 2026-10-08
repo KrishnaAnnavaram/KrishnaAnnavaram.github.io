@@ -105,7 +105,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             ))}
           </ul>
 
-          {/* Repository strip — live metadata from the synced snapshot. */}
+          {/* Repository strip, live metadata from the synced snapshot. */}
           {repo && (
             <div className="plate mt-7 flex flex-wrap items-center gap-x-6 gap-y-2.5 px-4 py-3">
               <a
@@ -202,7 +202,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <dt className="font-serif text-3xl leading-none text-ink tabular">{e.value}</dt>
                 <dd className="mt-2.5 text-sm text-ink-soft">
                   {e.label}
-                  {/* These notes carry unbroken artefact paths — one filename
+                  {/* These notes carry unbroken artefact paths, one filename
                       had a 597px min-content width, which stretched the grid
                       track and pushed the whole Evidence section off the right
                       edge of every phone.

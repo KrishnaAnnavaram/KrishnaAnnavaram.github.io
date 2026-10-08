@@ -8,7 +8,7 @@ import { Assistant } from './Assistant'
  *
  * The first version mounted an `<Assistant>` inside every trigger button, which
  * meant two dialogs existed in the DOM at once and the `/` shortcut opened both
- * — a duplicate `role="dialog"`, which is an accessibility defect as well as a
+ *a duplicate `role="dialog"`, which is an accessibility defect as well as a
  * visual one. The dialog and its keyboard shortcut now live here, once, and the
  * buttons are pure triggers.
  */
@@ -69,7 +69,7 @@ export function AssistantProvider({ children }: { children: React.ReactNode }) {
 
   /* Marks the document interactive once React has taken over. The filter
      controls and the assistant only respond after this point, so anything
-     that needs to wait for interactivity — including the E2E suite — has one
+     that needs to wait for interactivity, including the E2E suite, has one
      unambiguous signal instead of a guess about timing. */
   useEffect(() => {
     document.documentElement.dataset.hydrated = 'true'

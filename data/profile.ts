@@ -18,12 +18,12 @@ export const profile = {
   name: 'Krishna Annavaram',
   firstName: 'Krishna',
   role: 'Generative AI Engineer',
-  headline: 'Generative AI Engineer — Agentic AI, RAG & Enterprise Modernisation',
+  headline: 'Generative AI Engineer: Agentic AI, RAG & Enterprise Modernisation',
   tagline: 'I build systems that can show their work.',
 
   /**
    * The hero rotates through these by wall-clock slot. The first is the
-   * default everywhere a single image is needed — social cards, structured
+   * default everywhere a single image is needed, social cards, structured
    * data, and the no-JavaScript render.
    */
   photos: [
@@ -48,10 +48,10 @@ export const profile = {
   availability: 'Open to Generative AI, Agentic AI, and Applied AI Engineering roles',
 
   /** One paragraph. The thing a hiring manager reads before deciding to scroll. */
-  intro: `I'm a Generative AI Engineer at Virtusa. I build agentic harnesses for work that cannot afford to be wrong quietly — legacy reverse engineering, Spring Boot migration, and vulnerability remediation — on one pattern: deterministic analysis first, governed model reasoning second, full traceability, and a human approval gate before anything ships. Five years in machine learning and NLP; the last two on production LLM systems across enterprise modernisation, financial risk and healthcare.`,
+  intro: `I'm a Generative AI Engineer at Virtusa. I build agentic harnesses for work that cannot afford to be wrong quietly: legacy reverse engineering, Spring Boot migration and vulnerability remediation. Each one follows the same pattern. Deterministic analysis comes first, governed model reasoning second, everything is traceable, and a person approves before anything ships. I have five years in machine learning and NLP, the last two on production LLM systems in enterprise modernisation, financial risk and healthcare.`,
 
   /** The argument for hiring him, in his own frame. */
-  positioning: `Most AI work fails at the engineering layer, not the model layer. A capable model behind a weak pipeline is still a demo — it drifts, it can't be evaluated, and nobody can tell you why it answered the way it did.
+  positioning: `Most AI work fails at the engineering layer, not the model layer. A capable model behind a weak pipeline is still a demo: it drifts, it can't be evaluated, and nobody can tell you why it answered the way it did.
 
 Everything I have shipped recently runs on the same pattern: deterministic analysis first, governed model reasoning second, full traceability throughout, and a human approval gate before anything lands. That ordering is the whole argument. It means a result can be explained after the fact, a wrong answer is attributable to a stage rather than to the system as a whole, and the parts that do not need a model do not get one.
 
@@ -59,7 +59,7 @@ It is less exciting than a leaderboard score, and it is the difference between s
 
   /**
    * What he is actually working on, as opposed to what he is interested in.
-   * Each entry points at something on the site that evidences it — an entry
+   * Each entry points at something on the site that evidences it, an entry
    * without evidence is a claim, and this section is meant to be the opposite.
    * Edit this list and the home page follows; nothing else needs touching.
    */
@@ -67,7 +67,7 @@ It is less exciting than a leaderboard score, and it is the difference between s
     {
       title: 'Agent systems with real boundaries',
       detail:
-        'Multi-agent pipelines where the interesting design work is deciding what each agent is not allowed to do — which stage may write, which verdict only a script may issue, and where a human has to sign before anything moves.',
+        'Multi-agent pipelines where the interesting design work is deciding what each agent is not allowed to do: which stage may write, which verdict only a script may issue, and where a human has to sign before anything moves.',
       evidence: '/projects/mars/',
       evidenceLabel: 'MARS',
     },
@@ -81,7 +81,7 @@ It is less exciting than a leaderboard score, and it is the difference between s
     {
       title: 'Knowing when not to use a model',
       detail:
-        'Deterministic pipelines where a language model would be the obvious choice and the wrong one — because a generative system that invents a business rule fails invisibly, and a rule-based one that misses it fails in the open.',
+        'Deterministic pipelines where a language model would be the obvious choice and the wrong one, because a generative system that invents a business rule fails invisibly, and a rule-based one that misses it fails in the open.',
       evidence: '/projects/statute/',
       evidenceLabel: 'Statute',
     },
@@ -96,7 +96,7 @@ It is less exciting than a leaderboard score, and it is the difference between s
     {
       title: 'Retrieval you can trace',
       description:
-        'Grounding is only useful if you can show your work. I separate retrieval, reasoning, and validation into distinct stages so every answer carries its evidence — which also makes failures diagnosable instead of mysterious.',
+        'Grounding is only useful if you can show your work. I separate retrieval, reasoning, and validation into distinct stages so every answer carries its evidence, which also makes failures diagnosable instead of mysterious.',
     },
     {
       title: 'Evaluation before scale',
@@ -132,7 +132,7 @@ It is less exciting than a leaderboard score, and it is the difference between s
   /*
    * No phone number here.
    *
-   * It was defined and never rendered — but `profile` is imported by client
+   * It was defined and never rendered, but `profile` is imported by client
    * components, so it was bundled into the layout chunk and shipped on every
    * page: invisible to a reader, trivially scrapable by anyone reading the
    * JavaScript. It is still in the résumé PDF, which is a deliberate

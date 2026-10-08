@@ -61,7 +61,7 @@ add({
   boost: 1.25,
 })
 
-/* Derived from the open end date, not from array position — reordering
+/* Derived from the open end date, not from array position, reordering
    data/experience.ts must not change who the assistant calls current. */
 const current = experience.find((r) => r.end === null) ?? experience[0]
 
@@ -108,7 +108,7 @@ for (const role of experience) {
   const source: Source = { title: `${role.title}, ${role.company}`, href: '/experience/', kind: 'experience' }
 
   add({
-    heading: `${role.company} — ${role.title}`,
+    heading: `${role.company}: ${role.title}`,
     text: `${role.title} at ${role.company}, ${period}, ${role.location}. ${role.summary}`,
     source,
     keywords: [role.company, role.title, 'experience', 'role', 'job', 'work', 'employment', ...role.stack],
@@ -117,7 +117,7 @@ for (const role of experience) {
 
   if (role.highlights.length) {
     add({
-      heading: `${role.company} — what the role involved`,
+      heading: `${role.company}: what the role involved`,
       text: role.highlights.map((h) => (h.metric ? `${h.text} (${h.metric})` : h.text)).join('. '),
       source,
       keywords: [role.company, 'responsibilities', 'highlights', 'achievements', ...role.stack],
@@ -145,7 +145,7 @@ for (const project of projects) {
 
   if (project.problem) {
     add({
-      heading: `${project.name} — the problem`,
+      heading: `${project.name}: the problem`,
       text: project.problem,
       source,
       keywords: [...kw, 'problem', 'why', 'motivation', 'context'],
@@ -155,7 +155,7 @@ for (const project of projects) {
 
   if (project.approach?.length) {
     add({
-      heading: `${project.name} — approach`,
+      heading: `${project.name}: approach`,
       text: project.approach.join(' '),
       source,
       keywords: [...kw, 'approach', 'how', 'built', 'implementation', 'design'],
@@ -165,7 +165,7 @@ for (const project of projects) {
 
   if (project.diagram) {
     add({
-      heading: `${project.name} — architecture`,
+      heading: `${project.name}: architecture`,
       text: `${project.diagram.caption} ${diagramToProse(project.diagram)}`,
       source,
       keywords: [...kw, 'architecture', 'diagram', 'pipeline', 'stages', 'agents', 'design', 'data flow'],
@@ -175,7 +175,7 @@ for (const project of projects) {
 
   for (const decision of project.decisions ?? []) {
     add({
-      heading: `${project.name} — ${decision.title}`,
+      heading: `${project.name}: ${decision.title}`,
       text: decision.body,
       source,
       keywords: [...kw, 'decision', 'tradeoff', 'why', 'engineering'],
@@ -185,9 +185,9 @@ for (const project of projects) {
 
   if (project.evidence?.length) {
     add({
-      heading: `${project.name} — measured results`,
+      heading: `${project.name}: measured results`,
       text: project.evidence
-        .map((e) => `${e.value} ${e.label}${e.method ? ` — ${e.method}` : ''}.`)
+        .map((e) => `${e.value} ${e.label}${e.method ? `, ${e.method}` : ''}.`)
         .join(' '),
       source,
       keywords: [...kw, 'results', 'evidence', 'metrics', 'numbers', 'evaluation', 'tests', 'measured'],
@@ -197,7 +197,7 @@ for (const project of projects) {
 
   if (project.limitations?.length) {
     add({
-      heading: `${project.name} — known limitations`,
+      heading: `${project.name}: known limitations`,
       text: project.limitations.join(' '),
       source,
       keywords: [...kw, 'limitations', 'caveats', 'weaknesses', 'known issues', 'what it cannot do'],
@@ -221,7 +221,7 @@ for (const study of caseStudies) {
   })
 
   add({
-    heading: `${study.title} — the problem`,
+    heading: `${study.title}: the problem`,
     text: study.problem,
     source,
     keywords: [...kw, 'problem', 'why', 'context'],
@@ -229,7 +229,7 @@ for (const study of caseStudies) {
   })
 
   add({
-    heading: `${study.title} — approach`,
+    heading: `${study.title}: approach`,
     text: study.approach.join(' '),
     source,
     keywords: [...kw, 'approach', 'how', 'implementation'],
@@ -238,7 +238,7 @@ for (const study of caseStudies) {
 
   if (study.architecture) {
     add({
-      heading: `${study.title} — architecture`,
+      heading: `${study.title}: architecture`,
       text: study.architecture,
       source,
       keywords: [...kw, 'architecture', 'pipeline', 'design', 'data flow'],
@@ -247,7 +247,7 @@ for (const study of caseStudies) {
   }
 
   add({
-    heading: `${study.title} — outcomes`,
+    heading: `${study.title}: outcomes`,
     text: study.outcomes.map((o) => `${o.value} ${o.label}`).join('. '),
     source,
     keywords: [...kw, 'results', 'outcomes', 'metrics', 'impact'],
@@ -259,11 +259,11 @@ for (const study of caseStudies) {
 
 for (const group of skillGroups) {
   add({
-    heading: `Stack — ${group.title}`,
+    heading: `Stack: ${group.title}`,
     /* Framed as an inventory rather than a claim of depth. Listing a tool is
        not evidence of having shipped with it, and this passage should not be
-       read as if it were — the case studies are where the depth is shown. */
-    text: `Listed in the technical inventory under ${group.title} — these are tools used or worked with, not a claim of depth in each. ${group.note} ${group.items.join(', ')}.`,
+       read as if it were, the case studies are where the depth is shown. */
+    text: `Listed in the technical inventory under ${group.title}, these are tools used or worked with, not a claim of depth in each. ${group.note} ${group.items.join(', ')}.`,
     source: { title: 'About', href: '/about/', kind: 'skills' },
     keywords: ['skills', 'stack', 'technology', 'tools', 'framework', 'languages', group.title, ...group.items],
     // Below neutral, so a passage describing real work outranks the inventory.
@@ -308,7 +308,7 @@ for (const file of await readdir(writingDir)) {
 
 /* One passage per category rather than one per repository: seventy-odd
    near-identical passages would crowd the flagship systems out of every
-   ranking. Descriptions only — the archive carries no model metrics, and
+   ranking. Descriptions only, the archive carries no model metrics, and
    neither does its index. */
 const { archive, ARCHIVE_CATEGORIES } = await import('../data/archive')
 
@@ -324,9 +324,9 @@ for (const [id, label] of Object.entries(ARCHIVE_CATEGORIES)) {
   const entries = archive.filter((e) => e.category === id)
   if (entries.length === 0) continue
   add({
-    heading: `Earlier work — ${label}`,
+    heading: `Earlier work: ${label}`,
     text: entries.map((e) => `${e.repo}: ${e.tagline}`).join(' '),
-    source: { title: `Earlier work — ${label}`, href: '/projects/#archive', kind: 'project' },
+    source: { title: `Earlier work: ${label}`, href: '/projects/#archive', kind: 'project' },
     keywords: [label.toLowerCase(), ...entries.flatMap((e) => [e.repo, ...e.stack.map((t) => t.toLowerCase())])],
     boost: 0.85,
   })
@@ -336,7 +336,7 @@ for (const [id, label] of Object.entries(ARCHIVE_CATEGORIES)) {
 
 const index: KnowledgeIndex = {
   /* No build timestamp. This file is committed, and a timestamp made it differ
-     on every build — a permanently dirty working tree and a merge conflict
+     on every build, a permanently dirty working tree and a merge conflict
      surface, for a field nothing reads. */
   chunkCount: chunks.length,
   chunks,
@@ -357,5 +357,5 @@ await writeFile(OUT, `${JSON.stringify(index)}\n`, 'utf8')
 
 const bytes = Buffer.byteLength(JSON.stringify(index))
 console.log(
-  `✓ knowledge index — ${chunks.length} passages, ${(bytes / 1024).toFixed(1)} kB → public/ai/knowledge.json`
+  `✓ knowledge index, ${chunks.length} passages, ${(bytes / 1024).toFixed(1)} kB → public/ai/knowledge.json`
 )

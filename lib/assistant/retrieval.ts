@@ -16,7 +16,7 @@
  * There is no model in this path. Answers are assembled from retrieved text
  * verbatim, so the assistant cannot state anything the portfolio does not
  * already say. That is a deliberate architectural choice, not a limitation of
- * hosting — see docs/ARCHITECTURE.md.
+ * hosting, see docs/ARCHITECTURE.md.
  */
 
 import type { Answer, Chunk, KnowledgeIndex, RetrievedChunk, Source } from './types'
@@ -43,7 +43,7 @@ const STOP = new Set([
  * Plurals only, and it must be idempotent: stem(stem(w)) === stem(w).
  *
  * The previous version stripped 'ing' and 'es' unconditionally, which split the
- * corpus's most common technical nouns across two posting lists — "pipeline"
+ * corpus's most common technical nouns across two posting lists, "pipeline"
  * and "pipelines" stemmed to `pipeline` and `pipelin`, "stage"/"stages" to
  * `stage`/`stag`, "embedding"/"embeddings" to `embedd`/`embedding`. A query for
  * "pipelines" then missed every chunk that said "pipeline".
@@ -146,7 +146,7 @@ const B = 0.72
  * The score is normalised per query term before it meets this floor. An
  * unnormalised BM25 sum grows with query length, so a long question about
  * something the site does not cover could clear an absolute threshold purely by
- * having more words in it — and the same arithmetic decided whether an answer
+ * having more words in it, and the same arithmetic decided whether an answer
  * was labelled "grounded". Both are now length-independent.
  *
  * Calibrated against twelve questions the site can answer (lowest legitimate
@@ -256,7 +256,7 @@ export class Retriever {
 
   /**
    * Composes an answer from retrieved passages. The lead sentence is chosen
-   * from a fixed set of templates and filled only with retrieved values — it
+   * from a fixed set of templates and filled only with retrieved values, it
    * never introduces a fact.
    */
   answer(query: string, limit = 4): Answer {
@@ -267,7 +267,7 @@ export class Retriever {
         query,
         confidence: 'none',
         lead:
-          "I don't have anything in the portfolio that answers that. I only answer from what's published here — projects, experience, writing and contact details.",
+          "I don't have anything in the portfolio that answers that. I only answer from what's published here: projects, experience, writing and contact details.",
         passages: [],
         sources: [],
         didYouMean: this.index.suggestions.slice(0, 4),
@@ -289,7 +289,7 @@ export class Retriever {
        unrelated passage as an answer. */
     const lead = strong
       ? `From ${top.chunk.source.title}:`
-      : `Nothing here answers that directly. The closest passages by wording are below — they may not be relevant.`
+      : `Nothing here answers that directly. The closest passages by wording are below, they may not be relevant.`
 
     return {
       query,

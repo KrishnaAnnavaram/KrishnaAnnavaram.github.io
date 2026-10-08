@@ -19,7 +19,7 @@ export function EarlierWork() {
           label="Earlier work"
           id="earlier-title"
           title={`${archive.length} more projects, each its own repository`}
-          lede="Earlier projects, recently published to GitHub — retrieval, agents, evaluation, NLP, medical imaging and forecasting. Each is its own repository with a test suite and CI."
+          lede="Earlier projects, recently published to GitHub: retrieval, agents, evaluation, NLP, medical imaging and forecasting. Each is its own repository with a test suite and CI."
           aside={
             <Link
               href="/projects/#archive"

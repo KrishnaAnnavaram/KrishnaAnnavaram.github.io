@@ -10,7 +10,7 @@ export default function NotFound() {
         That page isn’t here. Retrieval returned nothing relevant.
       </h1>
       <p className="mt-6 max-w-text text-lg text-ink-soft">
-        Which is the correct behaviour — better an honest miss than a plausible-looking guess.
+        Which is the correct behaviour: better an honest miss than a plausible-looking guess.
         Here’s everything that does exist:
       </p>
 

@@ -51,13 +51,13 @@ export const caseStudies: CaseStudy[] = [
     roleId: 'ideate-technologies',
     discipline: 'Graph-RAG · Clinical AI',
     problem:
-      'Clinical decision support is the setting where a plausible-sounding wrong answer does the most damage. Pure vector retrieval over clinical text returns passages that read as relevant while missing the relationships that actually determine a diagnosis — which condition contraindicates which medication, which finding rules out which differential. Those are edges in a graph, not similarities in an embedding space, and a system that only knows how to measure similarity cannot see them.',
+      'Clinical decision support is the setting where a plausible-sounding wrong answer does the most damage. Pure vector retrieval over clinical text returns passages that read as relevant while missing the relationships that actually determine a diagnosis, which condition contraindicates which medication, which finding rules out which differential. Those are edges in a graph, not similarities in an embedding space, and a system that only knows how to measure similarity cannot see them.',
     approach: [
       'Unified a Neo4j clinical knowledge graph with FAISS vector search, so retrieval could follow explicit clinical relationships as well as semantic similarity.',
       'Put Azure OpenAI behind that retrieval rather than in front of it, keeping generation constrained to what the graph and the index actually returned.',
       'Integrated live EHR data through FHIR, so reasoning ran against the patient record in front of the clinician rather than a stale extract.',
       'Fine-tuned Long-T5 and BART on clinical corpora using PEFT/LoRA for the summarisation path, where a general-purpose model produced handoff notes that were fluent and incomplete.',
-      'Built the intake side as a separate voice pipeline — Azure Speech-to-Text into LangGraph multi-agent orchestration, persisting to Cosmos DB — so capture and reasoning failed independently.',
+      'Built the intake side as a separate voice pipeline (Azure Speech-to-Text into LangGraph multi-agent orchestration, persisting to Cosmos DB), so capture and reasoning failed independently.',
       'Ran it all on zero-downtime MLOps: AKS, Azure ML, MLflow, Terraform and GitHub Actions, because a clinical service that needs a maintenance window is a clinical service people route around.',
     ],
     architecture:
@@ -85,7 +85,7 @@ export const caseStudies: CaseStudy[] = [
       'Terraform',
     ],
     provenance:
-      'Figures as stated in the résumé. There is no public repository for this engagement, so — unlike the repository-backed systems — nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
+      'Figures as stated in the résumé. There is no public repository for this engagement, so, unlike the repository-backed systems, nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
     featured: true,
   },
 
@@ -99,14 +99,14 @@ export const caseStudies: CaseStudy[] = [
     roleId: 'unt-gta',
     discipline: 'Retrieval systems',
     problem:
-      'Graduate students repeatedly asked the same categories of research question — where to find a method, which database indexed a given journal, how a technique from lecture applied to their project. Faculty and teaching assistants answered each one individually. A general-purpose chatbot was worse than useless here: it invented citations, and in an academic setting a fabricated reference is a serious failure, not a rough edge.',
+      'Graduate students repeatedly asked the same categories of research question: where to find a method, which database indexed a given journal, how a technique from lecture applied to their project. Faculty and teaching assistants answered each one individually. A general-purpose chatbot was worse than useless here: it invented citations, and in an academic setting a fabricated reference is a serious failure, not a rough edge.',
     approach: [
-      'Scoped the corpus deliberately — course materials plus academic databases, over 10,000 documents — so every answer had a retrievable source rather than relying on model recall.',
+      'Scoped the corpus deliberately to course materials and academic databases, over 10,000 documents, so every answer had a retrievable source rather than relying on model recall.',
       'Built the retrieval layer on FAISS for dense search with PostgreSQL holding document metadata and provenance, so each response could name where it came from.',
       'Ran hybrid dense-sparse retrieval through a LangGraph pipeline on Azure with sentence-transformer embeddings, holding sub-second responses under concurrent multi-user load.',
       'Used Redis for session state, which is what made multi-turn research conversations coherent: a follow-up question inherits the context of the one before it instead of starting cold.',
       'Tuned FAISS index parameters and added Redis caching against real student queries collected during the semester, rather than against a synthetic benchmark that would not reflect actual usage.',
-      'Constrained generation to retrieved context and declined to answer when retrieval returned nothing relevant — refusing is the correct behaviour when the alternative is a plausible-looking invented citation.',
+      'Constrained generation to retrieved context and declined to answer when retrieval returned nothing relevant. Refusing is the correct behaviour when the alternative is a plausible-looking invented citation.',
     ],
     architecture:
       'Course materials + academic database records (10,000+ documents) → chunking and sentence-transformer embedding → hybrid dense-sparse retrieval over FAISS, with PostgreSQL for metadata and provenance → relevance threshold → grounded generation with citations → Redis-backed session context for multi-turn continuity. Orchestrated with LangGraph on Azure.',
@@ -126,7 +126,7 @@ export const caseStudies: CaseStudy[] = [
       'RAG',
     ],
     provenance:
-      'Figures as stated in the résumé. There is no public repository for this engagement, so — unlike the repository-backed systems — nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
+      'Figures as stated in the résumé. There is no public repository for this engagement, so, unlike the repository-backed systems, nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
     featured: true,
   },
 
@@ -140,12 +140,12 @@ export const caseStudies: CaseStudy[] = [
     roleId: 'cognizant',
     discipline: 'Applied ML · Data engineering',
     problem:
-      'Incentive compensation for a US medical-device sales organisation ran on daily flat-file feeds and spreadsheets. Business rules, territory hierarchies and manager reassignments arrived as unstructured text that someone had to read and apply by hand — which is slow, and which quietly introduces a different kind of error than a broken pipeline does, because a misread rule produces a number that looks entirely reasonable. Underneath that, county-level payouts had to be calculated inside a 24-hour window whether or not the inputs cooperated.',
+      'Incentive compensation for a US medical-device sales organisation ran on daily flat-file feeds and spreadsheets. Business rules, territory hierarchies and manager reassignments arrived as unstructured text that someone had to read and apply by hand: which is slow, and which quietly introduces a different kind of error than a broken pipeline does, because a misread rule produces a number that looks entirely reasonable. Underneath that, county-level payouts had to be calculated inside a 24-hour window whether or not the inputs cooperated.',
     approach: [
-      'Deployed three automated batch pipelines on AWS — Python, S3, Lambda and SageMaker Batch Transform — processing the daily compensation files end to end.',
+      'Deployed three automated batch pipelines on AWS (Python, S3, Lambda and SageMaker Batch Transform), processing the daily compensation files end to end.',
       'Engineered an NLTK document-parsing pipeline to extract compensation rules, territory hierarchies and manager reassignments from the flat-file feeds, removing the human reading step that was the source of the quiet errors.',
       'Trained XGBoost classification models on multi-year sales performance data to predict commission attainment tiers across county-level territories, retiring the spreadsheet calculation rather than running alongside it.',
-      'Owned CI/CD for the whole cross-functional team — CodePipeline, Git branching and CloudWatch alerting — because a payout pipeline that needs a maintenance window does not have one.',
+      'Owned CI/CD for the whole cross-functional team (CodePipeline, Git branching and CloudWatch alerting), because a payout pipeline that needs a maintenance window does not have one.',
       'Mentored junior engineers on the same standards, so the release discipline survived people rotating off the project.',
     ],
     architecture:
@@ -168,7 +168,7 @@ export const caseStudies: CaseStudy[] = [
       'CloudWatch',
     ],
     provenance:
-      'Figures as stated in the résumé. There is no public repository for this engagement, so — unlike the repository-backed systems — nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
+      'Figures as stated in the résumé. There is no public repository for this engagement, so, unlike the repository-backed systems, nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
     featured: false,
   },
 
@@ -182,10 +182,10 @@ export const caseStudies: CaseStudy[] = [
     roleId: 'lemoius',
     discipline: 'NLP · Ranking',
     problem:
-      'Every new job posting on the marketplace started a manual shortlisting pass over more than twenty thousand candidate profiles. Recruiters saw whoever they got to first rather than whoever fit best, and qualified applicants stayed invisible for no better reason than where they sat in the list. The bottleneck was not judgement — it was that nothing ranked the pool before a human looked at it.',
+      'Every new job posting on the marketplace started a manual shortlisting pass over more than twenty thousand candidate profiles. Recruiters saw whoever they got to first rather than whoever fit best, and qualified applicants stayed invisible for no better reason than where they sat in the list. The bottleneck was not judgement, it was that nothing ranked the pool before a human looked at it.',
     approach: [
       'Built a real-time content-based recommendation engine using TF-IDF vectorisation and cosine-similarity ranking over candidate profile and job description text.',
-      'Engineered the NLP preprocessing pipeline behind it in NLTK — tokenisation, stopword removal, lemmatisation and n-gram extraction — turning raw candidate data into model-ready feature vectors at scale.',
+      'Engineered the NLP preprocessing pipeline behind it in NLTK (tokenisation, stopword removal, lemmatisation and n-gram extraction), turning raw candidate data into model-ready feature vectors at scale.',
       'Productionised top-N ranking so a ranked candidate list was produced for every new posting automatically, with no manual step in the loop.',
       'Standardised experiments on scikit-learn pipelines under Git version control, which is what made model comparisons trustworthy across iterations rather than anecdotal.',
     ],
@@ -199,7 +199,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     stack: ['Python', 'TF-IDF', 'Cosine Similarity', 'NLTK', 'scikit-learn', 'Git'],
     provenance:
-      'Figures as stated in the résumé. There is no public repository for this engagement, so — unlike the repository-backed systems — nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
+      'Figures as stated in the résumé. There is no public repository for this engagement, so, unlike the repository-backed systems, nothing on this page can be recomputed by a reader. These are the author’s own reported numbers.',
     featured: false,
   },
 ]

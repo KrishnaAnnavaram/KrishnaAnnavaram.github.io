@@ -9,7 +9,7 @@ import { Chip } from '@/components/ui/Bits'
 export const metadata: Metadata = {
   title: 'Work',
   description:
-    'Case studies in retrieval systems, applied machine learning, and NLP ranking — each written as problem, approach, and measured result.',
+    'Case studies in retrieval systems, applied machine learning, and NLP ranking: each written as problem, approach, and measured result.',
 }
 
 export default function WorkPage() {

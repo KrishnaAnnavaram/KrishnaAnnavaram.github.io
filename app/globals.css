@@ -20,13 +20,11 @@
 
 @theme {
   /* ── Families (bound in app/layout.tsx via next/font) ─────────────────── */
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  /* `font-serif` is kept as an alias so existing components inherit the new
-     display face without each being edited. The serif proper is `font-accent`,
-     reserved for a handful of italic words. */
-  --font-serif: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-accent: var(--font-instrument), 'Iowan Old Style', Georgia, serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* `font-serif` is an alias kept so older components inherit the text face
+     without each being edited. There is no serif on the site. */
+  --font-serif: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* ── Type scale — viewport-interpolated ───────────────────────────────── */
   /* Nothing on the site is set below 11px. The two smallest steps are used
@@ -37,12 +35,12 @@
   --text-2xs: 0.75rem;
   --text-2xs--line-height: 1.5;
   --text-2xs--letter-spacing: 0.02em;
-  --text-xs: 0.75rem;
+  --text-xs: 0.8125rem;
   --text-xs--line-height: 1.5;
-  --text-sm: 0.84375rem;
+  --text-sm: 0.9375rem;
   --text-sm--line-height: 1.6;
   /* 16px minimum: the browser default, and the size a phone user expects. */
-  --text-base: clamp(1rem, 0.96rem + 0.19vw, 1.0625rem);
+  --text-base: clamp(1rem, 0.96rem + 0.25vw, 1.125rem);
   --text-base--line-height: 1.7;
   --text-lg: clamp(1.0625rem, 1rem + 0.31vw, 1.25rem);
   --text-lg--line-height: 1.6;
@@ -65,9 +63,9 @@
   --color-surface: oklch(1 0 0);
   --color-sunken: oklch(0.962 0.005 255);
   --color-ink: oklch(0.19 0.015 255);
-  --color-ink-soft: oklch(0.37 0.016 255);
-  --color-ink-muted: oklch(0.45 0.015 255);
-  --color-ink-faint: oklch(0.51 0.014 255);
+  --color-ink-soft: oklch(0.33 0.016 255);
+  --color-ink-muted: oklch(0.41 0.015 255);
+  --color-ink-faint: oklch(0.48 0.014 255);
   --color-rule: oklch(0.885 0.008 255);
   --color-rule-strong: oklch(0.77 0.012 255);
 
@@ -83,6 +81,16 @@
   --color-model-wash: oklch(0.96 0.03 75);
   --color-human: oklch(0.52 0.17 340);
   --color-human-wash: oklch(0.96 0.025 340);
+
+  /* Chart marks: Script, Model/agent, Human gate, Data & I/O, in that fixed
+     order. Separate from the text tokens above because marks have their own
+     lightness band. Validated with the dataviz palette checker in both modes:
+     lightness band, chroma floor, CVD separation (worst ΔE 8.3 light, 11.8
+     dark), normal-vision floor, and 3:1 against the surface. */
+  --color-chart-script: #2063b0;
+  --color-chart-model: #b46d10;
+  --color-chart-human: #a43687;
+  --color-chart-data: #118659;
 
   /* ── Layout ───────────────────────────────────────────────────────────── */
   --spacing-gutter: clamp(1rem, 4.5vw, 2.75rem);
@@ -109,9 +117,9 @@
       --color-surface: oklch(0.182 0.011 255);
       --color-sunken: oklch(0.118 0.007 255);
       --color-ink: oklch(0.965 0.004 255);
-      --color-ink-soft: oklch(0.83 0.01 255);
-      --color-ink-muted: oklch(0.73 0.012 255);
-      --color-ink-faint: oklch(0.665 0.012 255);
+      --color-ink-soft: oklch(0.87 0.008 255);
+      --color-ink-muted: oklch(0.78 0.01 255);
+      --color-ink-faint: oklch(0.7 0.011 255);
       --color-rule: oklch(0.285 0.013 255);
       --color-rule-strong: oklch(0.39 0.016 255);
       --color-accent: oklch(0.83 0.13 182);
@@ -123,6 +131,10 @@
       --color-model-wash: oklch(0.25 0.04 70);
       --color-human: oklch(0.78 0.13 345);
       --color-human-wash: oklch(0.25 0.045 345);
+      --color-chart-script: #398ad6;
+      --color-chart-model: #c7852a;
+      --color-chart-human: #b5418b;
+      --color-chart-data: #3aac83;
     }
   }
 
@@ -131,9 +143,9 @@
     --color-surface: oklch(0.182 0.011 255);
     --color-sunken: oklch(0.118 0.007 255);
     --color-ink: oklch(0.965 0.004 255);
-    --color-ink-soft: oklch(0.83 0.01 255);
-    --color-ink-muted: oklch(0.73 0.012 255);
-    --color-ink-faint: oklch(0.665 0.012 255);
+    --color-ink-soft: oklch(0.87 0.008 255);
+    --color-ink-muted: oklch(0.78 0.01 255);
+    --color-ink-faint: oklch(0.7 0.011 255);
     --color-rule: oklch(0.285 0.013 255);
     --color-rule-strong: oklch(0.39 0.016 255);
     --color-accent: oklch(0.83 0.13 182);
@@ -145,6 +157,10 @@
     --color-model-wash: oklch(0.25 0.04 70);
     --color-human: oklch(0.78 0.13 345);
     --color-human-wash: oklch(0.25 0.045 345);
+    --color-chart-script: #398ad6;
+    --color-chart-model: #c7852a;
+    --color-chart-human: #b5418b;
+    --color-chart-data: #3aac83;
   }
 }
 
@@ -176,11 +192,11 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-sans);
-    font-weight: 560;
-    letter-spacing: -0.022em;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
-  h1 { font-weight: 620; letter-spacing: -0.035em; }
+  h1 { font-weight: 700; letter-spacing: -0.03em; }
 
   p, li { text-wrap: pretty; }
 
@@ -356,14 +372,6 @@
   html[data-photo='1'] .portrait-frame[data-slot='1']:not([data-active]),
   html[data-photo='2'] .portrait-frame[data-slot='2']:not([data-active]) { opacity: 1; }
 
-  /* Pipeline replay rows. */
-  .trace-row {
-    transition:
-      opacity var(--duration-base),
-      background-color var(--duration-base);
-  }
-  .trace-row[data-state='pending'] { opacity: 0.4; }
-
   /* Fan-out photo stack on /about. */
   .photo-stack > * {
     transition: transform var(--duration-slow) var(--ease-out-quint);
@@ -443,9 +451,8 @@
   .prose-spec blockquote {
     border-left: 2px solid var(--color-accent);
     padding-left: 1.2rem;
-    font-family: var(--font-accent);
-    font-style: italic;
-    font-size: var(--text-xl);
+    font-weight: 500;
+    font-size: var(--text-lg);
     color: var(--color-ink);
   }
   .prose-spec code {

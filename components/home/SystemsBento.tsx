@@ -2,7 +2,10 @@ import Link from 'next/link'
 import { ArrowRight, Github } from 'lucide-react'
 import { featured, type ProjectWithRepo } from '@/lib/projects'
 import { DOMAINS } from '@/data/projects'
-import { diagramNodes, type NodeKind } from '@/lib/architecture'
+import { stageComposition } from '@/lib/architecture'
+import { featuredProjects } from '@/data/projects'
+import { StageBar, StageLegend } from '@/components/charts/StageBar'
+import { ModelBoundaryChart } from '@/components/charts/ModelBoundaryChart'
 import { cn } from '@/lib/utils'
 import { SectionHead } from './SectionHead'
 
@@ -16,24 +19,13 @@ const SPANS = [
   'lg:col-span-6',
 ]
 
-const KIND_BAR: Partial<Record<NodeKind, string>> = {
-  deterministic: 'bg-verify',
-  model: 'bg-model',
-  agent: 'bg-model',
-  human: 'bg-human',
-  store: 'bg-rule-strong',
-  source: 'bg-rule',
-  output: 'bg-ink-faint',
-}
-
 /**
  * The flagship systems as a bento grid.
  *
- * Each tile carries a "boundary fingerprint": one segment per stage of the
- * system's architecture diagram, coloured by whether that stage is a script, a
- * model or a person. It is computed from the same typed diagram the case study
- * renders, so the tile cannot drift from the page it links to — and it shows
- * at a glance the thing this whole portfolio argues about: where the model is.
+ * Each tile carries a composition bar: its stages split by who decides at
+ * each one, a script, a model or a person. It is computed from the same typed
+ * diagram the case study renders, so the tile cannot drift from the page it
+ * links to. Below the grid, the same data compares every system on one scale.
  */
 export function SystemsBento() {
   return (
@@ -45,7 +37,7 @@ export function SystemsBento() {
         title={
           <>
             Harnesses for work that cannot afford to be{' '}
-            <span className="font-accent italic text-accent">wrong quietly</span>.
+            <span className="text-accent">wrong quietly</span>.
           </>
         }
         lede="Each one separates what a script measured from what a model judged, and ends with a section on what it cannot do. Every figure was computed against a clone, with the method stated."
@@ -58,17 +50,16 @@ export function SystemsBento() {
           </li>
         ))}
       </ul>
+
+      <div className="mt-6">
+        <ModelBoundaryChart projects={featuredProjects} />
+      </div>
     </section>
   )
 }
 
 function SystemTile({ project: p, lead, wide }: { project: ProjectWithRepo; lead: boolean; wide: boolean }) {
-  const nodes = p.diagram ? diagramNodes(p.diagram) : []
-  const counts = nodes.reduce<Record<string, number>>((acc, n) => {
-    const key = n.kind === 'agent' ? 'model' : n.kind
-    acc[key] = (acc[key] ?? 0) + 1
-    return acc
-  }, {})
+  const composition = p.diagram ? stageComposition(p.diagram) : null
   const evidence = (p.evidence ?? []).slice(0, lead ? 3 : 2)
   const href = p.problem ? `/projects/${p.slug}/` : undefined
 
@@ -101,25 +92,10 @@ function SystemTile({ project: p, lead, wide }: { project: ProjectWithRepo; lead
         <p className={cn('mt-2 text-ink-soft', lead ? 'max-w-text text-base' : 'text-sm')}>{p.tagline}</p>
       </div>
 
-      {nodes.length > 0 && (
+      {composition && (
         <div className={cn('mt-5', wide && 'lg:mt-0 lg:w-80')}>
-          <div className="flex h-2 gap-0.5 overflow-hidden rounded-full" aria-hidden>
-            {nodes.map((n) => (
-              <span key={n.id} className={cn('h-full flex-1', KIND_BAR[n.kind])} />
-            ))}
-          </div>
-          <p className="mt-2 flex flex-wrap gap-x-3 text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
-            <span className="sr-only">Architecture: </span>
-            {counts.deterministic ? (
-              <span><span className="text-verify" aria-hidden>■</span> {counts.deterministic} script</span>
-            ) : null}
-            {counts.model ? (
-              <span><span className="text-model" aria-hidden>◆</span> {counts.model} model/agent</span>
-            ) : null}
-            {counts.human ? (
-              <span><span className="text-human" aria-hidden>▲</span> {counts.human} human gate</span>
-            ) : null}
-          </p>
+          <StageBar composition={composition} name={p.name} />
+          <StageLegend composition={composition} className="mt-2.5 text-xs" />
         </div>
       )}
 

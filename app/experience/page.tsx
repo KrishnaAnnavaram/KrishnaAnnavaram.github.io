@@ -33,7 +33,7 @@ export default function ExperiencePage() {
                 <div id={role.id} className="grid gap-6 border-b border-rule py-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
                   <div className="lg:sticky lg:top-24 lg:self-start">
                     <p className="text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
-                      {formatRoleDate(role.start)} — {formatRoleDate(role.end)}
+                      {formatRoleDate(role.start)} to {formatRoleDate(role.end)}
                     </p>
                     <p className="mt-1.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
                       {roleDuration(role.start, role.end)} · {role.location}

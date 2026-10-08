@@ -85,20 +85,20 @@ export function Header({ paletteItems }: { paletteItems: PaletteItem[] }) {
       {/* `min-w-0` on both children is what stops this row overflowing. Without
           it a flex item cannot shrink below its min-content width, so the
           control cluster pushed itself off-screen rather than wrapping or
-          truncating — at 768px the header ran 388px wider than the viewport,
+          truncating, at 768px the header ran 388px wider than the viewport,
           and `body { overflow-x: hidden }` hid the evidence. */}
       <div className="page-x mx-auto flex h-16 max-w-page items-center justify-between gap-3">
         <Link
           href="/"
           className="group flex min-w-0 items-center gap-3 text-ink"
-          aria-label={`${profile.name} — home`}
+          aria-label={`${profile.name} | home`}
         >
           <Logo size={32} className="transition-transform duration-300 group-hover:-rotate-6" />
           <span className="flex min-w-0 items-center gap-3">
             <span className="truncate text-[1.0625rem] font-semibold tracking-tight">
               {profile.name}
             </span>
-            {/* The role is the first thing to go when space runs out — it is
+            {/* The role is the first thing to go when space runs out, it is
                 repeated in the hero immediately below. */}
             <span aria-hidden className="hidden h-4 w-px shrink-0 bg-rule-strong xl:block" />
             <span className="hidden shrink-0 text-sm text-ink-muted xl:inline">{profile.role}</span>

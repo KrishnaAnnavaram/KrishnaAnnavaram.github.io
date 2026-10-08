@@ -57,14 +57,14 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         {role && (
           <Reveal delay={100}>
             <p className="mt-8 text-sm text-ink-muted">
-              Built as {role.title} at {role.company} · {formatRoleDate(role.start)} —{' '}
+              Built as {role.title} at {role.company} · {formatRoleDate(role.start)} to{' '}
               {formatRoleDate(role.end)}
             </p>
           </Reveal>
         )}
       </header>
 
-      {/* Outcomes first — the reader decides here whether to keep going. */}
+      {/* Outcomes first, the reader decides here whether to keep going. */}
       <section className="page-x rule-t mx-auto max-w-page py-12">
         <Reveal>
           <h2 className="eyebrow">Outcome</h2>

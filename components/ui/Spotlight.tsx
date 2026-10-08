@@ -10,7 +10,7 @@ import { useEffect } from 'react'
  * animation frame, writing two CSS custom properties on whichever card is
  * under the pointer. Nothing goes through React state, so moving the mouse
  * never re-renders anything. Coarse pointers and reduced motion opt out
- * entirely — the cards are complete without it.
+ * entirely, the cards are complete without it.
  */
 export function Spotlight() {
   useEffect(() => {

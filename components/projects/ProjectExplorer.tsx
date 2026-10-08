@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
  * The project index, filterable.
  *
  * The client receives a trimmed projection of each project rather than the
- * full registry — no case-study prose, no README text. That keeps the page
+ * full registry, no case-study prose, no README text. That keeps the page
  * payload in single-digit kilobytes while still supporting search across the
  * fields anyone would actually search by.
  *
@@ -27,7 +27,7 @@ export interface ExplorerItem {
   href?: string
   /** True when `href` leaves the site. */
   external?: boolean
-  /** "Repository" or the employer — shown so the two kinds are distinguishable. */
+  /** "Repository" or the employer, shown so the two kinds are distinguishable. */
   context: string
   domains: { id: string; label: string }[]
   stack: string[]

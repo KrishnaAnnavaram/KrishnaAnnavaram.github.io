@@ -82,7 +82,7 @@ export function getProjectWithRepo(slug: string): ProjectWithRepo | undefined {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   GitHub activity — derived, never asserted
+   GitHub activity, derived, never asserted
    ───────────────────────────────────────────────────────────────────────── */
 
 export interface ActivitySummary {

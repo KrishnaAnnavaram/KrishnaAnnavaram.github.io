@@ -45,7 +45,7 @@ export function RunHistory() {
                 <summary className="flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-x-6 gap-y-1 p-4 sm:p-5 [&::-webkit-details-marker]:hidden">
                   <div className="min-w-0">
                     <p className="text-xs font-medium uppercase tracking-[0.05em] text-ink-muted">
-                      <time dateTime={role.start}>{formatRoleDate(role.start)}</time> —{' '}
+                      <time dateTime={role.start}>{formatRoleDate(role.start)}</time> to{' '}
                       {role.end ? <time dateTime={role.end}>{formatRoleDate(role.end)}</time> : <span className="text-accent">Present</span>}
                       <span className="text-ink-faint"> · {roleDuration(role.start, role.end)}</span>
                     </p>

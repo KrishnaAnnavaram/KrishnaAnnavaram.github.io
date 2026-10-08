@@ -17,10 +17,10 @@ export function ContactCTA() {
         </p>
         <h2 id="contact-title" className="mt-5 max-w-2xl text-4xl text-ink">
           Building something that has to work on{' '}
-          <span className="font-accent italic text-accent">real traffic</span>?
+          <span className="text-accent">real traffic</span>?
         </h2>
         <p className="mt-5 max-w-text text-ink-soft">
-          {profile.availability}. Email is the fastest way to reach me — I read every message.
+          {profile.availability}. Email is the fastest way to reach me. I read every message.
         </p>
         <div className="mt-9 flex flex-wrap items-center gap-3">
           <a

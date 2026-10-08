@@ -6,7 +6,7 @@ import { useAssistant } from './AssistantProvider'
 /**
  * The assistant is opened, never opens itself.
  *
- * No floating bubble, no auto-open, nothing covering content on a phone — an
+ * No floating bubble, no auto-open, nothing covering content on a phone, an
  * uninvited chat widget is a cost, not a feature. It is reachable three ways:
  * this button, the ⌘K palette, and the `/` shortcut.
  *
@@ -17,7 +17,7 @@ const STYLES = {
   outline:
     'group inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-rule-strong px-5 py-2.5 text-sm text-ink transition-colors duration-[var(--duration-base)] hover:border-ink hover:bg-sunken',
   /* `whitespace-nowrap` because the label wrapped onto two lines inside a
-     single-line 64px header at every width above 640px — the most visible
+     single-line 64px header at every width above 640px, the most visible
      unpolished detail on the site. */
   quiet:
     'inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-medium uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-ink',

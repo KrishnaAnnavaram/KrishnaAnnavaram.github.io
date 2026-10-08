@@ -7,7 +7,7 @@ import { ContactForm } from './ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: `Get in touch with ${profile.name} — email, LinkedIn, GitHub, and résumé.`,
+  description: `Get in touch with ${profile.name} by email or LinkedIn, or browse GitHub and the résumé.`,
 }
 
 const channels = [
@@ -23,7 +23,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title="Say what you’re building."
-        lede={`${profile.availability}. Email is the fastest route — I read every message, and I'll tell you honestly if I'm not the right fit.`}
+        lede={`${profile.availability}. Email is the fastest route. I read every message, and I'll tell you honestly if I'm not the right fit.`}
       />
 
       <section className="page-x rule-t mx-auto max-w-page py-14">

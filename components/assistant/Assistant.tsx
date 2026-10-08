@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils'
  * The claim that is true: it cannot compose a sentence, so it cannot state
  * something the site does not already say. The claim that would NOT be true,
  * and which the copy is careful to avoid: that it is therefore always right.
- * Lexical retrieval has no notion of whether a passage answers the question —
+ * Lexical retrieval has no notion of whether a passage answers the question, 
  * ask about Google and it will find "Google Cloud" in an unrelated role. That
  * failure is visible, because the passage and its source are right there, and
  * a weak match is labelled as a weak match rather than dressed up as an answer.
@@ -63,7 +63,7 @@ export function Assistant({
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
 
-  /* Index is fetched on first open, never on page load — it costs nothing
+  /* Index is fetched on first open, never on page load, it costs nothing
      until someone actually asks a question. */
   useEffect(() => {
     if (!open || status !== 'idle') return
@@ -134,7 +134,7 @@ export function Assistant({
         setPending(null)
         setAnswer(retriever.answer(trimmed))
       } else {
-        // Asked before the index landed — hold it rather than dropping it.
+        // Asked before the index landed, hold it rather than dropping it.
         setPending(trimmed)
       }
     },
@@ -217,7 +217,7 @@ export function Assistant({
             <div className="py-4">
               <p className="text-sm text-ink">The index didn&rsquo;t load.</p>
               <p className="mt-1.5 text-sm text-ink-muted">
-                Everything it searches is on the site itself — try{' '}
+                Everything it searches is on the site itself. Try{' '}
                 <Link href="/work/" className="text-accent link-underline" onClick={onClose}>
                   Work
                 </Link>{' '}
@@ -235,7 +235,7 @@ export function Assistant({
               <p className="text-sm leading-relaxed text-ink-soft">
                 This searches the portfolio and quotes what it finds, word for word, with a link
                 to the source. It doesn&rsquo;t generate text, so it can&rsquo;t tell you anything
-                this site doesn&rsquo;t already say — though it can still hand you a passage that
+                this site doesn&rsquo;t already say, though it can still hand you a passage that
                 doesn&rsquo;t answer your question. It will say when a match is weak, and say so
                 when it has nothing.
               </p>
@@ -272,9 +272,9 @@ export function Assistant({
 
         {/* ── Footer: state the mechanism, plainly ───────────────────── */}
         <p className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-rule px-4 py-2.5 text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
-          <span>BM25 over {retriever?.index.chunkCount ?? '—'} passages</span>
+          <span>BM25 over {retriever?.index.chunkCount ?? '…'} passages</span>
           <span aria-hidden>·</span>
-          <span>Passages quoted verbatim — no model in the answer path</span>
+          <span>Passages quoted verbatim, no model in the answer path</span>
         </p>
       </div>
     </div>

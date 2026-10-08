@@ -12,7 +12,7 @@ export interface PaletteItem {
   hint?: string
 }
 
-/** Subsequence match — "grarag" finds "Grounded research assistant". */
+/** Subsequence match, "grarag" finds "Grounded research assistant". */
 function score(query: string, haystack: string): number {
   if (!query) return 0
   const q = query.toLowerCase()

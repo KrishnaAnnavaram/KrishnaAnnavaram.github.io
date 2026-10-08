@@ -9,7 +9,7 @@ import { RotatingPortrait } from './RotatingPortrait'
  * The first screen is the human one: a face, a name, one sentence, and the
  * three places a recruiter goes next. The console material starts below it.
  *
- * Nothing here is behind a reveal — the hero is the LCP, and hiding it until
+ * Nothing here is behind a reveal, the hero is the LCP, and hiding it until
  * hydration once cost this site 900ms of LCP for no visual gain.
  */
 export function Hero() {
@@ -27,9 +27,17 @@ export function Hero() {
 
           <h1 className="mt-7 text-5xl text-ink">{profile.name}</h1>
 
+          {/* Below `lg` the facts panel is hidden to keep the name above the
+              fold, so the two facts a recruiter scans for first move here. */}
+          <p className="mt-3 flex flex-wrap items-center gap-x-2 text-sm text-ink-muted lg:hidden">
+            <span>{currentRole.title} at {currentRole.company}</span>
+            <span aria-hidden>·</span>
+            <span>{profile.location}</span>
+          </p>
+
           <p className="mt-5 max-w-[34ch] text-2xl text-ink-soft sm:text-3xl">
             Generative AI engineer building agentic systems that{' '}
-            <span className="font-accent italic text-accent">show their work</span>.
+            <span className="text-accent">show their work</span>.
           </p>
 
           <p className="mt-6 max-w-text text-ink-muted">{profile.intro}</p>

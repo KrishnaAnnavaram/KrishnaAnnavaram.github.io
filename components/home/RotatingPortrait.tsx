@@ -156,7 +156,7 @@ export function RotatingPortrait({
       <figcaption className="mt-2.5 flex items-center justify-between text-xs font-medium uppercase tracking-[0.05em] text-ink-faint">
         <span>
           Frame {current + 1}/{photos.length}
-          <span className="sr-only"> — {photos[current].caption}</span>
+          <span className="sr-only">: {photos[current].caption}</span>
         </span>
         <span>{paused ? 'Rotation paused' : `Rotates every ${minutes} min`}</span>
       </figcaption>

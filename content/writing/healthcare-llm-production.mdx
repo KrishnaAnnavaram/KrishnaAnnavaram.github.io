@@ -32,19 +32,19 @@ The gap between benchmark and production is not a model problem. It is an engine
 The failure modes that show up repeatedly in clinical document pipelines:
 
 ### 1. Context Length Failures
-Medical documents are long. Clinical notes, discharge summaries, prior authorization letters — these regularly exceed 8k tokens. Without careful chunking and retrieval strategies, you either truncate critical information or blow through context limits.
+Medical documents are long. Clinical notes, discharge summaries and prior authorization letters regularly exceed 8k tokens. Without careful chunking and retrieval strategies, you either truncate critical information or blow through context limits.
 
-**What worked:** Hierarchical chunking — section-level summaries with detailed chunk embeddings. Retrieve at section level, then expand to full chunks when needed.
+**What worked:** Hierarchical chunking, section-level summaries with detailed chunk embeddings. Retrieve at section level, then expand to full chunks when needed.
 
 ### 2. Hallucination on Rare Conditions
-LLMs hallucinate more frequently on rare conditions, unusual drug combinations, and edge cases in diagnostic criteria. In healthcare, rare is not a frequency problem — it is a severity problem. A hallucination on a common condition may be caught quickly. On a rare condition, it may not.
+LLMs hallucinate more frequently on rare conditions, unusual drug combinations, and edge cases in diagnostic criteria. In healthcare, rare is not a frequency problem; it is a severity problem. A hallucination on a common condition may be caught quickly. On a rare condition, it may not.
 
 **What worked:** Retrieval-augmented generation with strict grounding requirements. Every clinical claim must be traceable to a retrieved source. If no source exists, the system returns "information not available" rather than generating.
 
 ### 3. Format Brittleness
 Healthcare data comes in many formats: structured (HL7, FHIR), semi-structured (clinical notes), and completely unstructured (handwritten transcriptions, PDF forms). Models trained on clean text fail quietly on OCR artifacts and formatting inconsistencies.
 
-**What worked:** Preprocessing pipelines that normalize text before embedding — handling common OCR errors, standardizing medical abbreviations, and flagging low-confidence extractions for human review.
+**What worked:** Preprocessing pipelines that normalize text before embedding: handling common OCR errors, standardizing medical abbreviations, and flagging low-confidence extractions for human review.
 
 ## The Architecture That Actually Works
 
@@ -75,7 +75,7 @@ You cannot manage what you cannot measure. In healthcare, you particularly canno
 **What to measure:**
 - Hallucination rate (track extractions that cannot be verified against source)
 - Answer accuracy on holdout evaluation sets
-- Latency P50/P95/P99 — not just average
+- Latency P50/P95/P99, not just average
 - Context window utilization
 - Retrieval relevance scores
 - Token costs per document type
@@ -84,14 +84,14 @@ You cannot manage what you cannot measure. In healthcare, you particularly canno
 
 ## Privacy-Aware Design Patterns
 
-I will not make compliance claims here — regulatory requirements are complex and context-specific. What I will say is that privacy-aware design is not a compliance checkbox. It is an engineering principle.
+I will not make compliance claims here: regulatory requirements are complex and context-specific. What I will say is that privacy-aware design is not a compliance checkbox. It is an engineering principle.
 
 **Patterns that reduce risk:**
 - Never log raw LLM inputs or outputs in production
-- Minimize data retention — process and discard, do not accumulate
-- Pseudonymize before embedding — names and identifiers are not semantically meaningful for most retrieval tasks
+- Minimize data retention: process and discard, do not accumulate
+- Pseudonymize before embedding: names and identifiers are not semantically meaningful for most retrieval tasks
 - Implement access controls at the API level, not just the application level
-- Design for auditability — every retrieval and generation event should be traceable
+- Design for auditability: every retrieval and generation event should be traceable
 
 ## The Business Case for Doing It Right
 
@@ -111,4 +111,4 @@ The model is the easiest part. The engineering is the hard part. Treat it accord
 
 ---
 
-*Have questions about healthcare AI engineering? [Reach out](/contact) — I read every message.*
+*Have questions about healthcare AI engineering? [Reach out](/contact), I read every message.*

@@ -1,8 +1,7 @@
 import { Hero } from '@/components/home/Hero'
 import { TrustStrip } from '@/components/home/TrustStrip'
 import { SystemsBento } from '@/components/home/SystemsBento'
-import { PipelineReplay } from '@/components/home/PipelineReplay'
-import { SectionHead } from '@/components/home/SectionHead'
+import { ImpactAtWork } from '@/components/home/ImpactAtWork'
 import { RunHistory } from '@/components/home/RunHistory'
 import { EarlierWork } from '@/components/home/EarlierWork'
 import { Approach } from '@/components/home/Approach'
@@ -10,7 +9,6 @@ import { ContactCTA } from '@/components/home/ContactCTA'
 import { profile } from '@/data/profile'
 import { experience } from '@/data/experience'
 import { featuredProjects } from '@/data/projects'
-import { marsRuns } from '@/data/mars-runs'
 
 /**
  * Person + ItemList structured data, built from the same source the pages
@@ -87,24 +85,7 @@ export default function HomePage() {
       <TrustStrip />
       <SystemsBento />
 
-      <section className="border-y border-rule bg-sunken/60" aria-labelledby="replay-title">
-        <div className="page-x mx-auto max-w-page py-20 sm:py-24">
-          <SectionHead
-            index="02"
-            label="Recorded evidence"
-            id="replay-title"
-            title={
-              <>
-                Watch MARS <span className="font-accent italic text-accent">refuse</span> to ship a fix.
-              </>
-            }
-            lede="Four real issues, replayed from the evidence MARS committed for each run. Agents judge, scripts decide, a person approves the plan — and all four drafted fixes were blocked by the gates. That is the harness working."
-          />
-          <div className="mt-10">
-            <PipelineReplay runs={marsRuns} />
-          </div>
-        </div>
-      </section>
+      <ImpactAtWork />
 
       <RunHistory />
       <EarlierWork />

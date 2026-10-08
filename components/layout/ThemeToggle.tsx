@@ -19,7 +19,7 @@ export function applyTheme(theme: Theme) {
   try {
     localStorage.setItem('theme', theme)
   } catch {
-    /* private mode — the choice just won't persist */
+    /* private mode, the choice just won't persist */
   }
 }
 

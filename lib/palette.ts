@@ -7,7 +7,7 @@ import { archive } from '@/data/archive'
 import { getPostMeta } from '@/lib/writing'
 
 /**
- * Built on the server so the client bundle carries labels and hrefs only —
+ * Built on the server so the client bundle carries labels and hrefs only, 
  * not case-study prose or README text.
  */
 export function buildPaletteIndex(): PaletteItem[] {
@@ -26,7 +26,7 @@ export function buildPaletteIndex(): PaletteItem[] {
     })),
     ...experience.map((r) => ({
       href: `/experience/#${r.id}`,
-      label: `${r.title} — ${r.company}`,
+      label: `${r.title}: ${r.company}`,
       group: 'Role',
     })),
     ...getPostMeta().map((p) => ({

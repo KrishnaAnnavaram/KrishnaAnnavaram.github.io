@@ -13,7 +13,7 @@ export interface Certification {
  * with a `verifyUrl` carry a live Credly badge; the rest are self-reported.
  *
  * Azure AI-102 was removed in an earlier pass because it appeared in no source
- * document available at the time. The current résumé lists it, so it is back —
+ * document available at the time. The current résumé lists it, so it is back, 
  * without a Credly link, because none has been supplied yet.
  */
 export const certifications: Certification[] = [

@@ -11,7 +11,7 @@ featured: true
 
 Every introduction to Retrieval-Augmented Generation (RAG) shows the same diagram: embed documents, store in a vector database, retrieve by similarity, pass to LLM. The demo works in 20 lines of LangChain. The production system is a different engineering problem.
 
-These are the patterns that separate enterprise-grade RAG from tutorial demos — collected from the literature, from other people's production write-ups, and from what broke in my own retrieval work. Written in 2024, near the start of that work rather than at the end of it; the systems on the [projects](/projects/) pages are where these ideas were actually tested.
+These are the patterns that separate enterprise-grade RAG from tutorial demos, collected from the literature, from other people's production write-ups, and from what broke in my own retrieval work. Written in 2024, near the start of that work rather than at the end of it; the systems on the [projects](/projects/) pages are where these ideas were actually tested.
 
 ## Why Tutorial RAG Fails in Production
 
@@ -44,7 +44,7 @@ Stage 3: Context assembly (deduplication, ordering, length management)
 LLM generation
 ```
 
-The cross-encoder reranker is the critical component. Unlike bi-encoder embeddings that encode query and document independently, cross-encoders process the query-document pair together, producing much higher-quality relevance scores — at the cost of compute. Running a cross-encoder on 50 candidates to select 10 is computationally reasonable and dramatically improves answer quality.
+The cross-encoder reranker is the critical component. Unlike bi-encoder embeddings that encode query and document independently, cross-encoders process the query-document pair together, producing much higher-quality relevance scores, at the cost of compute. Running a cross-encoder on 50 candidates to select 10 is computationally reasonable and dramatically improves answer quality.
 
 **Tools:** Cohere Rerank, BGE-reranker, or a fine-tuned cross-encoder on your domain data.
 
@@ -111,7 +111,7 @@ This pattern makes LLM outputs as reliable as any other API call.
 
 ## Pattern 4: Hallucination Detection
 
-Hallucination is not binary — it exists on a spectrum from "slightly extrapolated" to "completely fabricated." Enterprise systems need quantifiable hallucination detection, not subjective review.
+Hallucination is not binary; it exists on a spectrum from "slightly extrapolated" to "completely fabricated." Enterprise systems need quantifiable hallucination detection, not subjective review.
 
 **Attribution scoring:**
 For every claim in the LLM output, compute its entailment score against the retrieved sources. Claims without high-confidence source attribution are flagged.
@@ -178,15 +178,15 @@ For most enterprise deployments, namespace filtering with a well-designed access
 
 After building several of these, the elements that distinguish production systems:
 
-1. **Evaluation infrastructure first** — before writing the application
-2. **Multi-stage retrieval** — not single-step similarity search
-3. **Structured output validation** — not raw text delivery
-4. **Attribution scoring** — not trust-but-verify
-5. **Cost monitoring** — tracked per query type, not just aggregate
-6. **Gradual rollout** — A/B testing new retrieval configurations against holdout metrics
+1. **Evaluation infrastructure first**, before writing the application
+2. **Multi-stage retrieval**, not single-step similarity search
+3. **Structured output validation**, not raw text delivery
+4. **Attribution scoring**, not trust-but-verify
+5. **Cost monitoring**, tracked per query type, not just aggregate
+6. **Gradual rollout**, A/B testing new retrieval configurations against holdout metrics
 
 The tutorial demo is the easy part. The engineering is the valuable part.
 
 ---
 
-*Building a RAG system for your organization? [Get in touch](/contact) — happy to share lessons learned.*
+*Building a RAG system for your organization? [Get in touch](/contact), happy to share lessons learned.*

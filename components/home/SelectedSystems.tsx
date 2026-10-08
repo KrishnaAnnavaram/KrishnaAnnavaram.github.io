@@ -9,7 +9,7 @@ import { Reveal } from '@/components/ui/Reveal'
  *
  * Each row leads with a measured figure rather than an adjective, because the
  * discriminating question a reviewer is asking is "did this person build a
- * system or call an API" — and a number with a stated method answers it faster
+ * system or call an API", and a number with a stated method answers it faster
  * than a paragraph does.
  */
 export function SelectedSystems() {

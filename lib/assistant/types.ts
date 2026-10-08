@@ -29,7 +29,7 @@ export interface Chunk {
   id: string
   /** The verbatim text that will be shown to the reader if this chunk wins. */
   text: string
-  /** Short heading for the passage, e.g. "Bootshift — the problem". */
+  /** Short heading for the passage, e.g. "Bootshift, the problem". */
   heading: string
   source: Source
   /** Extra terms that should match this chunk but are not in its text. */
@@ -51,7 +51,7 @@ export interface KnowledgeIndex {
 export interface RetrievedChunk {
   chunk: Chunk
   score: number
-  /** Query terms that actually matched — used to highlight and to explain. */
+  /** Query terms that actually matched, used to highlight and to explain. */
   matched: string[]
 }
 
@@ -67,6 +67,6 @@ export interface Answer {
   passages: RetrievedChunk[]
   /** Deduplicated sources across passages, in relevance order. */
   sources: Source[]
-  /** Shown when confidence is 'none' — what to try instead. */
+  /** Shown when confidence is 'none', what to try instead. */
   didYouMean?: string[]
 }

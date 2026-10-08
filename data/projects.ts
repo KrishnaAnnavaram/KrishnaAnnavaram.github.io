@@ -1,7 +1,7 @@
 import type { SystemDiagram } from '@/lib/architecture'
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   PROJECT REGISTRY — the editorial layer.
+   PROJECT REGISTRY, the editorial layer.
 
    GitHub is the source of truth for *what exists*: names, languages, commit
    recency, stars, READMEs. That comes from `data/generated/github.json`, which
@@ -86,12 +86,12 @@ export interface Project {
 
 const marsDiagram: SystemDiagram = {
   id: 'mars-pipeline',
-  title: 'MARS — seven agents, and scripts that measure what the agents may only judge',
+  title: 'MARS: seven agents, and scripts that measure what the agents may only judge',
   caption:
     'Seven agent personas run in order inside a coding-assistant session (Claude Code or GitHub Copilot Chat). Each one calls deterministic Node.js scripts for facts and writes its judgement into schema-checked JSON. Then a renderer merges the two into a report. Two lines are enforced: no patch before a person approves the plan, and no agent can clear a patch that a script-computed gate blocked.',
   groups: [
     {
-      label: 'Understand and plan — reads only (agents 01–04, stage 1)',
+      label: 'Understand and plan: reads only (agents 01–04, stage 1)',
       nodes: [
         {
           id: 'mars-architect',
@@ -129,8 +129,8 @@ const marsDiagram: SystemDiagram = {
       ],
     },
     {
-      label: 'Implement — only in an isolated worktree or sandbox (agent 04, stage 2)',
-      boundary: 'Human approval — no patch is drafted until a plan reads Status: Approved',
+      label: 'Implement: only in an isolated worktree or sandbox (agent 04, stage 2)',
+      boundary: 'Human approval: no patch is drafted until a plan reads Status: Approved',
       nodes: [
         {
           id: 'mars-approval',
@@ -157,7 +157,7 @@ const marsDiagram: SystemDiagram = {
     },
     {
       label: 'Verify and ship (agents 05–07)',
-      boundary: 'Exit codes and hard gates — an agent may make a verdict stricter, never more lenient',
+      boundary: 'Exit codes and hard gates: an agent may make a verdict stricter, never more lenient',
       nodes: [
         {
           id: 'mars-verify',
@@ -201,12 +201,12 @@ const marsDiagram: SystemDiagram = {
 
 const bootshiftDiagram: SystemDiagram = {
   id: 'bootshift-pipeline',
-  title: 'Bootshift — twenty stages, one writer',
+  title: 'Bootshift: twenty stages, one writer',
   caption:
     'The pipeline condensed to its three phases. Eleven analysis stages read but never write; six stages repeat per migration edge and are the only ones permitted to change source; three finalise. Every write in the middle band passes through a single gateway.',
   groups: [
     {
-      label: 'Analysis — read-only (11 stages)',
+      label: 'Analysis: read-only (11 stages)',
       nodes: [
         {
           id: 'bs-inventory',
@@ -251,7 +251,7 @@ const bootshiftDiagram: SystemDiagram = {
         },
         {
           id: 'bs-plan',
-          label: 'Migration plan — frozen',
+          label: 'Migration plan: frozen',
           summary: 'Fixes the edge sequence and each edge’s validation depth before any write.',
           kind: 'deterministic',
           detail: {
@@ -262,8 +262,8 @@ const bootshiftDiagram: SystemDiagram = {
       ],
     },
     {
-      label: 'Per migration edge — the only stages that write (6 stages, repeated)',
-      boundary: 'Baseline seal — nothing above this line may modify source',
+      label: 'Per migration edge: the only stages that write (6 stages, repeated)',
+      boundary: 'Baseline seal: nothing above this line may modify source',
       nodes: [
         {
           id: 'bs-transform',
@@ -283,7 +283,7 @@ const bootshiftDiagram: SystemDiagram = {
           detail: {
             inputs: ['Proposed change + base hash'],
             outputs: ['Hash-chained change ledger entry', 'Patch artifact'],
-            note: 'A stale base hash is rejected rather than applied. Rejections are appended to the ledger too — a refused change is still a fact about the run.',
+            note: 'A stale base hash is rejected rather than applied. Rejections are appended to the ledger too; a refused change is still a fact about the run.',
           },
         },
         {
@@ -338,7 +338,7 @@ const bootshiftDiagram: SystemDiagram = {
 
 const complexityDiagram: SystemDiagram = {
   id: 'complexity-harness',
-  title: 'Adaptive complexity harness — four stages, one contract',
+  title: 'Adaptive complexity harness: four stages, one contract',
   caption:
     'Three agents drive three deterministic scripts; a fourth stage runs only when a target migration language is named. The gate before stage 3 is the design’s whole point: an analyzer missing its declared inputs returns “insufficient_input”, never a zero.',
   groups: [
@@ -346,7 +346,7 @@ const complexityDiagram: SystemDiagram = {
       nodes: [
         {
           id: 'ch-inventory',
-          label: 'Stage 1 — Inventory',
+          label: 'Stage 1: Inventory',
           summary: 'Declaration-only scan. Never enters a method body.',
           kind: 'agent',
           detail: {
@@ -356,7 +356,7 @@ const complexityDiagram: SystemDiagram = {
         },
         {
           id: 'ch-parser',
-          label: 'Stage 2 — Parser',
+          label: 'Stage 2: Parser',
           summary: 'Hand-written tokenizer builds the language-neutral Normalized Tree.',
           kind: 'agent',
           detail: {
@@ -376,7 +376,7 @@ const complexityDiagram: SystemDiagram = {
         },
         {
           id: 'ch-complexity',
-          label: 'Stage 3 — Complexity',
+          label: 'Stage 3: Complexity',
           summary: 'Discovers, orders, gates, runs and merges twenty analyzers.',
           kind: 'agent',
           detail: {
@@ -387,7 +387,7 @@ const complexityDiagram: SystemDiagram = {
         },
         {
           id: 'ch-target',
-          label: 'Stage 4 — Target fit',
+          label: 'Stage 4: Target fit',
           summary: 'Projects the tree onto a target language and re-runs the same analyzers.',
           kind: 'deterministic',
           detail: {
@@ -400,17 +400,17 @@ const complexityDiagram: SystemDiagram = {
     },
   ],
   footnote:
-    'There is no model anywhere in this pipeline, and no third-party Python package either — the harness runs on the standard library, because the clients it was designed for are frequently air-gapped.',
+    'There is no model anywhere in this pipeline, and no third-party Python package either: the harness runs on the standard library, because the clients it was designed for are frequently air-gapped.',
 }
 
 const decisionForgeDiagram: SystemDiagram = {
   id: 'decisionforge-pipeline',
-  title: 'DecisionForge — nine stages, three of them deterministic',
+  title: 'DecisionForge: nine stages, three of them deterministic',
   caption:
     'A question in English becomes a chart and a written finding. The stages shaded as model calls are the only ones that reach an LLM; chart selection, aggregation and response assembly are plain code, which is why they cost nothing and behave identically on every run.',
   groups: [
     {
-      label: 'Synchronous — the user is waiting',
+      label: 'Synchronous: the user is waiting',
       nodes: [
         {
           id: 'df-pre',
@@ -428,7 +428,7 @@ const decisionForgeDiagram: SystemDiagram = {
           kind: 'model',
           detail: {
             tech: ['Presidio', 'Redis', 'GPT-5-mini'],
-            note: 'This stage fails closed — an exception produces a block, not a pass. Every other stage fails open, because a missing chart is recoverable and an unscreened query is not.',
+            note: 'This stage fails closed: an exception produces a block, not a pass. Every other stage fails open, because a missing chart is recoverable and an unscreened query is not.',
           },
         },
         {
@@ -478,8 +478,8 @@ const decisionForgeDiagram: SystemDiagram = {
       ],
     },
     {
-      label: 'Background — after the reply is sent',
-      boundary: 'The reply has already been sent — nothing below adds latency',
+      label: 'Background: after the reply is sent',
+      boundary: 'The reply has already been sent: nothing below adds latency',
       nodes: [
         {
           id: 'df-memory',
@@ -506,12 +506,12 @@ const decisionForgeDiagram: SystemDiagram = {
 
 const smcpDiagram: SystemDiagram = {
   id: 'smcp-gateway',
-  title: 'SMCP Gateway — three agents, and a credential that never reaches the reasoning layer',
+  title: 'SMCP Gateway: three agents, and a credential that never reaches the reasoning layer',
   caption:
-    'Three bands, read left to right. The agents understand the question, negotiate what data would actually answer it, and only then execute — across a boundary they never cross themselves. Every agent in the first two bands reasons; none of them holds a database credential.',
+    'Three bands, read left to right. The agents understand the question, negotiate what data would actually answer it, and only then execute, across a boundary they never cross themselves. Every agent in the first two bands reasons; none of them holds a database credential.',
   groups: [
     {
-      label: 'Understand — before anything is retrieved',
+      label: 'Understand: before anything is retrieved',
       nodes: [
         {
           id: 'smcp-preflight',
@@ -529,7 +529,7 @@ const smcpDiagram: SystemDiagram = {
           summary: 'Classifies the turn into an eight-field structured contract.',
           kind: 'agent',
           detail: {
-            note: 'It never imports the other two agents. It addresses them by id over A2A, and a test asserts the import is absent — so either specialist could move to another host without changing this file.',
+            note: 'It never imports the other two agents. It addresses them by id over A2A, and a test asserts the import is absent, so either specialist could move to another host without changing this file.',
           },
         },
         {
@@ -545,7 +545,7 @@ const smcpDiagram: SystemDiagram = {
         },
         {
           id: 'smcp-derive',
-          label: 'Domain Expert — derive',
+          label: 'Domain Expert: derive',
           summary: 'Proposes a data requirement, then checks its own figures against the source.',
           kind: 'model',
           detail: {
@@ -555,11 +555,11 @@ const smcpDiagram: SystemDiagram = {
       ],
     },
     {
-      label: 'Negotiate — bounded, and allowed to fail',
+      label: 'Negotiate: bounded, and allowed to fail',
       nodes: [
         {
           id: 'smcp-capabilities',
-          label: 'MCP Agent — capabilities',
+          label: 'MCP Agent: capabilities',
           summary: 'Advertises 34 capabilities, narrowed from 56 underlying tools.',
           kind: 'agent',
           detail: {
@@ -581,7 +581,7 @@ const smcpDiagram: SystemDiagram = {
     },
     {
       label: 'Execute',
-      boundary: 'Privilege boundary — no agent above this line holds a credential',
+      boundary: 'Privilege boundary: no agent above this line holds a credential',
       nodes: [
         {
           id: 'smcp-data',
@@ -590,7 +590,7 @@ const smcpDiagram: SystemDiagram = {
           kind: 'deterministic',
           detail: {
             tech: ['MCP over stdio', 'PostgreSQL'],
-            note: 'Bulk numeric data returns out of band rather than through model context — a 250-day matrix is 1,250 values, and truncating one midway would corrupt a result silently.',
+            note: 'Bulk numeric data returns out of band rather than through model context: a 250-day matrix is 1,250 values, and truncating one midway would corrupt a result silently.',
           },
         },
         {
@@ -613,12 +613,12 @@ const smcpDiagram: SystemDiagram = {
     },
   ],
   footnote:
-    'The split into two servers is the product, not an implementation detail: when a number looks wrong there are exactly two causes — bad input or bad arithmetic — and separating them makes each checkable in isolation.',
+    'The split into two servers is the product, not an implementation detail: when a number looks wrong there are exactly two causes, bad input or bad arithmetic, and separating them makes each checkable in isolation.',
 }
 
 const statuteDiagram: SystemDiagram = {
   id: 'statute-pipeline',
-  title: 'Statute — eight stages, and no model in any of them',
+  title: 'Statute: eight stages, and no model in any of them',
   caption:
     'Oracle PL/SQL becomes a business requirements document, diagrams and a knowledge graph. Every stage is an independent CLI program chained by versioned JSON on disk; the structure comes from a formal grammar and every sentence is assembled by rule.',
   groups: [
@@ -673,7 +673,7 @@ const statuteDiagram: SystemDiagram = {
         {
           id: 'st-diagram',
           label: '6 · Diagram',
-          summary: 'Builds a diagram model, then renders it — two separate steps.',
+          summary: 'Builds a diagram model, then renders it as a separate step.',
           kind: 'deterministic',
           detail: {
             note: 'The previous version formatted diagram strings inline while walking the graph, which meant there was nothing to count and nothing to assert on. Separating the model from the renderer took the test suite from 7 checks to 52.',
@@ -700,7 +700,7 @@ const statuteDiagram: SystemDiagram = {
     },
   ],
   footnote:
-    'No language model generates, summarises, judges or rewrites any output — verified by searching every module for LLM SDK imports and finding none. Hallucination is not reduced here; it is structurally unavailable, which is what lets every claim in the document cite a file and a line.',
+    'No language model generates, summarises, judges or rewrites any output, verified by searching every module for LLM SDK imports and finding none. Hallucination is not reduced here; it is structurally unavailable, which is what lets every claim in the document cite a file and a line.',
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -813,7 +813,7 @@ export const projects: Project[] = [
     // Delivered at Virtusa as "Smart Quant"; the repository keeps the
     // descriptive name. Both refer to the same system.
     tagline:
-      'Three agents negotiate what data a risk question actually needs — and the layer that reasons never holds a database credential.',
+      'Three agents negotiate what data a risk question actually needs, and the layer that reasons never holds a database credential.',
     kind: 'system',
     year: '2026',
     status: 'featured',
@@ -833,26 +833,26 @@ export const projects: Project[] = [
     ],
     repo: 'semantic-mcp-data-access-gateway',
     problem:
-      '"What is the 10-day 99% VaR on this book?" is three questions wearing one coat. One is methodological and its answer lives in a risk corpus, not a database. One is a capability question — a par yield curve carries no instrument identifiers, so any method needing them is simply unanswerable against this data. Only the third is retrieval and arithmetic. The obvious architecture, user to model to unrestricted SQL to a dump of rows, fails all three at once: it loses the quoting basis, recalls parameters from training that nobody can falsify, returns nine thousand dates when asked for a curve, has no way to refuse, and runs with a credential that is one bug away from writing to the source of record.',
+      '"What is the 10-day 99% VaR on this book?" is three questions wearing one coat. One is methodological and its answer lives in a risk corpus, not a database. One is a capability question: a par yield curve carries no instrument identifiers, so any method needing them is simply unanswerable against this data. Only the third is retrieval and arithmetic. The obvious architecture, user to model to unrestricted SQL to a dump of rows, fails all three at once: it loses the quoting basis, recalls parameters from training that nobody can falsify, returns nine thousand dates when asked for a curve, has no way to refuse, and runs with a credential that is one bug away from writing to the source of record.',
     constraints: [
       'The process doing the reasoning could not be allowed to hold a writable database credential.',
-      'A risk figure had to be reproducible — the same inputs must produce the same number on every run.',
+      'A risk figure had to be reproducible: the same inputs must produce the same number on every run.',
       'The system had to be able to say a question was unanswerable, rather than answering a nearby one.',
     ],
     approach: [
-      'Split the work across three agents addressed over A2A — an orchestrator, a domain expert, and an agent that owns tool access — each advertising its skills on a card, with requests refused if they name a skill the card does not carry.',
+      'Split the work across three agents addressed over A2A (an orchestrator, a domain expert, and an agent that owns tool access), each advertising its skills on a card, with requests refused if they name a skill the card does not carry.',
       'Put a free pre-flight gate in front of everything: regular expressions and a lexicon decide in under a millisecond whether the question is complete enough to be worth a model call.',
-      'Grounded methodology in two retrieved corpora, then required every figure in the derived plan to appear verbatim in a retrieved passage — a number the model produced but cannot point at fails the check.',
+      'Grounded methodology in two retrieved corpora, then required every figure in the derived plan to appear verbatim in a retrieved passage. A number the model produced but cannot point at fails the check.',
       'Made the domain expert and the tool agent negotiate the data requirement over at most five rounds, terminating early if two rounds change nothing, and allowed the outcome to be a refusal.',
       'Narrowed 56 underlying MCP tools down to 34 advertised capabilities, because a planner choosing under uncertainty gets worse with every near-duplicate option it is offered.',
       'Split data access from computation into two MCP servers: the data server holds a read-only Postgres role; the risk engine holds no credential, no model and no network, and a test asserts that no module inside it imports a database driver.',
-      'Returned bulk numeric data out of band rather than through model context — a 250-day matrix is 1,250 values, and a truncation partway through would corrupt a result silently rather than loudly.',
+      'Returned bulk numeric data out of band rather than through model context: a 250-day matrix is 1,250 values, and a truncation partway through would corrupt a result silently rather than loudly.',
     ],
     diagram: smcpDiagram,
     decisions: [
       {
         title: 'Two MCP servers, split by failure attribution',
-        body: 'When a VaR number looks wrong there are exactly two possible causes: bad input, or bad arithmetic. With the split, each is checkable on its own — replay the same payload through the engine, or query the data server for provenance. Combined into one server, you are guessing. This is the boundary the product is built on rather than an implementation detail.',
+        body: 'When a VaR number looks wrong there are exactly two possible causes: bad input, or bad arithmetic. With the split, each is checkable on its own: replay the same payload through the engine, or query the data server for provenance. Combined into one server, you are guessing. This is the boundary the product is built on rather than an implementation detail.',
       },
       {
         title: 'The reasoning layer holds no credential',
@@ -860,7 +860,7 @@ export const projects: Project[] = [
       },
       {
         title: 'Documentation drift is treated as a failing test',
-        body: 'When a document claims five risk tools and the server registers forty-two, the count is not merely stale — it is evidence nobody reconciled the two. So the authoritative inventory is derived from the registered tools at test time and the documents are checked against it, never the reverse.',
+        body: 'When a document claims five risk tools and the server registers forty-two, the count is not merely stale; it is evidence nobody reconciled the two. So the authoritative inventory is derived from the registered tools at test time and the documents are checked against it, never the reverse.',
       },
       {
         title: 'Strict validation because a silent wrong answer is the worst outcome',
@@ -880,13 +880,13 @@ export const projects: Project[] = [
       },
       {
         value: '56',
-        label: 'MCP tools registered — 14 data, 42 risk — narrowed to 34 advertised',
+        label: 'MCP tools registered (14 data, 42 risk), narrowed to 34 advertised',
         method: 'Both servers booted locally and list_tools() called; counts are what the servers actually return',
       },
       {
         value: '13 × 11',
         label: 'evaluation grid: cases scored against graders including groundedness and refusal',
-        method: 'Read from the harness — graders include rows_are_grounded, no_ungrounded_numbers and impossible_fields_refused',
+        method: 'Read from the harness: graders include rows_are_grounded, no_ungrounded_numbers and impossible_fields_refused',
       },
       {
         value: '~53,900',
@@ -895,7 +895,7 @@ export const projects: Project[] = [
       },
     ],
     limitations: [
-      'The container build is broken. It copies a path that a refactor moved, so it fails on the first instruction — and even repaired, it installs three of the five distributions. There is no working containerised deployment today.',
+      'The container build is broken. It copies a path that a refactor moved, so it fails on the first instruction, and even repaired, it installs three of the five distributions. There is no working containerised deployment today.',
       'One of the two model backends cannot plan a data request at all. Its schema caps are lower than the planning contract requires, and no arrangement of the parameters satisfies both. This is recorded as a strict expected-failure so that it will fail loudly if it is ever silently "fixed".',
       'A fully negotiated turn takes between 110 and 370 seconds and makes six to thirteen model calls. This is a reasoning system, not an interactive one.',
       'Session memory is an in-process dictionary. A restart loses every conversation.',
@@ -919,7 +919,7 @@ export const projects: Project[] = [
     stack: ['Java 21', 'Maven', 'OpenRewrite', 'JavaParser', 'JGit', 'ArchUnit', 'Jackson', 'Picocli'],
     repo: 'bootshift',
     problem:
-      'A Spring Boot major upgrade is not a version bump. It changes the namespace from javax to jakarta, the security configuration model, the Java baseline, the auto-configuration mechanism, hundreds of property names and the whole transitive dependency graph — at once. The tools that exist answer "it compiles." The question a team actually has is "does it still do the same thing?" Nothing answers that, so the work falls back on manual review of a diff nobody can hold in their head.',
+      'A Spring Boot major upgrade is not a version bump. It changes the namespace from javax to jakarta, the security configuration model, the Java baseline, the auto-configuration mechanism, hundreds of property names and the whole transitive dependency graph, at once. The tools that exist answer "it compiles." The question a team actually has is "does it still do the same thing?" Nothing answers that, so the work falls back on manual review of a diff nobody can hold in their head.',
     constraints: [
       'Enterprise clients are frequently air-gapped, so the transformation path cannot depend on a hosted service.',
       'A migration tool that is wrong silently is worse than no tool, because it transfers confidence it has not earned.',
@@ -927,9 +927,9 @@ export const projects: Project[] = [
     ],
     approach: [
       'Split the pipeline into twenty stages across three phases, with eleven read-only analysis stages that must complete before anything is permitted to write.',
-      'Routed every source modification through one FileMutationGateway, and enforced that with an ArchUnit rule that walks bytecode for direct filesystem calls from the transformation packages — so "only the gateway writes" is a property the build checks, not a convention.',
+      'Routed every source modification through one FileMutationGateway, and enforced that with an ArchUnit rule that walks bytecode for direct filesystem calls from the transformation packages, so "only the gateway writes" is a property the build checks, not a convention.',
       'Made every change append to a hash-chained ledger, including rejected ones, so the record of a run covers what was refused as well as what was applied.',
-      'Froze the migration plan — edge order and per-edge validation depth — before the first write, so the harness cannot lower its own bar once an edge gets hard.',
+      'Froze the migration plan (edge order and per-edge validation depth) before the first write, so the harness cannot lower its own bar once an edge gets hard.',
       'Declared the old-versus-new comparison as a contract up front: each dimension is MUST_MATCH, EXPECTED_TO_DIFFER or UNCONSTRAINED, and a dimension that could not be compared is reported NOT_COMPARED rather than passed.',
       'Kept the optional AI provider restricted to a loopback address and off by default, with seven tests asserting the boundary. It can suggest a repair; it cannot authorise one.',
     ],
@@ -937,7 +937,7 @@ export const projects: Project[] = [
     decisions: [
       {
         title: 'File identity is allocated, not derived',
-        body: 'Path identity breaks the moment SecurityConfig.java is renamed; content-hash identity breaks on the first edit. A migration is precisely the operation that changes both, so each file gets an allocated ID that survives rename, split and merge — which is what makes the change ledger traceable across the whole run.',
+        body: 'Path identity breaks the moment SecurityConfig.java is renamed; content-hash identity breaks on the first edit. A migration is precisely the operation that changes both, so each file gets an allocated ID that survives rename, split and merge, which is what makes the change ledger traceable across the whole run.',
       },
       {
         title: 'Validated artifacts outrank the state machine',
@@ -945,11 +945,11 @@ export const projects: Project[] = [
       },
       {
         title: 'The graph is rebuilt in full every edge',
-        body: 'Incremental update is much faster and is the classic source of silent drift — and the failure is invisible precisely because the mechanism that would detect it is the thing that broke. Reversing this decision is gated on a test asserting the incremental graph equals the full rebuild.',
+        body: 'Incremental update is much faster and is the classic source of silent drift, and the failure is invisible precisely because the mechanism that would detect it is the thing that broke. Reversing this decision is gated on a test asserting the incremental graph equals the full rebuild.',
       },
       {
         title: 'One recipe per batch, each pinned to a base hash',
-        body: 'An earlier version batched recipes. Two of them targeting the same pom.xml were both computed from the pre-edge file, so the second write silently discarded the first — and the ledger recorded both as applied. Now a stale base hash is rejected outright.',
+        body: 'An earlier version batched recipes. Two of them targeting the same pom.xml were both computed from the pre-edge file, so the second write silently discarded the first, and the ledger recorded both as applied. Now a stale base hash is rejected outright.',
       },
     ],
     evidence: [
@@ -965,7 +965,7 @@ export const projects: Project[] = [
       },
       {
         value: '20',
-        label: 'pipeline stages — 11 analysis, 6 per-edge, 3 finalization',
+        label: 'pipeline stages: 11 analysis, 6 per-edge, 3 finalization',
         method: 'Read from PipelineOrchestrator, not from the documentation',
       },
       {
@@ -980,21 +980,21 @@ export const projects: Project[] = [
       },
     ],
     limitations: [
-      'No migration has been carried through end to end. On the reference corpus the run completed one of eight planned edges and then halted on a policy block: one configuration property appeared only in the new build and the cause could not be verified. That is the designed outcome — the harness will not manufacture an explanation — but it means the system is demonstrated, not proven in production.',
+      'No migration has been carried through end to end. On the reference corpus the run completed one of eight planned edges and then halted on a policy block: one configuration property appeared only in the new build and the cause could not be verified. That is the designed outcome, the harness will not manufacture an explanation: but it means the system is demonstrated, not proven in production.',
       'Stages 18 to 20 are written and wired but have never been executed by a completed run, so they are unverified in practice.',
       'Runtime validation can only characterise what it can start. On the reference corpus one of six modules never starts, and that gap is emitted as a named blind spot rather than hidden.',
       'There is no CI in the repository. The test suite is real and runs locally; nothing runs it automatically.',
-      'No kernel-level sandbox — a malicious Maven plugin the repository already trusts would run with the harness’s privileges.',
+      'No kernel-level sandbox: a malicious Maven plugin the repository already trusts would run with the harness’s privileges.',
     ],
     provenance:
-      'Figures here were computed against a clone at HEAD (merge of #1, 10 Sep 2026), not taken from the README. Where the two disagree — notably the test count — this page follows the code.',
+      'Figures here were computed against a clone at HEAD (merge of #1, 10 Sep 2026), not taken from the README. Where the two disagree (notably the test count), this page follows the code.',
   },
 
   {
     slug: 'statute',
     name: 'Statute',
     tagline:
-      'Reverse-engineers an undocumented Oracle PL/SQL system into a requirements document — with no language model anywhere in the generation path.',
+      'Reverse-engineers an undocumented Oracle PL/SQL system into a requirements document, with no language model anywhere in the generation path.',
     kind: 'system',
     year: '2026',
     status: 'featured',
@@ -1003,26 +1003,26 @@ export const projects: Project[] = [
     stack: ['Python 3.11', 'ANTLR4', 'sqlglot', 'Mermaid', 'Neo4j (optional)'],
     repo: 'statute',
     problem:
-      'An organisation runs a working system whose documentation is missing and whose authors have left. Before it can be modernised, replaced or audited, somebody has to answer what it does and which rules it enforces — and the only remaining authority on that is the source. The tempting approach is to point a language model at the code and ask. The reason not to is specific: a deterministic extractor that misses a rule fails visibly, and a generative one that invents a rule fails invisibly. In a document that will be used to rebuild a system, an invented rule is worse than a missing one, because nothing downstream will question it.',
+      'An organisation runs a working system whose documentation is missing and whose authors have left. Before it can be modernised, replaced or audited, somebody has to answer what it does and which rules it enforces, and the only remaining authority on that is the source. The tempting approach is to point a language model at the code and ask. The reason not to is specific: a deterministic extractor that misses a rule fails visibly, and a generative one that invents a rule fails invisibly. In a document that will be used to rebuild a system, an invented rule is worse than a missing one, because nothing downstream will question it.',
     constraints: [
       'The output is consumed by builders, not only readers, so every statement had to be traceable to a file and a line.',
-      'Published evidence puts specification extraction near 90% precision while end-to-end code generation lands near 9% — so the pipeline had to stop where the evidence stops.',
+      'Published evidence puts specification extraction near 90% precision while end-to-end code generation lands near 9%, so the pipeline had to stop where the evidence stops.',
       'Nested blocks, keywords inside string literals and CASE within CASE rule out regular expressions as a parsing strategy.',
     ],
     approach: [
-      'Built eight independent CLI programs chained by versioned JSON artefacts on disk — no orchestrator, no shared state, no service, so any stage can be rerun and inspected on its own.',
+      'Built eight independent CLI programs chained by versioned JSON artefacts on disk: no orchestrator, no shared state, no service, so any stage can be rerun and inspected on its own.',
       'Parsed with a formal Oracle PL/SQL grammar and decomposed SQL with a dedicated library, so structure is derived rather than guessed.',
       'Assembled every sentence of the document by rule from the resulting parse trees, which is what makes the same source produce the same document every run.',
-      'Extracted business rules from nine distinct kinds of evidence — conditional branches, named and predefined exceptions, CASE branches, variable derivations, check constraints, cursor eligibility, failure isolation and error contracts — and graded each by confidence.',
+      'Extracted business rules from nine distinct kinds of evidence (conditional branches, named and predefined exceptions, CASE branches, variable derivations, check constraints, cursor eligibility, failure isolation and error contracts), and graded each by confidence.',
       'Recorded a disabled database constraint as not enforced, rather than presenting it as an active business rule.',
       'Marked each requirement’s modality: a constraint the database enforces is necessary; a guard in application code is obligatory.',
-      'Separated the diagram model from the diagram renderer after the previous inline version proved untestable — which took that stage’s checks from 7 to 52.',
+      'Separated the diagram model from the diagram renderer after the previous inline version proved untestable, which took that stage’s checks from 7 to 52.',
     ],
     diagram: statuteDiagram,
     decisions: [
       {
         title: 'No model call anywhere, as the central thesis',
-        body: 'This is the decision the project exists to test. Because nothing generates text, hallucination is not reduced — it is structurally unavailable, which is what makes it safe for every claim in the output to cite a source line. The recorded cost is stated just as plainly: prose quality is bounded by the quality of the templates, and the naming heuristics took substantial iteration to get right.',
+        body: 'This is the decision the project exists to test. Because nothing generates text, hallucination is not reduced; it is structurally unavailable, which is what makes it safe for every claim in the output to cite a source line. The recorded cost is stated just as plainly: prose quality is bounded by the quality of the templates, and the naming heuristics took substantial iteration to get right.',
       },
       {
         title: 'Two complexity metrics, and one deliberately rejected',
@@ -1037,12 +1037,12 @@ export const projects: Project[] = [
       {
         value: '414',
         label: 'assertions across eight suites, all passing',
-        method: 'All eight suites run locally and PASS lines counted. These are assertions, not test functions — the suites use a custom check harness',
+        method: 'All eight suites run locally and PASS lines counted. These are assertions, not test functions; the suites use a custom check harness',
       },
       {
         value: 'Zero',
         label: 'language-model imports anywhere in the repository',
-        method: 'Searched every module for every major LLM SDK. No matches — and no network, environment or database imports in the pipeline either',
+        method: 'Searched every module for every major LLM SDK. No matches, and no network, environment or database imports in the pipeline either',
       },
       {
         value: '41',
@@ -1052,19 +1052,19 @@ export const projects: Project[] = [
       {
         value: '0.588',
         label: 'rule-extraction F1 on blind measurement, with 0.400 recall',
-        method: 'The tuned figure is 1.000 and the project disowns it — ground truth was used to fix the extractor, so only the blind numbers are reported here',
+        method: 'The tuned figure is 1.000 and the project disowns it: ground truth was used to fix the extractor, so only the blind numbers are reported here',
       },
     ],
     limitations: [
-      'The extraction F1 the harness prints is contaminated: the ground truth was used to fix the extractor. Only the blind figures — 0.588 F1 and 0.400 recall — are defensible, and they are the ones published above.',
+      'The extraction F1 the harness prints is contaminated: the ground truth was used to fix the extractor. Only the blind figures (0.588 F1 and 0.400 recall) are defensible, and they are the ones published above.',
       'It has only ever been run against a single banking corpus of five objects and fifteen tables. It has never been pointed at unfamiliar PL/SQL.',
       'Coverage metrics demonstrate completeness, not usefulness. A document can cover every branch and still fail to explain the business.',
       'Concepts cannot be recovered from code. What the pipeline produces are solution and functional requirements; genuine business requirements are not recoverable from an implementation.',
-      'One relationship type is computed by the diagram stage and never emitted by the graph stage — the loop that would write it is empty.',
+      'One relationship type is computed by the diagram stage and never emitted by the graph stage; the loop that would write it is empty.',
       'There is no dependency manifest, no CI, no container and no logging framework.',
     ],
     provenance:
-      'All eight test suites were run and their assertions counted; the zero-model claim was verified by searching the whole repository for LLM SDK imports; the rule and gap counts come from the generated artefacts. The README badge says "414 tests" — they are 414 assertions across 50 test functions, and that is how they are described here.',
+      'All eight test suites were run and their assertions counted; the zero-model claim was verified by searching the whole repository for LLM SDK imports; the rule and gap counts come from the generated artefacts. The README badge says "414 tests": they are 414 assertions across 50 test functions, and that is how they are described here.',
   },
 
   {
@@ -1080,14 +1080,14 @@ export const projects: Project[] = [
     stack: ['Python 3.11', 'Standard library only', 'unittest'],
     repo: 'adaptive-legacy-code-complexity-harness',
     problem:
-      'The project began with a defect that did not raise an error. Feeding one analyzer a tree built in another analyzer’s format produced "units seen: 0" and a clean-looking result. Worse, several analyzers ignored their file argument entirely and printed complete reports from hardcoded demo data — confirmed by handing one a file declaring an invented language and getting a report about Java back. Running the full suite would have produced seven genuine results and thirteen fabricated ones, with nothing on the page distinguishing them.',
+      'The project began with a defect that did not raise an error. Feeding one analyzer a tree built in another analyzer’s format produced "units seen: 0" and a clean-looking result. Worse, several analyzers ignored their file argument entirely and printed complete reports from hardcoded demo data, confirmed by handing one a file declaring an invented language and getting a report about Java back. Running the full suite would have produced seven genuine results and thirteen fabricated ones, with nothing on the page distinguishing them.',
     constraints: [
-      'Target clients are frequently air-gapped, where installing a package can take weeks — so no third-party dependency was available.',
+      'Target clients are frequently air-gapped, where installing a package can take weeks, so no third-party dependency was available.',
       'A complexity threshold that is right for Java is meaningless for COBOL, where the same score is unremarkable.',
       'Twenty analyzers written over time will not all remember to validate their own inputs.',
     ],
     approach: [
-      'Defined one language-neutral Normalized Tree and made every analyzer read only that, never source text — so an analyzer cannot be fed a format it does not understand.',
+      'Defined one language-neutral Normalized Tree and made every analyzer read only that, never source text, so an analyzer cannot be fed a format it does not understand.',
       'Moved input validation into a single gate that runs before any analyzer function is called. An analyzer starved of its declared inputs returns insufficient_input naming the gap, and physically cannot return a zero instead.',
       'Made analyzer discovery a filename glob over the skills directory, so nothing anywhere holds a list of the twenty and adding a twenty-first requires no edit elsewhere.',
       'Banded results L1–L5 against language-aware thresholds rather than reporting raw scores, because the same cyclomatic number means different things in different languages.',
@@ -1102,7 +1102,7 @@ export const projects: Project[] = [
       },
       {
         title: 'The auditor has to be capable of failing',
-        body: 'The judge passed all twenty analyzers on its first run, which is equally consistent with a judge that cannot detect anything. So a canary analyzer with five planted defects was added. It caught four and missed one — and the miss is what produced a tenth check, which then immediately found two real defects in shipped analyzers that read line counts they never declared.',
+        body: 'The judge passed all twenty analyzers on its first run, which is equally consistent with a judge that cannot detect anything. So a canary analyzer with five planted defects was added. It caught four and missed one: and the miss is what produced a tenth check, which then immediately found two real defects in shipped analyzers that read line counts they never declared.',
       },
       {
         title: 'Unreviewed language descriptors are penalised numerically',
@@ -1118,7 +1118,7 @@ export const projects: Project[] = [
       {
         value: '21',
         label: 'unit tests, all passing in 0.11s',
-        method: 'python -m unittest discover — run, not counted. They cover stage 4 only; the analyzers are verified by the judge instead',
+        method: 'python -m unittest discover, run, not counted. They cover stage 4 only; the analyzers are verified by the judge instead',
       },
       {
         value: '0',
@@ -1133,13 +1133,13 @@ export const projects: Project[] = [
     ],
     limitations: [
       'Band calibration is judgement, not measurement. The thresholds reflect published practice and field experience, not a statistical study of a corpus.',
-      'A tree is only as good as its parser — an insufficient_input result often indicates a parser gap rather than clean code.',
+      'A tree is only as good as its parser: an insufficient_input result often indicates a parser gap rather than clean code.',
       'Stage 4 has no adversarial judge yet. It is covered by the twenty-one unit tests and nothing more.',
       'Only three fields of the target-language descriptor actually drive projection. Richer fields are read by the written report but carry no score impact, so a codebase relying on fixed-point arithmetic gets no penalty for that risk yet.',
       'There is no CI. The checks are manual, and they are the only thing between a defect and main.',
     ],
     provenance:
-      'The test suite, the judge self-test and the reference pipeline run were all reproduced locally against a clone. Counts of agents and skills were read from the directories, not the README — whose summary line is stale on both.',
+      'The test suite, the judge self-test and the reference pipeline run were all reproduced locally against a clone. Counts of agents and skills were read from the directories, not the README, whose summary line is stale on both.',
   },
 
   {
@@ -1163,9 +1163,9 @@ export const projects: Project[] = [
       'GPT-5.2',
       'Claude Haiku 4.5',
     ],
-    // Private repository — deliberately no `repo` link. See limitations.
+    // Private repository, deliberately no `repo` link. See limitations.
     problem:
-      'Ad-hoc business questions queue behind whoever can write SQL. The obvious fix — put an LLM in front of the database — fails in a specific way: it works against the schema it was demonstrated on, and breaks against the next one. It also tends to be built as one model call doing everything, which makes the output impossible to explain when a stakeholder asks why a particular chart was chosen or where a number came from.',
+      'Ad-hoc business questions queue behind whoever can write SQL. The obvious fix, put an LLM in front of the database, fails in a specific way: it works against the schema it was demonstrated on, and breaks against the next one. It also tends to be built as one model call doing everything, which makes the output impossible to explain when a stakeholder asks why a particular chart was chosen or where a number came from.',
     constraints: [
       'The system had to work against a database it had never seen, with no schema hardcoded anywhere in the query path.',
       'A failure in any single stage could not be allowed to lose the user’s turn.',
@@ -1175,16 +1175,16 @@ export const projects: Project[] = [
       'Split the turn into nine stages with a typed contract between each, so a failure in one degrades the response instead of ending it.',
       'Put a zero-cost classifier in front of every model call, so greetings and non-data messages never reach a paid API.',
       'Discovered the schema at runtime through a single tool boundary over asyncpg, which is what lets the same deployment answer questions about an unfamiliar database.',
-      'Wrote a deterministic SQL builder that assembles a valid aggregate query from the schema alone, used whenever generation fails — a rate limit produces a narrower answer rather than an error message.',
+      'Wrote a deterministic SQL builder that assembles a valid aggregate query from the schema alone, used whenever generation fails, so a rate limit produces a narrower answer rather than an error message.',
       'Kept chart selection, aggregation and response assembly entirely in code: field profiling, candidate generation, a constraint engine and a scoring pass. Those stages make no model call at all.',
-      'Separated statistical detection from narration — findings are computed, and the model is only asked to phrase them, because a model asked to find a pattern will report one whether or not it is there.',
+      'Separated statistical detection from narration: findings are computed, and the model is only asked to phrase them, because a model asked to find a pattern will report one whether or not it is there.',
       'Made the guardrail fail closed and every other stage fail open, then cached generated SQL in Redis against a fingerprint of the schema so a schema change invalidates it automatically.',
     ],
     diagram: decisionForgeDiagram,
     decisions: [
       {
         title: 'Two stages that look like model work are not',
-        body: 'Chart selection and response assembly are the stages most systems hand to an LLM. Both are deterministic here. Choosing a chart is a constraint satisfaction problem over field types and cardinality — code does it more cheaply, more consistently, and can explain the choice afterwards.',
+        body: 'Chart selection and response assembly are the stages most systems hand to an LLM. Both are deterministic here. Choosing a chart is a constraint satisfaction problem over field types and cardinality: code does it more cheaply, more consistently, and can explain the choice afterwards.',
       },
       {
         title: 'One fail-closed stage, the rest fail open',
@@ -1214,13 +1214,13 @@ export const projects: Project[] = [
     ],
     limitations: [
       'The repository is private, so nothing on this page can be independently verified by a reader. The figures above were computed against a clone, and that is the only assurance available here.',
-      'Per-stage cost and latency figures exist in the project’s own design notes but were never measured — no benchmark was run and no results were recorded, so none of them are reproduced here.',
+      'Per-stage cost and latency figures exist in the project’s own design notes but were never measured: no benchmark was run and no results were recorded, so none of them are reproduced here.',
       'PII redaction fails open: if Presidio is unavailable the text passes through unchanged. That is the wrong default for a production deployment and is a known gap rather than a decision.',
       'One statistical detector does not fire on its own test input. The test is correct and currently fails.',
       'Vector columns are declared in the schema but no embedding is ever computed, so there is no semantic memory despite the table supporting it.',
     ],
     provenance:
-      'Verified by reading the orchestrator and every stage it reaches, then running the test suite. Where the project’s own notes and its code disagree — on which stages call a model, and on cost — this page follows the code and omits the unmeasured figures.',
+      'Verified by reading the orchestrator and every stage it reaches, then running the test suite. Where the project’s own notes and its code disagree (on which stages call a model, and on cost), this page follows the code and omits the unmeasured figures.',
   },
 ]
 
@@ -1239,7 +1239,7 @@ export const projects: Project[] = [
                           wired, and nothing in the repo produces the figures.
                           Linking it would invite a reviewer to check.
 
-   ResumeForge-AI         Genuinely well-architected — a LangGraph workflow with
+   ResumeForge-AI         Genuinely well-architected, a LangGraph workflow with
                           Postgres checkpointing and human-in-the-loop gates.
                           It has no README and no tests, so a visitor arriving
                           from here would find an unexplained repository.
@@ -1257,11 +1257,11 @@ export const projects: Project[] = [
                           contain, and the app cannot start from a fresh clone.
    pick-n-play            A 109-line app inside a committed virtualenv.
    eda-strategies         A PowerPoint and a licence file.
-   web-Scraping           Empty — zero commits.
+   web-Scraping           Empty, zero commits.
    CredPilot              Team hackathon build; a teammate's commit and the
                           employer's internal brief are in the repository.
                           The site presents sole work only.
-   spring-modernization-  Two-line README and a licence — no code yet.
+   spring-modernization-  Two-line README and a licence, no code yet.
    remediation-harness
 
    Several of these become publishable with modest work. CONTENT_TODO.md lists

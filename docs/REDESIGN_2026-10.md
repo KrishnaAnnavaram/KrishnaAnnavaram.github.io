@@ -87,3 +87,21 @@ See `CONTENT_TODO.md` §00. In short: a third party's database credential is
 committed in the MARS repository; student reports remain in this repository's
 git history until it is rewritten; and the replay would be stronger with one
 run that *clears*.
+
+## 7. Follow-up, 8 October 2026
+
+Changes made after review by the owner:
+
+- **Logo.** A KA monogram replaces the photo avatar in the header, and is the
+  favicon and Apple touch icon.
+- **Type.** Inter replaces Geist for all text, and the italic display serif is
+  gone. Labels are 12px sans, body text is 16 to 18px, and secondary text is
+  darker in light mode and lighter in dark mode.
+- **No em dashes.** Every "—" was removed from the site's copy and replaced
+  with the punctuation the sentence needed.
+- **The MARS replay is removed.** Its place on the home page goes to "Impact at
+  work": production work at each employer with the résumé's outcomes.
+- **Charts.** Each flagship tile shows a labelled composition bar; a new
+  "Where the model sits" chart compares every flagship on one scale; the
+  GitHub language mix is a sorted bar chart. The four-colour chart palette was
+  validated with the dataviz checker in both themes.

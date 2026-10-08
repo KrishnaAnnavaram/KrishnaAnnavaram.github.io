@@ -88,7 +88,7 @@ export function ArchiveExplorer({
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name, topic or tool — “rag”, “pytorch”, “forecast”…"
+            placeholder="Search by name, topic or tool: “rag”, “pytorch”, “forecast”…"
             className="w-full min-w-0 bg-transparent py-1 text-sm text-ink placeholder:text-ink-faint"
           />
           {filtered && (
