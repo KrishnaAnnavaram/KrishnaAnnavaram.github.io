@@ -43,8 +43,11 @@ test('a visitor can tell what he does without scrolling', async ({ page }) => {
   // Role, location and current employer are all above the fold. Scoped to
   // <main>, because the header repeats the role and hides it below `sm`.
   const main = page.locator('#main')
-  await expect(main.getByText('Generative AI Engineer').first()).toBeVisible()
-  await expect(main.getByText(/Denton/).first()).toBeVisible()
+  // `visible: true` because each fact appears twice in the hero: once in the
+  // desktop facts panel and once in the phone-only line, and one of the two
+  // is always correctly hidden.
+  await expect(main.getByText('Generative AI Engineer').filter({ visible: true }).first()).toBeVisible()
+  await expect(main.getByText(/Denton/).filter({ visible: true }).first()).toBeVisible()
 
   // The three routes out of the hero.
   await expect(page.getByRole('link', { name: /see the systems/i })).toBeVisible()
