@@ -83,7 +83,7 @@ This README describes the `redesign/ai-portfolio-2026` branch. It is the **one l
    - 2.1 [Components](#21-components) · 2.2 [System context](#22-system-context) · 2.3 [Repository layout](#23-repository-layout) · 2.4 [Tech stack](#24-tech-stack)
 3. 🛡️ [Design rules](#3-design-rules)
 4. 🔄 [The end-to-end workflow](#4-the-end-to-end-workflow)
-   - 4.1 [Full flow](#41-full-flow) · 4.2 [The life cycle of one repository update](#42-the-life-cycle-of-one-repository-update)
+   - 4.1 [Full flow](#41-full-flow) · 4.2 [The life cycle of one repository update](#42-the-life-cycle-of-one-repository-update) · 4.3 [Who does which step](#43-who-does-which-step)
 5. 🗺️ [Pages and routes](#5-pages-and-routes)
 6. 🏠 [The home page and the site features](#6-the-home-page-and-the-site-features)
 7. 🔵 [The project registry and the GitHub snapshot](#7-the-project-registry-and-the-github-snapshot)
@@ -172,6 +172,64 @@ No server. No database. No runtime API call.
 | Data modules | `data/` | All copy that the site renders |
 | Scripts | `scripts/` | Sync, knowledge index, Open Graph card, contrast check, static server |
 | Workflows | `.github/workflows/` | `deploy.yml` (verify and deploy) and `sync-github.yml` (nightly sync) |
+
+The component map shows how data moves between the modules. An arrow points from the source to the module that reads it.
+
+```mermaid
+flowchart TB
+    subgraph SCR["scripts/"]
+        SY["sync-github.mjs"]
+        KI["build-knowledge-index.mts"]
+    end
+    subgraph DATA["Data"]
+        D1["data/*.ts<br/>profile, experience, work, projects, skills"]
+        D2["data/archive.json"]
+        D3["content/writing/*.mdx"]
+        D4["data/generated/github.json"]
+        KB[("public/ai/knowledge.json")]
+    end
+    subgraph LIB["lib/"]
+        LP["projects.ts<br/>withRepo, activitySummary, explorerFeed"]
+        LA["architecture.ts<br/>diagramToProse, stageComposition"]
+        LW["writing.ts<br/>getPostMeta, getAllPosts"]
+        LPA["palette.ts<br/>buildPaletteIndex"]
+        LR["assistant/retrieval.ts<br/>Retriever, loadRetriever"]
+    end
+    subgraph UI["Routes and components"]
+        APP["app/ routes"]
+        HOME["components/home/"]
+        PROJ["components/projects/"]
+        ARC["components/architecture/<br/>SystemDiagram"]
+        CH["components/charts/<br/>StageBar, ModelBoundaryChart"]
+        AS["components/assistant/<br/>AssistantProvider, Assistant"]
+        LAY["components/layout/<br/>Header, CommandPalette"]
+    end
+    SY --> D4
+    D4 --> LP
+    D1 --> LP
+    D1 --> APP
+    D1 --> HOME
+    D1 --> LPA
+    D2 --> LPA
+    D3 --> LW
+    LW --> APP
+    LW --> LPA
+    LP --> APP
+    LP --> HOME
+    LP --> PROJ
+    LA --> ARC
+    LA --> CH
+    CH --> HOME
+    ARC --> APP
+    LPA -- "app/layout.tsx" --> LAY
+    D1 --> KI
+    D2 --> KI
+    D3 --> KI
+    LA --> KI
+    KI --> KB
+    KB -- "fetched on first open" --> LR
+    LR --> AS
+```
 
 ### 2.2 System context
 
@@ -302,6 +360,42 @@ flowchart TB
 
 ### 4.2 The life cycle of one repository update
 
+```mermaid
+stateDiagram-v2
+    state "Pushed to GitHub" as Pushed
+    state "Listed by the sync" as Listed
+    state "Skipped, private" as Skipped
+    state "Skipped, detail request failed" as Warned
+    state "Described" as Described
+    state "Same as the snapshot" as Unchanged
+    state "Snapshot written" as Written
+    state "Committed with the index" as Committed
+    state "Deploy dispatched" as Dispatched
+    state "Verified" as Verified
+    state "Live on GitHub Pages" as Live
+    state "Sync failed, snapshot kept" as Failed
+    state "Verify failed, site not changed" as Rejected
+    [*] --> Pushed
+    Pushed --> Listed: schedule, manual or repository_dispatch
+    Pushed --> Failed: list request fails or rate limit
+    Listed --> Skipped: private, not in SYNC_INCLUDE_PRIVATE
+    Listed --> Warned: fetchRepoDetail error
+    Listed --> Described: fetchRepoDetail
+    Described --> Unchanged: changed=false
+    Described --> Written: changed=true
+    Written --> Committed: npm run knowledge, git push
+    Committed --> Dispatched: gh workflow run deploy.yml
+    Dispatched --> Verified: verify job passes
+    Dispatched --> Rejected: a verify step fails
+    Verified --> Live: deploy job, deploy-pages
+    Skipped --> [*]
+    Warned --> [*]
+    Unchanged --> [*]
+    Live --> [*]
+    Failed --> [*]
+    Rejected --> [*]
+```
+
 1. The owner pushes to any repository on GitHub.
 2. At 06:17 UTC, or on a manual or `repository_dispatch` trigger, `sync-github.yml` starts.
 3. `scripts/sync-github.mjs` lists the repositories and gets the languages, the README and the last commit of each repository.
@@ -335,11 +429,61 @@ sequenceDiagram
     end
 ```
 
+### 4.3 Who does which step
+
+The diagram shows one visit to the live site and one question to the assistant.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor V as Visitor
+    participant BR as Browser
+    participant GP as GitHub Pages
+    participant AP as AssistantProvider
+    participant AS as Assistant
+    participant RT as retrieval.ts
+    V->>BR: open a page
+    BR->>GP: GET a route, for example /projects/
+    GP-->>BR: static index.html, JS and CSS from out/
+    BR->>BR: boot script sets data-theme and data-photo
+    BR->>AP: hydrate, set data-hydrated
+    V->>AP: Ask button or the / key
+    AP->>AS: open
+    AS->>RT: loadRetriever(basePath)
+    RT->>GP: GET /ai/knowledge.json
+    GP-->>RT: 119 passages and 8 suggestions
+    RT-->>AS: Retriever, status ready
+    V->>AS: type a question
+    AS->>RT: retriever.answer(question)
+    RT->>RT: tokenize, expand, BM25, coverage, floor
+    alt top score at or above SCORE_FLOOR
+        RT-->>AS: lead, passages and sources
+    else no passage at or above the floor
+        RT-->>AS: decline and suggested questions
+    end
+    AS-->>V: passages verbatim with citations
+    V->>AS: Escape
+    AS->>AP: onClose, focus returns to the opener
+```
+
 ---
 
 ## 5. Pages and routes
 
 The build makes 27 static pages. Each folder under `app/` is one route.
+
+```mermaid
+flowchart LR
+    PR[/"data/projects.ts<br/>caseStudyProjects, 6"/] --> G1["app/projects/[slug]/page.tsx<br/>generateStaticParams"]
+    WK[/"data/work.ts<br/>caseStudies, 4"/] --> G2["app/work/[slug]/page.tsx<br/>generateStaticParams"]
+    WR[/"content/writing/*.mdx<br/>getAllPosts, 2"/] --> G3["app/writing/[slug]/page.tsx<br/>generateStaticParams"]
+    FIX["Fixed routes: /, /projects/, /work/,<br/>/experience/, /writing/, /about/, /contact/"] --> NB["next build<br/>output export, trailingSlash"]
+    G1 --> NB
+    G2 --> NB
+    G3 --> NB
+    META["robots.ts, sitemap.ts,<br/>not-found.tsx, icons"] --> NB
+    NB --> OUT[("out/<br/>27 static pages,<br/>one index.html for each route folder")]
+```
 
 | Route | Source | Contents |
 |---|---|---|
@@ -376,6 +520,35 @@ The home page shows these sections, in this sequence:
 | 7 | Approach | `Approach.tsx` | How the owner works |
 | 8 | Contact | `ContactCTA.tsx` | The call to action |
 
+The diagram shows which data module feeds each home page section. `app/page.tsx` also writes the JSON-LD from the same modules.
+
+```mermaid
+flowchart TD
+    PF[/"data/profile.ts"/]
+    EX[/"data/experience.ts"/]
+    PJ[/"data/projects.ts<br/>and the snapshot"/]
+    WK[/"data/work.ts"/]
+    AR[/"data/archive.ts"/]
+    CE[/"data/certifications.ts"/]
+    subgraph HOME["app/page.tsx, top to bottom"]
+        H1["Hero<br/>RotatingPortrait"] --> H2["TrustStrip<br/>computed figures"] --> H3["SystemsBento<br/>StageBar, ModelBoundaryChart"] --> H4["ImpactAtWork<br/>stat tiles"] --> H5["RunHistory<br/>one details element for each role"] --> H6["EarlierWork<br/>category counts"] --> H7["Approach"] --> H8["ContactCTA"]
+    end
+    PF --> H1
+    EX --> H1
+    PJ --> H2
+    AR --> H2
+    EX --> H2
+    CE --> H2
+    PJ --> H3
+    WK --> H4
+    EX --> H5
+    AR --> H6
+    PF --> H7
+    PF --> H8
+    PF --> JL[/"JSON-LD<br/>Person and ItemList"/]
+    PJ --> JL
+```
+
 These features are on the home page or on all pages:
 
 | Feature | What it does |
@@ -393,11 +566,40 @@ These features are on the home page or on all pages:
 | Themes | Light and dark. The theme is resolved before first paint |
 | Résumé | One PDF at one path, referenced from one constant |
 
+The portrait rotation selects the photo from the wall clock, so the first paint and the hydrated page show the same photo.
+
+```mermaid
+flowchart TD
+    BOOT["Boot script in app/layout.tsx<br/>runs before first paint"] --> SLOT["data-photo = floor of now / PHOTO_ROTATION_MS,<br/>modulo the number of photos"]
+    SLOT --> CSS["CSS shows the frame of that slot"]
+    CSS --> HYD["RotatingPortrait hydrates<br/>setActive with slotNow"]
+    HYD --> P{"Paused?<br/>sessionStorage portrait-paused"}
+    P -- "no" --> T["setTimeout to the next<br/>slot boundary"]
+    T --> X["Crossfade to the new slot"]
+    X --> P
+    P -- "yes" --> HOLD["Keep the current photo"]
+    NEXT[/"Next button"/] --> ADV["active + 1,<br/>modulo the number of photos"]
+    PAUSE[/"Pause button"/] --> P
+```
+
 ---
 
 ## 7. The project registry and the GitHub snapshot
 
 **Purpose.** Show live repository metadata, and keep a person in control of what the site says.
+
+```mermaid
+flowchart LR
+    REG[/"data/projects.ts<br/>status featured, listed or hidden"/] --> VIS["visibleProjects<br/>status not hidden"]
+    VIS --> WR["withRepo: getRepo<br/>by lower-case name"]
+    SNAP[("data/generated/github.json")] --> WR
+    WR --> F{"Repository in<br/>the snapshot?"}
+    F -- "yes" --> ON[/"Project with github metadata"/]
+    F -- "no" --> OFF[/"Project without live metadata,<br/>case study still renders"/]
+    SNAP -. "repository with no registry entry" .-> NEVER["Never shown"]
+    ON --> USE["Pages, explorerFeed,<br/>activitySummary"]
+    OFF --> USE
+```
 
 | Layer | Owns | Location |
 |---|---|---|
@@ -411,6 +613,33 @@ These features are on the home page or on all pages:
 - DecisionForge is private, so its registry entry has no `repo` link.
 
 **Procedure of the sync** (`scripts/sync-github.mjs`)
+
+```mermaid
+flowchart TD
+    ENV[/"SYNC_USER, GITHUB_TOKEN or GH_TOKEN,<br/>SYNC_INCLUDE_PRIVATE"/] --> TOK{"Token set?"}
+    TOK -- "yes" --> L1["GET /user/repos<br/>affiliation=owner"]
+    TOK -- "no" --> L2["GET /users/SYNC_USER/repos"]
+    L1 --> PG["Pages of 100,<br/>maximum 10 pages"]
+    L2 --> PG
+    PG --> ERR{"403, 429 or<br/>other HTTP error?"}
+    ERR -- "yes" --> FAIL[/"Exit 1<br/>snapshot not changed"/]
+    ERR -- "no" --> OWN["Keep the repositories of the owner"]
+    OWN --> PRIV{"Private and not in<br/>SYNC_INCLUDE_PRIVATE?"}
+    PRIV -- "yes" --> SKIP["Add the name to skippedPrivate"]
+    PRIV -- "no" --> DET["fetchRepoDetail: languages,<br/>raw README, last commit"]
+    DET -- "error" --> WARN["Warn and skip the repository"]
+    DET --> REG{"Repository in<br/>data/projects.ts?"}
+    REG -- "yes" --> FULL["readmeLead, readmeText,<br/>up to 3 mermaid blocks"]
+    REG -- "no, in data/archive.json" --> LEAD["readmeLead only"]
+    REG -- "no, in neither" --> META["Metadata only"]
+    FULL --> N0{"No repository<br/>described?"}
+    LEAD --> N0
+    META --> N0
+    N0 -- "yes" --> FAIL
+    N0 -- "no" --> CMP{"Same as the old snapshot,<br/>without syncedAt?"}
+    CMP -- "yes" --> NC[/"changed=false<br/>no write"/]
+    CMP -- "no" --> WRT[("data/generated/github.json<br/>changed=true")]
+```
 
 1. Read `SYNC_USER` (default `KrishnaAnnavaram`) and `GITHUB_TOKEN` or `GH_TOKEN`.
 2. List the repositories in pages of 100, for a maximum of 10 pages. Keep only the repositories of the owner.
@@ -442,6 +671,21 @@ git commit -am 'chore: sync GitHub project metadata'
 ## 8. Architecture diagrams and charts
 
 **Purpose.** Show where the model boundary of each system is, as data and not as an image.
+
+```mermaid
+flowchart LR
+    PJ[/"data/projects.ts<br/>project.diagram"/] --> SD["SystemDiagram<br/>groups, nodes, boundary"]
+    SD --> META["NODE_KIND_META<br/>label and tone of each node kind"]
+    META --> HTML["SystemDiagram.tsx<br/>ordered lists, figcaption"]
+    HTML --> CS[/"Case study page<br/>/projects/slug/"/]
+    SD --> PROSE["diagramToProse"]
+    PROSE --> KB[("public/ai/knowledge.json")]
+    SD --> COMP["stageComposition<br/>count for each STAGE_CATEGORIES entry"]
+    COMP --> SB["StageBar<br/>one bar for each bento tile"]
+    COMP --> MB["ModelBoundaryChart<br/>Where the model sits"]
+    SB --> HOME[/"Home page bento"/]
+    MB --> HOME
+```
 
 A `SystemDiagram` (`lib/architecture.ts`) has groups. Each group has nodes. Each node has a kind:
 
@@ -479,6 +723,21 @@ The charts group the node kinds into four stage categories, in a fixed order. Th
 
 Open the assistant with the Ask button or the `/` key. It never opens without an action of the visitor.
 
+The `status` field of `Assistant.tsx` has four values:
+
+```mermaid
+stateDiagram-v2
+    [*] --> idle
+    idle --> loading: first open, loadRetriever
+    loading --> ready: index parsed, Retriever built
+    loading --> error: fetch failed, cache cleared
+    ready --> ready: answer each question
+    error --> [*]: page reload starts again at idle
+    ready --> [*]
+```
+
+A question that the visitor asks in the `loading` state is kept in `pending`. The assistant answers it when the state changes to `ready`.
+
 | Input | Output |
 |---|---|
 | A question in free text | A lead sentence from a fixed template, the passages verbatim and a citation for each passage, or a decline with suggested questions |
@@ -490,6 +749,25 @@ Open the assistant with the Ask button or the `/` key. It never opens without an
 3. Change each diagram into text with `diagramToProse`.
 4. Make one passage for each item. Drop each passage that has fewer than 40 characters.
 5. Write `public/ai/knowledge.json` with the passages and 8 suggested questions.
+
+```mermaid
+flowchart LR
+    subgraph SRC["Data modules"]
+        S1[/"profile, experience,<br/>work, projects"/]
+        S2[/"skills, certifications"/]
+        S3[/"content/writing/*.mdx"/]
+        S4[/"data/archive.ts"/]
+    end
+    S1 -- "hidden projects skipped" --> ADD["add: heading, text,<br/>source, keywords, boost"]
+    S2 --> ADD
+    S3 --> ADD
+    S4 -- "one overview and<br/>one passage for each category" --> ADD
+    DP["diagramToProse"] --> ADD
+    ADD --> LEN{"Text shorter than<br/>40 characters?"}
+    LEN -- "yes" --> DROP["Drop the passage"]
+    LEN -- "no" --> CH["chunks"]
+    CH --> OUT[("public/ai/knowledge.json<br/>119 passages, 8 suggestions")]
+```
 
 | Passage source | Passages |
 |---|---|
@@ -537,6 +815,23 @@ See [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) §4 for the exact scope of 
 
 Everything that the site renders comes from `data/` and `content/`.
 
+```mermaid
+flowchart LR
+    ED{{"Owner edits a data module<br/>or adds an .mdx file"}} --> MOD[/"data/*.ts, data/archive.json,<br/>content/writing/"/]
+    MOD --> PAGES["Pages in app/"]
+    MOD --> PAL["lib/palette.ts<br/>command palette"]
+    MOD --> SM["app/sitemap.ts"]
+    MOD --> KI["npm run knowledge<br/>knowledge index"]
+    PAGES --> BLD["npm run build"]
+    PAL --> BLD
+    SM --> BLD
+    KI --> BLD
+    BLD --> OUT[/"out/"/]
+
+    classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold
+    class ED human
+```
+
 | To change | Edit |
 |---|---|
 | The narrative, the order or the visibility of a project | `data/projects.ts` |
@@ -558,6 +853,19 @@ No other edit is necessary.
 1. Replace `public/resume/resume.pdf`. The site references the path one time, as `profile.resumeUrl`.
 2. Compare `data/experience.ts`, `data/work.ts` and `data/skills.ts` with the new résumé. Correct each difference.
 3. Run `npm run knowledge`, so that the assistant agrees with the pages.
+
+```mermaid
+flowchart LR
+    NEW[/"New résumé PDF"/] --> R1["Replace public/resume/resume.pdf<br/>profile.resumeUrl"]
+    R1 --> CMP{{"Owner compares experience.ts,<br/>work.ts and skills.ts with the résumé"}}
+    CMP -- "difference" --> FIX["Correct the data module"]
+    FIX --> KN["npm run knowledge"]
+    CMP -- "no difference" --> KN
+    KN --> SAME[/"Pages and assistant<br/>agree with the résumé"/]
+
+    classDef human fill:#fff3cd,stroke:#b8901f,color:#3d2f00,font-weight:bold
+    class CMP human
+```
 
 The résumé is the **source of truth for each claim on the site**.
 
@@ -587,6 +895,22 @@ The source photos are in `profile pictures/`. Git ignores this folder on purpose
 | Typecheck | — | `npm run typecheck` |
 | Lint | — | `npm run lint` |
 
+The diagram shows which files each gate checks.
+
+```mermaid
+flowchart LR
+    SRC[/"Source and design tokens"/] --> TC["npm run typecheck<br/>tsc --noEmit"]
+    SRC --> LT["npm run lint"]
+    SRC --> CC["check-contrast.mjs<br/>oklch to sRGB, WCAG AA"]
+    SRC --> UT["npm test<br/>retrieval and projects tests"]
+    KI[("public/ai/knowledge.json")] --> UT
+    BLD["npm run build"] --> OUT[("out/")]
+    OUT --> SEC["secrets.test.ts<br/>skips if out/ is absent"]
+    OUT --> SRV["serve-out.mjs<br/>port 4321"]
+    SRV --> E2E["Playwright: portfolio, responsive,<br/>accessibility, probes"]
+    E2E --> PROF["5 profiles locally,<br/>chromium and webkit in CI"]
+```
+
 **Unit tests** (`tests/unit/`)
 
 | File | What it asserts |
@@ -615,6 +939,23 @@ See [`docs/TEST_REPORT.md`](./docs/TEST_REPORT.md) for the defects that the test
 ## 12. Deployment through GitHub Pages
 
 **Procedure of `deploy.yml`**
+
+```mermaid
+flowchart TD
+    EV{"Event"} -- "push to main" --> V1
+    EV -- "pull_request to main" --> V1
+    EV -- "workflow_dispatch,<br/>also from sync-github.yml" --> V1
+    subgraph VJ["verify job"]
+        V1["npm ci, Node.js 22"] --> V2["typecheck"] --> V3["lint"] --> V4["check-contrast.mjs"] --> V5["npm run knowledge"] --> V6["npm test"] --> V7["npm run build"] --> V8["Playwright<br/>chromium and webkit"]
+    end
+    V8 --> OK{"All steps pass?"}
+    OK -- "no" --> REP[/"Upload playwright-report/<br/>for 7 days"/]
+    OK -- "yes" --> PR{"Pull request?"}
+    PR -- "yes" --> STOP[/"Verify only, no deploy"/]
+    PR -- "no" --> ART["upload-pages-artifact<br/>out/"]
+    ART --> DEP["deploy job<br/>actions/deploy-pages"]
+    DEP --> LIVE[/"GitHub Pages"/]
+```
 
 1. Check out the code. Install Node.js 22 and run `npm ci`.
 2. Run `npm run typecheck`.
@@ -652,7 +993,7 @@ See [`docs/TEST_REPORT.md`](./docs/TEST_REPORT.md) for the defects that the test
 | Secrets | None exist. No API key, no token in the client, no `.env` |
 | GitHub token | Used only inside Actions, by the sync job, with `GITHUB_TOKEN` |
 | Private data | Private repositories stay out of the committed snapshot by default |
-| Phone number | Not in the knowledge index and not in `out/`. Unit tests assert both |
+| Phone number | Not in the knowledge index and not in `out/`. Unit tests assert both. CI runs `npm test` before `npm run build`, so the `out/` check (`secrets.test.ts`) skips in CI. Run it locally after a build |
 | User input | The only input is the assistant question. The site tokenizes it and never evaluates it, renders it as HTML or sends it |
 | Third-party JavaScript | None. No analytics, no fonts from a CDN |
 | Prompt injection | Not applicable. There is no prompt and no model |
@@ -754,6 +1095,20 @@ node scripts/check-contrast.mjs
 | `start` | Runs `next start` |
 
 To see the exported site as GitHub Pages serves it, run `node scripts/serve-out.mjs 4321` after a build.
+
+The diagram shows the order of the commands and the files that connect them.
+
+```mermaid
+flowchart LR
+    CI["npm ci"] --> DEV["npm run dev<br/>localhost:3000"]
+    CI --> CHK["typecheck, lint,<br/>check-contrast.mjs"]
+    CI --> PRE["prebuild:<br/>knowledge, og"]
+    PRE --> BLD["npm run build"]
+    BLD --> OUT[("out/")]
+    OUT --> UT["npm test<br/>secrets.test.ts runs"]
+    OUT --> E2E["npm run test:e2e<br/>serve-out.mjs on 4321"]
+    OUT --> SRV["node scripts/serve-out.mjs 4321"]
+```
 
 ### 15.4 Environment variables
 
