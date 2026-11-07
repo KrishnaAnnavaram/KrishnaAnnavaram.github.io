@@ -94,14 +94,24 @@ async function gh(path, { raw = false, allow404 = false } = {}) {
 
   if (res.status === 404 && allow404) return null
 
-  if (res.status === 403 || res.status === 429) {
+  // Only call it a rate limit when GitHub says so. Every 403 used to be
+  // reported as one, which hid the real failure for weeks: the Actions token
+  // being refused an endpoint it has no access to.
+  const exhausted = res.status === 429 || res.headers.get('x-ratelimit-remaining') === '0'
+  if (exhausted) {
     const reset = res.headers.get('x-ratelimit-reset')
     const when = reset ? new Date(Number(reset) * 1000).toISOString() : 'unknown'
     throw new Error(`Rate limited by GitHub (resets ${when}). Set GITHUB_TOKEN to raise the limit.`)
   }
 
   if (!res.ok) {
-    throw new Error(`GitHub ${res.status} ${res.statusText} for ${url}`)
+    let detail = ''
+    try {
+      detail = (await res.json()).message ?? ''
+    } catch {
+      /* body was not JSON */
+    }
+    throw new Error(`GitHub ${res.status} ${res.statusText} for ${url}${detail ? `: ${detail}` : ''}`)
   }
 
   return raw ? res.text() : res.json()
@@ -231,10 +241,16 @@ async function main() {
   const started = Date.now()
   console.log(`→ syncing GitHub for ${USER}${TOKEN ? ' (authenticated)' : ' (anonymous)'}`)
 
-  // Authenticated requests can list private repos; anonymous ones cannot.
-  const listPath = TOKEN
-    ? `/user/repos?per_page=100&affiliation=owner&sort=pushed`
-    : `/users/${USER}/repos?per_page=100&sort=pushed`
+  // `/user/repos` lists the *authenticated user's* repositories, private ones
+  // included, and needs a personal token. The token GitHub Actions provides
+  // belongs to the workflow, not a user, and is refused that endpoint with a
+  // 403 ("Resource not accessible by integration"). So the public listing is
+  // the default, and the private one is used only when private repositories
+  // were explicitly requested, which requires a personal token anyway.
+  const listPath =
+    TOKEN && INCLUDE_PRIVATE.length > 0
+      ? `/user/repos?per_page=100&affiliation=owner&sort=pushed`
+      : `/users/${USER}/repos?per_page=100&type=owner&sort=pushed`
 
   // Paginated: the account is past one page of 100.
   let repos = []
