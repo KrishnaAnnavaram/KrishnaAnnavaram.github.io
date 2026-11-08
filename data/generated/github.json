@@ -1,10 +1,61 @@
 {
   "$schema": "https://krishnaannavaram.github.io/schemas/github-snapshot.json",
   "user": "KrishnaAnnavaram",
-  "syncedAt": "2026-11-07T20:22:54.753Z",
+  "syncedAt": "2026-11-08T13:32:31.391Z",
   "repoCount": 93,
   "skippedPrivate": [],
   "repos": [
+    {
+      "name": "KrishnaAnnavaram.github.io",
+      "fullName": "KrishnaAnnavaram/KrishnaAnnavaram.github.io",
+      "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io",
+      "homepage": null,
+      "description": "Professional portfolio - Gen AI Engineer & AI Specialist",
+      "private": false,
+      "archived": false,
+      "fork": false,
+      "defaultBranch": "main",
+      "license": "MIT",
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "sizeKb": 97226,
+      "createdAt": "2026-02-23T02:27:00Z",
+      "pushedAt": "2026-11-07T20:23:29Z",
+      "languages": [
+        {
+          "name": "TypeScript",
+          "bytes": 418393,
+          "share": 88.5
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 19969,
+          "share": 4.2
+        },
+        {
+          "name": "CSS",
+          "bytes": 19541,
+          "share": 4.1
+        },
+        {
+          "name": "MDX",
+          "bytes": 14785,
+          "share": 3.1
+        }
+      ],
+      "primaryLanguage": "TypeScript",
+      "lastCommit": {
+        "sha": "fd4fc2d",
+        "message": "Merge remote-tracking branch 'origin/main' into redesign/ai-portfolio-2026",
+        "date": "2026-11-07T20:23:31Z",
+        "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io/commit/fd4fc2d16c68d12274faa44210ab85ec76ae5bec"
+      },
+      "readmeLead": "",
+      "readmeText": "",
+      "mermaid": []
+    },
     {
       "name": "statute",
       "fullName": "KrishnaAnnavaram/statute",
@@ -135,57 +186,6 @@
         "message": "Add the workflow diagrams to the README",
         "date": "2026-10-09T16:47:38Z",
         "url": "https://github.com/KrishnaAnnavaram/eda-strategies/commit/92947b3e2554c198bd11ec0da9d131779218837e"
-      },
-      "readmeLead": "",
-      "readmeText": "",
-      "mermaid": []
-    },
-    {
-      "name": "KrishnaAnnavaram.github.io",
-      "fullName": "KrishnaAnnavaram/KrishnaAnnavaram.github.io",
-      "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io",
-      "homepage": null,
-      "description": "Professional portfolio - Gen AI Engineer & AI Specialist",
-      "private": false,
-      "archived": false,
-      "fork": false,
-      "defaultBranch": "main",
-      "license": "MIT",
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "openIssues": 0,
-      "sizeKb": 97191,
-      "createdAt": "2026-02-23T02:27:00Z",
-      "pushedAt": "2026-10-09T17:02:55Z",
-      "languages": [
-        {
-          "name": "TypeScript",
-          "bytes": 418393,
-          "share": 88.7
-        },
-        {
-          "name": "CSS",
-          "bytes": 19541,
-          "share": 4.1
-        },
-        {
-          "name": "JavaScript",
-          "bytes": 19113,
-          "share": 4.1
-        },
-        {
-          "name": "MDX",
-          "bytes": 14785,
-          "share": 3.1
-        }
-      ],
-      "primaryLanguage": "TypeScript",
-      "lastCommit": {
-        "sha": "340faa1",
-        "message": "Merge pull request #28 from KrishnaAnnavaram/redesign/ai-portfolio-2026",
-        "date": "2026-10-08T19:14:24Z",
-        "url": "https://github.com/KrishnaAnnavaram/KrishnaAnnavaram.github.io/commit/340faa15d7e82241c52fb41b15a0d5109ae74735"
       },
       "readmeLead": "",
       "readmeText": "",
